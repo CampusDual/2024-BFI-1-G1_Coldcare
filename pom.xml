@@ -108,7 +108,7 @@
 			<repositories>
 				<repository>
 					<id>imatia-artifactory</id>
-					<url>https://artifactory.imatia.com/public-artifactory/libs-release</url>
+					<url>https://artifactory.imatia.com/artifactory/libs-release</url>
 					<releases>
 					</releases>
 					<snapshots>
