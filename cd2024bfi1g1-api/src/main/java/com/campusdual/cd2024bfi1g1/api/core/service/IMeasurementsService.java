@@ -8,7 +8,7 @@ import java.util.Map;
 
 public interface IMeasurementsService {
 
-    EntityResult measurementQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
-    EntityResult measurementInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException;
+    EntityResult measurementsQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
+    EntityResult measurementsInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException;
 
 }

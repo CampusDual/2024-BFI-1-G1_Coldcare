@@ -8,7 +8,7 @@ import java.util.Map;
 
 public interface IDevicesService {
 
-    EntityResult deviceQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
-    EntityResult deviceInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException;
+    EntityResult devicesQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
+    EntityResult devicesInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException;
 
 }
