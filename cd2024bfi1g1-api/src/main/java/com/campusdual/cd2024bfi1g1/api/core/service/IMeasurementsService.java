@@ -10,5 +10,7 @@ public interface IMeasurementsService {
 
     EntityResult measurementsQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
     EntityResult measurementsInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException;
+    EntityResult measurementsUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap) throws OntimizeJEERuntimeException;
 
+    EntityResult measurementsDelete(Map<String, Object> keyMap) throws OntimizeJEERuntimeException;
 }
