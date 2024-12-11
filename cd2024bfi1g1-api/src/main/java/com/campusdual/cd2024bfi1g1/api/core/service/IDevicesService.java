@@ -6,7 +6,7 @@ import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
 import java.util.List;
 import java.util.Map;
 
-public interface IDeviceService {
+public interface IDevicesService {
 
     EntityResult deviceQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
     EntityResult deviceInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException;

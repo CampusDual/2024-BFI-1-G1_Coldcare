@@ -6,7 +6,7 @@ import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
 import java.util.List;
 import java.util.Map;
 
-public interface IMeasurementService {
+public interface IMeasurementsService {
 
     EntityResult measurementQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
     EntityResult measurementInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException;
