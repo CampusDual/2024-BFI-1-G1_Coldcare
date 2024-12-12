@@ -14,3 +14,4 @@ CREATE TABLE devices (
 
 ALTER TABLE measurements ADD dev_id integer NOT NULL;
 ALTER TABLE measurements ADD CONSTRAINT measurements_devices_fk FOREIGN KEY (dev_id) REFERENCES devices(dev_id);
+ALTER TABLE public.measurements ALTER COLUMN me_date SET DEFAULT now();
