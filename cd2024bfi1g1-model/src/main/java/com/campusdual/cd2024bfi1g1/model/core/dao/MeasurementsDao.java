@@ -12,7 +12,7 @@ import java.util.List;
 @Lazy
 @ConfigurationFile(configurationFile = "dao/MeasurementsDao.xml", configurationFilePlaceholder = "dao/placeholders.properties")
 
-public class MeasurementsDao {
+public class MeasurementsDao extends OntimizeJdbcDaoSupport{
 
     public static final String ME_ID = "ME_ID";
     public static final String ME_TEMP = "ME_TEMP";
