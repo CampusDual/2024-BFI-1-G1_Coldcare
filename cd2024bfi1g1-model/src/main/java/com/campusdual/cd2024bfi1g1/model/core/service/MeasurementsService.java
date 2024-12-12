@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Map;
 
-@Service("DevicesService")
+@Service("MeasurementsService")
 @Lazy
 public class MeasurementsService implements IMeasurementsService {
 
