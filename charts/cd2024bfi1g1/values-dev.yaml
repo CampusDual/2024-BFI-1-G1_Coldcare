@@ -6,7 +6,7 @@ image:
   pullPolicy: IfNotPresent
   ## provided as basic setup. replace as needed
   repository: ghcr.io/campusdual/cd2024bfi1g1
-  version: 0.0.0
+  version: deve0faeab
 imagePullSecrets: 
   - name: "github-ecr-cred" 
 nameOverride: ""
@@ -55,7 +55,7 @@ resources:
 
 database:
 ## Provided as basic setup. Configure as needed. Provided instance is dev environment instance
-  url: jdbc:postgresql://cd2024bfi1g1-postgresql/cd2024bfi1g1 ## injected as DATABASE_URL environment variable
+  url: jdbc:postgresql://45.84.210.174:65432/cd2024bfi1g1 ## injected as DATABASE_URL environment variable
   secret: cd2024bfi1g1-dev-db-secret
 
 jwt:

@@ -30,7 +30,7 @@ ontimize:
       upper-like: true
   security:
     mode: default
-    ignore-paths: '/index.html,/app/**,/error,/test,/ontimize/health,/restapi/**,/swagger-ui/**'
+    ignore-paths: '/index.html,/app/**,/error,/test,/ontimize/health,/restapi/**,/swagger-ui/**,/measurements/**'
     jwt:
       password: cd2024bfi1g1-kGn.#76%W@1
     role-information-service:
