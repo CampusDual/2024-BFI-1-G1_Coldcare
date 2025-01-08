@@ -3,10 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { DevicesDetailComponent } from './devices-detail/devices-detail.component';
 
 
-const routes: Routes = [{
-  path: '',
-  component: DevicesDetailComponent
-  }];
+const routes: Routes = [
+  {path: ':DEVICEID', component: DevicesDetailComponent}
+ ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
