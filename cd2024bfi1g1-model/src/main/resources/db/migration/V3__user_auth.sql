@@ -1,0 +1,2 @@
+INSERT INTO usr_user (usr_id, usr_login, usr_name, usr_surname, usr_email, usr_password, usr_notes, usr_phone, usr_creation_date, usr_down_date, usr_photo)
+	VALUES(3, 'adminMicros', NULL, NULL, NULL, 'QWRtaW5NaWNyb3M6MTIzNA==', NULL, NULL, NOW(), NULL, NULL);
