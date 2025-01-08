@@ -4,6 +4,7 @@ import { OntimizeWebModule } from 'ontimize-web-ngx';
 
 import { DevicesRoutingModule } from './devices-routing.module';
 import { DevicesDetailComponent } from './devices-detail/devices-detail.component';
+import { OChartModule } from 'ontimize-web-ngx-charts';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { DevicesDetailComponent } from './devices-detail/devices-detail.componen
   imports: [
     CommonModule,
     OntimizeWebModule,
-    DevicesRoutingModule
+    DevicesRoutingModule,
+    OChartModule
   ]
 })
 export class DevicesModule { }
