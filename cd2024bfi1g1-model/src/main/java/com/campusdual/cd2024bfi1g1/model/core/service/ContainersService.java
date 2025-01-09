@@ -25,22 +25,28 @@ public class ContainersService implements IContainersService {
     @Autowired
     private DefaultOntimizeDaoHelper daoHelper;
 
-    @Override
-    public EntityResult containersQuery(Map<String, Object> keyMap, List<String> attrList)
-            throws OntimizeJEERuntimeException {
+    private Integer getUserId(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         Object principal = authentication.getPrincipal();
-        String user_id = "";
+        Integer user_id = null;
         if (principal instanceof UserInformation) {
             UserInformation userInfo = (UserInformation) principal;
 
             // Extraer el mapa otherData
             Map<Object, Object> rawOtherData = userInfo.getOtherData();
 
-            user_id = rawOtherData.get("usr_id").toString();
+            user_id = (Integer) rawOtherData.get("usr_id");
         }
+        return user_id;
+    }
 
+
+    @Override
+    public EntityResult containersQuery(Map<String, Object> keyMap, List<String> attrList)
+            throws OntimizeJEERuntimeException {
+
+        Integer user_id = this.getUserId();
         keyMap.put(ContainersDao.USR_ID, user_id);
 
         return this.daoHelper.query(this.containersDao, keyMap, attrList);
@@ -48,6 +54,11 @@ public class ContainersService implements IContainersService {
 
     @Override
     public EntityResult containersInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException {
+
+        Integer user_id = this.getUserId();
+
+        attrMap.put("USR_ID", user_id);
+
         return this.daoHelper.insert(this.containersDao, attrMap);
     }
 
