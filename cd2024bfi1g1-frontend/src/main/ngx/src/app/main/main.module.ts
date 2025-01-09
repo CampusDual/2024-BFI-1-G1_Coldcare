@@ -5,7 +5,6 @@ import { SharedModule } from '../shared/shared.module';
 import { MainRoutingModule } from './main-routing.module';
 import { MainComponent } from './main.component';
 import { ProfileComponent } from './profile/profile.component';
-import { DevicesGraphComponent } from './devices/devices-graph/devices-graph.component';
 
 @NgModule({
   imports: [
@@ -15,8 +14,7 @@ import { DevicesGraphComponent } from './devices/devices-graph/devices-graph.com
   ],
   declarations: [
     MainComponent,
-    ProfileComponent,
-    DevicesGraphComponent
+    ProfileComponent
   ]
 })
 export class MainModule { }
