@@ -18,7 +18,7 @@
     <o-text-input attr="DEV_ID"></o-text-input>
 
     <o-chart #lineChartBasic type="line" parent-keys="DEV_ID" x-label="Time" y-label="Temperature (ºC)" service="measurements"
-    entity="measurements" x-axis="me_date" y-axis="me_temp" x-data-type="time" [chart-parameters]="chartParameters"></o-chart>
+    entity="measurements" x-axis="me_date" y-axis="me_temp" x-data-type="time" [chart-parameters]="chartParameters" [color]="colorScheme"></o-chart>
 
 
     <!-- <o-table service="measurements" entity="measurements" columns="me_id;me_date;me_temp;me_humidity;dev_mac" parent-keys="DEV_ID">

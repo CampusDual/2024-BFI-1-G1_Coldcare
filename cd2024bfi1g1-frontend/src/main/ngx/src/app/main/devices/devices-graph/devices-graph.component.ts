@@ -8,6 +8,10 @@ import { OChartComponent, LineChartConfiguration, ChartService } from 'ontimize-
 })
 export class DevicesGraphComponent {
   chartParameters: LineChartConfiguration;
+  
+  colorScheme = {
+    domain: ['red', '#eeeeee', '#c5c5c5']
+  };
 
   constructor() {
     this.chartParameters = new LineChartConfiguration();
