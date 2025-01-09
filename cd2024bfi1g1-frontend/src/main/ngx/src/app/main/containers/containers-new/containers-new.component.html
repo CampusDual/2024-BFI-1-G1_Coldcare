@@ -1,1 +1,31 @@
-<p>containers-new works!</p>
+<o-form
+  attr="containers_form_insert"
+  service="containers"
+  entity="container"
+  keys="CONTAINERID"
+  fxLayout="column"
+  show-header="yes"
+  header-actions="R;U;D"
+  #oForm
+  after-insert-mode="detail"
+  class="standalone-form-container"
+>
+  <o-row attr="row1" layout-align="start stretch">
+    <o-column
+      title="CONTAINER_DATA"
+      layout-align="start stretch"
+      fxFlex="60"
+      layout-padding
+    >
+      <div fxLayout="row" fxLayoutAlign="start center" class="gap">
+        <o-text-input
+          attr="NAME"
+          class="margin-right-24"
+          fxFlex.lg="30"
+          fxFlex.xl="30"
+          fxFlex="50"
+        ></o-text-input>
+      </div>
+    </o-column>
+  </o-row>
+</o-form>
