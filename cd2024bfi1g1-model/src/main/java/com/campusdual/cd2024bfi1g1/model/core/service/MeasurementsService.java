@@ -20,6 +20,9 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.*;
 
+import org.springframework.security.access.annotation.Secured;
+import com.ontimize.jee.common.security.PermissionsProviderSecured;
+
 @Service("MeasurementsService")
 @Lazy
 public class MeasurementsService implements IMeasurementsService {
