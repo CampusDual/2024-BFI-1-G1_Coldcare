@@ -12,17 +12,17 @@
 </o-table>-->
 
 <o-form attr="medidasTable" include-parent-keys="yes" parent-keys="DEV_ID" keys-sql-types="INTEGER" service="devices" entity="devices"
-columns="ME_ID;ME_DATE;ME_TEMP;ME_HUMIDITY;DEV_MAC"
-visible-columns="ME_DATE;ME_TEMP;ME_HUMIDITY;DEV_MAC" query-rows="20"
+columns="DEV_ID;DEV_MAC"
+visible-columns="ME_DATE;DEV_MAC" query-rows="20"
 select-all-checkbox-visible="no" insert-button="no" delete-button="no" refresh-button="no"
 quick-filter="no">
 <o-text-input attr="DEV_MAC"></o-text-input>
-<o-table>
+<!--<o-table>
   <o-table-column attr="ME_DATE" title="DATE" type="date" format="DD/MM/YYYY HH:mm:ss"></o-table-column>
   <o-table-column attr="ME_TEMP" title="TEMPERATURE"></o-table-column>
   <o-table-column attr="ME_HUMIDITY" title="HUMIDITY"></o-table-column>
   <o-table-column attr="DEV_MAC" title="IDENTIFIER"></o-table-column>
-</o-table>
+</o-table>-->
 
 </o-form>
 
