@@ -2,7 +2,7 @@ package com.campusdual.cd2024bfi1g1.model.core.service;
 
 import com.campusdual.cd2024bfi1g1.api.core.service.IContainersService;
 import com.campusdual.cd2024bfi1g1.model.core.dao.ContainersDao;
-import com.campusdual.cd2024bfi1g1.model.core.dao.MeasurementsDao;
+import com.campusdual.cd2024bfi1g1.model.core.dao.DevicesDao;
 import com.ontimize.jee.common.dto.EntityResult;
 import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
 import com.ontimize.jee.common.services.user.UserInformation;
@@ -13,6 +13,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,29 +27,30 @@ public class ContainersService implements IContainersService {
     @Autowired
     private DefaultOntimizeDaoHelper daoHelper;
 
-    private Integer getUserId(){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    private Integer getUserId() {
 
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Object principal = authentication.getPrincipal();
-        Integer user_id = null;
+        Integer userId = null;
+
         if (principal instanceof UserInformation) {
             UserInformation userInfo = (UserInformation) principal;
 
             // Extraer el mapa otherData
             Map<Object, Object> rawOtherData = userInfo.getOtherData();
 
-            user_id = (Integer) rawOtherData.get("usr_id");
+            userId = (Integer) rawOtherData.get("usr_id");
         }
-        return user_id;
-    }
 
+        return userId;
+    }
 
     @Override
     public EntityResult containersQuery(Map<String, Object> keyMap, List<String> attrList)
             throws OntimizeJEERuntimeException {
 
-        Integer user_id = this.getUserId();
-        keyMap.put(ContainersDao.USR_ID, user_id);
+        Integer userId = this.getUserId();
+        keyMap.put(ContainersDao.USR_ID, userId);
 
         return this.daoHelper.query(this.containersDao, keyMap, attrList);
     }
@@ -55,9 +58,28 @@ public class ContainersService implements IContainersService {
     @Override
     public EntityResult containersInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException {
 
-        Integer user_id = this.getUserId();
+        String name = "CNT_NAME";
+        Integer userId = this.getUserId();
+        attrMap.put("USR_ID", userId);
 
-        attrMap.put("USR_ID", user_id);
+        // Obtener la lista de containers del usuario
+        Map<String, Object> keyMap = new HashMap<>();
+        keyMap.put(ContainersDao.USR_ID, userId);
+        List<String> attrList = new ArrayList<>();
+        attrList.add(name);
+        EntityResult existingContainers = this.containersQuery(keyMap, attrList);
+
+        // Verificar si el nombre del nuevo container ya existe
+        String newContainerName = (String) attrMap.get(name);
+        List<String> existingContainerNames = new ArrayList<>();
+        for (int i = 0; i < existingContainers.calculateRecordNumber(); i++) {
+            existingContainerNames.add((String) existingContainers.getRecordValues(i).get(name));
+        }
+        for (Object containerName : existingContainerNames) {
+            if (newContainerName.equals(containerName)) {
+                throw new OntimizeJEERuntimeException("El usuario ya tiene un container con ese nombre.");
+            }
+        }
 
         return this.daoHelper.insert(this.containersDao, attrMap);
     }
