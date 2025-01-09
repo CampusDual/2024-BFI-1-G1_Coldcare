@@ -1,3 +1,32 @@
 <p>Devices detail</p>
 
-<o-chart #lineChartBasic type="line" x-label="Time" y-label="Amount (€)" service="measurements" entity="measurements" keys="dev_id" x-axis="me_date" y-axis="me_temp" [chart-parameters]="chartParameters" x-data-type="time"></o-chart>
+<!--<o-table attr="medidasTable" include-parent-keys="yes" parent-keys="DEV_ID" keys-sql-types="INTEGER" service="measurements" entity="measurements" keys="me_id"
+         columns="me_id;me_date;me_temp;me_humidity;dev_mac"
+         visible-columns="me_date;me_temp;me_humidity;dev_mac" query-rows="20"
+         select-all-checkbox-visible="no" insert-button="no" delete-button="no" refresh-button="no"
+         quick-filter="no">
+  <o-table-column attr="me_date" title="DATE" type="date" format="DD/MM/YYYY HH:mm:ss"></o-table-column>
+  <o-table-column attr="me_temp" title="TEMPERATURE"></o-table-column>
+  <o-table-column attr="me_humidity" title="HUMIDITY"></o-table-column>
+  <o-table-column attr="dev_mac" title="IDENTIFIER"></o-table-column>
+</o-table>-->
+
+<o-form attr="medidasTable" include-parent-keys="yes" parent-keys="DEV_ID" keys-sql-types="INTEGER" service="devices" entity="devices"
+columns="ME_ID;ME_DATE;ME_TEMP;ME_HUMIDITY;DEV_MAC"
+visible-columns="ME_DATE;ME_TEMP;ME_HUMIDITY;DEV_MAC" query-rows="20"
+select-all-checkbox-visible="no" insert-button="no" delete-button="no" refresh-button="no"
+quick-filter="no">
+<o-text-input attr="DEV_MAC"></o-text-input>
+<o-table>
+  <o-table-column attr="ME_DATE" title="DATE" type="date" format="DD/MM/YYYY HH:mm:ss"></o-table-column>
+  <o-table-column attr="ME_TEMP" title="TEMPERATURE"></o-table-column>
+  <o-table-column attr="ME_HUMIDITY" title="HUMIDITY"></o-table-column>
+  <o-table-column attr="DEV_MAC" title="IDENTIFIER"></o-table-column>
+</o-table>
+
+</o-form>
+
+
+
+<!--<o-chart #lineChartBasic type="line" parent-keys="DEV_ID" keys-sql-types="INTEGER" x-label="Time" y-label="Temperature (ºC)" service="measurements"
+    entity="measurements" x-axis="me_date" y-axis="me_temp" x-data-type="time" [chart-parameters]="chartParameters"></o-chart>-->

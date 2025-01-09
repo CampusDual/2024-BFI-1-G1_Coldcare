@@ -4,7 +4,7 @@ import { DevicesDetailComponent } from './devices-detail/devices-detail.componen
 
 
 const routes: Routes = [
-  {path: ':DEVICEID', component: DevicesDetailComponent}
+  {path: ':DEV_ID', component: DevicesDetailComponent}
  ];
 
 @NgModule({
