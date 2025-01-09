@@ -1,1 +1,7 @@
-<p>containers-home works!</p>
+<o-form-layout-manager attr="formLayoutMngr" mode="tab" title="Customers" label-columns="SURNAME;NAME" separator=",">
+
+  <o-table attr="customers" title="Customers" service="customers" entity="customer" keys="CUSTOMERID" columns="CUSTOMERID;NAME;SURNAME"
+           visible-columns="NAME;SURNAME">
+  </o-table>
+
+</o-form-layout-manager>
