@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DevicesDetailComponent } from './devices-detail/devices-detail.component';
+import { DevicesGraphComponent } from './devices-graph/devices-graph.component';
 
 
 const routes: Routes = [
-  {path: ':DEV_ID', component: DevicesDetailComponent}
+  {path: ':DEV_ID', component: DevicesGraphComponent}
  ];
 
 @NgModule({

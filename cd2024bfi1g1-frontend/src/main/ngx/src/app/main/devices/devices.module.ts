@@ -3,19 +3,17 @@ import { CommonModule } from '@angular/common';
 import { OntimizeWebModule } from 'ontimize-web-ngx';
 
 import { DevicesRoutingModule } from './devices-routing.module';
-import { DevicesDetailComponent } from './devices-detail/devices-detail.component';
-import { OChartModule } from 'ontimize-web-ngx-charts';
+import { DevicesGraphComponent } from './devices-graph/devices-graph.component';
 
 
 @NgModule({
   declarations: [
-    DevicesDetailComponent
+    DevicesGraphComponent
   ],
   imports: [
     CommonModule,
     OntimizeWebModule,
-    DevicesRoutingModule,
-    OChartModule
+    DevicesRoutingModule
   ]
 })
 export class DevicesModule { }
