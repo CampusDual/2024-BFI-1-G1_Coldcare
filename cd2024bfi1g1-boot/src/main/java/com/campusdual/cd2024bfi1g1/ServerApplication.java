@@ -8,6 +8,7 @@ import com.ontimize.jee.server.security.encrypt.IPasswordEncryptHelper;
 import com.ontimize.jee.server.security.encrypt.PasswordBCryptHelper;
 
 @SpringBootApplication
+@EnableAspectJAutoProxy(proxyTargetClass = false)
 public class ServerApplication {
 
 	public static void main(final String[] args) {
