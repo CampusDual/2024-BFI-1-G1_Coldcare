@@ -1,7 +1,5 @@
-<o-form attr="formLayoutContainer" mode="tab" title="Containers" label-columns="CNT_NAME" separator=",">
-
-  <o-table attr="containers" title="Containers" service="containers" entity="containers" keys="CNT_ID"
-    columns="CNT_ID;CNT_NAME" visible-columns="CNT_NAME">
-  </o-table>
-
-</o-form>
+<!-- <o-form-layout-manager mode="split-pane"> -->
+<o-table attr="containers" title="Containers" service="containers" entity="containers" keys="CNT_ID"
+  columns="CNT_ID;CNT_NAME" visible-columns="CNT_NAME" delete-button="no">
+</o-table>
+<!-- </o-form-layout-manager> -->

@@ -56,15 +56,25 @@ public class ContainersService implements IContainersService {
 
         // Verificar si el nombre del nuevo container ya existe
         String newContainerName = (String) attrMap.get(ContainersDao.CNT_NAME);
-        List<String> existingContainerNames = new ArrayList<>();
-        for (int i = 0; i < existingContainers.calculateRecordNumber(); i++) {
-            existingContainerNames.add((String) existingContainers.getRecordValues(i).get(ContainersDao.CNT_NAME));
+
+        Integer size = newContainerName.length();
+        Integer sizeTrim = newContainerName.trim().length();
+        String trimmedContainerName = newContainerName.trim();
+
+        if(trimmedContainerName.equals("")) {
+            trimmedContainerName=null;
         }
-        for (Object containerName : existingContainerNames) {
-            if (newContainerName.equals(containerName)) {
-                return true;
+
+            List<String> existingContainerNames = new ArrayList<>();
+            for (int i = 0; i < existingContainers.calculateRecordNumber(); i++) {
+                existingContainerNames.add((String) existingContainers.getRecordValues(i).get(ContainersDao.CNT_NAME));
             }
-        }
+            for (Object containerName : existingContainerNames) {
+                if (trimmedContainerName.equals(containerName)) {
+                    return true;
+                }
+            }
+
         return false;
     }
 
