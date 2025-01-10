@@ -1,0 +1,8 @@
+  :host ::ng-deep .o-form-toolbar {
+    display: none !important;
+  }
+
+  :host ::ng-deep o-text-input[attr="DEV_MAC"],
+:host ::ng-deep o-text-input[attr="DEV_ID"] {
+  display: none !important;
+}
