@@ -1,8 +1,6 @@
-  :host ::ng-deep .o-form-toolbar {
+  :host ::ng-deep .o-form-toolbar,
+  :host ::ng-deep .chart-legend,
+  :host ::ng-deep o-text-input[attr="DEV_MAC"],
+  :host ::ng-deep o-text-input[attr="DEV_ID"] {
     display: none !important;
   }
-
-  :host ::ng-deep o-text-input[attr="DEV_MAC"],
-:host ::ng-deep o-text-input[attr="DEV_ID"] {
-  display: none !important;
-}
