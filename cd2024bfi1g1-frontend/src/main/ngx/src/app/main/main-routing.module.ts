@@ -16,8 +16,7 @@ export const routes: Routes = [
       { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
       { path: 'settings', loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule) },
       { path: 'profile', component: ProfileComponent },
-      { path: 'medidas', loadChildren: () => import('./medidas/medidas.module').then(m => m.MedidasModule) },
-      { path: 'devices-without-users', loadChildren: () => import('./admin/devices-without-users/devices-without-users.module').then(m => m.DevicesWithoutUsersModule) }
+      { path: 'medidas', loadChildren: () => import('./medidas/medidas.module').then(m => m.MedidasModule) }
     ]
   }
 ];
