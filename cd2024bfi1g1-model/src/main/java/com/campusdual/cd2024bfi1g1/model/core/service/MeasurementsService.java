@@ -35,14 +35,14 @@ public class MeasurementsService implements IMeasurementsService {
     private DevicesService devicesService;
 
     @Override
-    @Secured({ PermissionsProviderSecured.SECURED })
+
     public EntityResult measurementsQuery(Map<String, Object> keyMap, List<String> attrList)
             throws OntimizeJEERuntimeException {
         return this.daoHelper.query( this.measurementsDao, keyMap, attrList);
     }
 
     @Override
-    @Secured({ PermissionsProviderSecured.SECURED })
+
     public EntityResult measurementsInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException {
         Map<String, Object> mac = new HashMap<String, Object>();
         mac.put(DevicesDao.DEV_MAC, (String) attrMap.get(DevicesDao.DEV_MAC));
@@ -65,14 +65,14 @@ public class MeasurementsService implements IMeasurementsService {
     }
 
     @Override
-    @Secured({ PermissionsProviderSecured.SECURED })
+
     public EntityResult measurementsUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap)
             throws OntimizeJEERuntimeException {
         return this.daoHelper.update( this.measurementsDao, attrMap, keyMap);
     }
 
     @Override
-    @Secured({ PermissionsProviderSecured.SECURED })
+
     public EntityResult measurementsDelete(Map<String, Object> keyMap) throws OntimizeJEERuntimeException {
         return this.daoHelper.delete( this.measurementsDao, keyMap);
     }
