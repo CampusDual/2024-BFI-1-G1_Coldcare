@@ -46,6 +46,28 @@ public class ContainersService implements IContainersService {
         return userId;
     }
 
+    private boolean changeContainerName(Integer userId, Map<String, Object> attrMap) {
+        // Obtener la lista de containers del usuario
+        Map<String, Object> keyMap = new HashMap<>();
+        keyMap.put(ContainersDao.USR_ID, userId);
+        List<String> attrList = new ArrayList<>();
+        attrList.add(ContainersDao.CNT_NAME);
+        EntityResult existingContainers = this.containersQuery(keyMap, attrList);
+
+        // Verificar si el nombre del nuevo container ya existe
+        String newContainerName = (String) attrMap.get(ContainersDao.CNT_NAME);
+        List<String> existingContainerNames = new ArrayList<>();
+        for (int i = 0; i < existingContainers.calculateRecordNumber(); i++) {
+            existingContainerNames.add((String) existingContainers.getRecordValues(i).get(ContainersDao.CNT_NAME));
+        }
+        for (Object containerName : existingContainerNames) {
+            if (newContainerName.equals(containerName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public EntityResult containersQuery(Map<String, Object> keyMap, List<String> attrList)
             throws OntimizeJEERuntimeException {
@@ -59,28 +81,12 @@ public class ContainersService implements IContainersService {
     @Override
     public EntityResult containersInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException {
 
-        String name = "CNT_NAME";
         Integer userId = this.getUserId();
-        attrMap.put("USR_ID", userId);
+        attrMap.put(ContainersDao.USR_ID, userId);
 
-        // Obtener la lista de containers del usuario
-        Map<String, Object> keyMap = new HashMap<>();
-        keyMap.put(ContainersDao.USR_ID, userId);
-        List<String> attrList = new ArrayList<>();
-        attrList.add(name);
-        EntityResult existingContainers = this.containersQuery(keyMap, attrList);
-
-        // Verificar si el nombre del nuevo container ya existe
-        String newContainerName = (String) attrMap.get(name);
-        List<String> existingContainerNames = new ArrayList<>();
-        for (int i = 0; i < existingContainers.calculateRecordNumber(); i++) {
-            existingContainerNames.add((String) existingContainers.getRecordValues(i).get(name));
-        }
-        for (Object containerName : existingContainerNames) {
-            if (newContainerName.equals(containerName)) {
-                return new EntityResultMapImpl(EntityResult.OPERATION_WRONG, EntityResult.NODATA_RESULT,
-                        "Ya existe un contenedor con ese nombre");
-            }
+        if(changeContainerName(userId,attrMap)){
+            return new EntityResultMapImpl(EntityResult.OPERATION_WRONG, EntityResult.NODATA_RESULT,
+                    "Ya existe un contenedor con ese nombre");
         }
 
         return this.daoHelper.insert(this.containersDao, attrMap);
@@ -89,6 +95,15 @@ public class ContainersService implements IContainersService {
     @Override
     public EntityResult containersUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap)
             throws OntimizeJEERuntimeException {
+
+        Integer userId = this.getUserId();
+        attrMap.put(ContainersDao.USR_ID, userId);
+
+        if(changeContainerName(userId,attrMap)){
+            return new EntityResultMapImpl(EntityResult.OPERATION_WRONG, EntityResult.NODATA_RESULT,
+                    "Ya existe un contenedor con ese nombre");
+        }
+
         return this.daoHelper.update(this.containersDao, attrMap, keyMap);
     }
 

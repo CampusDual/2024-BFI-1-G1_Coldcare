@@ -13,7 +13,8 @@ export const CONTAINERS_MODULE_DECLARATIONS = [
 
 const routes: Routes = [
   { path: '', component: ContainersHomeComponent },
-  { path: 'new', component: ContainersNewComponent }
+  { path: 'new', component: ContainersNewComponent},
+  {path: ':CNT_ID', component: ContainersDetailsComponent}
 ];
 
 @NgModule({
