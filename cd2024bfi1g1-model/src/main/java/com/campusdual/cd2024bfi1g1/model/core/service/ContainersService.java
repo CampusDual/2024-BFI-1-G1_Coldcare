@@ -4,6 +4,7 @@ import com.campusdual.cd2024bfi1g1.api.core.service.IContainersService;
 import com.campusdual.cd2024bfi1g1.model.core.dao.ContainersDao;
 import com.campusdual.cd2024bfi1g1.model.core.dao.DevicesDao;
 import com.ontimize.jee.common.dto.EntityResult;
+import com.ontimize.jee.common.dto.EntityResultMapImpl;
 import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
 import com.ontimize.jee.common.services.user.UserInformation;
 import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
@@ -77,7 +78,8 @@ public class ContainersService implements IContainersService {
         }
         for (Object containerName : existingContainerNames) {
             if (newContainerName.equals(containerName)) {
-                throw new OntimizeJEERuntimeException("El usuario ya tiene un container con ese nombre.");
+                return new EntityResultMapImpl(EntityResult.OPERATION_WRONG, EntityResult.NODATA_RESULT,
+                        "Ya existe un contenedor con ese nombre");
             }
         }
 
