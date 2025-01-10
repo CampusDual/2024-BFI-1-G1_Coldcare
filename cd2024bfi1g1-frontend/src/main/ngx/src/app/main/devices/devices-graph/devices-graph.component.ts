@@ -1,5 +1,6 @@
-import { Component, ViewChild } from '@angular/core';
-import { OChartComponent, LineChartConfiguration, ChartService } from 'ontimize-web-ngx-charts';
+import { Component } from '@angular/core';
+import { Expression, FilterExpressionUtils } from 'ontimize-web-ngx';
+import { LineChartConfiguration } from 'ontimize-web-ngx-charts';
 
 @Component({
   selector: 'app-devices-graph',
@@ -18,5 +19,24 @@ export class DevicesGraphComponent {
     this.chartParameters.isArea = [true];
     this.chartParameters.interactive = false;
     this.chartParameters.useInteractiveGuideline = false;
+  }
+
+  createFilter(values: Array<{ attr, value }>): Expression {
+    // Prepare simple expressions from the filter components values
+    let filters: Array<Expression> = [];
+    values.forEach(fil => {
+      if (fil.value) {
+        if (fil.attr === 'rangoFechas') {
+          filters.push(FilterExpressionUtils.buildExpressionLike(fil.attr, fil.value));
+        }
+      }
+    });
+
+    // Build complex expression
+    if (filters.length > 0) {
+      return filters.reduce((exp1, exp2) => FilterExpressionUtils.buildComplexExpression(exp1, exp2, FilterExpressionUtils.OP_AND));
+    } else {
+      return null;
+    }
   }
 }

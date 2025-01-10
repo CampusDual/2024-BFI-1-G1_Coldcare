@@ -1,31 +1,21 @@
 <p>Devices detail</p>
 
-<!--<o-table attr="medidasTable" include-parent-keys="yes" parent-keys="DEV_ID" keys-sql-types="INTEGER" service="measurements" entity="measurements" keys="me_id"
-         columns="me_id;me_date;me_temp;me_humidity;dev_mac"
-         visible-columns="me_date;me_temp;me_humidity;dev_mac" query-rows="20"
-         select-all-checkbox-visible="no" insert-button="no" delete-button="no" refresh-button="no"
-         quick-filter="no">
-  <o-table-column attr="me_date" title="DATE" type="date" format="DD/MM/YYYY HH:mm:ss"></o-table-column>
-  <o-table-column attr="me_temp" title="TEMPERATURE"></o-table-column>
-  <o-table-column attr="me_humidity" title="HUMIDITY"></o-table-column>
-  <o-table-column attr="dev_mac" title="IDENTIFIER"></o-table-column>
-</o-table>-->
-
 <o-form attr="medidasTable" include-parent-keys="yes" parent-keys="DEV_ID" keys-sql-types="INTEGER" service="devices"
-    entity="devices" columns="DEV_ID;DEV_MAC" visible-columns="DEV_ID;DEV_MAC" query-rows="20"
-    select-all-checkbox-visible="no" insert-button="no" delete-button="no" refresh-button="no" quick-filter="no">
+    entity="devices">
     <o-text-input attr="DEV_MAC"></o-text-input>
     <o-text-input attr="DEV_ID"></o-text-input>
 
+    <o-filter-builder #filterBuilder attr="thefilter" filters="DEV_ID;ME_DATE;" [target]="lineChartBasic"
+    query-on-change="yes" query-on-change-delay="500" query-on-change-event-type="onValueChange" 
+    [expression-builder]="createFilter"></o-filter-builder>
+
     <o-chart #lineChartBasic type="line" parent-keys="DEV_ID" x-label="Time" y-label="Temperature (ºC)" service="measurements"
-    entity="measurements" x-axis="me_date" y-axis="me_temp" x-data-type="timeDetail" [chart-parameters]="chartParameters" [color]="colorScheme"></o-chart>
-
-
-    <!-- <o-table service="measurements" entity="measurements" columns="me_id;me_date;me_temp;me_humidity;dev_mac" parent-keys="DEV_ID">
-        <o-table-column attr="ME_DATE" title="DATE" type="date" format="DD/MM/YYYY HH:mm:ss"></o-table-column>
-        <o-table-column attr="ME_TEMP" title="TEMPERATURE"></o-table-column>
-        <o-table-column attr="ME_HUMIDITY" title="HUMIDITY"></o-table-column>
-        <o-table-column attr="DEV_MAC" title="IDENTIFIER"></o-table-column>
-    </o-table> -->
-
+    entity="measurements" x-axis="ME_DATE" y-axis="ME_TEMP" x-data-type="timeDetail" [chart-parameters]="chartParameters" [color]="colorScheme"></o-chart>
 </o-form>
+
+<div fxLayout="column" layout-padding>
+    <label class="input-comp-title">Date range filter</label>
+    <o-daterange-input attr="rangoFechas" label="Choose a range of dates to filter" read-only="no"
+      required="no" format="DD/MM/YYYY" show-week-numbers="true" mode="desktop">
+    </o-daterange-input>
+</div>
