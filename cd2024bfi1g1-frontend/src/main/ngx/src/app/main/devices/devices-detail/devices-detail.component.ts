@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { OChartComponent, LineChartConfiguration, ChartService } from 'ontimize-web-ngx-charts';
 
 @Component({
@@ -6,13 +6,31 @@ import { OChartComponent, LineChartConfiguration, ChartService } from 'ontimize-
   templateUrl: './devices-detail.component.html',
   styleUrls: ['./devices-detail.component.css']
 })
-export class DevicesDetailComponent {
+export class DevicesDetailComponent implements OnInit {
   chartParameters: LineChartConfiguration;
+  DEV_MAC: string = '';
+  DEV_NAME: string = '';
 
   constructor() {
     this.chartParameters = new LineChartConfiguration();
     this.chartParameters.isArea = [true];
     this.chartParameters.interactive = false;
     this.chartParameters.useInteractiveGuideline = false;
+  }
+
+  ngOnInit(): void {
+    // Verificar si DEV_NAME está vacío al inicio
+    if (!this.DEV_NAME && this.DEV_MAC) {
+      // Si DEV_NAME no está definido, asignar el valor de DEV_MAC
+      this.DEV_NAME = this.DEV_MAC;
+    }
+  }
+
+  // Método que se puede llamar cuando el valor de DEV_MAC cambie (si es necesario)
+  onDevMacChange(newMac: string): void {
+    if (!this.DEV_NAME) {
+      this.DEV_NAME = newMac;
+    }
+    this.DEV_MAC = newMac;
   }
 }

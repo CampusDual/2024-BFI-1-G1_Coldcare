@@ -16,7 +16,9 @@ columns="DEV_ID;DEV_MAC"
 visible-columns="ME_DATE;DEV_MAC" query-rows="20"
 select-all-checkbox-visible="no" insert-button="no" delete-button="no" refresh-button="no"
 quick-filter="no">
-<o-text-input attr="DEV_MAC"></o-text-input>
+<o-text-input attr="DEV_MAC" [(ngModel)]="DEV_MAC" (ngModelChange)="onDevMacChange($event)"></o-text-input>
+  <o-text-input attr="DEV_NAME" [(ngModel)]="DEV_NAME" label="Device Name"></o-text-input>
+  <o-text-input attr="DEV_ID" label="Device ID" readonly="true"></o-text-input>
 <!--<o-table>
   <o-table-column attr="ME_DATE" title="DATE" type="date" format="DD/MM/YYYY HH:mm:ss"></o-table-column>
   <o-table-column attr="ME_TEMP" title="TEMPERATURE"></o-table-column>
