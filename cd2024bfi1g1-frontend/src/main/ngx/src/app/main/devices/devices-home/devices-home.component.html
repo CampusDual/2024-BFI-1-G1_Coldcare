@@ -1,6 +1,9 @@
 <o-table attr="devicesTable" service="devices" entity="lastTime" keys="DEV_ID"
          columns="DEV_ID;DEV_MAC;USR_ID"
          visible-columns="DEV_MAC;me_date;USR_ID" >
-         <o-table-column attr="me_date" title="DATE" type="date" format="LL"></o-table-column>
+         <o-table-column attr="me_date" title="DATE">
+            <app-devices-column-renderer></app-devices-column-renderer>
+         </o-table-column>
+         
 </o-table>
 
