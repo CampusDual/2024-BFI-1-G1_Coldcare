@@ -1,26 +1,26 @@
 <p>Devices detail</p>
 
-<!-- Fechas -->
-<div fxLayout="column" layout-padding>
-    <label class="input-comp-title">Date range filter</label>
-    <o-daterange-input attr="rangoFechas" label="Choose a range of dates to filter" read-only="no"
-      required="no" format="DD/MM/YYYY" show-week-numbers="true" mode="desktop">
-    </o-daterange-input>
-</div>
-<o-button attr="filter" [oFilterBuilderQuery]="filterBuilder" type="RAISED" label="Filter" class="filter-button"></o-button>
-
-
 <o-form attr="medidasTable" include-parent-keys="yes" parent-keys="DEV_ID" keys-sql-types="INTEGER" service="devices"
     entity="devices">
     <o-text-input attr="DEV_MAC"></o-text-input>
     <o-text-input attr="DEV_ID"></o-text-input>
-
     
+    <!-- Fechas -->
+    <div fxLayout="column" layout-padding>
+        <label class="input-comp-title">Date range filter</label>
+        <o-daterange-input attr="ME_DATE" label="Choose a range of dates to filter" read-only="no"
+        required="no" format="DD/MM/YYYY" show-week-numbers="true" mode="desktop" automatic-binding="false" automatic-registering="false">
+        </o-daterange-input>
+    </div>
+    <o-button attr="filter" [oFilterBuilderQuery]="filterBuilder" type="RAISED" label="Filter" class="filter-button"></o-button>
 
+    <o-filter-builder #filterBuilder attr="thefilter" filters="DEV_ID:DEV_ID;ME_DATE:ME_DATE" [target]="lineChartBasic"
+    query-on-change="no" [expression-builder]="createFilter"></o-filter-builder>
 
-    <o-filter-builder #filterBuilder attr="thefilter" filters="DEV_ID;ME_DATE" [target]="lineChartBasic"
-    query-on-change="yes" query-on-change-event-type="onChange" 
-    [expression-builder]="createFilter"></o-filter-builder>
+    <o-table #tabla attr="tablaa" parent-keys="DEV_ID" service="measurements" entity="measurements" columns="ME_DATE;ME_TEMP">
+        <o-table-column attr="ME_DATE" title="DATE" type="date" format="DD/MM/YYYY HH:mm:ss"></o-table-column>
+        <o-table-column attr="ME_TEMP" title="TEMPERATURE"></o-table-column>
+    </o-table>
     
     <!-- Grafica-->
     <o-chart #lineChartBasic type="line" parent-keys="DEV_ID" x-label="Time" y-label="Temperature (ºC)" service="measurements"

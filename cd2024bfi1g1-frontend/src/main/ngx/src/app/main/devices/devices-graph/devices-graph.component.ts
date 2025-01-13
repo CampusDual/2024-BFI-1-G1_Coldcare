@@ -22,12 +22,12 @@ export class DevicesGraphComponent {
   }
 
   createFilter(values: Array<{ attr, value }>): Expression {
-    // Prepare simple expressions from the filter components values
+    console.log("hola");
     let filters: Array<Expression> = [];
     values.forEach(fil => {
       if (fil.value) {
         if (fil.attr === 'rangoFechas') {
-          filters.push(FilterExpressionUtils.buildExpressionLike(fil.attr, fil.value));
+          filters.push(FilterExpressionUtils.buildComplexExpression(fil.value.startDate, fil.value.endDate, FilterExpressionUtils.OP_AND));
         }
       }
     });
