@@ -43,5 +43,11 @@ public class DevicesService implements IDevicesService {
     public EntityResult devicesDelete(Map<String, Object> keyMap) throws OntimizeJEERuntimeException {
         return this.daoHelper.delete(this.DevicesDao, keyMap);
     }
+    @Override
+    public EntityResult lastTimeQuery(Map<String, Object> keyMap, List<String> attrList)
+            throws OntimizeJEERuntimeException {
+        return this.daoHelper.query(this.DevicesDao, keyMap, attrList, "last_time");
+    }
+
 
 }
