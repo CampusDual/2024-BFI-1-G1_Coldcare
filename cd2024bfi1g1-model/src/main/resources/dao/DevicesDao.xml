@@ -30,8 +30,11 @@
                     SELECT
                         #COLUMNS#
                     FROM
-                        ${mainschema}.devices
+                    ( SELECT * FROM ${mainschema}.devices
+                    WHERE usr_id is null )
+
                     #WHERE#
+
                     #ORDER#
                 ]]>
             </Sentence>
