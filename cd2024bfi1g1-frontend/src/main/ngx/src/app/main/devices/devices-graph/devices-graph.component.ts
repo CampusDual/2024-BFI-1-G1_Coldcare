@@ -26,11 +26,14 @@ export class DevicesGraphComponent {
     let filters: Array<Expression> = [];
     values.forEach(fil => {
       if (fil.value) {
-        if (fil.attr === 'ME_DATE_S') {
-          filters.push(FilterExpressionUtils.buildExpressionMoreEqual('ME_DATE', fil.value));
+        if (fil.attr === 'DEV_ID') {
+          filters.push(FilterExpressionUtils.buildExpressionEquals('DEV_ID', fil.value));
         }
-        if (fil.attr === 'ME_DATE_E') {
-          filters.push(FilterExpressionUtils.buildExpressionLessEqual('ME_DATE', fil.value));
+        if (fil.attr === 'ME_DATE') {
+          filters.push(FilterExpressionUtils.buildExpressionMoreEqual('ME_DATE', fil.value.startDate._d.getTime()));
+        }
+        if (fil.attr === 'ME_DATE') {
+          filters.push(FilterExpressionUtils.buildExpressionLessEqual('ME_DATE', fil.value.endDate._d.getTime()));
         }
       }
     });
