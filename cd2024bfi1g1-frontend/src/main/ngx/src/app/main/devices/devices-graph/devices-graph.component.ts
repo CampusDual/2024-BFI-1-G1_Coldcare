@@ -26,13 +26,15 @@ export class DevicesGraphComponent {
     let filters: Array<Expression> = [];
     values.forEach(fil => {
       if (fil.value) {
-        if (fil.attr === 'rangoFechas') {
-          filters.push(FilterExpressionUtils.buildComplexExpression(fil.value.startDate, fil.value.endDate, FilterExpressionUtils.OP_AND));
+        if (fil.attr === 'ME_DATE_S') {
+          filters.push(FilterExpressionUtils.buildExpressionMoreEqual('ME_DATE', fil.value));
+        }
+        if (fil.attr === 'ME_DATE_E') {
+          filters.push(FilterExpressionUtils.buildExpressionLessEqual('ME_DATE', fil.value));
         }
       }
     });
 
-    // Build complex expression
     if (filters.length > 0) {
       return filters.reduce((exp1, exp2) => FilterExpressionUtils.buildComplexExpression(exp1, exp2, FilterExpressionUtils.OP_AND));
     } else {

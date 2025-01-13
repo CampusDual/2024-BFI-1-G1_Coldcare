@@ -8,16 +8,19 @@
     <!-- Fechas -->
     <div fxLayout="column" layout-padding>
         <label class="input-comp-title">Date range filter</label>
-        <o-daterange-input attr="ME_DATE" label="Choose a range of dates to filter" read-only="no"
+        <o-daterange-input attr="ME_DATE" label="Choose a range of dates to filter" read-only="no"  startKey="startDate" endKey="endDate"
         required="no" format="DD/MM/YYYY" show-week-numbers="true" mode="desktop" automatic-binding="false" automatic-registering="false">
         </o-daterange-input>
     </div>
-    <o-button attr="filter" [oFilterBuilderQuery]="filterBuilder" type="RAISED" label="Filter" class="filter-button"></o-button>
+    <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="8px">
+        <o-button attr="botonFiltro" [oFilterBuilderQuery]="filterBuilder" type="RAISED" color="primary" label="Filter" class="filter-button"></o-button>
+        <o-button attr="botonLimpiar" [oFilterBuilderQuery]="filterBuilder" type="RAISED" label="Clear" class="filter-button"></o-button>
+    </div>
 
-    <o-filter-builder #filterBuilder attr="thefilter" filters="DEV_ID:DEV_ID;ME_DATE:ME_DATE" [target]="lineChartBasic"
+    <o-filter-builder #filterBuilder attr="thefilter" filters="DEV_ID:DEV_ID;ME_DATE_S:startDate;ME_DATE_E:endDate" [target]="measurementsTable"
     query-on-change="no" [expression-builder]="createFilter"></o-filter-builder>
 
-    <o-table #tabla attr="tablaa" parent-keys="DEV_ID" service="measurements" entity="measurements" columns="ME_DATE;ME_TEMP">
+    <o-table #measurementsTable attr="tablaMedidas" parent-keys="DEV_ID" service="measurements" entity="measurements" columns="ME_DATE;ME_TEMP">
         <o-table-column attr="ME_DATE" title="DATE" type="date" format="DD/MM/YYYY HH:mm:ss"></o-table-column>
         <o-table-column attr="ME_TEMP" title="TEMPERATURE"></o-table-column>
     </o-table>
