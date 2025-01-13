@@ -1,5 +1,5 @@
-<o-table attr="medidasTable" service="measurements" entity="measurements" keys="me_id" columns="dev_mac,usr_id"
-    visible-columns="dev_mac" query-rows="20" select-all-checkbox-visible="no" insert-button="no" delete-button="no"
-    refresh-button="no" quick-filter="no">
+<o-table attr="medidasTable" service="devices" entity="devicesWithoutUser" columns="dev_mac;usr_id;dev_id"
+    visible-columns="dev_mac;dev_id" query-rows="20" select-all-checkbox-visible="no" insert-button="no" delete-button="no"
+    refresh-button="no" quick-filter="no" keys="dev_id">
     <o-table-column attr="dev_mac" title="IDENTIFIER"></o-table-column>
 </o-table>
