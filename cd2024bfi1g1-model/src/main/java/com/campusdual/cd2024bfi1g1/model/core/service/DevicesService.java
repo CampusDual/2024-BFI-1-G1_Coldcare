@@ -29,6 +29,12 @@ public class DevicesService implements IDevicesService {
     }
 
     @Override
+    public EntityResult devicesWithoutUserQuery(Map<String, Object> keyMap, List<String> attrList)
+            throws OntimizeJEERuntimeException {
+        return this.daoHelper.query(this.DevicesDao, keyMap, attrList,"devicesWithoutUser");
+    }
+
+    @Override
     public EntityResult devicesInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException {
         return this.daoHelper.insert(this.DevicesDao, attrMap);
     }
@@ -43,5 +49,6 @@ public class DevicesService implements IDevicesService {
     public EntityResult devicesDelete(Map<String, Object> keyMap) throws OntimizeJEERuntimeException {
         return this.daoHelper.delete(this.DevicesDao, keyMap);
     }
+
 
 }
