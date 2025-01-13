@@ -17,7 +17,10 @@ export const routes: Routes = [
       { path: 'settings', loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule) },
       { path: 'profile', component: ProfileComponent },
       { path: 'medidas', loadChildren: () => import('./medidas/medidas.module').then(m => m.MedidasModule) },
-      { path: 'devices', loadChildren: () => import('./devices/devices.module').then(m => m.DevicesModule) }    ]
+      { path: 'devices', loadChildren: () => import('./devices/devices.module').then(m => m.DevicesModule) },    
+      { path: 'containers', loadChildren: () => import('./containers/containers.module').then(m => m.ContainersModule) }
+
+    ]
   }
 ];
 

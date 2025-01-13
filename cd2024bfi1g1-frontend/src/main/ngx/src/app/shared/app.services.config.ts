@@ -11,4 +11,7 @@ export const SERVICE_CONFIG: Object = {
   'devices': {
     'path': '/devices'
   },
+  'containers': {
+    'path': '/containers'
+  }
 };
