@@ -8,4 +8,7 @@ export const SERVICE_CONFIG: Object = {
   'measurements': {
     'path': '/measurements'
   },
+  'containers': {
+    'path': '/containers'
+  }
 };
