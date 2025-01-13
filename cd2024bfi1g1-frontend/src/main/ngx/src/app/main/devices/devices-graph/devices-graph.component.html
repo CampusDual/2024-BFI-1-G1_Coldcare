@@ -22,12 +22,13 @@
     <o-filter-builder #filterBuilder attr="thefilter" filters="DEV_ID:DEV_ID;ME_DATE:ME_DATE" [target]="measurementsTable"
     query-on-change="no" [expression-builder]="createFilter"></o-filter-builder>
 
-    <o-table #measurementsTable attr="tablaMedidas" service="measurements" entity="measurements" columns="ME_DATE;ME_TEMP">
+    <o-table #measurementsTable attr="tablaMedidas" service="measurements" entity="measurements" columns="ME_DATE;ME_TEMP"
+    (onDataLoaded)="fillChart()">
         <o-table-column attr="ME_DATE" title="DATE" type="date" format="DD/MM/YYYY HH:mm:ss"></o-table-column>
         <o-table-column attr="ME_TEMP" title="TEMPERATURE"></o-table-column>
     </o-table>
     
     <!-- Grafica-->
-    <o-chart #lineChartBasic type="line" x-label="Time" y-label="Temperature (ºC)" service="measurements"
-    entity="measurements" x-axis="ME_DATE" y-axis="ME_TEMP" x-data-type="timeDetail" [chart-parameters]="chartParameters" [color]="colorScheme"></o-chart>
+    <o-chart #lineChartBasic type="line" x-label="Time" y-label="Temperature (ºC)" x-axis="ME_DATE" y-axis="ME_TEMP" 
+    x-data-type="timeDetail" [chart-parameters]="chartParameters" [color]="colorScheme"></o-chart>
 </o-form>

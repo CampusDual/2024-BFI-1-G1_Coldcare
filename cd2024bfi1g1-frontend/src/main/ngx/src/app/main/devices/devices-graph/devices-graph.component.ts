@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { Expression, FilterExpressionUtils } from 'ontimize-web-ngx';
+import { Component, ViewChild } from '@angular/core';
+import { Expression, FilterExpressionUtils, OTableComponent } from 'ontimize-web-ngx';
 import { LineChartConfiguration } from 'ontimize-web-ngx-charts';
 
 @Component({
@@ -8,6 +8,10 @@ import { LineChartConfiguration } from 'ontimize-web-ngx-charts';
   styleUrls: ['./devices-graph.component.css']
 })
 export class DevicesGraphComponent {
+  @ViewChild('measurementsTable', { static: false }) measurementsTable: OTableComponent;
+
+  dataArray: any[] = [];
+
   chartParameters: LineChartConfiguration;
   
   colorScheme = {
@@ -43,5 +47,10 @@ export class DevicesGraphComponent {
     } else {
       return null;
     }
+  }
+
+  fillChart() {
+    this.dataArray = this.measurementsTable.getDataArray();
+    console.log('Datos de la tabla:', this.dataArray);
   }
 }
