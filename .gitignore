@@ -46,3 +46,6 @@ local.properties
 *.iml
 
 .yo-rc.json
+
+# Fichero para arrancar back (Problema Pablo arrancar debug)
+.run/
