@@ -19,7 +19,7 @@
             <Sentence>
                 <![CDATA[
                     SELECT
-                       DISTINCT #COLUMNS#, MAX(me_date) AS me_date
+                       DISTINCT #COLUMNS#, MAX(ME_DATE) AS "ME_DATE"
                     FROM
                         ${mainschema}.devices d
                         
