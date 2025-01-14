@@ -1,8 +1,8 @@
 <ng-template #templateref let-cellvalue="cellvalue" let-rowvalue="rowvalue">
-    <span *ngIf="isRed" style="color: red">
+    <span *ngIf="calculateElapsedGreaterThan15Min(cellvalue)" style="color: red">
         {{ getCellData(cellvalue)|date: 'medium' }}
     </span>
-    <span *ngIf="!isRed" style="color: black">
+    <span *ngIf="!calculateElapsedGreaterThan15Min(cellvalue)" style="color: black">
         {{ getCellData(cellvalue)|date: 'medium' }}
     </span>
 </ng-template>
