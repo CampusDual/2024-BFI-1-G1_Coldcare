@@ -1,7 +1,7 @@
 <p>Devices detail</p>
 
 <mat-tab-group>
-  <mat-tab label="Graph"> 
+  <mat-tab label="{{ 'GRAPH' | oTranslate }}"> 
     <o-form attr="medidasTable" include-parent-keys="yes" parent-keys="DEV_ID" keys-sql-types="INTEGER" service="devices"
     entity="devices" mode="">
       <o-text-input attr="DEV_MAC"></o-text-input>
@@ -9,8 +9,8 @@
       
       <o-column>
           <div fxLayout="column" layout-padding>
-              <label class="input-comp-title">Date range filter</label>
-              <o-daterange-input attr="ME_DATE" label="Choose a range of dates to filter" read-only="no" 
+              <label class="input-comp-title">{{ 'DATE_RANGE_LABEL' | oTranslate }}</label>
+              <o-daterange-input attr="ME_DATE" label="{{ 'DATE_RANGE_INPUT' | oTranslate }}" read-only="no" 
               required="no" format="DD/MM/YYYY" show-week-numbers="true" mode="desktop" automatic-binding="false">
               </o-daterange-input>
           </div>
@@ -34,7 +34,7 @@
     </o-column>
     </o-form>
   </mat-tab>
-  <mat-tab label="Data">
+  <mat-tab label="{{ 'DATA' | oTranslate }}">
     <o-form attr="devicesTable" parent-keys="DEV_ID" keys="DEV_ID" keys-sql-types="INTEGER" service="devices" entity="devices"
     header-actions="R;U;D">
     <o-text-input attr="DEV_MAC" read-only="true"></o-text-input>
