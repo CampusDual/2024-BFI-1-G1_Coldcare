@@ -1,16 +1,11 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
 
-import { AdminRoutingModule } from './admin-routing.module';
-import { OntimizeWebModule } from 'ontimize-web-ngx';
-
+import { AdminRoutingModule } from "./admin-routing.module";
+import { OntimizeWebModule } from "ontimize-web-ngx";
 
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule,
-    OntimizeWebModule,
-    AdminRoutingModule
-  ]
+  imports: [CommonModule, OntimizeWebModule, AdminRoutingModule],
 })
-export class AdminModule { }
+export class AdminModule {}

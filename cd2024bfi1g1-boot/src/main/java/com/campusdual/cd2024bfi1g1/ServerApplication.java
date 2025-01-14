@@ -7,6 +7,8 @@ import org.springframework.context.annotation.Bean;
 import com.ontimize.jee.server.security.encrypt.IPasswordEncryptHelper;
 import com.ontimize.jee.server.security.encrypt.PasswordBCryptHelper;
 
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
+
 @SpringBootApplication
 public class ServerApplication {
 
