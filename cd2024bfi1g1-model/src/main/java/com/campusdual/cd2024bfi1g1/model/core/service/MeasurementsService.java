@@ -20,6 +20,9 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.*;
 
+import org.springframework.security.access.annotation.Secured;
+import com.ontimize.jee.common.security.PermissionsProviderSecured;
+
 @Service("MeasurementsService")
 @Lazy
 public class MeasurementsService implements IMeasurementsService {
@@ -32,12 +35,14 @@ public class MeasurementsService implements IMeasurementsService {
     private DevicesService devicesService;
 
     @Override
+
     public EntityResult measurementsQuery(Map<String, Object> keyMap, List<String> attrList)
             throws OntimizeJEERuntimeException {
         return this.daoHelper.query( this.measurementsDao, keyMap, attrList);
     }
 
     @Override
+
     public EntityResult measurementsInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException {
         Map<String, Object> mac = new HashMap<String, Object>();
         mac.put(DevicesDao.DEV_MAC, (String) attrMap.get(DevicesDao.DEV_MAC));
@@ -60,12 +65,14 @@ public class MeasurementsService implements IMeasurementsService {
     }
 
     @Override
+
     public EntityResult measurementsUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap)
             throws OntimizeJEERuntimeException {
         return this.daoHelper.update( this.measurementsDao, attrMap, keyMap);
     }
 
     @Override
+
     public EntityResult measurementsDelete(Map<String, Object> keyMap) throws OntimizeJEERuntimeException {
         return this.daoHelper.delete( this.measurementsDao, keyMap);
     }

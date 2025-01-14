@@ -1,21 +1,21 @@
 package com.campusdual.cd2024bfi1g1.ws.core.rest;
 
-import com.campusdual.cd2024bfi1g1.api.core.service.IDevicesService;
+import com.campusdual.cd2024bfi1g1.api.core.service.IContainersService;
 import com.ontimize.jee.server.rest.ORestController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/devices")
-public class DevicesRestController extends ORestController<IDevicesService> {
+@RequestMapping("/containers")
+public class ContainersRestController extends ORestController<IContainersService> {
 
     @Autowired
-    private IDevicesService devicesService;
+    private IContainersService containersService;
 
     @Override
-    public IDevicesService getService() {
-        return this.devicesService;
+    public IContainersService getService() {
+        return this.containersService;
     }
 
 }
