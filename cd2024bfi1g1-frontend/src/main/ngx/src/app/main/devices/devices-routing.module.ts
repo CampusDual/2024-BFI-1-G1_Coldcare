@@ -4,25 +4,9 @@ import { DevicesDetailComponent } from './devices-detail/devices-detail.componen
 import { DevicesHomeComponent } from './devices-home/devices-home.component';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: DevicesHomeComponent
-  }
-  {path: ':DEV_ID', component: DevicesDetailComponent}
+  { path: '', component: DevicesHomeComponent },
+  { path: ':DEV_ID', component: DevicesDetailComponent }
 ];
-
-
-@NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
-})
-export class DevicesRoutingModule { }
-
-
-
-const routes: Routes = [
-  {path: ':DEV_ID', component: DevicesDetailComponent}
- ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
