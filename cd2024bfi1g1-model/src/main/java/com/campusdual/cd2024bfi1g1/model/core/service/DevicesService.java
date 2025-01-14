@@ -15,6 +15,7 @@ import java.util.Map;
 
 import static com.campusdual.cd2024bfi1g1.model.core.dao.DevicesDao.DEV_MAC;
 import static com.campusdual.cd2024bfi1g1.model.core.dao.DevicesDao.DEV_NAME;
+import static com.campusdual.cd2024bfi1g1.model.core.dao.DevicesDao.USR_ID;
 
 @Service("DevicesService")
 @Lazy
@@ -40,6 +41,7 @@ public class DevicesService implements IDevicesService {
     @Override
     public EntityResult devicesInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException {
         attrMap.put(DEV_NAME, attrMap.get(DEV_MAC));
+        attrMap.put(USR_ID, attrMap.get(USR_ID));
         return this.daoHelper.insert(this.DevicesDao, attrMap);
     }
 
