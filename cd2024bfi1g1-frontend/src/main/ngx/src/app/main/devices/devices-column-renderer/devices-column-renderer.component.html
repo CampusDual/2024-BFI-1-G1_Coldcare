@@ -1,6 +1,8 @@
 <ng-template #templateref let-cellvalue="cellvalue" let-rowvalue="rowvalue">
-    <span [ngStyle]="obj">
+    <span *ngIf="isRed" style="color: red">
         {{ getCellData(cellvalue)|date: 'medium' }}
     </span>
-   
+    <span *ngIf="!isRed" style="color: black">
+        {{ getCellData(cellvalue)|date: 'medium' }}
+    </span>
 </ng-template>
