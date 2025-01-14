@@ -14,6 +14,7 @@
   "DATE": "Fecha",
   "DARK_MODE": "Modo nocturno",
   "delete": "Borrar",
+  "DEVICES": "Dispositivos",
   "ERROR_MIN_LENGTH_REQUIRED": "El valor introducido tiene que tener una longitud mínima de 8 caracteres",
   "ERROR_PASS_REQUIRED": "Contraseña incorrecta.",
   "ERROR_REQUIRED_FIELD": "El campo es requerido",
