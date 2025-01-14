@@ -30,5 +30,20 @@
                 ]]>
             </Sentence>
         </Query>
+        <Query id="devicesWithoutUser">
+            <Sentence>
+                <![CDATA[
+                    SELECT
+                        #COLUMNS#
+                    FROM
+                    ( SELECT * FROM ${mainschema}.devices
+                    WHERE usr_id is null )
+
+                    #WHERE#
+
+                    #ORDER#
+                ]]>
+            </Sentence>
+        </Query>
     </Queries>
 </JdbcEntitySetup>
