@@ -6,11 +6,15 @@ import { DevicesRoutingModule } from './devices-routing.module';
 import { DevicesDetailComponent } from './devices-detail/devices-detail.component';
 import { OChartModule } from 'ontimize-web-ngx-charts';
 import { DevicesHomeComponent } from './devices-home/devices-home.component';
+import { DevicesGraphComponent } from './devices-graph/devices-graph.component';
+import { DevicesEditComponent } from './devices-edit/devices-edit.component';
 
 @NgModule({
   declarations: [
     DevicesDetailComponent,
-    DevicesHomeComponent
+    DevicesHomeComponent,
+    DevicesGraphComponent,
+    DevicesEditComponent
   ],
   imports: [
     SharedModule,
