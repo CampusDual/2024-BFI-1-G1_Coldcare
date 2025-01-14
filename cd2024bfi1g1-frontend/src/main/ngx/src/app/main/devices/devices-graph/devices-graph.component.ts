@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { Expression, FilterExpressionUtils, OTableComponent } from 'ontimize-web-ngx';
-import { LineChartConfiguration, OChartComponent } from 'ontimize-web-ngx-charts';
+import { DataAdapterUtils, LineChartConfiguration, OChartComponent } from 'ontimize-web-ngx-charts';
 
 @Component({
   selector: 'app-devices-graph',
@@ -11,8 +11,8 @@ export class DevicesGraphComponent {
   @ViewChild('measurementsTable', { static: false }) measurementsTable: OTableComponent;
   @ViewChild('lineChartBasic', { static: false }) lineChart: OChartComponent;
 
-  dataArray: any[] = [];
-  chartData: any[] = [];
+  dataArray: any = [];
+  chartData = [];
 
   chartParameters: LineChartConfiguration;
   
@@ -25,6 +25,9 @@ export class DevicesGraphComponent {
     this.chartParameters.isArea = [true];
     this.chartParameters.interactive = false;
     this.chartParameters.useInteractiveGuideline = false;
+    this.chartParameters.xAxis = "ME_DATE";
+    this.chartParameters.yAxis = ["ME_TEMP"];
+    this.chartParameters.xDataType = "timeDetail";
   }
 
   createFilter(values: Array<{ attr, value }>): Expression {
@@ -52,9 +55,12 @@ export class DevicesGraphComponent {
   }
 
   fillChart() {
-    this.dataArray = this.measurementsTable.getDataArray();
-    console.log('Datos de la tabla:', this.dataArray);
-    this.lineChart.data = this.dataArray;
+    this.dataArray = DataAdapterUtils.createDataAdapter(
+      this.chartParameters
+    ).adaptResult(this.measurementsTable.getDataArray());
+
+    console.log('Datos de la tabla:', this.dataArray, this.measurementsTable.getDataArray());
+    // this.lineChart.data = this.dataArray;
     // this.updateChartData(this.dataArray);
   }
 

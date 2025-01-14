@@ -29,6 +29,6 @@
     </o-table>
     
     <!-- Grafica-->
-    <o-chart #lineChartBasic type="line" x-label="Time" y-label="Temperature (ºC)" x-axis="ME_DATE" y-axis="ME_TEMP" 
-    x-data-type="timeDetail" [chart-parameters]="chartParameters" [color]="colorScheme"></o-chart>
+    <o-chart #lineChartBasic type="line" [chart-parameters]="chartParameters" x-label="{{ 'TIME' | oTranslate }}" y-label="Temperature (ºC)"
+     [color]="colorScheme" [data]="dataArray"></o-chart>
 </o-form>
