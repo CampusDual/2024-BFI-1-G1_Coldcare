@@ -1,9 +1,8 @@
 <p>Devices assignments</p>
 
 <o-form attr="devicesTable" parent-keys="DEV_ID" keys="DEV_ID" keys-sql-types="INTEGER" service="devices"
-    entity="devices" header-actions="R;U;D">
+    entity="devices" header-actions="R;U">
     <o-text-input attr="DEV_MAC" read-only="true"></o-text-input>
-    <o-text-input attr="DEV_ID" label="Device ID" read-only="true"></o-text-input>
     <o-combo attr="USR_ID" service="users" entity="user" value-column="USR_ID" columns="USR_ID;USR_NAME"
         visible-columns="USR_NAME" null-selection="no" searchable="yes"></o-combo>
 </o-form>
