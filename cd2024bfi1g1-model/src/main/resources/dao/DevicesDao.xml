@@ -12,35 +12,35 @@
     </UpdateKeys>
     <GeneratedKey>dev_id</GeneratedKey>
     <Queries>
-         <Query id="last_time">
+        <Query id="last_time">
             <AmbiguousColumns>
                 <AmbiguousColumn name="DEV_ID" prefix="d"/>
             </AmbiguousColumns>
             <Sentence>
                 <![CDATA[
                     SELECT
-                       DISTINCT #COLUMNS#, MAX(ME_DATE) AS "ME_DATE"
+                        DISTINCT #COLUMNS#, MAX(ME_DATE) AS "ME_DATE"
                     FROM
                         ${mainschema}.devices d
-                        
                     INNER JOIN ${mainschema}.measurements m
                         ON d.DEV_ID = m.DEV_ID
                     #WHERE#
-                    GROUP BY DEV_MAC, d.DEV_ID, USR_ID        
+                    GROUP BY DEV_MAC, d.DEV_ID, USR_ID
                 ]]>
             </Sentence>
         </Query>
         <Query id="devicesWithoutUser">
             <Sentence>
                 <![CDATA[
+                    WITH DEVICES_WITH_NO_USER AS (
+                        SELECT *
+                        FROM DEVICES
+                        WHERE USR_ID is NULL
+                        )
                     SELECT
                         #COLUMNS#
-                    FROM
-                    ( SELECT * FROM ${mainschema}.devices
-                    WHERE usr_id is null )
-
+                    FROM DEVICES_WITH_NO_USER
                     #WHERE#
-
                     #ORDER#
                 ]]>
             </Sentence>
