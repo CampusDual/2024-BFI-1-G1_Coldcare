@@ -25,7 +25,7 @@
                     INNER JOIN ${mainschema}.measurements m
                         ON d.DEV_ID = m.DEV_ID
                     #WHERE#
-                    GROUP BY DEV_MAC, d.DEV_ID, USR_ID
+                    GROUP BY DEV_MAC, d.DEV_ID, CMP_ID
                 ]]>
             </Sentence>
         </Query>

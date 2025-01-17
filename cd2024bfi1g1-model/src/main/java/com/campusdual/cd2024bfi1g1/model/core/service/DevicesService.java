@@ -18,7 +18,7 @@ import java.util.Map;
 
 import static com.campusdual.cd2024bfi1g1.model.core.dao.DevicesDao.DEV_MAC;
 import static com.campusdual.cd2024bfi1g1.model.core.dao.DevicesDao.DEV_NAME;
-import static com.campusdual.cd2024bfi1g1.model.core.dao.DevicesDao.USR_ID;
+import static com.campusdual.cd2024bfi1g1.model.core.dao.DevicesDao.CMP_ID;
 
 @Service("DevicesService")
 @Lazy
@@ -57,11 +57,12 @@ public class DevicesService implements IDevicesService {
     public EntityResult devicesDelete(Map<String, Object> keyMap) throws OntimizeJEERuntimeException {
         return this.daoHelper.delete(this.devicesDao, keyMap);
     }
-    private Integer getUserId() {
+
+    private Integer getCompanyId() {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Object principal = authentication.getPrincipal();
-        Integer userId = null;
+        Integer companyId = null;
 
         if (principal instanceof UserInformation) {
             UserInformation userInfo = (UserInformation) principal;
@@ -69,17 +70,19 @@ public class DevicesService implements IDevicesService {
             // Extraer el mapa otherData
             Map<Object, Object> rawOtherData = userInfo.getOtherData();
 
-            userId = (Integer) rawOtherData.get("usr_id");
+            companyId = (Integer) rawOtherData.get("cmp_id");
+
+            System.out.println(userInfo.getOtherData());
         }
 
-        return userId;
+        return companyId;
     }
+
     @Override
     public EntityResult lastTimeQuery(Map<String, Object> keyMap, List<String> attrList)
             throws OntimizeJEERuntimeException {
-        keyMap.put(DevicesDao.USR_ID, this.getUserId());
+        keyMap.put(DevicesDao.CMP_ID, this.getCompanyId());
         return this.daoHelper.query(this.devicesDao, keyMap, attrList, "last_time");
     }
-
 
 }
