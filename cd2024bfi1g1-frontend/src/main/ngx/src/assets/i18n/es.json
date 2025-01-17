@@ -94,5 +94,6 @@
     "USR_ID": "Usuario",
     "DEV_MAC": "Id del dispositivo",
     "DEVICE_ASSIGNMENT": "Asignación dispositivos",
-    "LOTS": "Lotes"
+    "LOTS": "Lotes",
+    "LOT_NAME": "Nombre de lotes"
 }

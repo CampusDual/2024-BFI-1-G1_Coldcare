@@ -10,4 +10,12 @@
   </o-row>
 </o-form>
 
-<app-lots-home></app-lots-home>
+
+<p>Lots assignments</p>
+
+<o-form attr="containers_form_update" include-parent-keys="yes" parent-keys="CNT_ID" keys-sql-types="INTEGER"
+  service="containers" entity="containers" keys="CNT_ID" header-actions="R;U">
+  <o-text-input attr="CNT_NAME" read-only="true"></o-text-input>
+  <o-combo attr="LOT_ID" service="lots" entity="lots" value-column="LOT_ID" columns="LOT_ID;LOT_NAME"
+    visible-columns="LOT_NAME" null-selection="no" searchable="yes"></o-combo>
+</o-form>

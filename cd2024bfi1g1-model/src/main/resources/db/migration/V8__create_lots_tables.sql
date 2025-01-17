@@ -8,3 +8,5 @@ CREATE TABLE public.lots (
 
 ALTER TABLE public.devices ADD lot_id int4;
 ALTER TABLE public.devices ADD CONSTRAINT devices_lots_fk FOREIGN KEY (lot_id) REFERENCES public.lots(lot_id);
+ALTER TABLE public.containers ADD lot_id int4;
+ALTER TABLE public.containers ADD CONSTRAINT containers_lots_fk FOREIGN KEY (lot_id) REFERENCES public.lots(lot_id);
