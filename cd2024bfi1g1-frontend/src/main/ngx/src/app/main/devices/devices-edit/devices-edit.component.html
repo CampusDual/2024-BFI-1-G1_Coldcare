@@ -1,7 +1,7 @@
 <o-form attr="devicesTable" parent-keys="DEV_ID" keys="DEV_ID" keys-sql-types="INTEGER" service="devices" entity="devices"
     header-actions="R;U;D">
     <o-text-input attr="DEV_MAC" read-only="true"></o-text-input>
-      <o-text-input attr="DEV_NAME" label="Device Name" required="true"></o-text-input>
+      <o-text-input attr="DEV_NAME" label="{{ 'DEVICE_NAME' | oTranslate }}" required="true"></o-text-input>
       <o-text-input attr="DEV_ID" label="Device ID" read-only="true" hidden></o-text-input>
 
 </o-form>

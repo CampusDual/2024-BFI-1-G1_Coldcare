@@ -7,6 +7,7 @@
   "BUTTON.CLEARFILTERS": "Limpiar filtros",
   "BUTTON.FILTER": "Filtrar",
   "CHANGE_PASSWORD": "Cambio de contraseña",
+  "CLEAR":"Limpiar",
   "client_permission": "Permisos de cliente",
   "confirm_new_password": "Confirmar nueva contraseña",
   "CONTAINERS": "Contenedores",
@@ -25,6 +26,7 @@
   "ERROR_USER_PASS_INCORRECT": "Usuario o contraseña incorrecta.",
   "ERROR_USER_REQUIRED": "Nombre de usuario incorrecto.",
   "EXAMPLE_LOGIN_INFO": "Usuario y contraseña de ejemplo",
+  "FILTER":"Filtrar",
   "FILTER_PROFILES": "Filtrar roles: ",
   "FILTER_USERS": "Filtrar usuarios: ",
   "FOOTER_CREATED_BY": "Creado por Imatia Innovation",
@@ -93,5 +95,8 @@
   "VIEW": "Vistas",
   "USR_ID":"Usuario",
   "DEV_MAC":"Id del dispositivo",
-  "DEVICE_ASSIGNMENT": "Asignación dispositivos"
+  "DEVICE_ASSIGNMENT": "Asignación dispositivos",
+  "DEVICE_NAME":"Nombre de dispositivo",
+  "DATERANGE.APPLYLABEL":"Seleccionar fechas"
+  
 }
