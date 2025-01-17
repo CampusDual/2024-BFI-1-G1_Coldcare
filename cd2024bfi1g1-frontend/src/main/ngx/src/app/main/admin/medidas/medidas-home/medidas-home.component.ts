@@ -5,4 +5,5 @@ import { Component } from "@angular/core";
   templateUrl: "./medidas-home.component.html",
   styleUrls: ["./medidas-home.component.css"],
 })
+
 export class MedidasAdminComponent {}
