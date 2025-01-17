@@ -1,18 +1,18 @@
-CREATE TABLE public.clients (
-	cli_id serial NOT NULL,
-	cli_name varchar NOT NULL,
-	CONSTRAINT clients_pk PRIMARY KEY (cli_id)
+CREATE TABLE public.companies (
+	cmp_id serial NOT NULL,
+	cmp_name varchar NOT NULL,
+	CONSTRAINT companies_pk PRIMARY KEY (cmp_id)
 );
 
-INSERT INTO public.clients
-(cli_id, cli_name)
-VALUES(1, 'no_client');
+INSERT INTO public.companies
+(cmp_id, cmp_name)
+VALUES(1, 'ColdCare');
 
-ALTER TABLE public.usr_user ADD cli_id int4 DEFAULT 1 NOT NULL;
-ALTER TABLE public.usr_user ADD CONSTRAINT usr_user_clients_fk FOREIGN KEY (cli_id) REFERENCES public.clients(cli_id);
+ALTER TABLE public.usr_user ADD cmp_id int4 NULL;
+ALTER TABLE public.usr_user ADD CONSTRAINT usr_user_companies_fk FOREIGN KEY (cmp_id) REFERENCES public.companies(cmp_id);
 
 ALTER TABLE public.devices DROP CONSTRAINT devices_usr_user_fk;
 ALTER TABLE public.devices DROP COLUMN usr_id;
 
-ALTER TABLE public.devices ADD cli_id int4 DEFAULT 1 NOT NULL;
-ALTER TABLE public.devices ADD CONSTRAINT devices_clients_fk FOREIGN KEY (cli_id) REFERENCES public.clients(cli_id);
+ALTER TABLE public.devices ADD cmp_id int4 NULL;
+ALTER TABLE public.devices ADD CONSTRAINT devices_companies_fk FOREIGN KEY (cmp_id) REFERENCES public.companies(cmp_id);
