@@ -65,7 +65,7 @@ public class ContainersService implements IContainersService {
     public EntityResult containersQuery(Map<String, Object> keyMap, List<String> attrList)
             throws OntimizeJEERuntimeException {
 
-        Integer userId = Util.getId("usr_id");
+        Integer userId = Util.getUserId();
         keyMap.put(ContainersDao.USR_ID, userId);
 
         return this.daoHelper.query(this.containersDao, keyMap, attrList);
@@ -74,7 +74,7 @@ public class ContainersService implements IContainersService {
     @Override
     public EntityResult containersInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException {
 
-        Integer userId = Util.getId("usr_id");
+        Integer userId = Util.getUserId();
         attrMap.put(ContainersDao.USR_ID, userId);
 
         if(changeContainerName(userId,attrMap)){
@@ -89,7 +89,7 @@ public class ContainersService implements IContainersService {
     public EntityResult containersUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap)
             throws OntimizeJEERuntimeException {
 
-        Integer userId = Util.getId("usr_id");
+        Integer userId = Util.getUserId();
         attrMap.put(ContainersDao.USR_ID, userId);
 
         if(changeContainerName(userId,attrMap)){
