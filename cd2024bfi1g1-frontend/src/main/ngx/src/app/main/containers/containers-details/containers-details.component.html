@@ -1,13 +1,19 @@
 <o-form attr="containers_form_update" include-parent-keys="yes" parent-keys="CNT_ID" keys-sql-types="INTEGER"
-  service="containers" entity="containers" columns="CNT_NAME" visible-columns="CNT_NAME" keys="CNT_ID" fxLayout="column"
-  show-header="yes" header-actions="R;U;D" #oForm after-update-mode="detail" class="standalone-form-container">
-  <o-row attr="row1" layout-align="start stretch">
-    <o-column title="CONTAINER_DATA" layout-align="start stretch" fxFlex="60" layout-padding>
-      <div fxLayout="row" fxLayoutAlign="start center" class="gap">
-        <o-text-input attr="CNT_NAME" class="margin-right-24" fxFlex.lg="30" fxFlex.xl="30" fxFlex="50"></o-text-input>
-        <o-combo attr="LOT_ID" label="CURRENT_LOT" service="lots" entity="lots" value-column="LOT_ID"
-          columns="LOT_ID;LOT_NAME" visible-columns="LOT_NAME" null-selection="no" searchable="yes"></o-combo>
-      </div>
-    </o-column>
-  </o-row>
+    service="containers" entity="containers" columns="CNT_NAME" visible-columns="CNT_NAME" keys="CNT_ID"
+    fxLayout="column" show-header="yes" header-actions="R;U;D" #oForm after-update-mode="detail"
+    class="standalone-form-container">
+    <o-row attr="row1" layout-align="start stretch">
+        <o-column title="CONTAINER_DATA" layout-align="start stretch" fxFlex="60" layout-padding>
+            <div fxLayout="row" fxLayoutAlign="start center" class="gap">
+                <o-text-input attr="CNT_NAME" class="margin-right-24" fxFlex.lg="30" fxFlex.xl="30"
+                    fxFlex="50"></o-text-input>
+                <o-text-input attr="LOT_ID" class="margin-right-24" fxFlex.lg="30" fxFlex.xl="30"
+                    fxFlex="50"></o-text-input>
+                <o-combo attr="LOT_ID_LIST" label="CURRENT_LOT" service="lots" entity="lots" value-column="LOT_ID"
+                    columns="LOT_ID;LOT_NAME" visible-columns="LOT_NAME" null-selection="no" searchable="yes"
+                    multiple="yes" (onValueChange)="arrayString($event)" automatic-binding="false"
+                    automatic-registering="false"></o-combo>
+            </div>
+        </o-column>
+    </o-row>
 </o-form>

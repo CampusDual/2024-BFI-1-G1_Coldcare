@@ -6,8 +6,13 @@ CREATE TABLE public.lots (
        CONSTRAINT lot_usr_user_fk FOREIGN KEY (usr_id) REFERENCES public.usr_user(usr_id)
 );
 
-ALTER TABLE public.containers ADD lot_id int4;
-ALTER TABLE public.containers ADD CONSTRAINT containers_lots_fk FOREIGN KEY (lot_id) REFERENCES public.lots(lot_id);
+CREATE TABLE public.containerslots(
+         cnt_id int4 NOT NULL,
+         lot_id int4 NOT NULL,
+         CONSTRAINT containerslots_pk PRIMARY KEY (cnt_id, lot_id),
+         CONSTRAINT containerslots_containers_fk FOREIGN KEY (cnt_id) REFERENCES public.containers(cnt_id),
+         CONSTRAINT containerslots_lots_fk FOREIGN KEY (lot_id) REFERENCES public.lots(lot_id)
+);
 
 ALTER TABLE public.measurements ADD lot_id int4;
 ALTER TABLE public.measurements ADD CONSTRAINT measurements_lots_fk FOREIGN KEY (lot_id) REFERENCES public.lots(lot_id);
