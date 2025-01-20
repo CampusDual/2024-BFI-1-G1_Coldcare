@@ -57,13 +57,11 @@ public class ContainersService implements IContainersService {
         // Verificar si el nombre del nuevo container ya existe
         String newContainerName = (String) attrMap.get(ContainersDao.CNT_NAME);
 
-        Integer size = newContainerName.length();
-        Integer sizeTrim = newContainerName.trim().length();
+        if (newContainerName == null) {
+            return false;
+        }
         String trimmedContainerName = newContainerName.trim();
 
-        if(trimmedContainerName.equals("")) {
-            trimmedContainerName=null;
-        }
 
             List<String> existingContainerNames = new ArrayList<>();
             for (int i = 0; i < existingContainers.calculateRecordNumber(); i++) {
