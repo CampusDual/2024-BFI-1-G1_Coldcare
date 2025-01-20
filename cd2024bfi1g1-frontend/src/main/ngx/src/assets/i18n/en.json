@@ -96,5 +96,6 @@
   "DEVICE_ASSIGNMENT": "Device assignment",
   "COMPANIES": "Companies",
   "CMP_NAME": "Name",
-  "COMPANY_DATA": "Company Data"
+  "COMPANY_DATA": "Company Data",
+  "CMP_ID": "Company"
 }
