@@ -74,4 +74,10 @@ public class LotsService implements ILotsService {
         return this.daoHelper.delete(this.lotsDao, keyMap);
     }
 
+    @Override
+    public EntityResult lotsContainerQuery(Map<String, Object> keyMap, List<String> attrList)
+            throws OntimizeJEERuntimeException {
+        return this.daoHelper.query(this.lotsDao, keyMap, attrList, "lots_container");
+    }
+
 }
