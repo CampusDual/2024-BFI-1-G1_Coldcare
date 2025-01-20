@@ -1,1 +1,1 @@
-ALTER TABLE public.devices ADD DEV_PERSISTENCE integer;
+ALTER TABLE public.devices ADD dev_persistence integer;

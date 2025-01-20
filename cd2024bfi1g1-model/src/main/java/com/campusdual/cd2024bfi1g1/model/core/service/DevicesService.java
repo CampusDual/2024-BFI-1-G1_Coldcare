@@ -16,9 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Map;
 
-import static com.campusdual.cd2024bfi1g1.model.core.dao.DevicesDao.DEV_MAC;
-import static com.campusdual.cd2024bfi1g1.model.core.dao.DevicesDao.DEV_NAME;
-import static com.campusdual.cd2024bfi1g1.model.core.dao.DevicesDao.USR_ID;
+import static com.campusdual.cd2024bfi1g1.model.core.dao.DevicesDao.*;
 
 @Service("DevicesService")
 @Lazy
@@ -44,6 +42,7 @@ public class DevicesService implements IDevicesService {
     @Override
     public EntityResult devicesInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException {
         attrMap.put(DEV_NAME, attrMap.get(DEV_MAC));
+        attrMap.put(DEV_PERSISTENCE, 1);
         return this.daoHelper.insert(this.devicesDao, attrMap);
     }
 
