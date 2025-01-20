@@ -6,7 +6,7 @@ CREATE TABLE public.companies (
 
 INSERT INTO public.companies
 (cmp_id, cmp_name)
-VALUES(1, 'ColdCare');
+VALUES(NULL, 'ColdCare');
 
 ALTER TABLE public.usr_user ADD cmp_id int4 NULL;
 ALTER TABLE public.usr_user ADD CONSTRAINT usr_user_companies_fk FOREIGN KEY (cmp_id) REFERENCES public.companies(cmp_id);
