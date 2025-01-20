@@ -27,17 +27,20 @@ public class CompaniesService implements ICompaniesService {
     }
 
     @Override
-    public EntityResult companiesInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException {
-        return null;
+    public EntityResult companiesInsert(Map<String, Object> attrMap)
+            throws OntimizeJEERuntimeException {
+        return this.daoHelper.insert(this.companiesDao, attrMap);
     }
 
     @Override
-    public EntityResult companiesUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap) throws OntimizeJEERuntimeException {
-        return null;
+    public EntityResult companiesUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap)
+            throws OntimizeJEERuntimeException {
+        return this.daoHelper.update(this.companiesDao, attrMap, keyMap);
     }
 
     @Override
-    public EntityResult companiesDelete(Map<String, Object> keyMap) throws OntimizeJEERuntimeException {
-        return null;
+    public EntityResult companiesDelete(Map<String, Object> keyMap)
+            throws OntimizeJEERuntimeException {
+        return this.daoHelper.delete(this.companiesDao, keyMap);
     }
 }
