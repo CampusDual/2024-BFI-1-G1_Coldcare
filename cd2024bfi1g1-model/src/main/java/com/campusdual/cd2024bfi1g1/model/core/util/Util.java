@@ -7,11 +7,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import java.util.Map;
 
 public class Util {
-    public static Integer getUserId() {
+    public static Integer getId(String column) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Object principal = authentication.getPrincipal();
-        Integer userId = null;
+        Integer id = null;
 
         if (principal instanceof UserInformation) {
             UserInformation userInfo = (UserInformation) principal;
@@ -19,9 +19,9 @@ public class Util {
             // Extraer el mapa otherData
             Map<Object, Object> rawOtherData = userInfo.getOtherData();
 
-            userId = (Integer) rawOtherData.get("usr_id");
+            id = (Integer) rawOtherData.get(column);
         }
 
-        return userId;
+        return id;
     }
 }
