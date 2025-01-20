@@ -38,3 +38,57 @@
     }
   }
 }
+
+.avatar.o-image {
+  width: 200px;
+  height: 200px;
+
+  .o-image-content.o-image-auto-fit {
+    .o-image-display-container {
+      img {
+        border-radius: 50%;
+        aspect-ratio: auto 200/200;
+        width: 200px;
+        height: 200px;
+      }
+    }
+
+    .o-image-form-field {
+      position: absolute;
+      bottom: -42px;
+    }
+  }
+}
+
+/* Estilos globales */
+
+/* Barra arriba */
+.o-app-header {
+  color: #d4cdc7;
+  nav {
+      background: linear-gradient(95deg, #FAFAFA, #FAFAFA) !important;
+      button {
+          color: #FAFAFA !important;
+      }
+  }
+}
+
+/* Barra lateral */
+.o-app-sidenav .o-app-sidenav-container .mat-drawer.o-app-sidenav-sidenav .mat-drawer-inner-container {
+  background: #FAFAFA !important;
+}
+
+/* Letras Barra lateral */
+.o-app-sidenav .o-app-sidenav-container .mat-drawer.o-app-sidenav-sidenav .mat-drawer-inner-container nav a {
+  color: #2b2d42;
+}
+
+/* Hamburguesa Barra lateral */
+.o-app-sidenav .o-app-sidenav-container .mat-drawer.o-app-sidenav-sidenav .mat-drawer-inner-container .sidenav-toggle {
+  color: #2b2d42;
+}
+
+/* Fondo de la pagina */
+.application-layout-content-wrapper {
+  background-color: #FAFAFA !important;
+}
