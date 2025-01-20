@@ -97,5 +97,9 @@
   "COMPANIES": "Companies",
   "CMP_NAME": "Name",
   "COMPANY_DATA": "Company Data",
-  "CMP_ID": "Company"
+  "CMP_ID": "Company",
+  "FILTER":"Filter",
+  "CLEAR":"Clear",
+  "DEVICE_NAME":"Device name"
+  
 }
