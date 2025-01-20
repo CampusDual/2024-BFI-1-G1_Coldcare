@@ -94,5 +94,6 @@
   "USR_ID":"Usuario",
   "DEV_MAC":"Id del dispositivo",
   "DEVICE_ASSIGNMENT": "Asignación dispositivos",
-  "COMPANIES": "Empresas"
+  "COMPANIES": "Empresas",
+  "CMP_NAME": "Nombre"
 }
