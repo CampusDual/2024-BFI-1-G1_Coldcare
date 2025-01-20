@@ -6,6 +6,8 @@ import { ContainersRoutingModule } from './containers-routing.module';
 import { ContainersHomeComponent } from './containers-home/containers-home.component';
 import { ContainersNewComponent } from './containers-new/containers-new.component';
 import { ContainersDetailsComponent } from './containers-details/containers-details.component';
+import { ContainersDevicesComponent } from './containers-devices/containers-devices.component';
+import { ContainersEditComponent } from './containers-edit/containers-edit.component';
 
 
 @NgModule({
@@ -13,6 +15,8 @@ import { ContainersDetailsComponent } from './containers-details/containers-deta
     ContainersHomeComponent,
     ContainersNewComponent,
     ContainersDetailsComponent,
+    ContainersDevicesComponent,
+    ContainersEditComponent,
   ],
   imports: [
     CommonModule,

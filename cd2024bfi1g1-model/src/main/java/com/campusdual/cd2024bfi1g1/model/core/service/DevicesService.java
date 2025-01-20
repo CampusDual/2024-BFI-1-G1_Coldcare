@@ -80,6 +80,10 @@ public class DevicesService implements IDevicesService {
         keyMap.put(DevicesDao.USR_ID, this.getUserId());
         return this.daoHelper.query(this.devicesDao, keyMap, attrList, "last_time");
     }
-
+    @Override
+    public EntityResult getDevicesInContainerQuery(Map<String, Object> keyMap, List<String> attrList)
+            throws OntimizeJEERuntimeException {
+        return this.daoHelper.query(this.devicesDao, keyMap, attrList,"get_devices_in_container");
+    }
 
 }

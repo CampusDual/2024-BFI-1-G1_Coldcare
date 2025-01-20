@@ -93,5 +93,6 @@
   "VIEW": "Vistas",
   "USR_ID":"Usuario",
   "DEV_MAC":"Id del dispositivo",
-  "DEVICE_ASSIGNMENT": "Asignación dispositivos"
+  "DEVICE_ASSIGNMENT": "Asignación dispositivos",
+  "EDIT_CONTAINER": "Editar contenedor"
 }
