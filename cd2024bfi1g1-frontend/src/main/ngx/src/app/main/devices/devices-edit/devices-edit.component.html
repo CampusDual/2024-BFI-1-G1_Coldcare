@@ -3,5 +3,13 @@
     <o-text-input attr="DEV_MAC" read-only="true"></o-text-input>
       <o-text-input attr="DEV_NAME" label="Device Name" required="true"></o-text-input>
       <o-text-input attr="DEV_ID" label="Device ID" read-only="true" hidden></o-text-input>
-
+      <o-combo attr="CNT_ID" label="Assign to Container" 
+        service="containers" 
+        entity="containers" 
+        value-column="CNT_ID" 
+        columns="CNT_ID;CNT_NAME" 
+        visible-columns="CNT_NAME" 
+        null-selection="yes" 
+        searchable="yes">
+    </o-combo>
 </o-form>
