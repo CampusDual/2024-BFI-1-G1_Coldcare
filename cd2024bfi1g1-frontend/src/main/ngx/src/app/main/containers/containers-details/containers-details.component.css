@@ -1,14 +1,25 @@
-.tabla-columnas{
-    display: flex;
+.tabla-columnas {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 30px;
+    overflow: hidden;
 }
 
-o-table{
-    margin: 2px;
+.tabla-columnas > div {
+   
+    max-width: 100%;
+}
+
+o-table {
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
     border-radius: 4px;
+    width: 100%;
+    max-width: 100%;
+    overflow: auto;
 }
 
-h3{
-    
+h3 {
+    font-size: 1rem;
+    text-align: center;
+    margin: 0;
 }
