@@ -1,7 +1,8 @@
 <o-table attr="medidasTable" title="MEASUREMENTS" service="measurements" entity="measurements" keys="me_id"
   columns="me_id;me_date;me_temp;me_humidity;dev_name" visible-columns="me_date;me_temp;me_humidity;dev_name"
-  query-rows="20" select-all-checkbox-visible="no" insert-button="no" delete-button="no" refresh-button="no"
-  quick-filter="no" show-title="true">
+  query-rows="20" select-all-checkbox-visible="no" insert-button="no" delete-button="no" refresh-button="yes"
+  quick-filter="no" show-title="true"  pageable="true"
+>
   <o-table-column attr="me_date" title="DATE" type="date" format="DD/MM/YYYY HH:mm:ss"></o-table-column>
   <o-table-column attr="me_temp" title="TEMPERATURE"></o-table-column>
   <o-table-column attr="me_humidity" title="HUMIDITY"></o-table-column>
