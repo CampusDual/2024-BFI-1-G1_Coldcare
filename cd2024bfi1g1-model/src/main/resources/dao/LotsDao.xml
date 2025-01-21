@@ -35,7 +35,7 @@
                          #COLUMNS#
                     FROM
                         ${mainschema}.lots l
-                    LEFT JOIN ${mainschema}.containerslots cl
+                    LEFT JOIN ${mainschema}.containers_lots cl
                         ON cl.lot_id = l.lot_id
                     #WHERE#
 
