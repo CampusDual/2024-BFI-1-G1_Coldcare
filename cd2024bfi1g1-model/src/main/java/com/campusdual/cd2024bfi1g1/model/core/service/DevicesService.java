@@ -3,6 +3,8 @@ import com.campusdual.cd2024bfi1g1.api.core.service.IDevicesService;
 
 
 import com.campusdual.cd2024bfi1g1.model.core.dao.DevicesDao;
+import com.campusdual.cd2024bfi1g1.model.core.dao.UserDao;
+import com.campusdual.cd2024bfi1g1.model.core.util.Util;
 import com.ontimize.jee.common.dto.EntityResult;
 import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
 import com.ontimize.jee.common.services.user.UserInformation;
@@ -13,6 +15,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -24,6 +27,8 @@ public class DevicesService implements IDevicesService {
 
     @Autowired
     private DevicesDao devicesDao;
+    @Autowired
+    private UserDao userDao;
     @Autowired
     private DefaultOntimizeDaoHelper daoHelper;
 
@@ -56,29 +61,30 @@ public class DevicesService implements IDevicesService {
     public EntityResult devicesDelete(Map<String, Object> keyMap) throws OntimizeJEERuntimeException {
         return this.daoHelper.delete(this.devicesDao, keyMap);
     }
-    private Integer getUserId() {
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Object principal = authentication.getPrincipal();
-        Integer userId = null;
-
-        if (principal instanceof UserInformation) {
-            UserInformation userInfo = (UserInformation) principal;
-
-            // Extraer el mapa otherData
-            Map<Object, Object> rawOtherData = userInfo.getOtherData();
-
-            userId = (Integer) rawOtherData.get("usr_id");
-        }
-
-        return userId;
-    }
     @Override
     public EntityResult lastTimeQuery(Map<String, Object> keyMap, List<String> attrList)
             throws OntimizeJEERuntimeException {
-        keyMap.put(DevicesDao.USR_ID, this.getUserId());
+
+        Integer userId = Util.getUserId();
+
+        Map<String, Object> filter = new HashMap<>();
+        filter.put(UserDao.USR_ID, userId);
+        List<String> columns = List.of(
+                "CMP_ID"
+        );
+
+        final EntityResult userEr = this.daoHelper.query(this.userDao, filter, columns);
+        if (userEr.isEmpty()) {
+            throw new RuntimeException("Unknown user");
+        }
+
+        Map<String, Object> user = userEr.getRecordValues(0);
+        Integer cmpId = (Integer) user.get("CMP_ID");
+
+        keyMap.put(DevicesDao.CMP_ID, cmpId);
+
         return this.daoHelper.query(this.devicesDao, keyMap, attrList, "last_time");
     }
-
 
 }
