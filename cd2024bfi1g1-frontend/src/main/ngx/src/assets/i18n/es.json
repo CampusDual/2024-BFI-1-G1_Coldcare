@@ -96,6 +96,10 @@
   "USR_ID":"Usuario",
   "DEV_MAC":"Id del dispositivo",
   "DEVICE_ASSIGNMENT": "Asignación dispositivos",
+  "COMPANIES": "Empresas",
+  "CMP_NAME": "Nombre",
+  "COMPANY_DATA": "Datos de la empresa",
+  "CMP_ID": "Empresa",
   "DEVICE_NAME":"Nombre de dispositivo",
   "DATERANGE.APPLYLABEL":"Seleccionar fechas"
   

@@ -9,8 +9,9 @@ export const MENU_CONFIG: MenuRootItem[] = [
     items: [
       { id: 'roles', name: 'ROLES', tooltip: 'ROLES', route: '/main/admin/roles', icon: 'supervisor_account' },
       { id: 'users', name: 'USERS', tooltip: 'USERS', route: '/main/admin/users', icon: 'person' },
+      { id: 'companies', name: 'COMPANIES', tooltip: 'COMPANIES', icon: 'apartment', route: '/main/admin/companies' },
       { id: 'devices-without-users', name: 'DEVICE_ASSIGNMENT', tooltip: 'DevicesWithoutUsers', route: '/main/admin/devices-without-users', icon: 'developer_board' },
-      { id: 'medidas', name: 'MEASUREMENTS', icon: 'thermostat', route: '/main/admin/medidas' },
+      { id: 'medidas', name: 'MEASUREMENTS', tooltip: 'MEASUREMENTS', icon: 'thermostat', route: '/main/admin/medidas' },
     ]
   },
   { id: 'logout', name: 'LOGOUT', route: '/login', icon: 'power_settings_new', confirm: 'yes' }

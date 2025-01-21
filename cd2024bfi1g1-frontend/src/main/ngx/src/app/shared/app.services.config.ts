@@ -13,5 +13,8 @@ export const SERVICE_CONFIG: Object = {
   },
   'containers': {
     'path': '/containers'
+  },
+  'companies': {
+    'path': '/companies'
   }
 };
