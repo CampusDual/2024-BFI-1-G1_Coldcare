@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.sql.SQLOutput;
+import java.sql.Timestamp;
 import java.util.*;
 
 import org.springframework.security.access.annotation.Secured;
@@ -65,24 +66,23 @@ public class MeasurementsService implements IMeasurementsService {
             filter.clear();
             filter.put(DevicesDao.DEV_ID, rowDevice.get(DevicesDao.DEV_ID));
             //columns.add(MeasurementsDao.ME_DATE);
-            EntityResult lastTimeResult = devicesService.lastTimeQuery(filter, columns);
+            EntityResult lastTimeResult = devicesService.lastTimeWithoutCMP(filter, columns);
 
             // Obtener el valor de dev_persistence (en minutos)
-            int persistenceMinutes = (Integer) rowDevice.get(DevicesDao.DEV_PERSISTENCE);
+            Integer persistenceMinutes = (Integer) rowDevice.get(DevicesDao.DEV_PERSISTENCE);
 
-            System.out.println(lastTimeResult.isEmpty());
-            System.out.println(lastTimeResult.isWrong());
+            if (persistenceMinutes == null) {
+                persistenceMinutes = 1;
+            }
+
             if (!lastTimeResult.isEmpty() && !lastTimeResult.isWrong()) {
                 // Obtener el valor de la última medición (me_date)
                 Map<String, Object> rowLastTime = lastTimeResult.getRecordValues(0);
-                Object lastDateObj = rowLastTime.get(MeasurementsDao.ME_DATE);
-
-                if (lastDateObj instanceof java.sql.Timestamp) {
-                    java.sql.Timestamp lastTimestamp = (java.sql.Timestamp) lastDateObj;
+                Timestamp lastDateObj = (Timestamp) rowLastTime.get(MeasurementsDao.ME_DATE);
 
                     // Comprobar si han pasado más de los minutos configurados
                     long currentTimeMillis = System.currentTimeMillis();
-                    long lastTimeMillis = lastTimestamp.getTime(); // Obtenemos el tiempo en milisegundos de la última medición
+                    long lastTimeMillis = lastDateObj.getTime(); // Obtenemos el tiempo en milisegundos de la última medición
                     long persistenceMillis = persistenceMinutes * 60000L; // Convertimos los minutos a milisegundos
 
                     if (currentTimeMillis - lastTimeMillis > persistenceMillis) {
@@ -91,9 +91,7 @@ public class MeasurementsService implements IMeasurementsService {
                         return new EntityResultMapImpl(EntityResult.OPERATION_WRONG, EntityResult.NODATA_RESULT,
                                 "Esperar más de " + persistenceMinutes + " minutos para insertar una nueva medición.");
                     }
-                } else {
-                    return new EntityResultMapImpl(EntityResult.OPERATION_WRONG, EntityResult.NODATA_RESULT, "El campo de fecha no tiene el formato esperado.");
-                }
+
             } else {
                 return this.daoHelper.insert(this.measurementsDao, attrMap);
             }

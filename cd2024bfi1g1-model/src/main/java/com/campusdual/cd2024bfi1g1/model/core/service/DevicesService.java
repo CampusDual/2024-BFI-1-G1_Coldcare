@@ -87,4 +87,12 @@ public class DevicesService implements IDevicesService {
         return this.daoHelper.query(this.devicesDao, keyMap, attrList, "last_time");
     }
 
+    public EntityResult lastTimeWithoutCMP(Map<String, Object> keyMap, List<String> attrList)
+            throws OntimizeJEERuntimeException {
+
+        return this.daoHelper.query(this.devicesDao, keyMap, attrList, "last_time");
+    }
+
 }
+
+
