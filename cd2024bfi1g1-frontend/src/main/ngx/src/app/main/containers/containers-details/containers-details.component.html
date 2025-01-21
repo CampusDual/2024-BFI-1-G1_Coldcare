@@ -14,18 +14,18 @@
       </div>
     </o-column>
   </o-row>
-  <div class="tabla-columnas">
-    <div>
-      <h3>Allocated Lots</h3>
+  <o-row class="separacion">
+    <o-column>
+      <p>Allocated Lots</p>
       <o-table attr="lots" service="lots" entity="lotsContainer" keys="LOT_ID" parent-keys="CNT_ID"
         columns="LOT_ID;LOT_NAME" visible-columns="LOT_NAME" detail-mode="none">
       </o-table>
-    </div>
-    <div>
-      <h3>History Lot</h3>
+    </o-column>
+    <o-column class="extend">
+      <p>History Lot</p>
       <o-table attr="lots" service="lots" entity="lotsContainer" keys="LOT_ID" parent-keys="CNT_ID"
         columns="LOT_ID;LOT_NAME" visible-columns="LOT_NAME" detail-mode="none" delete-button="no" insert-button="no">
       </o-table>
-    </div>
-  </div>
+    </o-column>
+  </o-row>
 </o-form>
