@@ -14,6 +14,14 @@ CREATE TABLE public.containerslots(
          CONSTRAINT containerslots_lots_fk FOREIGN KEY (lot_id) REFERENCES public.lots(lot_id)
 );
 
+CREATE TABLE public.historicContainerLots(
+         cnt_id int4 NOT NULL,
+         lot_id int4 NOT NULL,
+         CONSTRAINT historicContainerLots_pk PRIMARY KEY (cnt_id, lot_id),
+         CONSTRAINT historicContainerLots_containerslots_fk FOREIGN KEY (cnt_id) REFERENCES public.containers(cnt_id),
+         CONSTRAINT historicContainerLots_lots_fk FOREIGN KEY (lot_id) REFERENCES public.lots(lot_id)
+);
+
 ALTER TABLE public.measurements ADD lot_id int4;
 ALTER TABLE public.measurements ADD CONSTRAINT measurements_lots_fk FOREIGN KEY (lot_id) REFERENCES public.lots(lot_id);
 

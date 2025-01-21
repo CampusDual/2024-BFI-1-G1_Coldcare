@@ -1,0 +1,14 @@
+.tabla-columnas{
+    display: flex;
+    gap: 30px;
+}
+
+o-table{
+    margin: 2px;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+}
+
+h3{
+    
+}
