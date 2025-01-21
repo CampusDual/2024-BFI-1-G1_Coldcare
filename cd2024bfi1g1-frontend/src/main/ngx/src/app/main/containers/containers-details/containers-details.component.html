@@ -14,8 +14,8 @@
       </div>
     </o-column>
   </o-row>
-</o-form>
 
-<o-table attr="lots" title="Lots" service="lots" entity="lotsContainer" keys="LOT_ID" columns="LOT_ID;LOT_NAME"
-  visible-columns="LOT_NAME" detail-mode="none">
-</o-table>
+  <o-table attr="lots" title="Lots" service="lots" entity="lotsContainer" keys="LOT_ID" parent-keys="CNT_ID"
+    columns="LOT_ID;LOT_NAME" visible-columns="LOT_NAME" detail-mode="none">
+  </o-table>
+</o-form>

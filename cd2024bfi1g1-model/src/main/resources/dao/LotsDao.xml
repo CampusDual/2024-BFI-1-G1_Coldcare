@@ -26,18 +26,19 @@
         </Query>
 
         <Query id="lots_container">
+            <AmbiguousColumns>
+                <AmbiguousColumn name="LOT_ID" prefix="l" />
+            </AmbiguousColumns>
             <Sentence>
                 <![CDATA[
                     SELECT
-                         l.LOT_NAME
+                         #COLUMNS#
                     FROM
                         ${mainschema}.lots l
-                    INNER JOIN ${mainschema}.containerslots cl
+                    LEFT JOIN ${mainschema}.containerslots cl
                         ON cl.lot_id = l.lot_id
-                    INNER JOIN ${mainschema}.containers c
-                        ON c.cnt_id = cl.cnt_id
-                    WHERE
-                        c.cnt_id= 2
+                    #WHERE#
+
                 ]]>
             </Sentence>
         </Query>
