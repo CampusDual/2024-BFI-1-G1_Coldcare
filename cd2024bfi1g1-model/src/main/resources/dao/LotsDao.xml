@@ -35,8 +35,26 @@
                          #COLUMNS#
                     FROM
                         ${mainschema}.lots l
-                    LEFT JOIN ${mainschema}.containers_lots cl
-                        ON cl.lot_id = l.lot_id
+                     JOIN ${mainschema}.containers c
+                        ON c.lot_id = l.lot_id
+                    #WHERE#
+
+                ]]>
+            </Sentence>
+        </Query>
+        <Query id="historic_lot_container">
+            <AmbiguousColumns>
+                <AmbiguousColumn name="LOT_ID" prefix="l" />
+            </AmbiguousColumns>
+            <Sentence>
+                <![CDATA[
+                    SELECT DISTINCT
+                         m.lot_id, m.cnt_id, l.lot_name
+                    FROM
+                        ${mainschema}.measurements m
+                        JOIN ${mainschema}.lots l
+                            ON m.lot_id = l.lot_id
+
                     #WHERE#
 
                 ]]>
