@@ -14,14 +14,11 @@ export class MainComponent implements OnInit {
   ngOnInit() {
     
     this.oService.configureService(this.oService.getDefaultServiceConfiguration("users"));
-    this.oService.query({}, ["ROL_ID", "ROL_NAME"],"myRole").subscribe(ress => {console.log(ress)
-      /*
-      if(ress[0].get("ROL_NAME") == "admin"){
-        console.log(ress[0].get("ROL_NAME"));
+    this.oService.query({}, ["ROL_ID", "ROL_NAME"],"myRole").subscribe(ress => {
+      
+      if(ress['data'][0]['ROL_NAME'] == "admin"){
+        this.router.navigate(['main','admin','devices-without-users'],{});
       }
-        */
-    })
-    
+    }) 
   }
-
 }
