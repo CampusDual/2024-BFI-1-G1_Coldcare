@@ -8,9 +8,11 @@ $font-primary: 'Roboto', sans-serif;
 $primary-color: #fafafa;
 $secondary-color: #2b2d42;
 $accent-color: #2979ba;
+$error-color: #f44336;
+$success-color: #4caf50;
 
 ::selection {
-  background-color: red;
+  background-color: $accent-color;
   color: $primary-color;
 }
 
@@ -144,13 +146,13 @@ tr.mat-mdc-row.mdc-data-table__row.cdk-row:nth-child(even) {
 
 .o-form-toolbar-button.o-form-toolbar-button-delete.mdc-button.mdc-button--outlined.mat-mdc-outlined-button.mat-unthemed.mat-mdc-button-base.ng-star-inserted,
 .o-form-toolbar-button.o-form-toolbar-button-cancel.mdc-button.mdc-button--outlined.mat-mdc-outlined-button.mat-unthemed.mat-mdc-button-base.ng-star-inserted {
-  background-color: #f44336;
+  background-color: $error-color;
   color: $primary-color;
 }
 
 .o-form-toolbar-button.o-form-toolbar-button-save.mdc-button.mdc-button--outlined.mat-mdc-outlined-button.mat-unthemed.mat-mdc-button-base.ng-star-inserted,
 .o-form-toolbar-button.o-form-toolbar-button-insert.mdc-button.mdc-button--outlined.mat-mdc-outlined-button.mat-primary.mat-mdc-button-base.ng-star-inserted {
-  background-color: #4caf50;
+  background-color: $success-color;
   color: $primary-color;
 }
 
