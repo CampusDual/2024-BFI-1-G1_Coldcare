@@ -92,3 +92,52 @@
 .application-layout-content-wrapper {
   background-color: #FAFAFA !important;
 }
+
+
+/* Campos rellenables */
+
+.mat-mdc-text-field-wrapper.mdc-text-field.mdc-text-field--filled {
+  display: inline-block;
+  width: 100%;
+  max-width: 300px;
+  font-family: Arial, sans-serif;
+  position: relative;
+  background-color: #FAFAFA; 
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.mat-mdc-text-field-wrapper.mdc-text-field.mdc-text-field--filled:hover {
+  border-color: #2979BA;
+  border-color: inherit !important;
+
+}
+
+.mat-mdc-text-field-wrapper.mdc-text-field.mdc-text-field--filled.mdc-text-field--focused {
+  border-color: #2979BA;
+}
+
+.mat-mdc-text-field-wrapper.mdc-text-field.mdc-text-field--filled input {
+  padding: 4px 0px;
+  font-size: 14px;
+  color: #333;
+  background: transparent;
+}
+
+.mat-mdc-text-field-wrapper.mdc-text-field.mdc-text-field--filled input::placeholder {
+  color: #aaa; /* Color del texto de marcador */
+  font-style: italic;
+}
+
+
+/* Orientacion campos de texto rellenables*/
+
+.inline-fields {
+  display: flex;
+  gap: 10px;
+}
+
+.inline-fields input {
+  flex: 1;
+}
