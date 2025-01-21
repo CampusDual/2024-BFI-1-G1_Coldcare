@@ -1,4 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+/* Typography style */
+$font-primary: 'Roboto', sans-serif;
+
+/* Color Palette */
+$primary-color: #fafafa;
+$secondary-color: #2b2d42;
+$accent-color: #2979ba;
+
+::selection {
+  background-color: red;
+  color: $primary-color;
+}
+
 .o-form-layout-manager {
   .o-form {
     form {
@@ -11,7 +26,6 @@
 .o-form-toolbar .o-form-toolbar-header.mat-toolbar {
   background-color: transparent;
 }
-
 
 .o-column > div.o-container .o-container-scroll.o-container-gap,
 .o-row > div.o-container .o-container-scroll.o-container-gap {
@@ -64,58 +78,101 @@
 
 /* Barra arriba */
 .o-app-header {
-  color: #d4cdc7;
   nav {
-      background: linear-gradient(95deg, #FAFAFA, #FAFAFA) !important;
-      button {
-          color: #FAFAFA !important;
-      }
+      background: $primary-color !important;
+      color: $secondary-color !important;
   }
 }
 
 /* Barra lateral */
 .o-app-sidenav .o-app-sidenav-container .mat-drawer.o-app-sidenav-sidenav .mat-drawer-inner-container {
-  background: #FAFAFA !important;
+  background: $primary-color !important;
 }
 
-/* Letras Barra lateral */
+/* Texto Barra lateral */
 .o-app-sidenav .o-app-sidenav-container .mat-drawer.o-app-sidenav-sidenav .mat-drawer-inner-container nav a {
-  color: #2b2d42;
+  color: $secondary-color !important;
 }
 
 /* Hamburguesa Barra lateral */
 .o-app-sidenav .o-app-sidenav-container .mat-drawer.o-app-sidenav-sidenav .mat-drawer-inner-container .sidenav-toggle {
-  color: #2b2d42;
+  color: $secondary-color !important;
 }
 
 /* Fondo de la pagina */
 .application-layout-content-wrapper {
-  background-color: #FAFAFA !important;
+  background-color: #f5f5f5 !important;
 }
 
+/* Encabezados de las tabla */
+.mat-mdc-header-cell.mdc-data-table__header-cell {
+  background-color: $secondary-color !important;
+  color: $primary-color !important;
+}
+
+/* Celdas pares de las tabla */
+tr.mat-mdc-row.mdc-data-table__row.cdk-row:nth-child(even) {
+  background-color: $primary-color;
+}
+
+/* Títulos */
+.title.ng-star-inserted {
+  color: $secondary-color !important;
+  font-family: $font-primary !important;
+  font-weight: 900 !important;
+  font-size: 24px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 10px; /* Ajusta la altura según sea necesario */
+}
+
+/* Contenedor del título */
+.o-data-toolbar {
+  padding-top: 10px !important;
+  padding: 35px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Botones */
+.o-table-button-add.o-table-button.text.ng-star-inserted > .mdc-button.mdc-button--outlined.mat-mdc-outlined-button.mat-unthemed.mat-mdc-button-base.ng-star-inserted {
+  background-color: $accent-color;
+  color: $primary-color;
+}
+
+.o-form-toolbar-button.o-form-toolbar-button-delete.mdc-button.mdc-button--outlined.mat-mdc-outlined-button.mat-unthemed.mat-mdc-button-base.ng-star-inserted,
+.o-form-toolbar-button.o-form-toolbar-button-cancel.mdc-button.mdc-button--outlined.mat-mdc-outlined-button.mat-unthemed.mat-mdc-button-base.ng-star-inserted {
+  background-color: #f44336;
+  color: $primary-color;
+}
+
+.o-form-toolbar-button.o-form-toolbar-button-save.mdc-button.mdc-button--outlined.mat-mdc-outlined-button.mat-unthemed.mat-mdc-button-base.ng-star-inserted,
+.o-form-toolbar-button.o-form-toolbar-button-insert.mdc-button.mdc-button--outlined.mat-mdc-outlined-button.mat-primary.mat-mdc-button-base.ng-star-inserted {
+  background-color: #4caf50;
+  color: $primary-color;
+}
 
 /* Campos rellenables */
-
 .mat-mdc-text-field-wrapper.mdc-text-field.mdc-text-field--filled {
   display: inline-block;
   width: 100%;
   max-width: 300px;
   font-family: Arial, sans-serif;
   position: relative;
-  background-color: #FAFAFA; 
+  background-color: $primary-color; 
   border: 2px solid #ddd;
   border-radius: 8px;
   transition: border-color 0.3s, box-shadow 0.3s;
 }
 
 .mat-mdc-text-field-wrapper.mdc-text-field.mdc-text-field--filled:hover {
-  border-color: #2979BA;
-  border-color: inherit !important;
-
+  border-color: $accent-color;
 }
 
 .mat-mdc-text-field-wrapper.mdc-text-field.mdc-text-field--filled.mdc-text-field--focused {
-  border-color: #2979BA;
+  border-color: $accent-color;
 }
 
 .mat-mdc-text-field-wrapper.mdc-text-field.mdc-text-field--filled input {
@@ -130,9 +187,7 @@
   font-style: italic;
 }
 
-
 /* Orientacion campos de texto rellenables*/
-
 .inline-fields {
   display: flex;
   gap: 10px;
