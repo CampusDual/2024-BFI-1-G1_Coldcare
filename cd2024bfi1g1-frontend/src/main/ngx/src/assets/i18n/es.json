@@ -104,5 +104,5 @@
   "IDENTIFIER": "Nombre",
   "MEASUREMENTS": "Medidas",
   "TEMPERATURE": "Temperatura (ºC)",
-  "DEVICE_PERSISTANCE": "Persistencia del dispositivo"
+  "DEV_PERSISTENCE": "Intervalo de persistencia (minutos)"
 }
