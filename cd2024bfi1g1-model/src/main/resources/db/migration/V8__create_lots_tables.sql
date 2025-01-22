@@ -28,5 +28,8 @@ ALTER TABLE public.containers ADD CONSTRAINT containers_lots_fk FOREIGN KEY (lot
 ALTER TABLE public.measurements ADD lot_id int4;
 ALTER TABLE public.measurements ADD CONSTRAINT measurements_lots_fk FOREIGN KEY (lot_id) REFERENCES public.lots(lot_id);
 
+ALTER TABLE public.devices ADD lot_id int4;
+ALTER TABLE public.devices ADD CONSTRAINT devices_lots_fk FOREIGN KEY (lot_id) REFERENCES public.lots(lot_id);
+
 ALTER TABLE public.measurements ADD cnt_id int4;
 ALTER TABLE public.measurements ADD CONSTRAINT measurements_containers_fk FOREIGN KEY (cnt_id) REFERENCES public.containers(cnt_id);

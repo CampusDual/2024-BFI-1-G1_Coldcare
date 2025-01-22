@@ -6,9 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./containers-details.component.css']
 })
 export class ContainersDetailsComponent {
-    arrayString (evt:any) {
-        console.log(evt);
-      }
 }
 
 

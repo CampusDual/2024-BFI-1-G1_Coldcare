@@ -95,5 +95,6 @@
     "DEV_MAC": "Device Id",
     "DEVICE_ASSIGNMENT": "Device assignment",
     "LOTS": "Lots",
-    "LOT_NAME": "Lot name"
+    "LOT_NAME": "Lot name",
+    "LOT_HISTORY": "Lot history"
 }

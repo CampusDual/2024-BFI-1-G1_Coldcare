@@ -5,29 +5,22 @@
     <o-row attr="row1" layout-align="start stretch">
         <o-column title="CONTAINER_DATA" layout-align="start stretch" fxFlex="60" layout-padding>
             <div fxLayout="row" fxLayoutAlign="start center" class="gap">
-                <o-text-input attr="CNT_NAME" class="margin-right-24" fxFlex.lg="30" fxFlex.xl="30"
-                    fxFlex="50"></o-text-input>
+                <o-text-input attr="CNT_NAME" class="margin-right-24" fxFlex.lg="30" fxFlex.xl="30" fxFlex="50"
+                    layout-margin-right></o-text-input>
                 <!-- <o-text-input attr="LOT_ID" class="margin-right-24" fxFlex.lg="30" fxFlex.xl="30"
-                    fxFlex="50"></o-text-input>
-                <o-combo attr="LOT_ID_LIST" label="CURRENT_LOT" service="lots" entity="lots" value-column="LOT_ID"
-                    columns="LOT_ID;LOT_NAME" visible-columns="LOT_NAME" null-selection="no" searchable="yes"
-                    multiple="yes" (onValueChange)="arrayString($event)" automatic-binding="false"
-                    automatic-registering="false"></o-combo> -->
+                    fxFlex="50"></o-text-input> -->
+                <o-combo attr="LOT_ID" label="CURRENT_LOT" service="lots" entity="lots" value-column="LOT_ID"
+                    columns="LOT_ID;LOT_NAME" visible-columns="LOT_NAME" null-selection="no" searchable="yes"></o-combo>
+
+
             </div>
         </o-column>
     </o-row>
     <o-row>
         <o-column class="extend">
-            <p>Allocated Lots</p>
-            <o-table attr="lots" service="lots" entity="lotsContainer" keys="LOT_ID" parent-keys="CNT_ID"
-                columns="LOT_ID;LOT_NAME" visible-columns="LOT_NAME" detail-mode="none">
-            </o-table>
-        </o-column>
-        <o-column class="extend">
-            <p>Lot History</p>
-            <o-table attr="lotHistory" service="lots" entity="historicLotContainer" keys="LOT_ID" parent-keys="CNT_ID"
-                columns="LOT_ID;LOT_NAME" visible-columns="LOT_NAME" detail-mode="none" delete-button="no"
-                insert-button="no">
+            <o-table attr="lotHistory" title="LOT_HISTORY" show-title="yes" service="lots" entity="historicLotContainer"
+                keys="LOT_ID" parent-keys="CNT_ID" columns="LOT_ID;LOT_NAME" visible-columns="LOT_NAME"
+                detail-mode="none" delete-button="no" insert-button="no">
             </o-table>
         </o-column>
     </o-row>

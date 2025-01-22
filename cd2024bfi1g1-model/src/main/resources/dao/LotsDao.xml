@@ -50,11 +50,8 @@
                 <![CDATA[
                     SELECT DISTINCT
                          m.lot_id, m.cnt_id, l.lot_name
-                    FROM
-                        ${mainschema}.measurements m
-                        JOIN ${mainschema}.lots l
-                            ON m.lot_id = l.lot_id
-
+                    FROM measurements m
+                    JOIN lots l ON m.lot_id = l.lot_id
                     #WHERE#
 
                 ]]>
