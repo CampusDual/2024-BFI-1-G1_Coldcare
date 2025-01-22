@@ -1,25 +1,31 @@
-<o-table
-  attr="medidasTable"
-  service="measurements"
-  entity="measurements"
-  keys="me_id"
-  columns="me_id;me_date;me_temp;me_humidity;dev_name"
-  visible-columns="me_date;me_temp;me_humidity;dev_name"
-  query-rows="20"
-  select-all-checkbox-visible="no"
-  insert-button="no"
-  delete-button="no"
-  refresh-button="yes"
-  quick-filter="no"
-  pageable="true"
->
-  <o-table-column
-    attr="me_date"
-    title="DATE"
-    type="date"
-    format="DD/MM/YYYY HH:mm:ss"
-  ></o-table-column>
-  <o-table-column attr="me_temp" title="TEMPERATURE"></o-table-column>
-  <o-table-column attr="me_humidity" title="HUMIDITY"></o-table-column>
-  <o-table-column attr="dev_name" title="IDENTIFIER"></o-table-column>
+<o-form attr="medidasTable" include-parent-keys="yes" parent-keys="DEV_ID" keys-sql-types="INTEGER" service="devices"
+  entity="devices" show-header="false">
+
+
+  <o-column>
+    <div fxLayout="column" layout-padding>
+      <label class="input-comp-title">{{ 'DATE_RANGE_LABEL' | oTranslate }}</label>
+      <o-daterange-input attr="ME_DATE" label="{{ 'DATE_RANGE_INPUT' | oTranslate }}" read-only="no" required="no"
+        format="DD/MM/YYYY" show-week-numbers="true" mode="desktop" automatic-binding="false" translate="yes">
+      </o-daterange-input>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="8px">
+      <o-button attr="filter" [oFilterBuilderQuery]="filterBuilder" type="RAISED" color="primary"
+        label="{{ 'FILTER' | oTranslate }}" class="filter-button"></o-button>
+      <o-button attr="clear" [oFilterBuilderClear]="filterBuilder" type="RAISED" label="{{ 'CLEAR' | oTranslate }}"
+        class="filter-button"></o-button>
+    </div>
+
+    <o-filter-builder #filterBuilder attr="thefilter" filters="DEV_ID:DEV_ID;ME_DATE:ME_DATE"
+      [target]="measurementsTable" query-on-change="no" [expression-builder]="createFilter"></o-filter-builder>
+  </o-column>
+</o-form>
+<o-table #measurementsTable attr="measurementsTable" service="measurements" entity="measurements" keys="ME_ID"
+  columns="ME_ID;ME_DATE;ME_TEMP;ME_HUMIDITY;DEV_NAME" visible-columns="ME_DATE;ME_TEMP;ME_HUMIDITY;DEV_NAME"
+  query-rows="20" select-all-checkbox-visible="no" insert-button="no" delete-button="no" refresh-button="yes"
+  quick-filter="no" pageable="true" detail-mode="none">
+  <o-table-column attr="ME_DATE" title="DATE" type="date" format="DD/MM/YYYY HH:mm:ss"></o-table-column>
+  <o-table-column attr="ME_TEMP" title="TEMPERATURE"></o-table-column>
+  <o-table-column attr="ME_HUMIDITY" title="HUMIDITY"></o-table-column>
+  <o-table-column attr="DEV_NAME" title="IDENTIFIER"></o-table-column>
 </o-table>
