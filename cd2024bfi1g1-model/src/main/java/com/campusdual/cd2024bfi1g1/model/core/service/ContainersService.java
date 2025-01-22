@@ -3,6 +3,7 @@ package com.campusdual.cd2024bfi1g1.model.core.service;
 import com.campusdual.cd2024bfi1g1.api.core.service.IContainersService;
 import com.campusdual.cd2024bfi1g1.model.core.dao.ContainersDao;
 import com.campusdual.cd2024bfi1g1.model.core.dao.DevicesDao;
+import com.campusdual.cd2024bfi1g1.model.core.util.Util;
 import com.ontimize.jee.common.dto.EntityResult;
 import com.ontimize.jee.common.dto.EntityResultMapImpl;
 import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
@@ -27,24 +28,6 @@ public class ContainersService implements IContainersService {
     private ContainersDao containersDao;
     @Autowired
     private DefaultOntimizeDaoHelper daoHelper;
-
-    private Integer getUserId() {
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Object principal = authentication.getPrincipal();
-        Integer userId = null;
-
-        if (principal instanceof UserInformation) {
-            UserInformation userInfo = (UserInformation) principal;
-
-            // Extraer el mapa otherData
-            Map<Object, Object> rawOtherData = userInfo.getOtherData();
-
-            userId = (Integer) rawOtherData.get("usr_id");
-        }
-
-        return userId;
-    }
 
     private boolean changeContainerName(Integer userId, Map<String, Object> attrMap) {
         // Obtener la lista de containers del usuario
@@ -80,7 +63,7 @@ public class ContainersService implements IContainersService {
     public EntityResult containersQuery(Map<String, Object> keyMap, List<String> attrList)
             throws OntimizeJEERuntimeException {
 
-        Integer userId = this.getUserId();
+        Integer userId = Util.getUserId();
         keyMap.put(ContainersDao.USR_ID, userId);
 
         return this.daoHelper.query(this.containersDao, keyMap, attrList);
@@ -89,7 +72,7 @@ public class ContainersService implements IContainersService {
     @Override
     public EntityResult containersInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException {
 
-        Integer userId = this.getUserId();
+        Integer userId = Util.getUserId();
         attrMap.put(ContainersDao.USR_ID, userId);
 
         if(changeContainerName(userId,attrMap)){
@@ -104,7 +87,7 @@ public class ContainersService implements IContainersService {
     public EntityResult containersUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap)
             throws OntimizeJEERuntimeException {
 
-        Integer userId = this.getUserId();
+        Integer userId = Util.getUserId();
         attrMap.put(ContainersDao.USR_ID, userId);
 
         if(changeContainerName(userId,attrMap)){
