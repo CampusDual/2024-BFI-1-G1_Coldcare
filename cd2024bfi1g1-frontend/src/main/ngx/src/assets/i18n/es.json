@@ -104,6 +104,7 @@
   "DATERANGE.APPLYLABEL":"Seleccionar fechas",
   "LOTS": "Lotes",
   "LOT_NAME": "Nombre del lote",
-  "LOT_HISTORY": "Historial de lote"
+  "LOT_HISTORY": "Historial de lote",
+  "DEVICE_PERSISTANCE":"Persistencia del dispositivo"
   
 }

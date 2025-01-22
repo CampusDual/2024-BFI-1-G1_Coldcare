@@ -103,6 +103,7 @@
   "DEVICE_NAME":"Device name",
   "LOTS": "Lots",
   "LOT_NAME": "Lot name",
-  "LOT_HISTORY": "Lot history"
+  "LOT_HISTORY": "Lot history",
+  "DEVICE_PERSISTANCE":"Device persistance"
   
 }
