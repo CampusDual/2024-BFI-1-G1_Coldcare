@@ -47,33 +47,34 @@ public class MeasurementsService implements IMeasurementsService {
 
     @Override
     public EntityResult measurementsInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException {
-        Map<String, Object> filter = new HashMap<String, Object>();
-        filter.put(DevicesDao.DEV_MAC, (String) attrMap.get(DevicesDao.DEV_MAC));
+        Map<String, Object> filter = Map.of(DevicesDao.DEV_MAC, (String) attrMap.get(DevicesDao.DEV_MAC));
 
-        // Obtener los atributos necesarios para la consulta
-        List<String> columns = new ArrayList<>();
-        columns.add(DevicesDao.DEV_ID);
-        columns.add(DevicesDao.DEV_MAC);
-        columns.add(DevicesDao.DEV_PERSISTENCE); // Obtener el campo dev_persistence
+        List<String> columns = List.of(
+                DevicesDao.DEV_ID,
+                DevicesDao.DEV_MAC,
+                DevicesDao.DEV_PERSISTENCE
+        );
 
         // Consultar la base de datos para obtener el ID del dispositivo y dev_persistence
         EntityResult query = devicesService.devicesQuery(filter, columns);
-
+        if(query.isEmpty()){
+            EntityResult mac_insert = devicesService.devicesInsert(filter);
+            attrMap.put(MeasurementsDao.DEV_ID, mac_insert.get(DevicesDao.DEV_ID));
+            return this.daoHelper.insert(this.measurementsDao, attrMap);
+        }
+        if(query.isWrong()){
+            return new EntityResultMapImpl(EntityResult.OPERATION_WRONG, EntityResult.NODATA_RESULT, "No se ha podido realizar la query");
+        }
         // Verificar si el dispositivo ya existe
-        if (!query.isEmpty() && !query.isWrong()) {
             Map<String, Object> rowDevice = query.getRecordValues(0);
             attrMap.put(MeasurementsDao.DEV_ID, rowDevice.get(DevicesDao.DEV_ID));
-            filter.clear();
-            filter.put(DevicesDao.DEV_ID, rowDevice.get(DevicesDao.DEV_ID));
-            //columns.add(MeasurementsDao.ME_DATE);
-            EntityResult lastTimeResult = devicesService.lastTimeWithoutCMP(filter, columns);
+            EntityResult lastTimeResult = devicesService.lastTimeWithoutCMP(
+                    Map.of(DevicesDao.DEV_ID, rowDevice.get(DevicesDao.DEV_ID)),
+                    columns
+            );
 
             // Obtener el valor de dev_persistence (en minutos)
             Integer persistenceMinutes = (Integer) rowDevice.get(DevicesDao.DEV_PERSISTENCE);
-
-            if (persistenceMinutes == null) {
-                persistenceMinutes = 1;
-            }
 
             if (!lastTimeResult.isEmpty() && !lastTimeResult.isWrong()) {
                 // Obtener el valor de la última medición (me_date)
@@ -90,20 +91,13 @@ public class MeasurementsService implements IMeasurementsService {
                     } else {
                         return new EntityResultMapImpl(EntityResult.OPERATION_WRONG, EntityResult.NODATA_RESULT,
                                 "Esperar más de " + persistenceMinutes + " minutos para insertar una nueva medición.");
-                    }
+                        }
 
             } else {
                 return this.daoHelper.insert(this.measurementsDao, attrMap);
             }
 
-        } else if (query.isEmpty()) {
-            // Si no se encuentra el dispositivo, se inserta uno nuevo
-            EntityResult mac_insert = devicesService.devicesInsert(filter);
-            attrMap.put(MeasurementsDao.DEV_ID, mac_insert.get(DevicesDao.DEV_ID));
-            return this.daoHelper.insert(this.measurementsDao, attrMap);
-        } else {
-            return new EntityResultMapImpl(EntityResult.OPERATION_WRONG, EntityResult.NODATA_RESULT, "No se ha podido realizar la query");
-        }
+
     }
 
     @Override

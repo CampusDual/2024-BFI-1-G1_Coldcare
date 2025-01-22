@@ -1,1 +1,1 @@
-ALTER TABLE public.devices ADD dev_persistence integer;
+ALTER TABLE public.devices ADD COLUMN dev_persistence integer NOT NULL DEFAULT 0;

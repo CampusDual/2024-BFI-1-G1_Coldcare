@@ -47,7 +47,7 @@ public class DevicesService implements IDevicesService {
     @Override
     public EntityResult devicesInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException {
         attrMap.put(DEV_NAME, attrMap.get(DEV_MAC));
-        attrMap.put(DEV_PERSISTENCE, 1);
+        attrMap.put(DEV_PERSISTENCE, 0);
         return this.daoHelper.insert(this.devicesDao, attrMap);
     }
 

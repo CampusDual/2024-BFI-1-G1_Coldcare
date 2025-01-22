@@ -101,6 +101,7 @@
   "COMPANY_DATA": "Datos de la empresa",
   "CMP_ID": "Empresa",
   "DEVICE_NAME":"Nombre de dispositivo",
-  "DATERANGE.APPLYLABEL":"Seleccionar fechas"
+  "DATERANGE.APPLYLABEL":"Seleccionar fechas",
+  "DEVICE_PERSISTANCE":"Persistencia del dispositivo"
   
 }
