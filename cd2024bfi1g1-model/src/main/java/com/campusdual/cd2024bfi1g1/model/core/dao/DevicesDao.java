@@ -16,8 +16,8 @@ public class DevicesDao extends OntimizeJdbcDaoSupport{
 
     public static final String DEV_ID = "DEV_ID";
     public static final String DEV_MAC = "DEV_MAC";
-    public static final String USR_ID = "USR_ID";
+    public static final String CMP_ID = "CMP_ID";
     public static final String DEV_NAME = "DEV_NAME";
     public static final String DEV_STATE = "DEV_STATE";
-    public static final List<String> COLUMNS = Arrays.asList(DEV_ID, DEV_MAC, USR_ID, DEV_NAME, DEV_STATE);
+    public static final List<String> COLUMNS = Arrays.asList(DEV_ID, DEV_MAC, CMP_ID, DEV_NAME, DEV_STATE);
 }

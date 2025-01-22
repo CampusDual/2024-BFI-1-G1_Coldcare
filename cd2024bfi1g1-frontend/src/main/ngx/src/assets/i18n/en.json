@@ -92,10 +92,16 @@
   "VERSION": "Version",
   "VIEW": "Views",
   "USR_ID":"User",
-  "DEV_MAC":"Device Id",
+  "DEV_MAC":"Device MAC",
   "DEVICE_ASSIGNMENT": "Device assignment",
+  "COMPANIES": "Companies",
+  "CMP_NAME": "Name",
+  "COMPANY_DATA": "Company Data",
+  "CMP_ID": "Company",
   "FILTER":"Filter",
   "CLEAR":"Clear",
-  "DEVICE_NAME":"Device name"
-  
+  "DEVICE_NAME":"Device name",
+  "DATERANGE.APPLYLABEL":"Select dates",
+  "DEVICE_STATE": "Device state",
+  "DEVICE_ENABLED": "Enabled"
 }
