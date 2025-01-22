@@ -100,6 +100,9 @@
   "CMP_ID": "Company",
   "FILTER":"Filter",
   "CLEAR":"Clear",
-  "DEVICE_NAME":"Device name"
+  "DEVICE_NAME":"Device name",
+  "LOTS": "Lots",
+  "LOT_NAME": "Lot name",
+  "LOT_HISTORY": "Lot history"
   
 }
