@@ -29,8 +29,8 @@ $success-color: #4caf50;
   background-color: transparent;
 }
 
-.o-column > div.o-container .o-container-scroll.o-container-gap,
-.o-row > div.o-container .o-container-scroll.o-container-gap {
+.o-column>div.o-container .o-container-scroll.o-container-gap,
+.o-row>div.o-container .o-container-scroll.o-container-gap {
   padding: 15px;
 }
 
@@ -81,8 +81,7 @@ $success-color: #4caf50;
 /* Barra arriba */
 .o-app-header {
   nav {
-      background: $primary-color !important;
-      color: $secondary-color !important;
+    background: $primary-color !important;
   }
 }
 
@@ -108,7 +107,7 @@ $success-color: #4caf50;
 
 /* Encabezados de las tabla */
 .mat-mdc-header-cell.mdc-data-table__header-cell {
-  background-color: $secondary-color !important;
+  background-color: #1c4e78 !important;
   color: $primary-color !important;
 }
 
@@ -126,7 +125,12 @@ tr.mat-mdc-row.mdc-data-table__row.cdk-row:nth-child(even) {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 10px; /* Ajusta la altura según sea necesario */
+  height: 10px;
+}
+
+.o-table .mat-mdc-table .mat-mdc-header-row .mat-mdc-header-cell .column-filter-icon,
+.mat-sort-header-arrow {
+  color: $primary-color !important;
 }
 
 /* Contenedor del título */
@@ -139,33 +143,62 @@ tr.mat-mdc-row.mdc-data-table__row.cdk-row:nth-child(even) {
 }
 
 /* Botones */
-.o-table-button-add.o-table-button.text.ng-star-inserted > .mdc-button.mdc-button--outlined.mat-mdc-outlined-button.mat-unthemed.mat-mdc-button-base.ng-star-inserted {
+.o-table-button-add.o-table-button.text.ng-star-inserted>.mdc-button.mdc-button--outlined.mat-mdc-outlined-button.mat-unthemed.mat-mdc-button-base.ng-star-inserted {
   background-color: $accent-color;
   color: $primary-color;
+  transition: background-color 0.3s;
+}
+
+.o-table-button-add.o-table-button.text.ng-star-inserted>.mdc-button.mdc-button--outlined.mat-mdc-outlined-button.mat-unthemed.mat-mdc-button-base.ng-star-inserted:hover {
+  background-color: #4193d5;
+  transition: background-color 0.3s;
 }
 
 .o-form-toolbar-button.o-form-toolbar-button-delete.mdc-button.mdc-button--outlined.mat-mdc-outlined-button.mat-unthemed.mat-mdc-button-base.ng-star-inserted,
 .o-form-toolbar-button.o-form-toolbar-button-cancel.mdc-button.mdc-button--outlined.mat-mdc-outlined-button.mat-unthemed.mat-mdc-button-base.ng-star-inserted {
   background-color: $error-color;
   color: $primary-color;
+  transition: background-color 0.3s;
 }
 
 .o-form-toolbar-button.o-form-toolbar-button-save.mdc-button.mdc-button--outlined.mat-mdc-outlined-button.mat-unthemed.mat-mdc-button-base.ng-star-inserted,
 .o-form-toolbar-button.o-form-toolbar-button-insert.mdc-button.mdc-button--outlined.mat-mdc-outlined-button.mat-primary.mat-mdc-button-base.ng-star-inserted {
   background-color: $success-color;
   color: $primary-color;
+  transition: background-color 0.3s;
+
+  .mat-icon {
+    color: $primary-color !important;
+    transition: background-color 0.3s;
+  }
+}
+
+.o-form-toolbar-button.o-form-toolbar-button-save.mdc-button.mdc-button--outlined.mat-mdc-outlined-button.mat-unthemed.mat-mdc-button-base.ng-star-inserted:hover,
+.o-form-toolbar-button.o-form-toolbar-button-insert.mdc-button.mdc-button--outlined.mat-mdc-outlined-button.mat-primary.mat-mdc-button-base.ng-star-inserted:hover {
+  background-color: #52c656 !important;
+  transition: background-color 0.3s;
+}
+
+.o-form-toolbar-button.o-form-toolbar-button-save.mdc-button.mdc-button--outlined.mat-mdc-outlined-button.mat-unthemed.mat-mdc-button-base.ng-star-inserted:disabled {
+  background-color: #aaa !important;
+  transition: background-color 0.3s;
+}
+
+.o-form-toolbar-button.o-form-toolbar-button-delete.mdc-button.mdc-button--outlined.mat-mdc-outlined-button.mat-unthemed.mat-mdc-button-base.ng-star-inserted:hover,
+.o-form-toolbar-button.o-form-toolbar-button-cancel.mdc-button.mdc-button--outlined.mat-mdc-outlined-button.mat-unthemed.mat-mdc-button-base.ng-star-inserted:hover {
+  background-color: #ff5656;
+  transition: background-color 0.3s;
 }
 
 /* Campos rellenables */
 .mat-mdc-text-field-wrapper.mdc-text-field.mdc-text-field--filled {
   display: inline-block;
   width: 100%;
-  max-width: 300px;
-  font-family: Arial, sans-serif;
+  max-width: 400px;
   position: relative;
-  background-color: $primary-color; 
+  background-color: $primary-color;
   border: 2px solid #ddd;
-  border-radius: 8px;
+  // border-radius: 8px;
   transition: border-color 0.3s, box-shadow 0.3s;
 }
 
@@ -177,15 +210,9 @@ tr.mat-mdc-row.mdc-data-table__row.cdk-row:nth-child(even) {
   border-color: $accent-color;
 }
 
-.mat-mdc-text-field-wrapper.mdc-text-field.mdc-text-field--filled input {
-  padding: 4px 0px;
-  font-size: 14px;
-  color: #333;
-  background: transparent;
-}
-
 .mat-mdc-text-field-wrapper.mdc-text-field.mdc-text-field--filled input::placeholder {
-  color: #aaa; /* Color del texto de marcador */
+  color: #aaa;
+  /* Color del texto de marcador */
   font-style: italic;
 }
 
@@ -197,4 +224,13 @@ tr.mat-mdc-row.mdc-data-table__row.cdk-row:nth-child(even) {
 
 .inline-fields input {
   flex: 1;
+}
+
+.inline-fields .mat-mdc-text-field-wrapper.mdc-text-field.mdc-text-field--filled {
+  height: 50px;
+  padding: 0px 5px;
+  font-size: 14px;
+  color: #333;
+  background: transparent;
+  line-height: 1.6;
 }
