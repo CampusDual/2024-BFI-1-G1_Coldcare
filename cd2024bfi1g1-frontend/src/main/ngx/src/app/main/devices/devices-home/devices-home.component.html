@@ -1,7 +1,11 @@
-<o-table attr="devicesTable" service="devices" entity="lastTime" keys="DEV_ID" columns="DEV_ID;DEV_NAME;USR_ID"
-    visible-columns="DEV_NAME;ME_DATE" insert-button="false" delete-button="false">
+<o-table attr="devicesTable" service="devices" entity="lastTime" keys="DEV_ID"
+    columns="DEV_ID;DEV_NAME;DEV_STATE;USR_ID" visible-columns="DEV_NAME;ME_DATE;DEV_STATE" insert-button="false"
+    delete-button="false">
     <o-table-column attr="ME_DATE" title="LATEST_READING">
         <app-devices-column-renderer></app-devices-column-renderer>
     </o-table-column>
     <o-table-column attr="DEV_NAME" title="IDENTIFIER"></o-table-column>
+    <o-table-column attr="DEV_STATE" title="DEVICE_STATE">
+        <app-devices-boolean-renderer></app-devices-boolean-renderer>
+    </o-table-column>
 </o-table>
