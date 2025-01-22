@@ -103,5 +103,7 @@
   "DEVICE_NAME":"Nombre de dispositivo",
   "DATERANGE.APPLYLABEL":"Seleccionar fechas",
   "DEVICE_STATE": "Estado del dispositivo",
-  "DEVICE_ENABLED": "Habilitado"
+  "DEVICE_ENABLED": "Habilitado",
+  "DEVICE_PERSISTANCE":"Persistencia del dispositivo"
+  
 }

@@ -103,5 +103,7 @@
   "DEVICE_NAME":"Device name",
   "DATERANGE.APPLYLABEL":"Select dates",
   "DEVICE_STATE": "Device state",
-  "DEVICE_ENABLED": "Enabled"
+  "DEVICE_ENABLED": "Enabled",
+  "DEVICE_PERSISTANCE":"Device persistance"
+  
 }
