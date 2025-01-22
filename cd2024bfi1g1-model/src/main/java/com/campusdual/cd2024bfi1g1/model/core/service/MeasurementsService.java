@@ -50,9 +50,14 @@ public class MeasurementsService implements IMeasurementsService {
         List<String> attributes = new ArrayList<>();
         attributes.add(DevicesDao.DEV_ID);
         attributes.add(DevicesDao.DEV_MAC);
+        attributes.add(DevicesDao.DEV_STATE);
         EntityResult query = devicesService.devicesQuery(mac, attributes);
         if (!query.isEmpty() && !query.isWrong()) {
             Map<String, Object> row = query.getRecordValues(0);
+            Boolean devState = (Boolean) row.get(DevicesDao.DEV_STATE);
+            if (devState != null && !devState) {
+                return new EntityResultMapImpl(EntityResult.OPERATION_SUCCESSFUL, EntityResult.NODATA_RESULT);
+            }
             attrMap.put(MeasurementsDao.DEV_ID, row.get(DevicesDao.DEV_ID));
             return this.daoHelper.insert(this.measurementsDao, attrMap);
         } else if (query.isEmpty()) {
