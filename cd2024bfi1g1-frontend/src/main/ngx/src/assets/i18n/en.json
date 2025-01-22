@@ -103,5 +103,6 @@
   "HUMIDITY": "Humidity (%)",
   "IDENTIFIER": "Name",
   "MEASUREMENTS": "Measurements",
-  "TEMPERATURE": "Temperature (ºC)"
+  "TEMPERATURE": "Temperature (ºC)",
+  "DEVICE_PERSISTANCE": "Device persistence"
 }
