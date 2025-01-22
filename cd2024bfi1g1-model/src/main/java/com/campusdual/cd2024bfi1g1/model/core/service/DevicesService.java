@@ -19,9 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.campusdual.cd2024bfi1g1.model.core.dao.DevicesDao.DEV_MAC;
-import static com.campusdual.cd2024bfi1g1.model.core.dao.DevicesDao.DEV_NAME;
-import static com.campusdual.cd2024bfi1g1.model.core.dao.DevicesDao.CMP_ID;
+import static com.campusdual.cd2024bfi1g1.model.core.dao.DevicesDao.*;
 
 @Service("DevicesService")
 @Lazy
@@ -49,6 +47,7 @@ public class DevicesService implements IDevicesService {
     @Override
     public EntityResult devicesInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException {
         attrMap.put(DEV_NAME, attrMap.get(DEV_MAC));
+        attrMap.put(DEV_PERSISTENCE, 0);
         return this.daoHelper.insert(this.devicesDao, attrMap);
     }
 
@@ -88,4 +87,12 @@ public class DevicesService implements IDevicesService {
         return this.daoHelper.query(this.devicesDao, keyMap, attrList, "last_time");
     }
 
+    public EntityResult lastTimeWithoutCMP(Map<String, Object> keyMap, List<String> attrList)
+            throws OntimizeJEERuntimeException {
+
+        return this.daoHelper.query(this.devicesDao, keyMap, attrList, "last_time");
+    }
+
 }
+
+
