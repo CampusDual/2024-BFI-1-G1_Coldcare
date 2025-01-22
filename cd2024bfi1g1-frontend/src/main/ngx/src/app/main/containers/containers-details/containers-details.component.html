@@ -1,8 +1,16 @@
-<mat-tab-group>
-  <mat-tab label="{{ 'DEVICES' | oTranslate }}"> 
-    <app-containers-devices></app-containers-devices>
-  </mat-tab>
-  <mat-tab label="{{ 'EDIT_CONTAINER' | oTranslate }}">
-    <app-containers-edit></app-containers-edit>
-  </mat-tab>
-</mat-tab-group>
+<o-form attr="containers_form_update" keys="CNT_ID" query-on-init="true" keys-sql-types="INTEGER" service="containers"
+  entity="containers" columns="CNT_NAME" visible-columns="CNT_NAME" keys="CNT_ID" fxLayout="column" show-header="yes"
+  header-actions="R;U" #oForm after-update-mode="detail" class="standalone-form-container">
+  <o-row attr="row1" layout-align="start stretch">
+    <o-column title="CONTAINER_DATA" layout-align="start stretch" fxFlex="60" layout-padding>
+      <div fxLayout="row" fxLayoutAlign="start center" class="gap">
+        <o-text-input attr="CNT_NAME" class="margin-right-24" fxFlex.lg="30" fxFlex.xl="30" fxFlex="50"></o-text-input>
+      </div>
+    </o-column>
+  </o-row>
+  <o-table attr="devicesTable" service="devices" entity="devContainer" include-parent-keys="yes" parent-keys="CNT_ID"
+    query-on-init="true" keys="DEV_ID" columns="DEV_ID;DEV_NAME;CNT_ID" visible-columns="DEV_NAME" insert-button="false"
+    delete-button="false" refresh-button = "false">
+    <o-table-column attr="DEV_NAME" title="IDENTIFIER"></o-table-column>
+  </o-table>
+</o-form>
