@@ -20,7 +20,10 @@
             <Sentence>
                 <![CDATA[
                     SELECT
-                        DISTINCT #COLUMNS#, MAX(ME_DATE) AS "ME_DATE"
+                        DISTINCT #COLUMNS#,
+                        MAX(ME_TEMP) AS "ME_TEMP",
+                        MAX(ME_HUMIDITY) AS "ME_HUMIDITY",
+                        MAX(ME_DATE) AS "ME_DATE"
                     FROM
                         ${mainschema}.devices d
                     INNER JOIN ${mainschema}.measurements m
