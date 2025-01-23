@@ -30,16 +30,17 @@
             </Sentence>
         </Query>
         <Query id="devicesWithoutUser">
+            <AmbiguousColumns>
+                <AmbiguousColumn name="CMP_ID" prefix="d"/>
+            </AmbiguousColumns>
             <Sentence>
                 <![CDATA[
-                    WITH DEVICES_WITH_NO_USER AS (
-                        SELECT *
-                        FROM DEVICES
-                        WHERE CMP_ID is NULL
-                        )
                     SELECT
                         #COLUMNS#
-                    FROM DEVICES_WITH_NO_USER
+                    FROM
+                        ${mainschema}.devices d
+                    LEFT JOIN ${mainschema}.companies c
+                    ON d.CMP_ID = c.CMP_ID
                     #WHERE#
                     #ORDER#
                 ]]>
