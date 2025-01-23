@@ -53,12 +53,20 @@ export class DevicesGraphComponent {
     this.chartParametersHum.useInteractiveGuideline = false;
     this.chartParametersHum.xAxis = "ME_DATE";
     this.chartParametersHum.yAxis = ["ME_HUMIDITY"];
-    this.chartParametersHum.xDataType = "timeDetail";
+    this.chartParametersHum.xDataType = (d: number): string => {
+      const date = new Date(d);
+      const day = String(date.getDate()).padStart(2, '0');
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const hours = String(date.getHours()).padStart(2, '0');
+      const minutes = String(date.getMinutes()).padStart(2, '0');
+
+      return `${day}/${month} ${hours}:${minutes}`;
+    };
+    this.chartParametersHum['showTooltip'] = true;
+
   }
 
   createFilter(values: Array<{ attr, value }>): Expression {
-
-    console.log('Valores del filtro:', values);
 
     let filters: Array<Expression> = [];
     values.forEach(fil => {
@@ -74,8 +82,6 @@ export class DevicesGraphComponent {
         }
       }
     });
-
-    console.log('Filtros generados:', filters);
 
     if (filters.length > 0) {
       return filters.reduce((exp1, exp2) => FilterExpressionUtils.buildComplexExpression(exp1, exp2, FilterExpressionUtils.OP_AND));
