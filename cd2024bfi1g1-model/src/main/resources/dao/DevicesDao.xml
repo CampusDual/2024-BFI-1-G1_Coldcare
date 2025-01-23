@@ -19,17 +19,14 @@
             </AmbiguousColumns>
             <Sentence>
                 <![CDATA[
-                    SELECT
-                        DISTINCT #COLUMNS#,
-                        MAX(ME_TEMP) AS "ME_TEMP",
-                        MAX(ME_HUMIDITY) AS "ME_HUMIDITY",
-                        MAX(ME_DATE) AS "ME_DATE"
+                    SELECT DISTINCT ON (d.DEV_ID)
+                        #COLUMNS#
                     FROM
                         ${mainschema}.devices d
                     INNER JOIN ${mainschema}.measurements m
                         ON d.DEV_ID = m.DEV_ID
                     #WHERE#
-                    GROUP BY DEV_MAC, d.DEV_ID, CMP_ID
+                    ORDER BY d.DEV_ID, m.ME_DATE DESC;
                 ]]>
             </Sentence>
         </Query>
