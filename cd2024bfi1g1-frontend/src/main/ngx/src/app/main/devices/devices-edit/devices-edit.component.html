@@ -3,8 +3,10 @@
   <div class="inline-fields">
     <o-text-input attr="DEV_MAC" read-only="true"></o-text-input>
     <o-text-input attr="DEV_NAME" label="DEVICE_NAME" required="true"></o-text-input>
-    <o-integer-input attr="DEV_PERSISTENCE" min="0"
-      required="true"></o-integer-input>
+    <o-combo attr="CNT_ID" label="Assign to Container" service="containers" entity="containers" value-column="CNT_ID"
+      columns="CNT_ID;CNT_NAME" visible-columns="CNT_NAME" null-selection="yes" searchable="yes" clear-button="yes">
+    </o-combo>
+    <o-integer-input attr="DEV_PERSISTENCE" min="0" required="true"></o-integer-input>
     <o-checkbox attr="DEV_STATE" label="DEVICE_ENABLED" read-only="no"></o-checkbox>
     <o-text-input attr="DEV_ID"  read-only="true" hidden></o-text-input>
   </div>

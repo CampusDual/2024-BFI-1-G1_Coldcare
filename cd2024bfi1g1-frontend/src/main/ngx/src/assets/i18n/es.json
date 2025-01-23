@@ -13,8 +13,10 @@
   "CONTAINER_DATA": "Datos del contenedor",
   "DATA": "Datos",
   "DATE": "Fecha",
-  "DATE_RANGE_INPUT": "Elige el rango de fechas a filtrar",
+  "DATE_RANGE_INPUT": "Elige el rango de fechas",
   "DATE_RANGE_LABEL": "Rango de fechas",
+  "DEVICE_NAME_LABEL":"Nombre del dispositivo",
+  "DEVICE_NAME_INPUT":"Elige tu dispositivo",  
   "DARK_MODE": "Modo nocturno",
   "delete": "Borrar",
   "ERROR_MIN_LENGTH_REQUIRED": "El valor introducido tiene que tener una longitud mínima de 8 caracteres.",
@@ -106,5 +108,6 @@
   "IDENTIFIER": "Nombre",
   "MEASUREMENTS": "Medidas",
   "TEMPERATURE": "Temperatura (ºC)",
-  "DEV_PERSISTENCE": "Intervalo de persistencia (minutos)"
+  "DEV_PERSISTENCE": "Intervalo de persistencia (minutos)",
+  "EDIT_CONTAINER": "Editar contenedor"
 }
