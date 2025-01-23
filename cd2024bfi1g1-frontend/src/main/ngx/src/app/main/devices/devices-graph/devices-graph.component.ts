@@ -16,7 +16,7 @@ export class DevicesGraphComponent {
   chartData = [];
 
   chartParameters: LineChartConfiguration;
-  
+
   colorScheme = {
     domain: ['#1464A5', '#eeeeee', '#c5c5c5']
   };
@@ -28,7 +28,16 @@ export class DevicesGraphComponent {
     this.chartParameters.useInteractiveGuideline = false;
     this.chartParameters.xAxis = "ME_DATE";
     this.chartParameters.yAxis = ["ME_TEMP"];
-    this.chartParameters.xDataType = "timeDetail";
+    this.chartParameters.xDataType = (d: number): string => {
+      const date = new Date(d);
+      const day = String(date.getDate()).padStart(2, '0');
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const hours = String(date.getHours()).padStart(2, '0');
+      const minutes = String(date.getMinutes()).padStart(2, '0');
+
+      return `${day}/${month} ${hours}:${minutes}`;
+    };
+    this.chartParameters['showTooltip'] = true;
   }
 
   createFilter(values: Array<{ attr, value }>): Expression {

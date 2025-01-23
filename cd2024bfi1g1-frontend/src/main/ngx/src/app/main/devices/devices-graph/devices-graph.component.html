@@ -1,4 +1,4 @@
-<o-form attr="medidasTable" include-parent-keys="yes" parent-keys="DEV_ID" keys-sql-types="INTEGER" service="devices"
+<o-form attr="devicesTable" include-parent-keys="yes" parent-keys="DEV_ID" keys-sql-types="INTEGER" service="devices"
     entity="devices" show-header="false">
     <o-text-input attr="DEV_MAC"></o-text-input>
     <o-text-input attr="DEV_ID"></o-text-input>
@@ -25,8 +25,7 @@
 
         <o-table #measurementsTable attr="tablaMedidas" service="measurements" entity="measurements"
             columns="ME_DATE;ME_TEMP" (onDataLoaded)="fillChart()">
-            <o-table-column attr="ME_DATE" title="DATE" type="date" format="DD/MM/YYYY HH:mm:ss"></o-table-column>
-            <o-table-column attr="ME_TEMP" title="TEMPERATURE"></o-table-column>
+
         </o-table>
 
         <o-chart #lineChartBasic type="line" [chart-parameters]="chartParameters" x-label="{{ 'TIME' | oTranslate }}"
