@@ -26,7 +26,7 @@
                     INNER JOIN ${mainschema}.measurements m
                         ON d.DEV_ID = m.DEV_ID
                     #WHERE#
-                    GROUP BY DEV_MAC, d.DEV_ID, USR_ID
+                    GROUP BY DEV_MAC, d.DEV_ID, CMP_ID
                 ]]>
             </Sentence>
         </Query>
@@ -49,7 +49,7 @@
                     WITH DEVICES_WITH_NO_USER AS (
                         SELECT *
                         FROM DEVICES
-                        WHERE USR_ID is NULL
+                        WHERE CMP_ID is NULL
                         )
                     SELECT
                         #COLUMNS#

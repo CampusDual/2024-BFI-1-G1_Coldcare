@@ -1,31 +1,33 @@
 <o-form attr="medidasTable" include-parent-keys="yes" parent-keys="DEV_ID" keys-sql-types="INTEGER" service="devices"
     entity="devices" show-header="false">
-      <o-text-input attr="DEV_MAC"></o-text-input>
-      <o-text-input attr="DEV_ID"></o-text-input>
-      
-      <o-column>
-          <div fxLayout="column" layout-padding>
-              <label class="input-comp-title">{{ 'DATE_RANGE_LABEL' | oTranslate }}</label>
-              <o-daterange-input attr="ME_DATE" label="{{ 'DATE_RANGE_INPUT' | oTranslate }}" read-only="no" 
-              required="no" format="DD/MM/YYYY" show-week-numbers="true" mode="desktop" automatic-binding="false">
-              </o-daterange-input>
-          </div>
-          <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="8px">
-              <o-button attr="filter" [oFilterBuilderQuery]="filterBuilder" type="RAISED" color="primary" label="Filter" class="filter-button"></o-button>
-              <o-button attr="clear" [oFilterBuilderClear]="filterBuilder" type="RAISED" label="Clear" class="filter-button"></o-button>
-          </div>
+    <o-text-input attr="DEV_MAC"></o-text-input>
+    <o-text-input attr="DEV_ID"></o-text-input>
 
-      <o-filter-builder #filterBuilder attr="thefilter" filters="DEV_ID:DEV_ID;ME_DATE:ME_DATE" [target]="measurementsTable"
-      query-on-change="no" [expression-builder]="createFilter"></o-filter-builder>
+    <o-column>
+        <div class="inline-fields" fxLayout="column" layout-padding>
+            <label class="input-comp-title">{{ 'DATE_RANGE_LABEL' | oTranslate }}</label>
+            <o-daterange-input attr="ME_DATE" label="{{ 'DATE_RANGE_INPUT' | oTranslate }}" read-only="no" required="no"
+                format="DD/MM/YYYY" show-week-numbers="true" mode="desktop" automatic-binding="false" translate="yes">
+            </o-daterange-input>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="8px">
+            <o-button attr="filter" [oFilterBuilderQuery]="filterBuilder" type="RAISED" color="primary"
+                label="{{ 'FILTER' | oTranslate }}" class="filter-button"></o-button>
+            <o-button attr="clear" [oFilterBuilderClear]="filterBuilder" type="RAISED"
+                label="{{ 'CLEAR' | oTranslate }}" class="filter-button"></o-button>
+        </div>
 
-      <o-table #measurementsTable attr="tablaMedidas" service="measurements" entity="measurements" columns="ME_DATE;ME_TEMP"
-      (onDataLoaded)="fillChart()">
-          <o-table-column attr="ME_DATE" title="DATE" type="date" format="DD/MM/YYYY HH:mm:ss"></o-table-column>
-          <o-table-column attr="ME_TEMP" title="TEMPERATURE"></o-table-column>
-      </o-table>
-      
-      <o-chart #lineChartBasic type="line" [chart-parameters]="chartParameters" x-label="{{ 'TIME' | oTranslate }}" y-label="Temperature (ºC)"
-      [color]="colorScheme" [data]="dataArray"></o-chart>
-      
+        <o-filter-builder #filterBuilder attr="thefilter" filters="DEV_ID:DEV_ID;ME_DATE:ME_DATE"
+            [target]="measurementsTable" query-on-change="no" [expression-builder]="createFilter"></o-filter-builder>
+
+        <o-table #measurementsTable attr="tablaMedidas" service="measurements" entity="measurements"
+            columns="ME_DATE;ME_TEMP" (onDataLoaded)="fillChart()">
+            <o-table-column attr="ME_DATE" title="DATE" type="date" format="DD/MM/YYYY HH:mm:ss"></o-table-column>
+            <o-table-column attr="ME_TEMP" title="TEMPERATURE"></o-table-column>
+        </o-table>
+
+        <o-chart #lineChartBasic type="line" [chart-parameters]="chartParameters" x-label="{{ 'TIME' | oTranslate }}"
+            y-label="{{ 'TEMPERATURE' | oTranslate }}" [color]="colorScheme" [data]="dataArray"></o-chart>
+
     </o-column>
-    </o-form>
+</o-form>

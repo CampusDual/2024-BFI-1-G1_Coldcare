@@ -28,5 +28,6 @@ public class UserDao extends OntimizeJdbcDaoSupport {
 	public static final String PHONE         = "usr_phone";
 	public static final String OLD_PASSWORD  = "old_password";
 	public static final String NEW_PASSWORD  = "new_password";
+	public static final String CMP_ID  		 = "cmp_id";
 
 }
