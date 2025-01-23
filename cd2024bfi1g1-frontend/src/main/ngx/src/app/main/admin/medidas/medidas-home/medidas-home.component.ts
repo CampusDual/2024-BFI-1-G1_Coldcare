@@ -7,13 +7,6 @@ import { Expression, FilterExpressionUtils } from "ontimize-web-ngx";
   styleUrls: ["./medidas-home.component.css"],
 })
 export class MedidasAdminComponent {
-
-  colorScheme = {
-    domain: ["#1464A5", "#eeeeee", "#c5c5c5"],
-  };
-
-  constructor() {}
-  
   createFilter(values: Array<{ attr: string; value: any }>): Expression {
     let filters: Array<Expression> = [];
 
@@ -22,7 +15,9 @@ export class MedidasAdminComponent {
         switch (fil.attr) {
           case "DEV_ID":
             // Filtrar por ID del dispositivo
-            filters.push(FilterExpressionUtils.buildExpressionEquals("DEV_ID", fil.value));
+            filters.push(
+              FilterExpressionUtils.buildExpressionEquals("DEV_ID", fil.value)
+            );
             break;
 
           case "ME_DATE":
@@ -30,16 +25,14 @@ export class MedidasAdminComponent {
             if (fil.value.startDate) {
               filters.push(
                 FilterExpressionUtils.buildExpressionMoreEqual(
-                  "ME_DATE",
-                  fil.value.startDate._d.getTime()
+                  "ME_DATE", fil.value.startDate._d.getTime()
                 )
               );
             }
             if (fil.value.endDate) {
               filters.push(
                 FilterExpressionUtils.buildExpressionLessEqual(
-                  "ME_DATE",
-                  fil.value.endDate._d.getTime()
+                  "ME_DATE", fil.value.endDate._d.getTime()
                 )
               );
             }
@@ -49,8 +42,7 @@ export class MedidasAdminComponent {
             // Filtrar por nombre del dispositivo (insensible a mayúsculas/minúsculas)
             filters.push(
               FilterExpressionUtils.buildExpressionLike(
-                "DEV_NAME",
-                `%${fil.value}%`
+                "DEV_NAME", `%${fil.value}%`
               )
             );
             break;
@@ -65,11 +57,14 @@ export class MedidasAdminComponent {
     // Combinar los filtros con el operador AND si hay más de uno
     if (filters.length > 0) {
       return filters.reduce((exp1, exp2) =>
-        FilterExpressionUtils.buildComplexExpression(exp1, exp2, FilterExpressionUtils.OP_AND)
+        FilterExpressionUtils.buildComplexExpression(
+          exp1,
+          exp2,
+          FilterExpressionUtils.OP_AND
+        )
       );
     } else {
       return null; // Sin filtros aplicados
     }
   }
-
 }
