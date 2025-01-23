@@ -16,6 +16,8 @@
   "DATE": "Fecha",
   "DATE_RANGE_INPUT": "Elige el rango de fechas a filtrar",
   "DATE_RANGE_LABEL": "Rango de fechas",
+  "DEVICE_NAME_LABEL":"Nombre del dispositivo",
+  "DEVICE_NAME_INPUT":"Escribe el nombre de tu dispositivo",  
   "DARK_MODE": "Modo nocturno",
   "delete": "Borrar",
   "DEVICES": "Dispositivos",
