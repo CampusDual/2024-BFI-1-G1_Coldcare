@@ -1,8 +1,5 @@
-<mat-tab-group>
-  <mat-tab label="{{ 'GRAPH' | oTranslate }}"> 
-    <app-devices-graph></app-devices-graph>
-  </mat-tab>
-  <mat-tab label="{{ 'DATA' | oTranslate }}">
-    <app-devices-edit></app-devices-edit>
-  </mat-tab>
-</mat-tab-group>
+<o-form attr="devicesTable" parent-keys="DEV_ID" keys="DEV_ID" keys-sql-types="INTEGER" service="devices"
+  entity="devices" header-actions="R;U">
+  <app-devices-edit></app-devices-edit>
+  <app-devices-graph></app-devices-graph>
+</o-form>
