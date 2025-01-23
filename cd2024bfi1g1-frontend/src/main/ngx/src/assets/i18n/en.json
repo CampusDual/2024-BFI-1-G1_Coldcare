@@ -13,8 +13,10 @@
   "CONTAINER_DATA": "Container data",
   "DATA": "Data",
   "DATE": "Date",
-  "DATE_RANGE_INPUT": "Choose a range of dates to filter",
+  "DATE_RANGE_INPUT": "Choose a range of dates",
   "DATE_RANGE_LABEL": "Date Range",
+  "DEVICE_NAME_LABEL":"Device Name",
+  "DEVICE_NAME_INPUT":"Choose your device", 
   "DARK_MODE": "Dark Mode",
   "delete": "Delete",
   "ERROR_MIN_LENGTH_REQUIRED": "The value length entered must be at least 8 characters.",
@@ -104,5 +106,6 @@
   "IDENTIFIER": "Name",
   "MEASUREMENTS": "Measurements",
   "TEMPERATURE": "Temperature (ºC)",
-  "DEV_PERSISTENCE": "Persistence interval (minutes)"
+  "DEV_PERSISTENCE": "Persistence interval (minutes)",
+  "EDIT_CONTAINER": "Edit container"
 }
