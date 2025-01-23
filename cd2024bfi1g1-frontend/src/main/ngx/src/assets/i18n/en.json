@@ -104,5 +104,6 @@
   "IDENTIFIER": "Name",
   "MEASUREMENTS": "Measurements",
   "TEMPERATURE": "Temperature (ºC)",
-  "DEV_PERSISTENCE": "Persistence interval (minutes)"
+  "DEV_PERSISTENCE": "Persistence interval (minutes)",
+  "EDIT_CONTAINER": "Edit container"
 }
