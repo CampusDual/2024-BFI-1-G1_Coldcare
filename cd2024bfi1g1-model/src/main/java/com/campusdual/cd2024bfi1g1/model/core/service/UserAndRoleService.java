@@ -10,6 +10,7 @@ import com.campusdual.cd2024bfi1g1.model.core.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -126,6 +127,22 @@ public class UserAndRoleService implements IUserAndRoleService {
 	@Secured({ PermissionsProviderSecured.SECURED })
 	public EntityResult roleQuery(final Map<?, ?> keysValues, final List<?> attributes) throws OntimizeJEERuntimeException {
 		return this.daoHelper.query(this.roleDao, keysValues, attributes);
+	}
+
+	@Override
+	public EntityResult myRoleQuery(Map<?, ?> keysValues, List<?> attributes) throws OntimizeJEERuntimeException {
+
+
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		EntityResult e = new EntityResultMapImpl();
+		Map<String, String> map = new HashMap<>();
+		String role = authentication.getAuthorities().toArray()[0].toString();
+
+		map.put(RoleDao.ROL_NAME, role);
+
+		e.addRecord(map);
+
+		return this.daoHelper.query(this.roleDao, map, attributes);
 	}
 
 	/*

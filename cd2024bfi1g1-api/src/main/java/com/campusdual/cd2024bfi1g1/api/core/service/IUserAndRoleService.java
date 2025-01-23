@@ -104,6 +104,8 @@ public interface IUserAndRoleService {
 	 */
 	EntityResult roleQuery(Map<?, ?> keysValues, List<?> attributes) throws OntimizeJEERuntimeException;
 
+	EntityResult myRoleQuery(Map<?, ?> keysValues, List<?> attributes) throws OntimizeJEERuntimeException;
+
 	/**
 	 * Roles pagination query.
 	 *

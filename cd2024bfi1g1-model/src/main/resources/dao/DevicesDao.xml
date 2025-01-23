@@ -11,6 +11,7 @@
         <Column>DEV_ID</Column>
     </UpdateKeys>
     <GeneratedKey>dev_id</GeneratedKey>
+    
     <Queries>
         <Query id="last_time">
             <AmbiguousColumns>
@@ -26,6 +27,19 @@
                         ON d.DEV_ID = m.DEV_ID
                     #WHERE#
                     GROUP BY DEV_MAC, d.DEV_ID, CMP_ID
+                ]]>
+            </Sentence>
+        </Query>
+        <Query id="get_devices_in_container">
+            <Sentence>
+                <![CDATA[
+                    
+                    SELECT
+                        #COLUMNS#
+                    FROM
+                        ${mainschema}.devices d
+                    
+                    #WHERE#
                 ]]>
             </Sentence>
         </Query>
