@@ -102,7 +102,7 @@
   "DEVICE_PERSISTANCE": "Persistencia del dispositivo",
   "LOT_DATA": "Datos del lote",
   "CLEAR": "Limpiar",
-  "CNT_NAME": "Nombre",
+  "CNT_NAME": "Nombre del contenedor",
   "DATERANGE.W": "S",
   "DEVICES": "Dispositivos",
   "FILTER": "Filtrar",
@@ -111,5 +111,7 @@
   "MEASUREMENTS": "Medidas",
   "TEMPERATURE": "Temperatura (ºC)",
   "DEV_PERSISTENCE": "Intervalo de persistencia (minutos)",
-  "EDIT_CONTAINER": "Editar contenedor"
+  "EDIT_CONTAINER": "Editar contenedor",
+  "CURRENT_LOT": "Lote actual",
+  "DEV_NAME": "Nombre del dispositivo"
 }

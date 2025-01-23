@@ -79,17 +79,7 @@ public class DevicesService implements IDevicesService {
 
         return this.daoHelper.query(this.devicesDao, keyMap, attrList, "last_time");
     }
-    @Override
-    public EntityResult devContainerQuery(Map<String, Object> keyMap, List<String> attrList)
-            throws OntimizeJEERuntimeException {
-        return this.daoHelper.query(this.devicesDao, keyMap, attrList,"get_devices_in_container");
-    }
 
-    @Override
-    public EntityResult devContainerUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap)
-            throws OntimizeJEERuntimeException {
-        return this.daoHelper.update(this.devicesDao, attrMap, keyMap);
-    }
     public EntityResult lastTimeWithoutCMP(Map<String, Object> keyMap, List<String> attrList)
             throws OntimizeJEERuntimeException {
 

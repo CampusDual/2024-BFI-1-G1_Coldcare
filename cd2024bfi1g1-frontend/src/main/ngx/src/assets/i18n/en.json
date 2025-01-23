@@ -102,7 +102,7 @@
   "DEVICE_PERSISTANCE": "Device persistance",
   "LOT_DATA": "Lot data",
   "CLEAR": "Clear",
-  "CNT_NAME": "Name",
+  "CNT_NAME": "Container name",
   "DATERANGE.W": "W",
   "DEVICES": "Devices",
   "FILTER": "Filter",
@@ -111,5 +111,7 @@
   "MEASUREMENTS": "Measurements",
   "TEMPERATURE": "Temperature (ºC)",
   "DEV_PERSISTENCE": "Persistence interval (minutes)",
-  "EDIT_CONTAINER": "Edit container"
+  "EDIT_CONTAINER": "Edit container",
+  "CURRENT_LOT": "Current lot",
+  "DEV_NAME": "Device name"
 }
