@@ -1,0 +1,13 @@
+<o-form keys-sql-types="INTEGER" parent-keys="CNT_ID;LOT_ID" include-parent-keys="yes" service="lots"
+    entity="measurementLotContainer">
+    <o-integer-input attr="CNT_ID" hidden="yes"></o-integer-input>
+    <o-integer-input attr="LOT_ID" hidden="yes"></o-integer-input>
+    <o-table attr="containerLotMeasurements" service="measurements" entity="measurements" keys="ME_ID"
+        parent-keys="CNT_ID;LOT_ID" columns="ME_DATE;ME_TEMP;ME_HUMIDITY" visible-columns="ME_DATE;ME_TEMP;ME_HUMIDITY"
+        query-rows="20" select-all-checkbox-visible="no" insert-button="no" delete-button="no" refresh-button="yes"
+        quick-filter="no" pageable="true">
+        <o-table-column attr="ME_DATE" title="DATE" type="date" format="DD/MM/YYYY HH:mm:ss"></o-table-column>
+        <o-table-column attr="ME_TEMP" title="TEMPERATURE"></o-table-column>
+        <o-table-column attr="ME_HUMIDITY" title="HUMIDITY"></o-table-column>
+    </o-table>
+</o-form>

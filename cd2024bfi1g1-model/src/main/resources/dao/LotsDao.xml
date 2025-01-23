@@ -57,5 +57,25 @@
                 ]]>
             </Sentence>
         </Query>
+        <Query id="historic_lot_measurements">
+            <AmbiguousColumns>
+                <AmbiguousColumn name="LOT_ID" prefix="cl" />
+                <AmbiguousColumn name="CNT_ID" prefix="cl" />
+            </AmbiguousColumns>
+            <Sentence>
+                <![CDATA[
+                    with cl as (
+                        select distinct lot_id,cnt_id
+                        from measurements m
+                    )
+                    select #COLUMNS#
+                    from cl
+                    inner join containers c on c.cnt_id = cl.cnt_id
+                    inner join lots l on l.lot_id = cl.lot_id
+                    #WHERE#
+                ]]>
+            </Sentence>
+        </Query>
+
     </Queries>
 </JdbcEntitySetup>
