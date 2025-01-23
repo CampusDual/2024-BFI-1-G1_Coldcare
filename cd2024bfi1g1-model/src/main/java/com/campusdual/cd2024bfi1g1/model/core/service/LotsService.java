@@ -4,6 +4,7 @@ package com.campusdual.cd2024bfi1g1.model.core.service;
 import com.campusdual.cd2024bfi1g1.api.core.service.ILotsService;
 import com.campusdual.cd2024bfi1g1.model.core.dao.LotsDao;
 import com.campusdual.cd2024bfi1g1.model.core.dao.DevicesDao;
+import com.campusdual.cd2024bfi1g1.model.core.dao.UserDao;
 import com.ontimize.jee.common.dto.EntityResult;
 import com.ontimize.jee.common.dto.EntityResultMapImpl;
 import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
@@ -25,6 +26,8 @@ public class LotsService implements ILotsService {
     private LotsDao lotsDao;
     @Autowired
     private DefaultOntimizeDaoHelper daoHelper;
+    @Autowired
+    private UserDao userDao;
 
     private Integer getUserId() {
 
@@ -48,8 +51,8 @@ public class LotsService implements ILotsService {
     public EntityResult lotsQuery(Map<String, Object> keyMap, List<String> attrList)
             throws OntimizeJEERuntimeException {
 
-        Integer userId = this.getUserId();
-        keyMap.put(LotsDao.USR_ID, userId);
+        Integer cmpId = UserAndRoleService.getUserCompanyId(this.daoHelper, this.userDao);
+        keyMap.put(DevicesDao.CMP_ID, cmpId);
 
         return this.daoHelper.query(this.lotsDao, keyMap, attrList);
     }
@@ -57,8 +60,8 @@ public class LotsService implements ILotsService {
     @Override
     public EntityResult lotsInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException {
 
-        Integer userId = this.getUserId();
-        attrMap.put(LotsDao.USR_ID, userId);
+        Integer cmpId = UserAndRoleService.getUserCompanyId(this.daoHelper, this.userDao);
+        attrMap.put(DevicesDao.CMP_ID, cmpId);
 
         return this.daoHelper.insert(this.lotsDao, attrMap);
     }

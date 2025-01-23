@@ -29,5 +29,19 @@
                 ]]>
             </Sentence>
         </Query>
+        <Query id="container_lot">
+            <AmbiguousColumns>
+                <AmbiguousColumn name="CNT_ID" prefix="c" />
+            </AmbiguousColumns>
+            <Sentence>
+                <![CDATA[
+                    SELECT #COLUMNS#
+                    FROM devices d
+                    LEFT JOIN containers c ON d.cnt_id = c.cnt_id
+                    #WHERE#
+
+                ]]>
+            </Sentence>
+        </Query>
     </Queries>
 </JdbcEntitySetup>

@@ -6,22 +6,6 @@ CREATE TABLE public.lots (
         CONSTRAINT lot_company_fk FOREIGN KEY (cmp_id) REFERENCES public.companies(cmp_id)
 );
 
-/*CREATE TABLE public.containers_lots(
-         cnt_id int4 NOT NULL,
-         lot_id int4 NOT NULL,
-         CONSTRAINT containers_lots_pk PRIMARY KEY (cnt_id, lot_id),
-         CONSTRAINT containers_lots_containers_fk FOREIGN KEY (cnt_id) REFERENCES public.containers(cnt_id),
-         CONSTRAINT containers_lots_lots_fk FOREIGN KEY (lot_id) REFERENCES public.lots(lot_id)
-);
-
-CREATE TABLE public.historic_container_lots(
-         cnt_id int4 NOT NULL,
-         lot_id int4 NOT NULL,
-         CONSTRAINT historic_container_lots_pk PRIMARY KEY (cnt_id, lot_id),
-         CONSTRAINT historic_container_lots_containers_lots_fk FOREIGN KEY (cnt_id) REFERENCES public.containers(cnt_id),
-         CONSTRAINT historic_container_lots_lots_fk FOREIGN KEY (lot_id) REFERENCES public.lots(lot_id)
-);*/
-
 Alter TABLE public.containers ADD lot_id int4;
 ALTER TABLE public.containers ADD CONSTRAINT containers_lots_fk FOREIGN KEY (lot_id) REFERENCES public.lots(lot_id);
 

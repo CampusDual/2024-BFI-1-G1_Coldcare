@@ -3,6 +3,7 @@ package com.campusdual.cd2024bfi1g1.model.core.service;
 import com.campusdual.cd2024bfi1g1.api.core.service.IContainersService;
 import com.campusdual.cd2024bfi1g1.model.core.dao.ContainersDao;
 import com.campusdual.cd2024bfi1g1.model.core.dao.DevicesDao;
+import com.campusdual.cd2024bfi1g1.model.core.dao.UserDao;
 import com.campusdual.cd2024bfi1g1.model.core.util.Util;
 import com.ontimize.jee.common.dto.EntityResult;
 import com.ontimize.jee.common.dto.EntityResultMapImpl;
@@ -28,11 +29,13 @@ public class ContainersService implements IContainersService {
     private ContainersDao containersDao;
     @Autowired
     private DefaultOntimizeDaoHelper daoHelper;
+    @Autowired
+    private UserDao userDao;
 
-    private boolean changeContainerName(Integer userId, Map<String, Object> attrMap) {
+    private boolean changeContainerName(Integer cmpId, Map<String, Object> attrMap) {
         // Obtener la lista de containers del usuario
         Map<String, Object> keyMap = new HashMap<>();
-        keyMap.put(ContainersDao.USR_ID, userId);
+        keyMap.put(ContainersDao.CMP_ID, cmpId);
         List<String> attrList = new ArrayList<>();
         attrList.add(ContainersDao.CNT_NAME);
         EntityResult existingContainers = this.containersQuery(keyMap, attrList);
@@ -63,8 +66,8 @@ public class ContainersService implements IContainersService {
     public EntityResult containersQuery(Map<String, Object> keyMap, List<String> attrList)
             throws OntimizeJEERuntimeException {
 
-        Integer userId = Util.getUserId();
-        keyMap.put(ContainersDao.USR_ID, userId);
+        Integer cmpId = UserAndRoleService.getUserCompanyId(this.daoHelper, this.userDao);
+        keyMap.put(DevicesDao.CMP_ID, cmpId);
 
         return this.daoHelper.query(this.containersDao, keyMap, attrList);
     }
@@ -72,10 +75,10 @@ public class ContainersService implements IContainersService {
     @Override
     public EntityResult containersInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException {
 
-        Integer userId = Util.getUserId();
-        attrMap.put(ContainersDao.USR_ID, userId);
+        Integer cmpId = UserAndRoleService.getUserCompanyId(this.daoHelper, this.userDao);
+        attrMap.put(DevicesDao.CMP_ID, cmpId);
 
-        if(changeContainerName(userId,attrMap)){
+        if(changeContainerName(cmpId,attrMap)){
             return new EntityResultMapImpl(EntityResult.OPERATION_WRONG, EntityResult.NODATA_RESULT,
                     "Ya existe un contenedor con ese nombre");
         }
@@ -87,10 +90,10 @@ public class ContainersService implements IContainersService {
     public EntityResult containersUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap)
             throws OntimizeJEERuntimeException {
 
-        Integer userId = Util.getUserId();
-        attrMap.put(ContainersDao.USR_ID, userId);
+        Integer cmpId = UserAndRoleService.getUserCompanyId(this.daoHelper, this.userDao);
+        attrMap.put(DevicesDao.CMP_ID, cmpId);
 
-        if(changeContainerName(userId,attrMap)){
+        if(changeContainerName(cmpId,attrMap)){
             return new EntityResultMapImpl(EntityResult.OPERATION_WRONG, EntityResult.NODATA_RESULT,
                     "Ya existe un contenedor con ese nombre");
         }

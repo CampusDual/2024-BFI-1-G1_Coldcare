@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.campusdual.cd2024bfi1g1.model.core.dao.*;
+import com.campusdual.cd2024bfi1g1.model.core.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.access.annotation.Secured;
@@ -14,10 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.campusdual.cd2024bfi1g1.api.core.service.IUserAndRoleService;
-import com.campusdual.cd2024bfi1g1.model.core.dao.RoleDao;
-import com.campusdual.cd2024bfi1g1.model.core.dao.RoleServerPermissionDao;
-import com.campusdual.cd2024bfi1g1.model.core.dao.UserDao;
-import com.campusdual.cd2024bfi1g1.model.core.dao.UserRoleDao;
 import com.ontimize.jee.common.db.AdvancedEntityResult;
 import com.ontimize.jee.common.dto.EntityResult;
 import com.ontimize.jee.common.dto.EntityResultMapImpl;
@@ -403,5 +401,21 @@ public class UserAndRoleService implements IUserAndRoleService {
 				return false;
 			}
 		}
+	}
+
+	public static Integer getUserCompanyId(DefaultOntimizeDaoHelper daoHelper, UserDao userDao){
+		Integer userId = Util.getUserId();
+
+		Map<String, Object> filter = new HashMap<>();
+		filter.put(UserDao.USR_ID, userId);
+		List<String> columns = List.of("CMP_ID");
+
+		EntityResult userEr = daoHelper.query(userDao, filter, columns);
+		if (userEr.isEmpty()) {
+			throw new RuntimeException("Unknown user");
+		}
+
+		Map<String, Object> user = userEr.getRecordValues(0);
+		return (Integer) user.get("CMP_ID");
 	}
 }
