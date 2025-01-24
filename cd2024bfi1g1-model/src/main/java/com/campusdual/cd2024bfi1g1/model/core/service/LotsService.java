@@ -105,8 +105,8 @@ public class LotsService implements ILotsService {
 
         if (minTemp != null && maxTemp != null) {
             try {
-                Integer minTempValue = Integer.parseInt(minTemp.toString());
-                Integer maxTempValue = Integer.parseInt(maxTemp.toString());
+                Float minTempValue = Float.parseFloat(minTemp.toString());
+                Float maxTempValue = Float.parseFloat(maxTemp.toString());
 
                 if (minTempValue > maxTempValue) {
                     throw new OntimizeJEERuntimeException("'min_temp' no puede ser mayor que 'max_temp'.");

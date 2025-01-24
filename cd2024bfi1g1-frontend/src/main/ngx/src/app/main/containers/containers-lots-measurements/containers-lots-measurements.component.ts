@@ -8,9 +8,14 @@ import { Component} from '@angular/core';
 export class ContainersLotsMeasurementsComponent{
 
   public rowClass=(rowData: any, rowIndex: number) : string | string[] =>{
-    console.log({rowData});
-    return "error-row";
-    
-  }
 
+    const temp = rowData.ME_TEMP;
+    const minTemp = rowData.MIN_TEMP;
+    const maxTemp = rowData.MAX_TEMP;    
+
+    if (temp < minTemp || temp > maxTemp) {
+      return "error-row";
+    }
+    return '';
+  }
 }
