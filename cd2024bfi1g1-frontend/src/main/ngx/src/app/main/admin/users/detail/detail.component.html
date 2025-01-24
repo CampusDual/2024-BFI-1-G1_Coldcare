@@ -20,6 +20,13 @@
               <o-text-input attr="USR_NAME" required="yes" fxFlex></o-text-input>
             </div>
           </o-column>
+          <o-column title="company-data-section" appearance="no" layout-gap="15px" fxFlex="1 1 100%"
+            layout-align="start stretch">
+            <div fxLayout="row">
+              <o-combo attr="CMP_ID" service="companies" entity="companies" value-column="CMP_ID"
+                columns="CMP_ID;CMP_NAME" visible-columns="CMP_NAME" null-selection="no" searchable="no"></o-combo>
+            </div>
+          </o-column>
         </div>
       </div>
     </div>
