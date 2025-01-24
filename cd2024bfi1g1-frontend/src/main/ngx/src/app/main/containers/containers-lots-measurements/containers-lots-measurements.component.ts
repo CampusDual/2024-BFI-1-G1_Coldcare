@@ -7,4 +7,15 @@ import { Component } from '@angular/core';
 })
 export class ContainersLotsMeasurementsComponent {
 
+  getRowClass(rowData: any): string {
+    const temp = rowData.ME_TEMP;
+    const minTemp = rowData.MIN_TEMP;
+    const maxTemp = rowData.MAX_TEMP;
+
+    if (temp < minTemp || temp > maxTemp) {
+      return 'row-red'; 
+    }
+    return ''; 
+  }
+
 }

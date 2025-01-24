@@ -63,6 +63,8 @@ public class LotsService implements ILotsService {
         Integer cmpId = UserAndRoleService.getUserCompanyId(this.daoHelper, this.userDao);
         attrMap.put(DevicesDao.CMP_ID, cmpId);
 
+        validarCamposTemp(attrMap);
+
         return this.daoHelper.insert(this.lotsDao, attrMap);
     }
 
@@ -91,6 +93,28 @@ public class LotsService implements ILotsService {
     @Override
     public EntityResult measurementLotContainerQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
         return this.daoHelper.query(this.lotsDao, keyMap, attrList, "historic_lot_measurements");
+    }
+
+    private void validarCamposTemp(Map<String, Object> attrMap) throws OntimizeJEERuntimeException {
+        Object minTemp = attrMap.get("MIN_TEMP");
+        Object maxTemp = attrMap.get("MAX_TEMP");
+
+        if (minTemp == null && maxTemp == null) {
+            throw new OntimizeJEERuntimeException("Debes proporcionar al menos un valor para 'min_temp' o 'max_temp'.");
+        }
+
+        if (minTemp != null && maxTemp != null) {
+            try {
+                Integer minTempValue = Integer.parseInt(minTemp.toString());
+                Integer maxTempValue = Integer.parseInt(maxTemp.toString());
+
+                if (minTempValue > maxTempValue) {
+                    throw new OntimizeJEERuntimeException("'min_temp' no puede ser mayor que 'max_temp'.");
+                }
+            } catch (NumberFormatException e) {
+                throw new OntimizeJEERuntimeException("Los campos 'min_temp' y 'max_temp' deben ser valores numéricos.");
+            }
+        }
     }
 
 }
