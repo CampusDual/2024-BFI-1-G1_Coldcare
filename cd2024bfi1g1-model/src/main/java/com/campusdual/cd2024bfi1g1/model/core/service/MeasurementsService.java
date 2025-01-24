@@ -52,7 +52,8 @@ public class MeasurementsService implements IMeasurementsService {
         List<String> columns = List.of(
                 DevicesDao.DEV_ID,
                 DevicesDao.DEV_MAC,
-                DevicesDao.DEV_PERSISTENCE
+                DevicesDao.DEV_PERSISTENCE,
+                DevicesDao.DEV_STATE
         );
 
         // Consultar la base de datos para obtener el ID del dispositivo y dev_persistence
@@ -67,6 +68,12 @@ public class MeasurementsService implements IMeasurementsService {
         }
         // Verificar si el dispositivo ya existe
             Map<String, Object> rowDevice = query.getRecordValues(0);
+
+            Boolean devState = (Boolean) rowDevice.get(DevicesDao.DEV_STATE);
+            if (devState != null && !devState) {
+                return new EntityResultMapImpl(EntityResult.OPERATION_SUCCESSFUL, EntityResult.NODATA_RESULT);
+            }
+
             attrMap.put(MeasurementsDao.DEV_ID, rowDevice.get(DevicesDao.DEV_ID));
 
             Map<String, Object> containerLotFilter = Map.of(DevicesDao.DEV_MAC, attrMap.get(DevicesDao.DEV_MAC));

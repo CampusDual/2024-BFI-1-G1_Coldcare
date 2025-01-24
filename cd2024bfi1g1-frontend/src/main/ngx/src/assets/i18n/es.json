@@ -95,11 +95,13 @@
   "COMPANY_DATA": "Datos de la empresa",
   "CMP_ID": "Empresa",
   "DEVICE_NAME": "Nombre de dispositivo",
+  "DEVICE_STATE": "Estado del dispositivo",
+  "DEVICE_ENABLED": "Habilitado",
   "DATERANGE.APPLYLABEL": "Seleccionar fechas",
   "LOTS": "Lotes",
   "LOT_NAME": "Nombre del lote",
   "LOT_HISTORY": "Historial de lote",
-  "DEVICE_PERSISTANCE": "Persistencia del dispositivo",
+  "DEVICE_PERSISTENCE": "Persistencia del dispositivo",
   "LOT_DATA": "Datos del lote",
   "CLEAR": "Limpiar",
   "CNT_NAME": "Nombre del contenedor",
@@ -116,5 +118,6 @@
   "DEV_NAME": "Nombre del dispositivo",
   "MIN_TEMP": "Temperatura min",
   "MAX_TEMP": "Temperatura max",
-  "TEMP_LOT": "Temperaturas lote"
+  "TEMP_LOT": "Temperaturas lote",
+  "CONTAINER_ASSIGN": "Asignar a contenedor"
 }
