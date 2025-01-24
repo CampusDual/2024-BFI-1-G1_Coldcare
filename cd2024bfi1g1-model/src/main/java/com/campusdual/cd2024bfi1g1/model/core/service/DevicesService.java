@@ -62,6 +62,24 @@ public class DevicesService implements IDevicesService {
         {
             valuesMap.put(CNT_ID, null);
         }
+        if (attrMap.containsKey(CMP_ID)) {
+            List<String> column = List.of(DevicesDao.CNT_ID);
+            Map<String, Object> filtermap = new HashMap<>();
+            filtermap.put(DEV_ID, keyMap.get(DEV_ID));
+
+            EntityResult query = this.devicesQuery(filtermap, column);
+            if (query.calculateRecordNumber() > 0) {
+                Object currentCntId = query.getRecordValues(0).get(DevicesDao.CNT_ID);
+                if (currentCntId != null) {
+                    throw new OntimizeJEERuntimeException();
+                }
+                else if (attrMap.containsKey(CMP_ID) && (attrMap.get(CMP_ID) == null || attrMap.get(CMP_ID).toString().isEmpty()))
+                {
+                    valuesMap.put(CMP_ID, null);
+                }
+
+            }
+        }
         return this.daoHelper.update(this.devicesDao, valuesMap, keyMap);
     }
 
