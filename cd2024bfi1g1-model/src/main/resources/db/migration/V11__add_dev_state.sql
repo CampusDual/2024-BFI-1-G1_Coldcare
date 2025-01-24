@@ -1,0 +1,1 @@
+ALTER TABLE public.devices ADD dev_state boolean DEFAULT true NOT NULL;

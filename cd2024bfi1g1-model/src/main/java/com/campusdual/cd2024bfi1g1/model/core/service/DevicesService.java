@@ -4,23 +4,17 @@ import com.campusdual.cd2024bfi1g1.api.core.service.IDevicesService;
 
 import com.campusdual.cd2024bfi1g1.model.core.dao.DevicesDao;
 import com.campusdual.cd2024bfi1g1.model.core.dao.UserDao;
-import com.campusdual.cd2024bfi1g1.model.core.util.Util;
 import com.ontimize.jee.common.dto.EntityResult;
 import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
-import com.ontimize.jee.common.services.user.UserInformation;
 import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.campusdual.cd2024bfi1g1.model.core.dao.DevicesDao.*;
 import static com.campusdual.cd2024bfi1g1.model.core.dao.DevicesDao.*;
 
 @Service("DevicesService")
@@ -48,7 +42,7 @@ public class DevicesService implements IDevicesService {
 
     @Override
     public EntityResult devicesInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException {
-        Map<String,Object> valuesToInsert= new HashMap<>(attrMap);
+        Map<String, Object> valuesToInsert = new HashMap<>(attrMap);
         valuesToInsert.put(DEV_NAME, attrMap.get(DEV_MAC));
         return this.daoHelper.insert(this.devicesDao, valuesToInsert);
     }

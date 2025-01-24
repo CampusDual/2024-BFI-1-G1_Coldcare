@@ -94,12 +94,14 @@
   "CMP_NAME": "Nombre",
   "COMPANY_DATA": "Datos de la empresa",
   "CMP_ID": "Empresa",
-  "DEVICE_NAME": "Nombre de dispositivo",
+  "DEVICE_NAME":"Nombre de dispositivo",
+  "DEVICE_STATE": "Estado del dispositivo",
+  "DEVICE_ENABLED": "Habilitado",
   "DATERANGE.APPLYLABEL": "Seleccionar fechas",
   "LOTS": "Lotes",
   "LOT_NAME": "Nombre del lote",
   "LOT_HISTORY": "Historial de lote",
-  "DEVICE_PERSISTANCE": "Persistencia del dispositivo",
+  "DEVICE_PERSISTENCE": "Persistencia del dispositivo",
   "LOT_DATA": "Datos del lote",
   "CLEAR": "Limpiar",
   "CNT_NAME": "Nombre del contenedor",
@@ -113,5 +115,6 @@
   "DEV_PERSISTENCE": "Intervalo de persistencia (minutos)",
   "EDIT_CONTAINER": "Editar contenedor",
   "CURRENT_LOT": "Lote actual",
-  "DEV_NAME": "Nombre del dispositivo"
+  "DEV_NAME": "Nombre del dispositivo",
+  "CONTAINER_ASSIGN": "Asignar a contenedor"
 }

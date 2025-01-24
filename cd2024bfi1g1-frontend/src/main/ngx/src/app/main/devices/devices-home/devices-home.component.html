@@ -1,10 +1,14 @@
 <o-table attr="devicesTable" title="DEVICES" service="devices" entity="lastTime" keys="DEV_ID"
-    columns="DEV_ID;DEV_NAME;ME_TEMP;ME_HUMIDITY;ME_DATE;CMP_ID" visible-columns="DEV_NAME;ME_DATE;ME_TEMP;ME_HUMIDITY"
-    insert-button="false" delete-button="false" show-title="true">
+    columns="DEV_ID;DEV_NAME;ME_TEMP;ME_HUMIDITY;ME_DATE;DEV_STATE;CMP_ID"
+    visible-columns="DEV_NAME;ME_DATE;DEV_STATE;ME_TEMP;ME_HUMIDITY" insert-button="false" delete-button="false"
+    show-title="true">
     <o-table-column attr="ME_TEMP" title="TEMPERATURE"></o-table-column>
     <o-table-column attr="ME_HUMIDITY" title="HUMIDITY"></o-table-column>
     <o-table-column attr="ME_DATE" title="LATEST_READING">
         <app-devices-column-renderer></app-devices-column-renderer>
     </o-table-column>
     <o-table-column attr="DEV_NAME" title="IDENTIFIER"></o-table-column>
+    <o-table-column attr="DEV_STATE" title="DEVICE_STATE">
+        <app-devices-boolean-renderer></app-devices-boolean-renderer>
+    </o-table-column>
 </o-table>
