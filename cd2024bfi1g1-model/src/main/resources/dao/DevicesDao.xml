@@ -22,8 +22,8 @@
                     SELECT DISTINCT ON (d.DEV_ID)
                         #COLUMNS#
                     FROM
-                        ${mainschema}.devices d
-                    INNER JOIN ${mainschema}.measurements m
+                        devices d
+                    INNER JOIN measurements m
                         ON d.DEV_ID = m.DEV_ID
                     #WHERE#
                     ORDER BY d.DEV_ID, m.ME_DATE DESC;
