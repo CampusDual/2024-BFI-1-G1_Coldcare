@@ -48,9 +48,9 @@ public class DevicesService implements IDevicesService {
 
     @Override
     public EntityResult devicesInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException {
-        attrMap.put(DEV_NAME, attrMap.get(DEV_MAC));
-        attrMap.put(DEV_PERSISTENCE, 0);
-        return this.daoHelper.insert(this.devicesDao, attrMap);
+        Map<String,Object> valuesToInsert= new HashMap<>(attrMap);
+        valuesToInsert.put(DEV_NAME, attrMap.get(DEV_MAC));
+        return this.daoHelper.insert(this.devicesDao, valuesToInsert);
     }
 
     @Override
@@ -74,37 +74,12 @@ public class DevicesService implements IDevicesService {
     public EntityResult lastTimeQuery(Map<String, Object> keyMap, List<String> attrList)
             throws OntimizeJEERuntimeException {
 
-        Integer userId = Util.getUserId();
-
-        Map<String, Object> filter = new HashMap<>();
-        filter.put(UserDao.USR_ID, userId);
-        List<String> columns = List.of(
-                "CMP_ID"
-        );
-
-        final EntityResult userEr = this.daoHelper.query(this.userDao, filter, columns);
-        if (userEr.isEmpty()) {
-            throw new RuntimeException("Unknown user");
-        }
-
-        Map<String, Object> user = userEr.getRecordValues(0);
-        Integer cmpId = (Integer) user.get("CMP_ID");
-
+        Integer cmpId = UserAndRoleService.getUserCompanyId(this.daoHelper, this.userDao);
         keyMap.put(DevicesDao.CMP_ID, cmpId);
 
         return this.daoHelper.query(this.devicesDao, keyMap, attrList, "last_time");
     }
-    @Override
-    public EntityResult devContainerQuery(Map<String, Object> keyMap, List<String> attrList)
-            throws OntimizeJEERuntimeException {
-        return this.daoHelper.query(this.devicesDao, keyMap, attrList,"get_devices_in_container");
-    }
 
-    @Override
-    public EntityResult devContainerUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap)
-            throws OntimizeJEERuntimeException {
-        return this.daoHelper.update(this.devicesDao, attrMap, keyMap);
-    }
     public EntityResult lastTimeWithoutCMP(Map<String, Object> keyMap, List<String> attrList)
             throws OntimizeJEERuntimeException {
 
