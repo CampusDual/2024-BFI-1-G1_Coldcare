@@ -234,3 +234,7 @@ tr.mat-mdc-row.mdc-data-table__row.cdk-row:nth-child(even) {
   background: transparent;
   line-height: 1.6;
 }
+
+.o-table .mat-mdc-table .mat-mdc-row.error-row .mat-mdc-cell.mat-column-ME_TEMP{
+  color: red;
+}

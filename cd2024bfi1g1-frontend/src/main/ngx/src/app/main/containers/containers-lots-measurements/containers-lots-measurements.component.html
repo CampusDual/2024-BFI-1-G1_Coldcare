@@ -1,20 +1,19 @@
 <o-form keys-sql-types="INTEGER" parent-keys="CNT_ID;LOT_ID" include-parent-keys="yes" service="lots"
-    entity="measurementLotContainer" show-header="no">
-    <o-integer-input attr="CNT_ID" hidden="yes"></o-integer-input>
-    <o-integer-input attr="LOT_ID" hidden="yes"></o-integer-input>
-    <o-table attr="containerLotMeasurements" service="measurements" entity="measurements" keys="ME_ID"
-        parent-keys="CNT_ID;LOT_ID" columns="ME_DATE;ME_TEMP;ME_HUMIDITY;DEV_NAME;MIN_TEMP;MAX_TEMP;LOT_NAME;CNT_NAME"
-        visible-columns="ME_DATE;ME_TEMP;ME_HUMIDITY;DEV_NAME;MIN_TEMP;MAX_TEMP;LOT_NAME;CNT_NAME" query-rows="20"
-        select-all-checkbox-visible="no" insert-button="no" delete-button="no" refresh-button="yes" quick-filter="no"
-        pageable="true" virtual-scroll="no" [row-class]="getRowClass">
-        <o-table-column attr="ME_DATE" title="DATE" type="date" format="DD/MM/YYYY HH:mm:ss"></o-table-column>
-        <o-table-column attr="ME_TEMP" title-align="center" content-align="center" title="TEMPERATURE"></o-table-column>
-        <o-table-column attr="ME_HUMIDITY" title-align="center" content-align="center"
-            title="HUMIDITY"></o-table-column>
-        <o-table-column attr="DEV_NAME" title-align="center" content-align="center"></o-table-column>
-        <o-table-column attr="LOT_NAME" title-align="center" content-align="center"></o-table-column>
-        <o-table-column attr="CNT_NAME" title-align="center" content-align="center"></o-table-column>
-        <o-table-column attr="MIN_TEMP" title-align="center" content-align="center"></o-table-column>
-        <o-table-column attr="MAX_TEMP" title-align="center" content-align="center"></o-table-column>
-    </o-table>
+  entity="measurementLotContainer" show-header="no">
+  <o-integer-input attr="CNT_ID" hidden="yes"></o-integer-input>
+  <o-integer-input attr="LOT_ID" hidden="yes"></o-integer-input>
+  <o-table attr="containerLotMeasurements" service="measurements" entity="measurements" keys="ME_ID"
+    parent-keys="CNT_ID;LOT_ID" columns="ME_DATE;ME_TEMP;ME_HUMIDITY;DEV_NAME;MIN_TEMP;MAX_TEMP;LOT_NAME;CNT_NAME"
+    visible-columns="ME_DATE;ME_TEMP;ME_HUMIDITY;DEV_NAME;MIN_TEMP;MAX_TEMP;LOT_NAME;CNT_NAME" query-rows="20"
+    select-all-checkbox-visible="no" insert-button="no" delete-button="no" refresh-button="yes" quick-filter="no"
+    pageable="true" virtual-scroll="no" [row-class]="rowClass">
+    <o-table-column attr="ME_DATE" title="DATE" type="date" format="DD/MM/YYYY HH:mm:ss"></o-table-column>
+    <o-table-column attr="ME_TEMP" title-align="center" content-align="center" title="TEMPERATURE"></o-table-column>
+    <o-table-column attr="ME_HUMIDITY" title-align="center" content-align="center" title="HUMIDITY"></o-table-column>
+    <o-table-column attr="DEV_NAME" title-align="center" content-align="center"></o-table-column>
+    <o-table-column attr="LOT_NAME" title-align="center" content-align="center"></o-table-column>
+    <o-table-column attr="CNT_NAME" title-align="center" content-align="center"></o-table-column>
+    <o-table-column attr="MIN_TEMP" title-align="center" content-align="center"></o-table-column>
+    <o-table-column attr="MAX_TEMP" title-align="center" content-align="center"></o-table-column>
+  </o-table>
 </o-form>
