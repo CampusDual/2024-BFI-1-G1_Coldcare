@@ -30,19 +30,6 @@
                 ]]>
             </Sentence>
         </Query>
-        <Query id="get_devices_in_container">
-            <Sentence>
-                <![CDATA[
-                    
-                    SELECT
-                        #COLUMNS#
-                    FROM
-                        ${mainschema}.devices d
-                    
-                    #WHERE#
-                ]]>
-            </Sentence>
-        </Query>
         <Query id="devicesWithoutUser">
             <AmbiguousColumns>
                 <AmbiguousColumn name="CMP_ID" prefix="d"/>
