@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<JdbcEntitySetup xmlns="http://www.ontimize.com/schema/jdbc"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://www.ontimize.com/schema/jdbc http://www.ontimize.com/schema/jdbc/ontimize-jdbc-dao.xsd"
+                 catalog="" schema="${mainschema}" table="lots" datasource="mainDataSource"
+                 sqlhandler="dbSQLStatementHandler">
+    <DeleteKeys>
+        <Column>LOT_ID</Column>
+    </DeleteKeys>
+    <UpdateKeys>
+        <Column>LOT_ID</Column>
+    </UpdateKeys>
+    <GeneratedKey>lot_id</GeneratedKey>
+    <Queries>
+        <Query id="default">
+            <Sentence>
+                <![CDATA[
+                    SELECT
+                        #COLUMNS#
+                    FROM
+                        ${mainschema}.lots
+                    #WHERE#
+                    #ORDER#
+                ]]>
+            </Sentence>
+        </Query>
+
+        <Query id="lots_container">
+            <AmbiguousColumns>
+                <AmbiguousColumn name="LOT_ID" prefix="l" />
+            </AmbiguousColumns>
+            <Sentence>
+                <![CDATA[
+                    SELECT
+                         #COLUMNS#
+                    FROM
+                        ${mainschema}.lots l
+                     JOIN ${mainschema}.containers c
+                        ON c.lot_id = l.lot_id
+                    #WHERE#
+
+                ]]>
+            </Sentence>
+        </Query>
+        <Query id="historic_lot_container">
+            <AmbiguousColumns>
+                <AmbiguousColumn name="LOT_ID" prefix="l" />
+            </AmbiguousColumns>
+            <Sentence>
+                <![CDATA[
+                    SELECT DISTINCT
+                         m.lot_id, m.cnt_id, l.lot_name
+                    FROM measurements m
+                    JOIN lots l ON m.lot_id = l.lot_id
+                    #WHERE#
+
+                ]]>
+            </Sentence>
+        </Query>
+        <Query id="historic_lot_measurements">
+            <AmbiguousColumns>
+                <AmbiguousColumn name="LOT_ID" prefix="cl" />
+                <AmbiguousColumn name="CNT_ID" prefix="cl" />
+            </AmbiguousColumns>
+            <Sentence>
+                <![CDATA[
+                    with cl as (
+                        select distinct lot_id,cnt_id
+                        from measurements m
+                    )
+                    select #COLUMNS#
+                    from cl
+                    inner join containers c on c.cnt_id = cl.cnt_id
+                    inner join lots l on l.lot_id = cl.lot_id
+                    #WHERE#
+                ]]>
+            </Sentence>
+        </Query>
+
+    </Queries>
+</JdbcEntitySetup>
