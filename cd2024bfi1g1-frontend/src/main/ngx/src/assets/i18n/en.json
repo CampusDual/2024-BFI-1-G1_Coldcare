@@ -115,5 +115,6 @@
   "DEV_PERSISTENCE": "Persistence interval (minutes)",
   "EDIT_CONTAINER": "Edit container",
   "CURRENT_LOT": "Current lot",
-  "DEV_NAME": "Device name"
+  "DEV_NAME": "Device name",
+  "CONTAINER_ASSIGN": "Assign to container"
 }
