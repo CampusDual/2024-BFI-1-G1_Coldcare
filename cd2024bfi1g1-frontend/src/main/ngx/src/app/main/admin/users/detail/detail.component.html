@@ -1,6 +1,6 @@
-<o-form #form attr="users_form_edit" service="users" entity="user" header-actions="R;U" keys="USR_ID"
-  keys-sql-types="integer" columns="USR_ID;USR_NAME" header-position="bottom" layout-direction="row"
-  detect-changes-on-blur="no" fxFill undo-button="no" stay-in-record-after-insert="true">
+<o-form #form attr="users_form_edit" service="users" entity="user" header-actions="R;U" parent-keys="USR_ID"
+  keys-sql-types="integer" columns="USR_ID;USR_NAME" layout-direction="row" show-header="true"
+  detect-changes-on-blur="no" fxFill undo-button="yes" stay-in-record-after-insert="true">
 
   <div fxLayout="row" fxLayoutGap="30px" fxFill>
 

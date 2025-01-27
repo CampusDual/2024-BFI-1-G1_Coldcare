@@ -1,8 +1,6 @@
-<o-form-layout-manager mode="tab" store-state="no" title="USERS" label-columns="USR_NAME"
-  attr="o-form-layout-users-home" title-data-origin="users_form_edit">
-  <o-form show-header="no" query-on-init="no" fxFill>
-
-    <filter title="FILTER_USERS">
+<o-form show-header="no" query-on-init="no" fxFill>
+  <o-column>
+    <filter title="FILTER_USERS" id="filtro">
       <div fxLayout="row" fxLayoutGap="15px">
         <o-text-input attr="name" label="USR_NAME"></o-text-input>
         <o-text-input attr="login" label="USR_LOGIN"></o-text-input>
@@ -17,14 +15,14 @@
         query-on-change="no" query-on-change-delay="500" [expression-builder]="createFilter">
       </o-filter-builder>
     </filter>
+  </o-column>
 
-    <o-table #usersTable attr="users" service="users" entity="user" keys="USR_ID"
-      columns="USR_ID;USR_NAME;USR_LOGIN;CMP_ID;CMP_NAME" visible-columns="USR_NAME;USR_LOGIN;CMP_NAME"
-      sort-columns="USR_NAME" query-rows="25" quick-filter="yes" row-height="medium" pageable="no" query-on-init="yes"
-      query-on-bind="false" select-all-checkbox-visible="yes" insert-button="yes" delete-button="yes"
-      refresh-button="yes" fixed-header="yes" class="home-table" fxFlex export-mode="local">
-      <o-table-columns-filter columns="USR_NAME;USR_LOGIN;CMP_NAME"></o-table-columns-filter>
-    </o-table>
+  <o-table #usersTable attr="users" service="users" entity="user" keys="USR_ID"
+    columns="USR_ID;USR_NAME;USR_LOGIN;CMP_ID;CMP_NAME" visible-columns="USR_NAME;USR_LOGIN;CMP_NAME"
+    sort-columns="USR_NAME" query-rows="25" quick-filter="yes" row-height="medium" pageable="true" query-on-init="yes"
+    query-on-bind="false" select-all-checkbox-visible="no" insert-button="yes" delete-button="no" refresh-button="yes"
+    fixed-header="yes" class="home-table" fxFlex export-mode="local" detail-mode="none">
+    <o-table-columns-filter columns="USR_NAME;USR_LOGIN;CMP_NAME"></o-table-columns-filter>
+  </o-table>
 
-  </o-form>
-</o-form-layout-manager>
+</o-form>
