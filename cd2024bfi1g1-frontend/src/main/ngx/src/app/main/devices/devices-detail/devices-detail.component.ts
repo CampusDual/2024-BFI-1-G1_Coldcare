@@ -1,5 +1,5 @@
-import { Component, ViewChild } from '@angular/core';
-import { Expression, FilterExpressionUtils, OTableComponent } from 'ontimize-web-ngx';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { Expression, FilterExpressionUtils, OTableComponent, OTranslateService } from 'ontimize-web-ngx';
 import { DataAdapterUtils, LineChartConfiguration, OChartComponent } from 'ontimize-web-ngx-charts';
 
 @Component({
@@ -7,7 +7,7 @@ import { DataAdapterUtils, LineChartConfiguration, OChartComponent } from 'ontim
   templateUrl: './devices-detail.component.html',
   styleUrls: ['./devices-detail.component.css']
 })
-export class DevicesDetailComponent {
+export class DevicesDetailComponent implements AfterViewInit {
 
   //Grafica temperatura
   @ViewChild('measurementsTemperatureTable', { static: false }) measurementsTemperatureTable: OTableComponent;
@@ -27,37 +27,31 @@ export class DevicesDetailComponent {
     domain: ['#1464A5', '#eeeeee', '#c5c5c5']
   };
 
+  tempField: string = "ME_TEMP";
+  humidityField: string = "ME_HUMIDITY";
+
   formatDate(d: number): string {
     const date = new Date(d);
     const day = String(date.getDate()).padStart(2, '0');
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const hours = String(date.getHours()).padStart(2, '0');
     const minutes = String(date.getMinutes()).padStart(2, '0');
-    //d.toLocaleString('es-ES',{'month':'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'}).replace(',','')
+    //d.toLocaleString('es-ES', {month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'}).replace(',','');
 
     return `${day}/${month} ${hours}:${minutes}`;
   }
 
-  constructor() {
+  constructor(
+    private translator: OTranslateService
+  ) {
     //Temperatura
     this.chartParametersTemp = new LineChartConfiguration();
     this.chartParametersTemp.isArea = [true];
     this.chartParametersTemp.interactive = true;
     this.chartParametersTemp.useInteractiveGuideline = false;
     this.chartParametersTemp.xAxis = "ME_DATE";
-    this.chartParametersTemp.yAxis = ["ME_TEMP"];
     this.chartParametersTemp.xDataType = this.formatDate;
     this.chartParametersTemp['showTooltip'] = true;
-    //this.chartParametersTemp.tooltip['valueType'] = 'time';
-    //this.chartParametersTemp['valueType'] = (d: number): string => {
-
-    //  return new Date(d).toString();
-    //};
-
-    //Truquito Alvaro
-    //const chart = (<any>this.lineChart).formatTime;
-
-    console.log('Log:',this.chartParametersTemp['valueType']);
 
     //Humedad
     this.chartParametersHum = new LineChartConfiguration();
@@ -65,18 +59,13 @@ export class DevicesDetailComponent {
     this.chartParametersHum.interactive = false;
     this.chartParametersHum.useInteractiveGuideline = false;
     this.chartParametersHum.xAxis = "ME_DATE";
-    this.chartParametersHum.yAxis = ["ME_HUMIDITY"];
-    this.chartParametersHum.xDataType = (d: number): string => {
-      const date = new Date(d);
-      const day = String(date.getDate()).padStart(2, '0');
-      const month = String(date.getMonth() + 1).padStart(2, '0');
-      const hours = String(date.getHours()).padStart(2, '0');
-      const minutes = String(date.getMinutes()).padStart(2, '0');
-
-      return `${day}/${month} ${hours}:${minutes}`;
-    };
+    this.chartParametersHum.xDataType = this.formatDate;
     this.chartParametersHum['showTooltip'] = true;
+  }
 
+  ngAfterViewInit(): void {
+    const chart = this.lineChart.getChartByType();
+    console.log({ chart });
   }
 
   createFilter(values: Array<{ attr, value }>): Expression {
@@ -106,14 +95,25 @@ export class DevicesDetailComponent {
   //LLenar tablas
   fillChart(ev: any) {
     console.log({ ev });
+    this.tempField = this.translator.get('TEMPERATURE');
+    this.humidityField = this.translator.get('HUMIDITY');
+    this.chartParametersTemp.yAxis = [this.tempField];
+    this.chartParametersHum.yAxis = [this.humidityField];
+    const data = ev.map((row) => {
+      return {
+        [this.tempField]: row.ME_TEMP,
+        "ME_DATE": row.ME_DATE,
+        [this.humidityField]: row.ME_HUMIDITY
+      }
+    });
 
     this.dataArrayTemp = DataAdapterUtils.createDataAdapter(
       this.chartParametersTemp
-    ).adaptResult(ev);
+    ).adaptResult(data);
 
     this.dataArrayHum = DataAdapterUtils.createDataAdapter(
       this.chartParametersHum
-    ).adaptResult(ev);
+    ).adaptResult(data);
   }
 
 }
