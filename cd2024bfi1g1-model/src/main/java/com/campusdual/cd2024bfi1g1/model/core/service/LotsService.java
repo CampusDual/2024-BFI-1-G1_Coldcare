@@ -71,8 +71,44 @@ public class LotsService implements ILotsService {
     @Override
     public EntityResult lotsUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap)
             throws OntimizeJEERuntimeException {
-            return this.daoHelper.update(this.lotsDao, attrMap, keyMap);
+        // Obtener el LOT_ID del keyMap
+        Object lotId = keyMap.get("LOT_ID");
+
+        if (lotId == null) {
+            throw new OntimizeJEERuntimeException("El LOT_ID no está presente en keyMap");
+        }
+
+        // Validar campos de temperatura
+        validarCamposTemp(attrMap);
+
+        // Comprobamos si solo viene MIN_TEMP o MAX_TEMP en attrMap
+        if (attrMap.containsKey("MIN_TEMP") && !attrMap.containsKey("MAX_TEMP")) {
+            // Solo viene MIN_TEMP, entonces buscamos MAX_TEMP en la base de datos
+            Object minTemp = attrMap.get("MIN_TEMP");
+            if (minTemp != null) {
+                // Usamos el daoHelper para obtener MAX_TEMP según el LOT_ID
+                Map<String, Object> tempMap = this.lotsDao.getMaxTempForLotId(lotId);
+                if (tempMap != null && tempMap.containsKey("MAX_TEMP")) {
+                    attrMap.put("MAX_TEMP", tempMap.get("MAX_TEMP"));
+                }
+            }
+        } else if (attrMap.containsKey("MAX_TEMP") && !attrMap.containsKey("MIN_TEMP")) {
+            // Solo viene MAX_TEMP, entonces buscamos MIN_TEMP en la base de datos
+            Object maxTemp = attrMap.get("MAX_TEMP");
+            if (maxTemp != null) {
+                // Usamos el daoHelper para obtener MIN_TEMP según el LOT_ID
+                Map<String, Object> tempMap = this.lotsDao.getMinTempForLotId(lotId);
+                if (tempMap != null && tempMap.containsKey("MIN_TEMP")) {
+                    attrMap.put("MIN_TEMP", tempMap.get("MIN_TEMP"));
+                }
+            }
+        }
+
+        // Llamada al DAO para hacer la actualización
+        return this.daoHelper.update(this.lotsDao, attrMap, keyMap);
     }
+
+
 
     @Override
     public EntityResult lotsDelete(Map<String, Object> keyMap) throws OntimizeJEERuntimeException {

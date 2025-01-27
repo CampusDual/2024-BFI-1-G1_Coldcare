@@ -89,7 +89,7 @@ public class DevicesService implements IDevicesService {
         Integer cmpId = UserAndRoleService.getUserCompanyId(this.daoHelper, this.userDao);
         keyMap.put(DevicesDao.CMP_ID, cmpId);
 
-        return this.daoHelper.query(this.devicesDao, keyMap, attrList, "last_time");
+        return this.daoHelper.query(this.devicesDao, keyMap, attrList, "last_time" );
     }
 
     public EntityResult lastTimeWithoutCMP(Map<String, Object> keyMap, List<String> attrList)

@@ -76,6 +76,34 @@
                 ]]>
             </Sentence>
         </Query>
+        <Query id="get_max_temp_lot_Id">
+            <AmbiguousColumns>
+                <AmbiguousColumn name="LOT_ID" prefix="cl" />
+                <AmbiguousColumn name="CNT_ID" prefix="cl" />
+            </AmbiguousColumns>
+            <Sentence>
+                <![CDATA[
+                    SELECT max_temp
+                    FROM lots
+                    #WHERE#
+                ]]>
+            </Sentence>
+        </Query>
+
+        <Query id="get_max_temp_lot_Id">
+            <AmbiguousColumns>
+                <AmbiguousColumn name="LOT_ID" prefix="cl" />
+                <AmbiguousColumn name="CNT_ID" prefix="cl" />
+            </AmbiguousColumns>
+            <Sentence>
+                <![CDATA[
+                    SELECT max_temp
+                    FROM lots
+                    #WHERE#
+                ]]>
+            </Sentence>
+        </Query>
+
 
     </Queries>
 </JdbcEntitySetup>
