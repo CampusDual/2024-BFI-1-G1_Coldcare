@@ -24,7 +24,7 @@
                          FROM MEASUREMENTS M
                          GROUP BY DEV_ID
                          )
-                    SELECT #COLUMNS#
+                    SELECT #COLUMNS#, M.ME_DATE AS "ME_DATE"
                     FROM DEVICES D
                     INNER JOIN LAST_ME_ID_BY_DEVICE L ON L.DEV_ID = D.DEV_ID
                     INNER JOIN MEASUREMENTS M ON M.ME_ID = L.LAST_ME_ID
