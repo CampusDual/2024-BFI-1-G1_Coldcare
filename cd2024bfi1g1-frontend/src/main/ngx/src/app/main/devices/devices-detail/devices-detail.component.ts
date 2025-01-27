@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Expression, FilterExpressionUtils, OTableComponent, OTranslateService } from 'ontimize-web-ngx';
 import { DataAdapterUtils, LineChartConfiguration, OChartComponent } from 'ontimize-web-ngx-charts';
 
@@ -7,7 +7,7 @@ import { DataAdapterUtils, LineChartConfiguration, OChartComponent } from 'ontim
   templateUrl: './devices-detail.component.html',
   styleUrls: ['./devices-detail.component.css']
 })
-export class DevicesDetailComponent implements AfterViewInit {
+export class DevicesDetailComponent {
 
   //Grafica temperatura
   @ViewChild('measurementsTemperatureTable', { static: false }) measurementsTemperatureTable: OTableComponent;
@@ -57,11 +57,6 @@ export class DevicesDetailComponent implements AfterViewInit {
     this.chartParametersHum['showTooltip'] = true;
   }
 
-  ngAfterViewInit(): void {
-    const chart = this.lineChart.getChartByType();
-    console.log({ chart });
-  }
-
   createFilter(values: Array<{ attr, value }>): Expression {
 
     let filters: Array<Expression> = [];
@@ -88,7 +83,7 @@ export class DevicesDetailComponent implements AfterViewInit {
 
   /*
   Para modificar como se muestra la fecha del tooltip cuando ponemos el raton encima de uno de los puntos, habria que 
-  modificar la linea 107 donde se carga la fecha en la variable "data" para modificar el formato de fecha que se le pasa:
+  modificar la linea 101 donde se carga la fecha en la variable "data" para modificar el formato de fecha que se le pasa:
     "ME_DATE": (new Date(row.ME_DATE)).toISOString(),
   El problema es que rompe por completo la representacion de los datos, es decir, no se representan los saltos temporales.
   Por lo tanto de momento no se modifica hasta que el cliente decida lo contrario. Una vez arreglado eliminar este comentario 
@@ -96,7 +91,6 @@ export class DevicesDetailComponent implements AfterViewInit {
 
   //LLenar tablas
   fillChart(ev: any) {
-    console.log({ ev });
     this.tempField = this.translator.get('TEMPERATURE');
     this.humidityField = this.translator.get('HUMIDITY');
     this.chartParametersTemp.yAxis = [this.tempField];
