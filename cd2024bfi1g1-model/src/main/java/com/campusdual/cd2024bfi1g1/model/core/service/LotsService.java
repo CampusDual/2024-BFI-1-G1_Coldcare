@@ -5,6 +5,7 @@ import com.campusdual.cd2024bfi1g1.api.core.service.ILotsService;
 import com.campusdual.cd2024bfi1g1.model.core.dao.LotsDao;
 import com.campusdual.cd2024bfi1g1.model.core.dao.DevicesDao;
 import com.campusdual.cd2024bfi1g1.model.core.dao.UserDao;
+import com.ontimize.jee.common.db.NullValue;
 import com.ontimize.jee.common.dto.EntityResult;
 import com.ontimize.jee.common.dto.EntityResultMapImpl;
 import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
@@ -71,40 +72,54 @@ public class LotsService implements ILotsService {
     @Override
     public EntityResult lotsUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap)
             throws OntimizeJEERuntimeException {
-        // Obtener el LOT_ID del keyMap
         Object lotId = keyMap.get("LOT_ID");
 
-        if (lotId == null) {
-            throw new OntimizeJEERuntimeException("El LOT_ID no está presente en keyMap");
+        if (!attrMap.containsKey("MIN_TEMP") && !attrMap.containsKey("MAX_TEMP")) {
+            return this.daoHelper.update(this.lotsDao, attrMap, keyMap);
         }
 
-        // Validar campos de temperatura
-        validarCamposTemp(attrMap);
+        if ( attrMap.containsKey("MIN_TEMP") && attrMap.get("MIN_TEMP") instanceof NullValue && attrMap.containsKey("MAX_TEMP") && attrMap.get("MAX_TEMP") instanceof NullValue) {
+            throw new OntimizeJEERuntimeException("Debes proporcionar al menos un valor para 'min_temp' o 'max_temp'.");
+        }
 
-        // Comprobamos si solo viene MIN_TEMP o MAX_TEMP en attrMap
+        if (attrMap.containsKey("MIN_TEMP") && attrMap.get("MIN_TEMP") instanceof NullValue) {
+
+            double maxTemp = getMaxTempForLotId(lotId);
+            if (Double.isNaN(maxTemp)) {
+                throw new OntimizeJEERuntimeException("No pueden ser ambos nulos");
+            }
+
+            return this.daoHelper.update(this.lotsDao, attrMap, keyMap);
+        }
+
+        if (attrMap.containsKey("MAX_TEMP") && attrMap.get("MAX_TEMP") instanceof NullValue) {
+
+            double minTemp = getMinTempForLotId(lotId);
+            if (Double.isNaN(minTemp)) {
+                throw new OntimizeJEERuntimeException("No pueden ser ambos nulos");
+            }
+            return this.daoHelper.update(this.lotsDao, attrMap, keyMap);
+        }
+
         if (attrMap.containsKey("MIN_TEMP") && !attrMap.containsKey("MAX_TEMP")) {
-            // Solo viene MIN_TEMP, entonces buscamos MAX_TEMP en la base de datos
             Object minTemp = attrMap.get("MIN_TEMP");
             if (minTemp != null) {
-                // Usamos el daoHelper para obtener MAX_TEMP según el LOT_ID
-                Map<String, Object> tempMap = this.lotsDao.getMaxTempForLotId(lotId);
-                if (tempMap != null && tempMap.containsKey("MAX_TEMP")) {
-                    attrMap.put("MAX_TEMP", tempMap.get("MAX_TEMP"));
+                double maxTemp = getMaxTempForLotId(lotId);
+                if (!Double.isNaN(maxTemp)) {
+                    attrMap.put("MAX_TEMP", maxTemp);
                 }
             }
         } else if (attrMap.containsKey("MAX_TEMP") && !attrMap.containsKey("MIN_TEMP")) {
-            // Solo viene MAX_TEMP, entonces buscamos MIN_TEMP en la base de datos
             Object maxTemp = attrMap.get("MAX_TEMP");
             if (maxTemp != null) {
-                // Usamos el daoHelper para obtener MIN_TEMP según el LOT_ID
-                Map<String, Object> tempMap = this.lotsDao.getMinTempForLotId(lotId);
-                if (tempMap != null && tempMap.containsKey("MIN_TEMP")) {
-                    attrMap.put("MIN_TEMP", tempMap.get("MIN_TEMP"));
+                double minTemp = getMinTempForLotId(lotId);
+                if (!Double.isNaN(minTemp)) {
+                    attrMap.put("MIN_TEMP", minTemp);
                 }
             }
         }
+        validarCamposTemp(attrMap);
 
-        // Llamada al DAO para hacer la actualización
         return this.daoHelper.update(this.lotsDao, attrMap, keyMap);
     }
 
@@ -144,7 +159,7 @@ public class LotsService implements ILotsService {
                 Float minTempValue = Float.parseFloat(minTemp.toString());
                 Float maxTempValue = Float.parseFloat(maxTemp.toString());
 
-                if (minTempValue > maxTempValue) {
+                if (minTempValue >= maxTempValue) {
                     throw new OntimizeJEERuntimeException("'min_temp' no puede ser mayor que 'max_temp'.");
                 }
             } catch (NumberFormatException e) {
@@ -152,5 +167,61 @@ public class LotsService implements ILotsService {
             }
         }
     }
+
+    public double getMaxTempForLotId(Object lotId) {
+        Map<String, Object> keyMap = new HashMap<>();
+        keyMap.put("LOT_ID", lotId);
+
+        List<String> attrList = new ArrayList<>();
+        attrList.add("MAX_TEMP");
+
+        EntityResult result = this.daoHelper.query(this.lotsDao, keyMap, attrList, "get_max_temp_lot_Id");
+
+        if (result != null && result.calculateRecordNumber() > 0) {
+            Object maxTempValue = result.get("MAX_TEMP");
+
+            if (maxTempValue instanceof List) {
+                List<?> tempList = (List<?>) maxTempValue;
+                if (!tempList.isEmpty()) {
+                    Object firstValue = tempList.get(0);
+                    if (firstValue instanceof Number) {
+                        return ((Number) firstValue).doubleValue();
+                    }
+                }
+            }
+        }
+
+        return Double.NaN;
+    }
+
+
+    public double getMinTempForLotId(Object lotId) {
+        Map<String, Object> keyMap = new HashMap<>();
+        keyMap.put("LOT_ID", lotId);
+
+        List<String> attrList = new ArrayList<>();
+        attrList.add("MIN_TEMP");
+
+        EntityResult result = this.daoHelper.query(this.lotsDao, keyMap, attrList, "get_min_temp_lot_Id");
+
+        if (result != null && result.calculateRecordNumber() > 0) {
+            Object minTempValue = result.get("MIN_TEMP");
+
+            if (minTempValue instanceof List) {
+                List<?> tempList = (List<?>) minTempValue;
+                if (!tempList.isEmpty()) {
+                    Object firstValue = tempList.get(0);
+                    if (firstValue instanceof Number) {
+                        return ((Number) firstValue).doubleValue();
+                    }
+                }
+            }
+        }
+
+        return Double.NaN;
+    }
+
+
+
 
 }
