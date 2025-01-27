@@ -1,0 +1,8 @@
+:host ::ng-deep .chart-legend,
+o-table {
+  display: none !important;
+}
+
+o-daterange-input {
+  width: 270px
+}

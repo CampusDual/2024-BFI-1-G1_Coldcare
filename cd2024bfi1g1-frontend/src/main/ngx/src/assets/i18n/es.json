@@ -119,5 +119,7 @@
   "MIN_TEMP": "Temperatura min",
   "MAX_TEMP": "Temperatura max",
   "TEMP_LOT": "Temperaturas lote",
-  "CONTAINER_ASSIGN": "Asignar a contenedor"
+  "CONTAINER_ASSIGN": "Asignar a contenedor",
+  "DEVICE_DATA": "Detalles",
+  "DEVICE_GRAPH": "Gráfica"
 }
