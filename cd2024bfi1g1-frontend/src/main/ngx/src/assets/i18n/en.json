@@ -116,5 +116,7 @@
   "EDIT_CONTAINER": "Edit container",
   "CURRENT_LOT": "Current lot",
   "DEV_NAME": "Device name",
-  "CONTAINER_ASSIGN": "Assign to container"
+  "CONTAINER_ASSIGN": "Assign to container",
+  "DEVICE_DATA": "Details",
+  "DEVICE_GRAPH": "Graph"
 }

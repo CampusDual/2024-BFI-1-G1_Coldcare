@@ -116,5 +116,7 @@
   "EDIT_CONTAINER": "Editar contenedor",
   "CURRENT_LOT": "Lote actual",
   "DEV_NAME": "Nombre del dispositivo",
-  "CONTAINER_ASSIGN": "Asignar a contenedor"
+  "CONTAINER_ASSIGN": "Asignar a contenedor",
+  "DEVICE_DATA": "Detalles",
+  "DEVICE_GRAPH": "Gráfica"
 }
