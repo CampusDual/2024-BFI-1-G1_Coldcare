@@ -11,7 +11,7 @@
         <Column>DEV_ID</Column>
     </UpdateKeys>
     <GeneratedKey>dev_id</GeneratedKey>
-    
+
     <Queries>
         <Query id="last_time">
             <AmbiguousColumns>
@@ -19,14 +19,16 @@
             </AmbiguousColumns>
             <Sentence>
                 <![CDATA[
-                    SELECT
-                        DISTINCT #COLUMNS#, MAX(ME_DATE) AS "ME_DATE"
-                    FROM
-                        ${mainschema}.devices d
-                    INNER JOIN ${mainschema}.measurements m
-                        ON d.DEV_ID = m.DEV_ID
+                    WITH LAST_ME_ID_BY_DEVICE AS (
+                         SELECT MAX(ME_ID) AS LAST_ME_ID, DEV_ID
+                         FROM MEASUREMENTS M
+                         GROUP BY DEV_ID
+                         )
+                    SELECT #COLUMNS#
+                    FROM DEVICES D
+                    INNER JOIN LAST_ME_ID_BY_DEVICE L ON L.DEV_ID = D.DEV_ID
+                    INNER JOIN MEASUREMENTS M ON M.ME_ID = L.LAST_ME_ID
                     #WHERE#
-                    GROUP BY DEV_MAC, d.DEV_ID, CMP_ID
                 ]]>
             </Sentence>
         </Query>
