@@ -86,7 +86,9 @@ public class LotsService implements ILotsService {
 
             double maxTemp = getMaxTempForLotId(lotId);
             if (Double.isNaN(maxTemp)) {
-                throw new OntimizeJEERuntimeException("No pueden ser ambos nulos");
+                if (!attrMap.containsKey("MAX_TEMP")) {
+                    throw new OntimizeJEERuntimeException("No pueden ser ambos nulos");
+                }
             }
 
             return this.daoHelper.update(this.lotsDao, attrMap, keyMap);
@@ -96,7 +98,9 @@ public class LotsService implements ILotsService {
 
             double minTemp = getMinTempForLotId(lotId);
             if (Double.isNaN(minTemp)) {
-                throw new OntimizeJEERuntimeException("No pueden ser ambos nulos");
+                if (!attrMap.containsKey("MIN_TEMP")) {
+                    throw new OntimizeJEERuntimeException("No pueden ser ambos nulos");
+                }
             }
             return this.daoHelper.update(this.lotsDao, attrMap, keyMap);
         }
