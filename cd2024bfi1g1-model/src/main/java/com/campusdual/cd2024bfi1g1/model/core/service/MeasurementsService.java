@@ -52,7 +52,8 @@ public class MeasurementsService implements IMeasurementsService {
         List<String> columns = List.of(
                 DevicesDao.DEV_ID,
                 DevicesDao.DEV_MAC,
-                DevicesDao.DEV_PERSISTENCE
+                DevicesDao.DEV_PERSISTENCE,
+                DevicesDao.DEV_STATE
         );
 
         // Consultar la base de datos para obtener el ID del dispositivo y dev_persistence
@@ -67,7 +68,26 @@ public class MeasurementsService implements IMeasurementsService {
         }
         // Verificar si el dispositivo ya existe
             Map<String, Object> rowDevice = query.getRecordValues(0);
+
+            Boolean devState = (Boolean) rowDevice.get(DevicesDao.DEV_STATE);
+            if (devState != null && !devState) {
+                return new EntityResultMapImpl(EntityResult.OPERATION_SUCCESSFUL, EntityResult.NODATA_RESULT);
+            }
+
             attrMap.put(MeasurementsDao.DEV_ID, rowDevice.get(DevicesDao.DEV_ID));
+
+            Map<String, Object> containerLotFilter = Map.of(DevicesDao.DEV_MAC, attrMap.get(DevicesDao.DEV_MAC));
+            List<String> containerLotColumns = List.of("CNT_ID", "LOT_ID");
+
+            EntityResult containerLotResult = this.daoHelper.query(this.measurementsDao, containerLotFilter, containerLotColumns, "container_lot");
+            if (!containerLotResult.isEmpty()) {
+                Map<String, Object> containerLotRow = containerLotResult.getRecordValues(0);
+                attrMap.put(MeasurementsDao.CNT_ID, containerLotRow.get("CNT_ID"));
+                attrMap.put(MeasurementsDao.LOT_ID, containerLotRow.get("LOT_ID"));
+            } else {
+                return new EntityResultMapImpl(EntityResult.OPERATION_WRONG, EntityResult.NODATA_RESULT, "Error querying container_lot");
+            }
+
             EntityResult lastTimeResult = devicesService.lastTimeWithoutCMP(
                     Map.of(DevicesDao.DEV_ID, rowDevice.get(DevicesDao.DEV_ID)),
                     columns
@@ -109,6 +129,11 @@ public class MeasurementsService implements IMeasurementsService {
     @Override
     public EntityResult measurementsDelete(Map<String, Object> keyMap) throws OntimizeJEERuntimeException {
         return this.daoHelper.delete(this.measurementsDao, keyMap);
+    }
+
+    @Override
+    public EntityResult ContainerLotQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
+        return this.daoHelper.query(this.measurementsDao, keyMap, attrList, "container_lot");
     }
 
 }

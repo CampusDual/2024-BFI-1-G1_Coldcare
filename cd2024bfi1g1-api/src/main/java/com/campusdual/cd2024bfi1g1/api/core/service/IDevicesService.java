@@ -14,5 +14,4 @@ public interface IDevicesService {
     EntityResult devicesUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap) throws OntimizeJEERuntimeException;
     EntityResult lastTimeQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
     EntityResult devicesDelete(Map<String, Object> keyMap) throws OntimizeJEERuntimeException;
-
 }
