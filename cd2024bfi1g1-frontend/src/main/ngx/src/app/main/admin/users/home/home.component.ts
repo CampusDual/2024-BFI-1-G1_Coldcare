@@ -17,17 +17,15 @@ export class HomeUsersComponent implements OnInit {
     let filters: Array<Expression> = [];
     values.forEach(fil => {
       if (Util.isDefined(fil.value)) {
-        if (
-          fil.attr === "name" ||
-          fil.attr === "surname" ||
-          fil.attr === "login"
-        ) {
-          filters.push(
-            FilterExpressionUtils.buildExpressionLike(
-              "usr_" + fil.attr,
-              fil.value
-            )
-          );
+        const attributeMapping = {
+          name: "usr_name",
+          login: "usr_login",
+          company: "cmp_name"
+        };
+
+        const fieldName = attributeMapping[fil.attr];
+        if (fieldName) {
+          filters.push(FilterExpressionUtils.buildExpressionLike(fieldName, fil.value));
         }
 
       }

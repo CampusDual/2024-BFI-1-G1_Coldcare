@@ -91,7 +91,7 @@
   "DEV_MAC": "Device Id",
   "DEVICE_ASSIGNMENT": "Device assignment",
   "COMPANIES": "Companies",
-  "CMP_NAME": "Name",
+  "CMP_NAME": "Company",
   "COMPANY_DATA": "Company Data",
   "CMP_ID": "Company",
   "FILTER": "Filter",
@@ -116,5 +116,6 @@
   "EDIT_CONTAINER": "Edit container",
   "CURRENT_LOT": "Current lot",
   "DEV_NAME": "Device name",
-  "CONTAINER_ASSIGN": "Assign to container"
+  "CONTAINER_ASSIGN": "Assign to container",
+  "company-data-section": "Company data"
 }

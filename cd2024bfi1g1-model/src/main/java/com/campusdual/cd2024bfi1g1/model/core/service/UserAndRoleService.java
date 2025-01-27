@@ -1,9 +1,6 @@
 package com.campusdual.cd2024bfi1g1.model.core.service;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import com.campusdual.cd2024bfi1g1.model.core.dao.*;
 import com.campusdual.cd2024bfi1g1.model.core.util.Util;
@@ -57,6 +54,10 @@ public class UserAndRoleService implements IUserAndRoleService {
 	@Override
 	@Secured({ PermissionsProviderSecured.SECURED })
 	public EntityResult userQuery(final Map<?, ?> keysValues, final List<?> attributes) throws OntimizeJEERuntimeException {
+
+		if (!attributes.contains("CMP_NAME")){
+			((List<String>) attributes).add("CMP_NAME");
+		}
 
 		final EntityResult toRet = this.daoHelper.query(this.userDao, keysValues, attributes);
 		if (toRet.containsKey(UserDao.PHOTO)) {

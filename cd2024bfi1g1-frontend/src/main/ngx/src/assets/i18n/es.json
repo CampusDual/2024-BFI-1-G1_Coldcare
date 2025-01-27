@@ -91,7 +91,7 @@
   "DEV_MAC": "Id del dispositivo",
   "DEVICE_ASSIGNMENT": "Asignación dispositivos",
   "COMPANIES": "Empresas",
-  "CMP_NAME": "Nombre",
+  "CMP_NAME": "Empresa",
   "COMPANY_DATA": "Datos de la empresa",
   "CMP_ID": "Empresa",
   "DEVICE_NAME": "Nombre de dispositivo",
@@ -116,5 +116,6 @@
   "EDIT_CONTAINER": "Editar contenedor",
   "CURRENT_LOT": "Lote actual",
   "DEV_NAME": "Nombre del dispositivo",
-  "CONTAINER_ASSIGN": "Asignar a contenedor"
+  "CONTAINER_ASSIGN": "Asignar a contenedor",
+  "company-data-section": "Datos de la empresa"
 }
