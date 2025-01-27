@@ -27,18 +27,12 @@ export class DevicesDetailComponent implements AfterViewInit {
     domain: ['#1464A5', '#eeeeee', '#c5c5c5']
   };
 
-  tempField: string = "ME_TEMP";
-  humidityField: string = "ME_HUMIDITY";
+  tempField: string = "";
+  humidityField: string = "";
 
   formatDate(d: number): string {
     const date = new Date(d);
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const hours = String(date.getHours()).padStart(2, '0');
-    const minutes = String(date.getMinutes()).padStart(2, '0');
-    //d.toLocaleString('es-ES', {month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'}).replace(',','');
-
-    return `${day}/${month} ${hours}:${minutes}`;
+    return date.toLocaleString('es-ES', {month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'}).replace(',','');
   }
 
   constructor(
@@ -91,6 +85,14 @@ export class DevicesDetailComponent implements AfterViewInit {
       return null;
     }
   }
+
+  /*
+  Para modificar como se muestra la fecha del tooltip cuando ponemos el raton encima de uno de los puntos, habria que 
+  modificar la linea 107 donde se carga la fecha en la variable "data" para modificar el formato de fecha que se le pasa:
+    "ME_DATE": (new Date(row.ME_DATE)).toISOString(),
+  El problema es que rompe por completo la representacion de los datos, es decir, no se representan los saltos temporales.
+  Por lo tanto de momento no se modifica hasta que el cliente decida lo contrario. Una vez arreglado eliminar este comentario 
+  */
 
   //LLenar tablas
   fillChart(ev: any) {
