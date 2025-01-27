@@ -11,7 +11,7 @@ import { DevicesBooleanRendererComponent } from './devices-boolean-renderer/devi
 @NgModule({
   declarations: [
     DevicesDetailComponent,
-    DevicesHomeComponent , 
+    DevicesHomeComponent, 
     DevicesBooleanRendererComponent
   ],
     
