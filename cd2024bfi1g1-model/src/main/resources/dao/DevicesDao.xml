@@ -34,7 +34,7 @@
         </Query>
         <Query id="devicesWithoutUser">
             <AmbiguousColumns>
-                <AmbiguousColumn name="CMP_ID" prefix="d"/>
+                <AmbiguousColumn name="CMP_ID" prefix="c"/>
             </AmbiguousColumns>
             <Sentence>
                 <![CDATA[
@@ -43,7 +43,7 @@
                     FROM
                         ${mainschema}.devices d
                     LEFT JOIN ${mainschema}.companies c
-                    ON d.CMP_ID = c.CMP_ID
+                        ON d.CMP_ID = c.CMP_ID
                     #WHERE#
                     #ORDER#
                 ]]>

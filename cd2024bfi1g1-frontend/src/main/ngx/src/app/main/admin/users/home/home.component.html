@@ -1,14 +1,13 @@
 <o-form show-header="no" query-on-init="no" fxFill>
-  <filter title="FILTER_USERS" id="filtro">
+  <filter title="FILTER_USERS">
     <div fxLayout="row" fxLayoutGap="15px">
       <o-text-input attr="name" label="USR_NAME"></o-text-input>
       <o-text-input attr="login" label="USR_LOGIN"></o-text-input>
       <o-text-input attr="company" label="CMP_NAME"></o-text-input>
 
-      <o-button attr="filter" [oFilterBuilderQuery]="filterBuilder" type="FLAT" color="primary" label="BUTTON.FILTER">
+      <o-button attr="filter" [oFilterBuilderQuery]="filterBuilder" type="FLAT" color="primary" label="FILTER">
       </o-button>
-      <o-button attr="clear" [oFilterBuilderClear]="filterBuilder" type="BASIC" label="BUTTON.CLEARFILTERS"
-        icon="clear"></o-button>
+      <o-button attr="clear" [oFilterBuilderClear]="filterBuilder" type="BASIC" label="CLEAR" icon="clear"></o-button>
     </div>
     <o-filter-builder #filterBuilder attr="thefilter" filters="name;login;company" [target]="usersTable"
       query-on-change="no" query-on-change-delay="500" [expression-builder]="createFilter">
