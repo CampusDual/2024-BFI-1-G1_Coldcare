@@ -18,14 +18,13 @@
     <label class="input-comp-title">{{ 'DATE_RANGE_LABEL' | oTranslate }}</label>
     <div class="inline-fields">
       <div fxLayout="column" layout-padding>
-        <o-daterange-input attr="ME_DATE" label="{{ 'DATE_RANGE_INPUT' | oTranslate }}" read-only="no" required="no"
-          format="DD/MM/YYYY" show-week-numbers="true" mode="desktop" automatic-binding="false" translate="yes">
+        <o-daterange-input #DATES attr="ME_DATE" label="{{ 'DATE_RANGE_INPUT' | oTranslate }}" read-only="no"
+          required="no" format="DD/MM/YYYY" show-week-numbers="true" mode="desktop" automatic-binding="false"
+          translate="yes">
         </o-daterange-input>
       </div>
       <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="8px">
-        <o-button attr="filter" [oFilterBuilderQuery]="filterBuilder" type="RAISED" color="primary"
-          label="{{ 'FILTER' | oTranslate }}" class="filter-button"></o-button>
-        <o-button attr="clear" [oFilterBuilderClear]="filterBuilder" type="RAISED" label="{{ 'CLEAR' | oTranslate }}"
+        <o-button attr="clear" (onClick)="DATES.clearValue()" type="RAISED" label="{{ 'CLEAR' | oTranslate }}"
           class="filter-button"></o-button>
       </div>
     </div>
