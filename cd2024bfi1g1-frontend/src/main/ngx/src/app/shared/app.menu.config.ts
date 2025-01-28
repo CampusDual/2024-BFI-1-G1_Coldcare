@@ -14,5 +14,6 @@ export const MENU_CONFIG: MenuRootItem[] = [
       { id: 'medidas', name: 'MEASUREMENTS', tooltip: 'MEASUREMENTS', icon: 'thermostat', route: '/main/admin/medidas' },
     ]
   },
+  { id: 'geo', name: 'GeoLocation', tooltip: 'GeoLocation', icon: 'location_on', route: '/main/geo' },
   { id: 'logout', name: 'LOGOUT', route: '/login', icon: 'power_settings_new', confirm: 'yes' }
 ];
