@@ -76,6 +76,26 @@
                 ]]>
             </Sentence>
         </Query>
+        <Query id="get_min_temp_lot_Id">
+            <Sentence>
+                <![CDATA[
+                    SELECT min_temp
+                    FROM lots
+                    #WHERE#
+                ]]>
+            </Sentence>
+        </Query>
+
+        <Query id="get_max_temp_lot_Id">
+            <Sentence>
+                <![CDATA[
+                    SELECT max_temp
+                    FROM lots
+                    #WHERE#
+                ]]>
+            </Sentence>
+        </Query>
+
 
     </Queries>
 </JdbcEntitySetup>

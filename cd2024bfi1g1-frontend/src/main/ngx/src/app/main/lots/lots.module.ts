@@ -4,13 +4,15 @@ import { OntimizeWebModule } from 'ontimize-web-ngx';
 import { LotsRoutingModule } from './lots-routing.module';
 import { LotsHomeComponent } from './lots-home/lots-home.component';
 import { LotsNewComponent } from './lots-new/lots-new.component';
+import { LotsDetailsComponent } from './lots-details/lots-details.component';
 
 
 
 @NgModule({
   declarations: [
     LotsHomeComponent,
-    LotsNewComponent
+    LotsNewComponent,
+    LotsDetailsComponent
   ],
   imports: [
     CommonModule,

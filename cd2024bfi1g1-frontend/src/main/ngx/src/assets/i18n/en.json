@@ -116,6 +116,11 @@
   "EDIT_CONTAINER": "Edit container",
   "CURRENT_LOT": "Current lot",
   "DEV_NAME": "Device name",
+  "company-data-section": "Company data",
+  "MIN_TEMP": "Min temperature",
+  "MAX_TEMP": "Max temperature",
+  "TEMP_LOT": "Lot temperatures",
   "CONTAINER_ASSIGN": "Assign to container",
-  "company-data-section": "Company data"
+  "DEVICE_DATA": "Details",
+  "DEVICE_GRAPH": "Graph"
 }

@@ -116,6 +116,11 @@
   "EDIT_CONTAINER": "Editar contenedor",
   "CURRENT_LOT": "Lote actual",
   "DEV_NAME": "Nombre del dispositivo",
+  "company-data-section": "Datos de la empresa",
+  "MIN_TEMP": "Temperatura min",
+  "MAX_TEMP": "Temperatura max",
+  "TEMP_LOT": "Temperaturas lote",
   "CONTAINER_ASSIGN": "Asignar a contenedor",
-  "company-data-section": "Datos de la empresa"
+  "DEVICE_DATA": "Detalles",
+  "DEVICE_GRAPH": "Gráfica"
 }
