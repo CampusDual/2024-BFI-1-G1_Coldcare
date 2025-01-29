@@ -23,8 +23,12 @@ export class DevicesDetailComponent {
   chartParametersTemp: LineChartConfiguration;
   chartParametersHum: LineChartConfiguration;
 
-  colorScheme = {
-    domain: ['#1464A5', '#eeeeee', '#c5c5c5']
+  colorSchemeTemp = {
+    domain: ['#1464A5']
+  };
+
+  colorSchemeHum = {
+    domain: ['#31a514']
   };
 
   tempField: string = "";
@@ -32,7 +36,7 @@ export class DevicesDetailComponent {
 
   formatDate(d: number): string {
     const date = new Date(d);
-    return date.toLocaleString('es-ES', {month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'}).replace(',','');
+    return date.toLocaleString('es-ES', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' }).replace(',', '');
   }
 
   constructor(

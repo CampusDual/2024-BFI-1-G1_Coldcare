@@ -6,6 +6,7 @@ import { ContainersHomeComponent } from './containers-home/containers-home.compo
 import { ContainersNewComponent } from './containers-new/containers-new.component';
 import { ContainersLotsMeasurementsComponent } from './containers-lots-measurements/containers-lots-measurements.component';
 
+
 export const CONTAINERS_MODULE_DECLARATIONS = [
   ContainersDetailsComponent,
   ContainersHomeComponent,

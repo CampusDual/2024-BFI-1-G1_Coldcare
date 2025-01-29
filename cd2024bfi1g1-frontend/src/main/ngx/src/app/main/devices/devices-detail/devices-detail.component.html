@@ -43,12 +43,12 @@
 
     <!-- Grafica Temperatura -->
     <o-chart #lineChartBasic type="line" [chart-parameters]="chartParametersTemp" x-label="{{ 'TIME' | oTranslate }}"
-      y-label="{{ 'TEMPERATURE' | oTranslate }}" [color]="colorScheme" [data]="dataArrayTemp"
+      y-label="{{ 'TEMPERATURE' | oTranslate }}" [color]="colorSchemeTemp" [data]="dataArrayTemp"
       show-grid-lines="true"></o-chart>
 
     <!-- Grafica Humedad -->
     <o-chart #lineChartBasic type="line" [chart-parameters]="chartParametersHum" x-label="{{ 'TIME' | oTranslate }}"
-      y-label="{{ 'HUMIDITY' | oTranslate }}" [color]="colorScheme" [data]="dataArrayHum"
+      y-label="{{ 'HUMIDITY' | oTranslate }}" [color]="colorSchemeHum" [data]="dataArrayHum"
       show-grid-lines="true"></o-chart>
   </o-column>
 
