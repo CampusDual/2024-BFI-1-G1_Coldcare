@@ -1,7 +1,6 @@
 package com.campusdual.cd2024bfi1g1.model.core.service;
 
 import com.campusdual.cd2024bfi1g1.api.core.service.ILocationsService;
-import com.campusdual.cd2024bfi1g1.model.core.dao.DevicesDao;
 import com.campusdual.cd2024bfi1g1.model.core.dao.LocationsDao;
 import com.campusdual.cd2024bfi1g1.model.core.dao.UserDao;
 import com.ontimize.jee.common.dto.EntityResult;
