@@ -122,5 +122,6 @@
   "CONTAINER_ASSIGN": "Asignar a contenedor",
   "DEVICE_DATA": "Detalles",
   "DEVICE_GRAPH": "Gráfica",
-  "ADDRESS": "Dirección"
+  "LOC_ADDRESS": "Dirección",
+  "LOC_NAME": "Nombre de la localización"
 }

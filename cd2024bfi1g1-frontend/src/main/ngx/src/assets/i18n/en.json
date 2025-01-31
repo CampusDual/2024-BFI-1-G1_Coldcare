@@ -122,5 +122,6 @@
   "CONTAINER_ASSIGN": "Assign to container",
   "DEVICE_DATA": "Details",
   "DEVICE_GRAPH": "Graph",
-  "ADDRESS": "Address"
+  "LOC_ADDRESS": "Address",
+  "LOC_NAME": "Location Name"
 }
