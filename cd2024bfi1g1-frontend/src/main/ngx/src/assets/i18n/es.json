@@ -122,5 +122,9 @@
   "CONTAINER_ASSIGN": "Asignar a contenedor",
   "DEVICE_DATA": "Detalles",
   "DEVICE_GRAPH": "Gráfica",
-  "BILLS": "Facturas"
+  "BILLS": "Facturas",
+  "BIL_EXPENSE": "Gasto total",
+  "BIL_DEVICES": "Total de dispositivos",
+  "BIL_MEASUREMENTS": "Total de medidas",
+  "BIL_DATE": "Fecha de la factura"
 }

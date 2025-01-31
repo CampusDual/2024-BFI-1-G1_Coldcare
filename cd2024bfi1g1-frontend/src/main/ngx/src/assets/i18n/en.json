@@ -122,5 +122,9 @@
   "CONTAINER_ASSIGN": "Assign to container",
   "DEVICE_DATA": "Details",
   "DEVICE_GRAPH": "Graph",
-  "BILLS": "Bills"
+  "BILLS": "Bills",
+  "BIL_EXPENSE": "Total expense",
+  "BIL_DEVICES": "Total devices",
+  "BIL_MEASUREMENTS": "Total measurements",
+  "BIL_DATE": "Bill date"
 }
