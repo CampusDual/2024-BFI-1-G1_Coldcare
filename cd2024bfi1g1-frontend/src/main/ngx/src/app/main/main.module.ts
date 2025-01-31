@@ -16,8 +16,7 @@ import { ProfileComponent } from './profile/profile.component';
   ],
   declarations: [
     MainComponent,
-    ProfileComponent,
-   
+    ProfileComponent
   ]
 })
 export class MainModule { }

@@ -122,7 +122,12 @@
   "CONTAINER_ASSIGN": "Asignar a contenedor",
   "DEVICE_DATA": "Detalles",
   "DEVICE_GRAPH": "Gráfica",
+  "LOC_ADDRESS": "Dirección",
+  "LOC_NAME": "Nombre de la localización",
+  "LOCATIONS": "Localizaciones",
   "CNT_MOBILITY": "Mobilidad del contenedor",
   "CURRENT_MOBILITY": "Habilitar movilidad del contenedor",
-  "ALERTS": "Alertas"
+  "ALERTS": "Alertas",
+  "LOC_DATA": "Datos de la localización",
+  "LOCATION": "Localización"
 }
