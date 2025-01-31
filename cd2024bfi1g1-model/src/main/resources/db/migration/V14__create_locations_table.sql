@@ -7,3 +7,7 @@ CREATE TABLE public.locations (
 
 ALTER TABLE public.locations ADD cmp_id int4 NULL;
 ALTER TABLE public.locations ADD CONSTRAINT locations_companies_fk FOREIGN KEY (cmp_id) REFERENCES public.companies(cmp_id);
+
+UPDATE public.usr_role
+SET rol_json_client_permission='{ "menu": [{ "attr": "contenedores", "visible": false, "enabled": false }, { "attr": "devices", "visible": false, "enabled": false }, { "attr": "lots", "visible": false, "enabled": false }, { "attr": "locations", "visible": false, "enabled": false } ] }'
+WHERE rol_id=1;

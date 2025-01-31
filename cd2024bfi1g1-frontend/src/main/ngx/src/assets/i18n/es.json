@@ -123,5 +123,6 @@
   "DEVICE_DATA": "Detalles",
   "DEVICE_GRAPH": "Gráfica",
   "LOC_ADDRESS": "Dirección",
-  "LOC_NAME": "Nombre de la localización"
+  "LOC_NAME": "Nombre de la localización",
+  "LOCATIONS": "Localizaciones"
 }
