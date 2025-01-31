@@ -96,6 +96,16 @@
             </Sentence>
         </Query>
 
+        <Query id="get_end_date_lot_id">
+            <Sentence>
+                <![CDATA[
+                    SELECT LOT_START_DATE
+                    FROM lots
+                    #WHERE#
+                ]]>
+            </Sentence>
+        </Query>
+
 
     </Queries>
 </JdbcEntitySetup>

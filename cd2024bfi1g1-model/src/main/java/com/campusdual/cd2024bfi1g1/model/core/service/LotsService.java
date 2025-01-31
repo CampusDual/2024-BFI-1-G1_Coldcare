@@ -17,6 +17,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.*;
 
 @Service("LotsService")
@@ -65,6 +66,7 @@ public class LotsService implements ILotsService {
         attrMap.put(DevicesDao.CMP_ID, cmpId);
 
         validarCamposTemp(attrMap);
+        validarCamposDate(attrMap);
 
         return this.daoHelper.insert(this.lotsDao, attrMap);
     }
@@ -73,6 +75,12 @@ public class LotsService implements ILotsService {
     public EntityResult lotsUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap)
             throws OntimizeJEERuntimeException {
         Object lotId = keyMap.get("LOT_ID");
+
+        if (attrMap.containsKey(LotsDao.LOT_END_DATE)) {
+            Map<String,Object> attrMapCopy = new HashMap<>(attrMap);
+            attrMapCopy.put(LotsDao.LOT_START_DATE,getLotStartDate(lotId));
+            validarCamposDate(attrMapCopy);
+        }
 
         if (!attrMap.containsKey("MIN_TEMP") && !attrMap.containsKey("MAX_TEMP")) {
             return this.daoHelper.update(this.lotsDao, attrMap, keyMap);
@@ -126,8 +134,6 @@ public class LotsService implements ILotsService {
 
         return this.daoHelper.update(this.lotsDao, attrMap, keyMap);
     }
-
-
 
     @Override
     public EntityResult lotsDelete(Map<String, Object> keyMap) throws OntimizeJEERuntimeException {
@@ -225,7 +231,44 @@ public class LotsService implements ILotsService {
         return Double.NaN;
     }
 
+    private void validarCamposDate(Map<String, Object> attrMap) throws OntimizeJEERuntimeException {
 
+        Date startDate = (Date) attrMap.get(LotsDao.LOT_START_DATE);
+        Date endDate = (Date) attrMap.get(LotsDao.LOT_END_DATE);
+
+        if (endDate != null) {
+            if (!startDate.equals(endDate)){
+                if (!endDate.after(startDate)) {
+                    System.out.println("Entra en la validacion");
+                    throw new OntimizeJEERuntimeException("La fecha de fin es mayor que la fecha de inicio.");
+                }
+            }
+        }
+
+    }
+
+    private Date getLotStartDate(Object lotId) {
+        Map<String, Object> keyMap = new HashMap<>();
+        keyMap.put("LOT_ID", lotId);
+
+        List<String> attrList = new ArrayList<>();
+        attrList.add(LotsDao.LOT_START_DATE);
+
+        EntityResult result = this.daoHelper.query(this.lotsDao, keyMap, attrList, "get_end_date_lot_id");
+
+        Object startDateValue = result.get(LotsDao.LOT_START_DATE);
+
+        if (startDateValue instanceof List) {
+            List<?> tempList = (List<?>) startDateValue;
+            if (!tempList.isEmpty()) {
+                Object firstValue = tempList.get(0);
+                if (firstValue instanceof Timestamp) {
+                    return new Date(((Timestamp) firstValue).getTime());
+                }
+            }
+        }
+        return null;
+    }
 
 
 }
