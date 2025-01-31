@@ -2,6 +2,8 @@ package com.campusdual.cd2024bfi1g1.model.core.service;
 
 import com.campusdual.cd2024bfi1g1.api.core.service.IBillsService;
 import com.campusdual.cd2024bfi1g1.model.core.dao.BillsDao;
+import com.campusdual.cd2024bfi1g1.model.core.dao.DevicesDao;
+import com.campusdual.cd2024bfi1g1.model.core.dao.UserDao;
 import com.ontimize.jee.common.dto.EntityResult;
 import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
 import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
@@ -20,11 +22,17 @@ public abstract class BillsService implements IBillsService {
     private BillsDao billsDao;
     @Autowired
     private DefaultOntimizeDaoHelper daoHelper;
+    @Autowired
+    private UserDao userDao;
 
     @Override
     public EntityResult billsQuery(Map<String, Object> keyMap, List<String> attrList)
             throws OntimizeJEERuntimeException {
-        return this.daoHelper.query(this.billsDao, keyMap, attrList);
+
+        Integer cmpId = UserAndRoleService.getUserCompanyId(this.daoHelper, this.userDao);
+        keyMap.put(DevicesDao.CMP_ID, cmpId);
+
+        return this.daoHelper.query(this.billsDao, keyMap, attrList, "bills_companies");
     }
 
     @Override

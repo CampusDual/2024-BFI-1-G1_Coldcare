@@ -18,9 +18,27 @@
                     SELECT
                         #COLUMNS#
                     FROM
-                        ${mainschema}.bills
+                        bills
                     #WHERE#
                     #ORDER#
+                ]]>
+            </Sentence>
+        </Query>
+
+        <Query id="bills_companies">
+            <AmbiguousColumns>
+                <AmbiguousColumn name="CMP_ID" prefix="c" />
+            </AmbiguousColumns>
+            <Sentence>
+                <![CDATA[
+                    SELECT
+                         #COLUMNS#
+                    FROM
+                        bills b
+                     JOIN companies c
+                        ON c.cmp_id = b.cmp_id
+                    #WHERE#
+
                 ]]>
             </Sentence>
         </Query>
