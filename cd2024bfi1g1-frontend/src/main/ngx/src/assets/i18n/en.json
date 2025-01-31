@@ -121,5 +121,7 @@
   "TEMP_LOT": "Lot temperatures",
   "CONTAINER_ASSIGN": "Assign to container",
   "DEVICE_DATA": "Details",
-  "DEVICE_GRAPH": "Graph"
+  "DEVICE_GRAPH": "Graph",
+  "CNT_MOBILITY": "Container Mobility",
+  "CURRENT_MOBILITY": "Enable container mobility"
 }
