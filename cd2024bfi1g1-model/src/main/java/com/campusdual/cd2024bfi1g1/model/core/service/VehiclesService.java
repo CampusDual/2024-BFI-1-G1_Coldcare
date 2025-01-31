@@ -28,8 +28,8 @@ public class VehiclesService implements IVehiclesService {
 
     @Override
     public EntityResult vehiclesQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
-        Integer vhcId = UserAndRoleService.getUserCompanyId(this.daoHelper, this.userDao);
-        keyMap.put(VehiclesDao.VHC_ID, vhcId);
+        Integer cmpId = UserAndRoleService.getUserCompanyId(this.daoHelper, this.userDao);
+        keyMap.put(VehiclesDao.CMP_ID, cmpId);
 
         return this.daoHelper.query(this.vehiclesDao, keyMap, attrList);
     }

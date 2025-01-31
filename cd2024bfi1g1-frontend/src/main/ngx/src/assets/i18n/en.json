@@ -122,5 +122,6 @@
   "CONTAINER_ASSIGN": "Assign to container",
   "DEVICE_DATA": "Details",
   "DEVICE_GRAPH": "Graph",
-  "VEHICLES": "Vehicles"
+  "VEHICLES": "Vehicles",
+  "PLATE": "Plate"
 }
