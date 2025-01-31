@@ -126,5 +126,6 @@
   "LOC_NAME": "Location Name",
   "LOCATIONS": "Locations",
   "CNT_MOBILITY": "Container Mobility",
-  "CURRENT_MOBILITY": "Enable container mobility"
+  "CURRENT_MOBILITY": "Enable container mobility",
+  "LOC_DATA": "Location Data"
 }
