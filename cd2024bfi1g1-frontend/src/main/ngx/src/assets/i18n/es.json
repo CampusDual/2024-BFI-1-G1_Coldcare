@@ -123,5 +123,6 @@
   "DEVICE_DATA": "Detalles",
   "DEVICE_GRAPH": "Gráfica",
   "CNT_MOBILITY": "Mobilidad del contenedor",
-  "CURRENT_MOBILITY": "Habilitar movilidad del contenedor"
+  "CURRENT_MOBILITY": "Habilitar movilidad del contenedor",
+  "ALERTS": "Alertas"
 }
