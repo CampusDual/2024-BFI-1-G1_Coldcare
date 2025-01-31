@@ -7,6 +7,9 @@ import { ContainersHomeComponent } from './containers-home/containers-home.compo
 import { ContainersNewComponent } from './containers-new/containers-new.component';
 import { ContainersDetailsComponent } from './containers-details/containers-details.component';
 import { ContainersLotsMeasurementsComponent } from './containers-lots-measurements/containers-lots-measurements.component';
+import { ContainersRepresentationComponent } from './containers-representation/containers-representation.component';
+import { OMapModule } from 'ontimize-web-ngx-map';
+
 
 @NgModule({
   declarations: [
@@ -14,11 +17,14 @@ import { ContainersLotsMeasurementsComponent } from './containers-lots-measureme
     ContainersNewComponent,
     ContainersDetailsComponent,
     ContainersLotsMeasurementsComponent,
+    ContainersRepresentationComponent,
+
   ],
   imports: [
     CommonModule,
     OntimizeWebModule,
-    ContainersRoutingModule
+    ContainersRoutingModule,
+    OMapModule
   ]
 })
 export class ContainersModule { }
