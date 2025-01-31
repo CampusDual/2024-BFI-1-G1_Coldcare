@@ -124,5 +124,7 @@
   "DEVICE_GRAPH": "Graph",
   "LOC_ADDRESS": "Address",
   "LOC_NAME": "Location Name",
-  "LOCATIONS": "Locations"
+  "LOCATIONS": "Locations",
+  "CNT_MOBILITY": "Container Mobility",
+  "CURRENT_MOBILITY": "Enable container mobility"
 }

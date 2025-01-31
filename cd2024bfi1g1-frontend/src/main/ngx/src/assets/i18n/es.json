@@ -124,5 +124,7 @@
   "DEVICE_GRAPH": "Gráfica",
   "LOC_ADDRESS": "Dirección",
   "LOC_NAME": "Nombre de la localización",
-  "LOCATIONS": "Localizaciones"
+  "LOCATIONS": "Localizaciones",
+  "CNT_MOBILITY": "Mobilidad del contenedor",
+  "CURRENT_MOBILITY": "Habilitar mobilidad del contenedor"
 }
