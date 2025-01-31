@@ -14,10 +14,13 @@ export const SERVICE_CONFIG: Object = {
   'containers': {
     'path': '/containers'
   },
-  'lots':{
+  'lots': {
     'path': '/lots'
   },
   'companies': {
     'path': '/companies'
+  },
+  'locations': {
+    'path': '/locations'
   }
 };
