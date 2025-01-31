@@ -7,7 +7,7 @@ import { BillsHomeComponent } from './bills/bills-home/bills-home.component';
 
 @NgModule({
   declarations: [
-    BillsHomeComponent
+
   ],
   imports: [CommonModule, OntimizeWebModule, AdminRoutingModule],
 })
