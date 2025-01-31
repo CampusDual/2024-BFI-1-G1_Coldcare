@@ -1,13 +1,38 @@
-<o-table #measurementsTable attr="measurementsTable" service="measurements" entity="measurements" keys="ME_ID"
-    columns="ME_ID;ME_DATE;ME_TEMP;ME_HUMIDITY;CNT_NAME;LOT_NAME;MIN_TEMP;MAX_TEMP"
-    visible-columns="ME_DATE;ME_TEMP;ME_HUMIDITY;CNT_NAME;LOT_NAME;MIN_TEMP;MAX_TEMP" query-rows="20"
-    select-all-checkbox-visible="no" insert-button="no" delete-button="no" refresh-button="yes" quick-filter="no"
-    pageable="true" detail-mode="none" title="MEASUREMENTS" show-title="yes" sort-columns="ME_DATE:DESC">
-    <o-table-column attr="ME_DATE" title="DATE" type="date" format="DD/MM/YYYY HH:mm:ss"></o-table-column>
-    <o-table-column attr="ME_TEMP" title="TEMPERATURE"></o-table-column>
-    <o-table-column attr="ME_HUMIDITY" title="HUMIDITY"></o-table-column>
-    <o-table-column attr="CNT_NAME" title="CNT_NAME"></o-table-column>
-    <o-table-column attr="LOT_NAME" title="LOT_NAME"></o-table-column>
-    <o-table-column attr="MIN_TEMP" title="MIN_TEMP"></o-table-column>
-    <o-table-column attr="MAX_TEMP" title="MAX_TEMP"></o-table-column>
-</o-table>
+<o-form show-header="no" query-on-init="no" fxFill>
+
+    <o-column>
+        <label layout-padding>{{"FILTER_USERS" | oTranslate}}</label>
+        <div class="inline-fields">
+            <div fxLayout="row" fxLayoutGap="15px" layout-padding>
+                <o-text-input attr="lote" label="LOT_NAME"></o-text-input>
+                <o-text-input attr="contenedor" label="CNT_NAME"></o-text-input>
+            </div>
+            <div fxLayoutAlign="end center" fxLayoutGap="8px">
+                <o-button attr="filter" [oFilterBuilderQuery]="filterBuilder" type="FLAT" color="primary"
+                    label="FILTER">
+                </o-button>
+                <o-button attr="clear" [oFilterBuilderClear]="filterBuilder" type="BASIC" label="CLEAR"
+                    icon="clear"></o-button>
+            </div>
+        </div>
+        <o-filter-builder #filterBuilder attr="thefilter" filters="lote;contenedor" [target]="measurementsTable"
+            query-on-change="no" query-on-change-delay="500" [expression-builder]="createFilter">
+        </o-filter-builder>
+
+        <o-table #measurementsTable attr="measurementsTable" service="measurements" entity="measurements" keys="ME_ID"
+            columns="ME_ID;ME_DATE;ME_TEMP;ME_HUMIDITY;CNT_NAME;LOT_NAME;MIN_TEMP;MAX_TEMP"
+            visible-columns="ME_DATE;ME_TEMP;ME_HUMIDITY;CNT_NAME;LOT_NAME;MIN_TEMP;MAX_TEMP" query-rows="20"
+            select-all-checkbox-visible="no" insert-button="no" delete-button="no" refresh-button="yes"
+            quick-filter="no" pageable="true" detail-mode="none" title="MEASUREMENTS" show-title="yes"
+            sort-columns="ME_DATE:DESC" virtual-scroll="false">
+            <o-table-column attr="ME_DATE" title="DATE" type="date" format="DD/MM/YYYY HH:mm:ss"></o-table-column>
+            <o-table-column attr="ME_TEMP" title="TEMPERATURE"></o-table-column>
+            <o-table-column attr="ME_HUMIDITY" title="HUMIDITY"></o-table-column>
+            <o-table-column attr="CNT_NAME" title="CNT_NAME"></o-table-column>
+            <o-table-column attr="LOT_NAME" title="LOT_NAME"></o-table-column>
+            <o-table-column attr="MIN_TEMP" title="MIN_TEMP"></o-table-column>
+            <o-table-column attr="MAX_TEMP" title="MAX_TEMP"></o-table-column>
+        </o-table>
+    </o-column>
+
+</o-form>
