@@ -12,6 +12,7 @@ export const MENU_CONFIG: MenuRootItem[] = [
       { id: 'companies', name: 'COMPANIES', tooltip: 'COMPANIES', icon: 'apartment', route: '/main/admin/companies' },
       { id: 'devices-without-users', name: 'DEVICE_ASSIGNMENT', tooltip: 'DevicesWithoutUsers', route: '/main/admin/devices-without-users', icon: 'developer_board' },
       { id: 'medidas', name: 'MEASUREMENTS', tooltip: 'MEASUREMENTS', icon: 'thermostat', route: '/main/admin/medidas' },
+      { id: 'bills', name: 'BILLS', tooltip: 'BILLS', icon: 'receipt long', route: '/main/admin/bills' },
     ]
   },
   { id: 'logout', name: 'LOGOUT', route: '/login', icon: 'power_settings_new', confirm: 'yes' }
