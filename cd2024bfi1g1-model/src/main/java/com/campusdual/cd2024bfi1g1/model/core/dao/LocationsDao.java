@@ -16,6 +16,7 @@ public class LocationsDao extends OntimizeJdbcDaoSupport {
     public static final String LOC_ID = "LOC_ID";
     public static final String LOC_NAME = "LOC_NAME";
     public static final String LOC_ADDRESS = "LOC_ADDRESS";
+    public static final String CMP_ID = "CMP_ID";
 
-    public static final List<String> COLUMNS = Arrays.asList(LOC_ID, LOC_NAME, LOC_ADDRESS);
+    public static final List<String> COLUMNS = Arrays.asList(LOC_ID, LOC_NAME, LOC_ADDRESS, CMP_ID);
 }

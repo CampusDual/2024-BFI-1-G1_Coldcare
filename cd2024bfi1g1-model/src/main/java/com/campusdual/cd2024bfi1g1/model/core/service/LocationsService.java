@@ -1,7 +1,9 @@
 package com.campusdual.cd2024bfi1g1.model.core.service;
 
 import com.campusdual.cd2024bfi1g1.api.core.service.ILocationsService;
+import com.campusdual.cd2024bfi1g1.model.core.dao.DevicesDao;
 import com.campusdual.cd2024bfi1g1.model.core.dao.LocationsDao;
+import com.campusdual.cd2024bfi1g1.model.core.dao.UserDao;
 import com.ontimize.jee.common.dto.EntityResult;
 import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
 import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,17 +22,31 @@ public class LocationsService implements ILocationsService {
     private LocationsDao locationsDao;
     @Autowired
     private DefaultOntimizeDaoHelper daoHelper;
+    @Autowired
+    private UserDao userDao;
 
     @Override
     public EntityResult locationsQuery(Map<String, Object> keyMap, List<String> attrList)
             throws OntimizeJEERuntimeException {
-        return this.daoHelper.query(this.locationsDao, keyMap, attrList);
+
+        Map<String, Object> valuesToQuery = new HashMap<>(keyMap);
+
+        Integer cmpId = UserAndRoleService.getUserCompanyId(this.daoHelper, this.userDao);
+        valuesToQuery.put(LocationsDao.CMP_ID, cmpId);
+
+        return this.daoHelper.query(this.locationsDao, valuesToQuery, attrList);
     }
 
     @Override
     public EntityResult locationsInsert(Map<String, Object> attrMap)
             throws OntimizeJEERuntimeException {
-        return this.daoHelper.insert(this.locationsDao, attrMap);
+
+        Map<String, Object> valuesToInsert = new HashMap<>(attrMap);
+
+        Integer cmpId = UserAndRoleService.getUserCompanyId(this.daoHelper, this.userDao);
+        valuesToInsert.put(LocationsDao.CMP_ID, cmpId);
+
+        return this.daoHelper.insert(this.locationsDao, valuesToInsert);
     }
 
     @Override
