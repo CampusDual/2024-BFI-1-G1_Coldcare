@@ -15,8 +15,6 @@ import { VehiclesRoutingModule } from './vehicles-routing.module';
         CommonModule,
         OntimizeWebModule,
         VehiclesRoutingModule,
-        VehiclesHomeComponent
-
     ]
 })
 export class VehiclesModule { }
