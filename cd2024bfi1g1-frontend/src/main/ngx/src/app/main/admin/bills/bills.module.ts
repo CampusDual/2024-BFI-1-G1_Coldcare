@@ -3,13 +3,13 @@ import { CommonModule } from "@angular/common";
 import { OntimizeWebModule } from "ontimize-web-ngx";
 
 import { BillsRoutingModule } from "./bills-routing-module";
-import { BillsComponent } from "./bills.component";
-import { SharedModule } from '../../../shared/shared.module';
+import { BillsHomeComponent } from "./bills-home/bills-home.component";
+
 
 @NgModule({
-    declarations: [BillsComponent],
+    declarations: [BillsHomeComponent],
     imports: [CommonModule, OntimizeWebModule,
-        SharedModule,
+
         BillsRoutingModule],
 })
 export class BillsModule { } 

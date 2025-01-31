@@ -3,12 +3,12 @@ import { CommonModule } from "@angular/common";
 
 import { AdminRoutingModule } from "./admin-routing.module";
 import { OntimizeWebModule } from "ontimize-web-ngx";
-import { BillsComponent } from './bills/bills.component';
+import { BillsHomeComponent } from './bills/bills-home/bills-home.component';
 
 @NgModule({
   declarations: [
-    BillsComponent
+    BillsHomeComponent
   ],
   imports: [CommonModule, OntimizeWebModule, AdminRoutingModule],
 })
-export class AdminModule {}
+export class AdminModule { }
