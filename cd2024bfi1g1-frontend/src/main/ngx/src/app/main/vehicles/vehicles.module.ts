@@ -4,10 +4,14 @@ import { OntimizeWebModule } from 'ontimize-web-ngx';
 import { SharedModule } from '../../shared/shared.module';
 import { VehiclesHomeComponent } from './vehicles-home/vehicles-home.component';
 import { VehiclesRoutingModule } from './vehicles-routing.module';
+import { VehiclesNewComponent } from './vehicles-new/vehicles-new.component';
+import { VehiclesDetailsComponent } from './vehicles-details/vehicles-details.component';
 
 @NgModule({
     declarations: [
-        VehiclesHomeComponent
+        VehiclesHomeComponent,
+        VehiclesNewComponent,
+        VehiclesDetailsComponent
     ],
 
     imports: [

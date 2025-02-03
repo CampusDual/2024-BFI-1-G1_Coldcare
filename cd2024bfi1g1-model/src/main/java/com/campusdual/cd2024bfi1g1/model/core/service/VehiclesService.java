@@ -36,6 +36,8 @@ public class VehiclesService implements IVehiclesService {
 
     @Override
     public EntityResult vehiclesInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException {
+        Integer cmpId = UserAndRoleService.getUserCompanyId(this.daoHelper, this.userDao);
+        attrMap.put(VehiclesDao.CMP_ID, cmpId);
         return this.daoHelper.insert(this.vehiclesDao, attrMap);
     }
 
