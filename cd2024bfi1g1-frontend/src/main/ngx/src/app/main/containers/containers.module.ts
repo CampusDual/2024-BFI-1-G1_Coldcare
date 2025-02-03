@@ -7,6 +7,7 @@ import { ContainersHomeComponent } from './containers-home/containers-home.compo
 import { ContainersNewComponent } from './containers-new/containers-new.component';
 import { ContainersDetailsComponent } from './containers-details/containers-details.component';
 import { ContainersLotsMeasurementsComponent } from './containers-lots-measurements/containers-lots-measurements.component';
+import { ContainersBooleanRendererComponent } from './containers-boolean-renderer/containers-boolean-renderer.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { ContainersLotsMeasurementsComponent } from './containers-lots-measureme
     ContainersNewComponent,
     ContainersDetailsComponent,
     ContainersLotsMeasurementsComponent,
+    ContainersBooleanRendererComponent,
   ],
   imports: [
     CommonModule,
