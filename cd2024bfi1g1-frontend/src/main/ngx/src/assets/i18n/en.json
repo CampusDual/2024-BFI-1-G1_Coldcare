@@ -121,7 +121,6 @@
   "TEMP_LOT": "Lot temperatures",
   "CONTAINER_ASSIGN": "Assign to container",
   "DEVICE_DATA": "Details",
-  "DEVICE_GRAPH": "Graph",
   "LOC_ADDRESS": "Address",
   "LOC_NAME": "Location Name",
   "LOCATIONS": "Locations",
@@ -130,5 +129,6 @@
   "LOC_DATA": "Location Data",
   "LOCATION": "Location",
   "VEHICLES": "Vehicles",
-  "PLATE": "Plate"
+  "PLATE": "Plate",
+  "MEASUREMENTS_HISTORIC": "Measurements historic"
 }
