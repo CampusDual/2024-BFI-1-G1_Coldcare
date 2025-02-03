@@ -130,5 +130,12 @@
   "LOC_DATA": "Location Data",
   "LOCATION": "Location",
   "VEHICLES": "Vehicles",
-  "PLATE": "Plate"
+  "PLATE": "Plate",
+  "TRANSPORTS": "Transports",
+  "TRP_DATA": "Transport data",
+  "TRP_ORIGIN": "Origin",
+  "TRP_DESTINATION": "Destination",
+  "TRP_DATE": "Delivery date",
+  "VEHICLE_DATA": "Vehicle Data",
+  "VHC_PLATE": "Plate"
 }

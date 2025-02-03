@@ -130,5 +130,12 @@
   "LOC_DATA": "Datos de la localización",
   "LOCATION": "Localización",
   "VEHICLES": "Vehículos",
-  "PLATE": "Matrícula"
+  "PLATE": "Matrícula",
+  "TRANSPORTS": "Transportes",
+  "TRP_DATA": "Datos del transporte",
+  "TRP_ORIGIN": "Origen",
+  "TRP_DESTINATION": "Destino",
+  "TRP_DATE": "Fecha entrega",
+  "VEHICLE_DATA": "Datos vehículo",
+  "VHC_PLATE": "Matrícula"
 }

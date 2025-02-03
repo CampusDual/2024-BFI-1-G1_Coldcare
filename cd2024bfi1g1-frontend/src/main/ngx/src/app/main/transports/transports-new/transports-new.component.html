@@ -1,0 +1,14 @@
+<o-form attr="transports_form_insert" service="transports" entity="transports" fxLayout="column" keys="TRP_ID"
+  show-header="true" after-insert-mode="close" confirm-exit="false">
+  <o-row attr="row1" layout-align="start stretch">
+    <o-column title="TRP_DATA" layout-align="start stretch" layout-padding>
+      <div fxLayout="row" fxLayoutAlign="start center" class="gap">
+        <o-text-input attr="TRP_ORIGIN"></o-text-input>
+        <o-text-input attr="TRP_DESTINATION"></o-text-input>
+        <o-text-input attr="CNT_NAME"></o-text-input>
+        <o-integer-input attr="VHC_PLATE"></o-integer-input>
+        <o-integer-input attr="TRP_DATE"></o-integer-input>
+      </div>
+    </o-column>
+  </o-row>
+</o-form>
