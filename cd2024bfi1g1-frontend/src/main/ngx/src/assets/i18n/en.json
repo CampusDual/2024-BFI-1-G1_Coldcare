@@ -121,12 +121,12 @@
   "TEMP_LOT": "Lot temperatures",
   "CONTAINER_ASSIGN": "Assign to container",
   "DEVICE_DATA": "Details",
-  "DEVICE_GRAPH": "Graph",
   "LOC_ADDRESS": "Address",
   "LOC_NAME": "Location Name",
   "LOCATIONS": "Locations",
   "CNT_MOBILITY": "Container Mobility",
   "CURRENT_MOBILITY": "Enable container mobility",
   "LOC_DATA": "Location Data",
-  "LOCATION": "Location"
+  "LOCATION": "Location",
+  "MEASUREMENTS_HISTORIC": "Measurements historic"
 }
