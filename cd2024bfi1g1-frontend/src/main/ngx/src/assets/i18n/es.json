@@ -129,5 +129,6 @@
   "CURRENT_MOBILITY": "Habilitar movilidad del contenedor",
   "ALERTS": "Alertas",
   "LOC_DATA": "Datos de la localización",
-  "LOCATION": "Localización"
+  "LOCATION": "Localización",
+  "FILTER_ALERTS": "Filtro de alertas"
 }

@@ -129,5 +129,6 @@
   "CURRENT_MOBILITY": "Enable container mobility",
   "ALERTS": "Alerts",
   "LOC_DATA": "Location Data",
-  "LOCATION": "Location"
+  "LOCATION": "Location",
+  "FILTER_ALERTS": "Alert filter"
 }

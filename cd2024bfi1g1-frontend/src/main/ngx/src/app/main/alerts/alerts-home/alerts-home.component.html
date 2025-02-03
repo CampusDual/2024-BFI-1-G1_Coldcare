@@ -1,7 +1,7 @@
 <o-form show-header="no" query-on-init="no" fxFill>
 
     <o-column>
-        <label layout-padding>{{"FILTER_USERS" | oTranslate}}</label>
+        <label layout-padding>{{"FILTER_ALERTS" | oTranslate}}</label>
         <div class="inline-fields">
             <div fxLayout="row" fxLayoutGap="15px" layout-padding>
                 <o-text-input attr="lote" label="LOT_NAME"></o-text-input>
@@ -23,7 +23,7 @@
             columns="ME_ID;ME_DATE;ME_TEMP;ME_HUMIDITY;CNT_NAME;LOT_NAME;MIN_TEMP;MAX_TEMP"
             visible-columns="ME_DATE;ME_TEMP;ME_HUMIDITY;CNT_NAME;LOT_NAME;MIN_TEMP;MAX_TEMP" query-rows="20"
             select-all-checkbox-visible="no" insert-button="no" delete-button="no" refresh-button="yes"
-            quick-filter="no" pageable="true" detail-mode="none" title="MEASUREMENTS" show-title="yes"
+            quick-filter="no" pageable="true" detail-mode="none" title="ALERTS" show-title="yes"
             sort-columns="ME_DATE:DESC" virtual-scroll="false">
             <o-table-column attr="ME_DATE" title="DATE" type="date" format="DD/MM/YYYY HH:mm:ss"></o-table-column>
             <o-table-column attr="ME_TEMP" title="TEMPERATURE"></o-table-column>
