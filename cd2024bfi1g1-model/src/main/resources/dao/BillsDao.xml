@@ -13,32 +13,35 @@
     <GeneratedKey>bil_id</GeneratedKey>
     <Queries>
         <Query id="default">
+            <AmbiguousColumns>
+                <AmbiguousColumn name="CMP_ID" prefix="c"/>
+            </AmbiguousColumns>
             <Sentence>
                 <![CDATA[
                     SELECT
                         #COLUMNS#
                     FROM
-                        bills
+                        bills b
+                         JOIN companies c
+                        ON c.cmp_id = b.cmp_id
                     #WHERE#
                     #ORDER#
                 ]]>
             </Sentence>
         </Query>
-
-        <Query id="bills_companies">
+        <Query id="bill">
             <AmbiguousColumns>
-                <AmbiguousColumn name="CMP_ID" prefix="c" />
+                <AmbiguousColumn name="CMP_ID" prefix="c"/>
             </AmbiguousColumns>
             <Sentence>
                 <![CDATA[
-                    SELECT
-                         #COLUMNS#
-                    FROM
-                        bills b
-                     JOIN companies c
-                        ON c.cmp_id = b.cmp_id
-                    #WHERE#
-
+                    SELECT COUNT(distinct D.dev_id) AS device_count,
+                    COUNT(M.me_id) AS measurement_count
+                    FROM devices d
+                    JOIN measurements m
+                    ON m.dev_id = d.dev_id
+                    WHERE d.cmp_id = ?
+   					AND m.me_date BETWEEN ? AND ?;
                 ]]>
             </Sentence>
         </Query>
