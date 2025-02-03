@@ -19,7 +19,7 @@ export const routes: Routes = [
       { path: 'devices', loadChildren: () => import('./devices/devices.module').then(m => m.DevicesModule) },
       { path: 'containers', loadChildren: () => import('./containers/containers.module').then(m => m.ContainersModule) },
       { path: 'lots', loadChildren: () => import('./lots/lots.module').then(m => m.LotsModule) },
-      { path: 'locations', loadChildren: () => import('./locations/locations.module').then(m => m.LocationsModule) }
+      { path: 'locations', loadChildren: () => import('./locations/locations.module').then(m => m.LocationsModule) },
       { path: 'vehicles', loadChildren: () => import('./vehicles/vehicles.module').then(m => m.VehiclesModule) }
     ]
   }
