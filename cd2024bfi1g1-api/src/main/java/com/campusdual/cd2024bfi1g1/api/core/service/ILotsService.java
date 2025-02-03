@@ -14,5 +14,7 @@ public interface ILotsService {
     EntityResult measurementLotContainerQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
     EntityResult lotsInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException;
     EntityResult lotsUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap) throws OntimizeJEERuntimeException;
+    EntityResult measurementLotContainerUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap) throws OntimizeJEERuntimeException;
     EntityResult lotsDelete(Map<String, Object> keyMap) throws OntimizeJEERuntimeException;
+
 }

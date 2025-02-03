@@ -15,9 +15,9 @@
   </o-row>
   <o-row>
     <o-column class="extend">
-      <o-table attr="lotHistory" title="LOT_HISTORY" show-title="yes" service="lots" entity="historicLotContainer"
-        keys="LOT_ID" parent-keys="CNT_ID" columns="LOT_ID;LOT_NAME" visible-columns="LOT_NAME" delete-button="no"
-        insert-button="no" refresh-button="false">
+      <o-table attr="lotHistory" title="LOT_HISTORY" show-title="yes" service="containersLots" entity="containersLots"
+        keys="CL_ID" parent-keys="CNT_ID" columns="CL_ID;LOT_ID;LOT_NAME" visible-columns="LOT_NAME" delete-button="no"
+        refresh-button="false">
       </o-table>
 
     </o-column>

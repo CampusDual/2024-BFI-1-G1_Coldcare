@@ -76,11 +76,7 @@ public class LotsService implements ILotsService {
             throws OntimizeJEERuntimeException {
         Object lotId = keyMap.get("LOT_ID");
 
-        if (attrMap.containsKey(LotsDao.LOT_END_DATE)) {
-            Map<String,Object> attrMapCopy = new HashMap<>(attrMap);
-            attrMapCopy.put(LotsDao.LOT_START_DATE,getLotStartDate(lotId));
-            validarCamposDate(attrMapCopy);
-        }
+        validateDate(attrMap,lotId);
 
         if (!attrMap.containsKey("MIN_TEMP") && !attrMap.containsKey("MAX_TEMP")) {
             return this.daoHelper.update(this.lotsDao, attrMap, keyMap);
@@ -134,6 +130,15 @@ public class LotsService implements ILotsService {
 
         return this.daoHelper.update(this.lotsDao, attrMap, keyMap);
     }
+
+    @Override
+    public EntityResult measurementLotContainerUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap) throws OntimizeJEERuntimeException {
+
+        validateDate(attrMap,keyMap);
+
+        return this.daoHelper.update(this.lotsDao, attrMap, keyMap);
+    }
+
 
     @Override
     public EntityResult lotsDelete(Map<String, Object> keyMap) throws OntimizeJEERuntimeException {
@@ -249,7 +254,7 @@ public class LotsService implements ILotsService {
 
     private Date getLotStartDate(Object lotId) {
         Map<String, Object> keyMap = new HashMap<>();
-        keyMap.put("LOT_ID", lotId);
+        keyMap.put(LotsDao.LOT_ID, lotId);
 
         List<String> attrList = new ArrayList<>();
         attrList.add(LotsDao.LOT_START_DATE);
@@ -268,6 +273,18 @@ public class LotsService implements ILotsService {
             }
         }
         return null;
+    }
+
+    private void validateDate(Map<String,Object> attrMap,Object lotId) {
+
+        if (attrMap.containsKey(LotsDao.LOT_END_DATE)) {
+            Map<String,Object> attrMapCopy = new HashMap<>(attrMap);
+            if (attrMapCopy.get(LotsDao.LOT_START_DATE) == null){
+                attrMapCopy.put(LotsDao.LOT_START_DATE,getLotStartDate(lotId));
+            }
+            validarCamposDate(attrMapCopy);
+        }
+
     }
 
 
