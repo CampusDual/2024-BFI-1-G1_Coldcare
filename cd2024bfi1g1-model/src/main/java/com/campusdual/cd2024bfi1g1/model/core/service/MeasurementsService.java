@@ -1,6 +1,7 @@
 package com.campusdual.cd2024bfi1g1.model.core.service;
 
 import com.campusdual.cd2024bfi1g1.api.core.service.IMeasurementsService;
+import com.campusdual.cd2024bfi1g1.model.core.dao.AlertsDao;
 import com.campusdual.cd2024bfi1g1.model.core.dao.DevicesDao;
 import com.campusdual.cd2024bfi1g1.model.core.dao.LotsDao;
 import com.campusdual.cd2024bfi1g1.model.core.dao.MeasurementsDao;
@@ -28,6 +29,10 @@ public class MeasurementsService implements IMeasurementsService {
     private DefaultOntimizeDaoHelper daoHelper;
     @Autowired
     private DevicesService devicesService;
+    @Autowired
+    private LotsService lotsService;
+    @Autowired
+    private AlertsService alertsService;
 
     @Override
     public EntityResult measurementsQuery(Map<String, Object> keyMap, List<String> attrList)
@@ -86,7 +91,7 @@ public class MeasurementsService implements IMeasurementsService {
         attrMap.put(MeasurementsDao.LOT_ID, lotId);
 
         Double temp = (Double) attrMap.get(MeasurementsDao.ME_TEMP);
-        this.computeMeasurementAlarm(temp, devId, lotId);
+        this.computeMeasurementAlarm(temp, devId, lotId, cntId);
 
         EntityResult lastTimeResult = devicesService.lastTimeWithoutCMP(
                 Map.of(DevicesDao.DEV_ID, rowDevice.get(DevicesDao.DEV_ID)),
@@ -134,7 +139,7 @@ public class MeasurementsService implements IMeasurementsService {
         return this.daoHelper.query(this.measurementsDao, keyMap, attrList, "container_lot");
     }
 
-    private void computeMeasurementAlarm(Double currentTemp, Integer devId, Integer lotId){
+    private void computeMeasurementAlarm(Double currentTemp, Integer devId, Integer lotId, Integer cntId){
 
         Map<String, Object> filterTemp = Map.of(DevicesDao.DEV_ID, devId);
         List<String> columnsTemp = List.of(MeasurementsDao.ME_TEMP);
@@ -146,18 +151,18 @@ public class MeasurementsService implements IMeasurementsService {
 
         Double lastTemp = (Double) measurementRow.get(MeasurementsDao.ME_TEMP);
 
-        Map<String, Object> filterLot = Map.of(LotsDao.LOT_ID, lotId);
-        List<String> columnsLot = List.of(LotsDao.MAX_TEMP, LotsDao.MIN_TEMP);
-
-        EntityResult eRMinMax = this.measurementsQuery(filterLot, columnsLot);
-
-        Map<String, Object> lotsRow = eRMinMax.getRecordValues(0);
-
-        Double minTemp = (Double) lotsRow.get(LotsDao.MIN_TEMP);
-        Double maxTemp = (Double) lotsRow.get(LotsDao.MAX_TEMP);
+        Double minTemp = lotsService.getMinTempForLotId(lotId);
+        Double maxTemp = lotsService.getMaxTempForLotId(lotId);
 
         if ((currentTemp > maxTemp || currentTemp < minTemp) && lastTemp > minTemp && lastTemp < maxTemp) {
             System.out.println("Temperatura actual fuera de rango. Última temperatura en rango");
+            Map<String, Object> valuesToInsert = Map.of(
+                    AlertsDao.ALT_MIN_TEMP, minTemp,
+                    AlertsDao.ALT_MAX_TEMP, maxTemp,
+                    AlertsDao.CNT_ID, cntId,
+                    AlertsDao.LOT_ID, lotId
+            );
+            alertsService.alertsInsert(valuesToInsert);
         }
 
         if (currentTemp < maxTemp && currentTemp > minTemp && (lastTemp < minTemp || lastTemp > maxTemp)) {
