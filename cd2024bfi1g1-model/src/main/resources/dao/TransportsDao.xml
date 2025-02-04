@@ -30,5 +30,62 @@
                 ]]>
             </Sentence>
         </Query>
+        <Query id="movility">
+            <Sentence>
+                with tmv as (
+                select c.*, not cnt_mobility as is_static from containers c where c.cnt_mobility
+                )
+                select * from tmv #WHERE#;
+                ;
+            </Sentence>
+        </Query>
+        <Query id="locationOrigin">
+            <AmbiguousColumns>
+                <AmbiguousColumn name="LOC_ID" prefix="t" />
+                <AmbiguousColumn name="CMP_ID" prefix="t" />
+            </AmbiguousColumns>
+            <Sentence>
+                <![CDATA[
+                    SELECT
+                        #COLUMNS#
+                    FROM transports t
+                    LEFT JOIN locations l ON t.TRP_ORIGIN = l.LOC_NAME
+                    #WHERE#
+                    #ORDER#
+                ]]>
+            </Sentence>
+        </Query>
+        <Query id="locationDestination">
+            <AmbiguousColumns>
+                <AmbiguousColumn name="LOC_ID" prefix="t" />
+                <AmbiguousColumn name="CMP_ID" prefix="t" />
+            </AmbiguousColumns>
+            <Sentence>
+                <![CDATA[
+                    SELECT
+                        #COLUMNS#
+                    FROM transports t
+                    LEFT JOIN locations l ON t.TRP_DESTINATION = l.LOC_NAME
+                    #WHERE#
+                    #ORDER#
+                ]]>
+            </Sentence>
+        </Query>
+        <Query id="matriculas">
+            <AmbiguousColumns>
+                <AmbiguousColumn name="VHC_ID" prefix="t" />
+                <AmbiguousColumn name="CMP_ID" prefix="t" />
+            </AmbiguousColumns>
+            <Sentence>
+                <![CDATA[
+                    SELECT
+                        #COLUMNS#
+                    FROM transports t
+                    LEFT JOIN vehicles v ON t.VHC_ID = v.VHC_ID
+                    #WHERE#
+                    #ORDER#
+                ]]>
+            </Sentence>
+        </Query>
     </Queries>
 </JdbcEntitySetup>
