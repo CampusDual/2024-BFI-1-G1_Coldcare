@@ -59,5 +59,23 @@ public class TransportsService implements ITransportsService {
     public EntityResult transportsDelete(Map<String, Object> keyMap) throws OntimizeJEERuntimeException {
         return this.daoHelper.delete(this.transportsDao, keyMap);
     }
+    @Override
+    public EntityResult transportsMovilityQuery(Map<String, Object> keyMap, List<String> attrList)
+            throws OntimizeJEERuntimeException {
+
+        return this.daoHelper.query(this.transportsDao, keyMap, attrList, "movility");
+    }
+    @Override
+    public EntityResult transportsLocationQuery(Map<String, Object> keyMap, List<String> attrList)
+            throws OntimizeJEERuntimeException {
+
+        return this.daoHelper.query(this.transportsDao, keyMap, attrList, "locations");
+    }
+    @Override
+    public EntityResult transportsPlateQuery(Map<String, Object> keyMap, List<String> attrList)
+            throws OntimizeJEERuntimeException {
+
+        return this.daoHelper.query(this.transportsDao, keyMap, attrList, "matriculas");
+    }
 
 }

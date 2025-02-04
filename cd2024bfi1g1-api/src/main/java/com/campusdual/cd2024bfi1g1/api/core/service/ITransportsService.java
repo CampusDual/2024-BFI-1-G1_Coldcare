@@ -9,6 +9,9 @@ import java.util.Map;
 public interface ITransportsService {
 
     EntityResult transportsQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
+    EntityResult transportsMovilityQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
+    EntityResult transportsLocationQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
+    EntityResult transportsPlateQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
     EntityResult transportsInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException;
     EntityResult transportsUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap) throws OntimizeJEERuntimeException;
     EntityResult transportsDelete(Map<String, Object> keyMap) throws OntimizeJEERuntimeException;

@@ -137,5 +137,6 @@
   "TRP_DESTINATION": "Destination",
   "TRP_DATE": "Delivery date",
   "VEHICLE_DATA": "Vehicle Data",
-  "VHC_PLATE": "Plate"
+  "VHC_PLATE": "Plate",
+  "DELIVERY_DATE": "Delivery date"
 }

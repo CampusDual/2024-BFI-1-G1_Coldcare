@@ -137,5 +137,6 @@
   "TRP_DESTINATION": "Destino",
   "TRP_DATE": "Fecha entrega",
   "VEHICLE_DATA": "Datos vehículo",
-  "VHC_PLATE": "Matrícula"
+  "VHC_PLATE": "Matrícula",
+  "DELIVERY_DATE": "Fecha entrega"
 }
