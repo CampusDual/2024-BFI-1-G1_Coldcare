@@ -121,5 +121,8 @@
   "TEMP_LOT": "Lot temperatures",
   "CONTAINER_ASSIGN": "Assign to container",
   "DEVICE_DATA": "Details",
-  "DEVICE_GRAPH": "Graph"
+  "DEVICE_GRAPH": "Graph",
+  "LOT_ASSIGNMENT": "Lot assignment",
+  "CL_START_DATE": "Start date",
+  "CL_END_DATE": "End date"
 }

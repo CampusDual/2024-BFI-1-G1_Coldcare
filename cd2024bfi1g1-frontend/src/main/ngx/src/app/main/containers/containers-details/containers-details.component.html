@@ -6,20 +6,16 @@
       <div fxLayout="row" fxLayoutAlign="start center" class="gap">
         <o-text-input attr="CNT_NAME" class="margin-right-24" fxFlex.lg="30" fxFlex.xl="30" fxFlex="50"
           layout-margin-right></o-text-input>
-        <o-combo attr="LOT_ID" label="CURRENT_LOT" service="lots" entity="lots" value-column="LOT_ID"
-          columns="LOT_ID;LOT_NAME" visible-columns="LOT_NAME" null-selection="no" searchable="yes"></o-combo>
-
-
       </div>
     </o-column>
   </o-row>
+
   <o-row>
     <o-column class="extend">
       <o-table attr="lotHistory" title="LOT_HISTORY" show-title="yes" service="containersLots" entity="containersLots"
-        keys="CL_ID" parent-keys="CNT_ID" columns="CL_ID;LOT_ID;LOT_NAME" visible-columns="LOT_NAME" delete-button="no"
-        refresh-button="false">
+        keys="CL_ID" parent-keys="CNT_ID" columns="CL_ID;LOT_NAME;CL_START_DATE;CL_END_DATE"
+        visible-columns="LOT_NAME;CL_START_DATE;CL_END_DATE" delete-button="no" refresh-button="false">
       </o-table>
-
     </o-column>
 
     <o-column class="extend">
@@ -31,5 +27,4 @@
       </o-table>
     </o-column>
   </o-row>
-
 </o-form>

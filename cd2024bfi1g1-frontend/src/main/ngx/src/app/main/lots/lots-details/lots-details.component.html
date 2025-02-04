@@ -1,12 +1,10 @@
 <o-form attr="lotsTemp" parent-keys="LOT_ID" keys="LOT_ID" keys-sql-types="INTEGER" service="lots" entity="lots"
   header-actions="R;U">
-    <o-column title="TEMP_LOT">
-      <div class="inline-fields">
-        <o-text-input attr="LOT_NAME"></o-text-input>
-        <o-real-input attr="MIN_TEMP" clear-button="yes"></o-real-input>
-        <o-real-input attr="MAX_TEMP" clear-button="yes"></o-real-input>
-        <o-date-input attr="LOT_START_DATE" label="Fecha Inicio" required="yes"></o-date-input>
-        <o-date-input attr="LOT_END_DATE" label="Fecha Fin"></o-date-input>
-      </div>
-    </o-column>
+  <o-column title="TEMP_LOT">
+    <div class="inline-fields">
+      <o-text-input attr="LOT_NAME"></o-text-input>
+      <o-real-input attr="MIN_TEMP" clear-button="yes"></o-real-input>
+      <o-real-input attr="MAX_TEMP" clear-button="yes"></o-real-input>
+    </div>
+  </o-column>
 </o-form>
