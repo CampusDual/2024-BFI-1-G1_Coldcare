@@ -3,10 +3,10 @@ package com.campusdual.cd2024bfi1g1.model.core.service;
 import com.campusdual.cd2024bfi1g1.api.core.service.IMeasurementsService;
 import com.campusdual.cd2024bfi1g1.model.core.dao.AlertsDao;
 import com.campusdual.cd2024bfi1g1.model.core.dao.DevicesDao;
-import com.campusdual.cd2024bfi1g1.model.core.dao.LotsDao;
 import com.campusdual.cd2024bfi1g1.model.core.dao.MeasurementsDao;
 
 import com.ontimize.jee.common.db.AdvancedEntityResult;
+import com.ontimize.jee.common.db.SQLStatementBuilder;
 import com.ontimize.jee.common.dto.EntityResult;
 import com.ontimize.jee.common.dto.EntityResultMapImpl;
 import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
@@ -17,6 +17,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Service("MeasurementsService")
@@ -143,10 +144,13 @@ public class MeasurementsService implements IMeasurementsService {
 
         Map<String, Object> filterTemp = Map.of(DevicesDao.DEV_ID, devId);
         List<String> columnsTemp = List.of(MeasurementsDao.ME_TEMP);
-        List<String> orderByTemp = List.of("ME_DATE");
+        List<SQLStatementBuilder.SQLOrder> orderByTemp = List.of(new SQLStatementBuilder.SQLOrder(MeasurementsDao.ME_DATE, false));
 
         EntityResult eRTemp = this.measurementsPaginationQuery(filterTemp, columnsTemp, 1, 0, orderByTemp);
 
+        if (eRTemp.isEmpty() || eRTemp.isWrong()){
+            return;
+        }
         Map<String, Object> measurementRow = eRTemp.getRecordValues(0);
 
         Double lastTemp = (Double) measurementRow.get(MeasurementsDao.ME_TEMP);
@@ -154,19 +158,42 @@ public class MeasurementsService implements IMeasurementsService {
         Double minTemp = lotsService.getMinTempForLotId(lotId);
         Double maxTemp = lotsService.getMaxTempForLotId(lotId);
 
-        if ((currentTemp > maxTemp || currentTemp < minTemp) && lastTemp > minTemp && lastTemp < maxTemp) {
+        boolean isError =(currentTemp > maxTemp || currentTemp < minTemp);
+        boolean wasError = (lastTemp < minTemp || lastTemp > maxTemp);
+
+        if ( isError && !wasError) {
             System.out.println("Temperatura actual fuera de rango. Última temperatura en rango");
             Map<String, Object> valuesToInsert = Map.of(
-                    AlertsDao.ALT_MIN_TEMP, minTemp,
-                    AlertsDao.ALT_MAX_TEMP, maxTemp,
-                    AlertsDao.CNT_ID, cntId,
-                    AlertsDao.LOT_ID, lotId
+                AlertsDao.ALT_MIN_TEMP, minTemp,
+                AlertsDao.ALT_MAX_TEMP, maxTemp,
+                AlertsDao.CNT_ID, cntId,
+                AlertsDao.LOT_ID, lotId
             );
             alertsService.alertsInsert(valuesToInsert);
-        }
-
-        if (currentTemp < maxTemp && currentTemp > minTemp && (lastTemp < minTemp || lastTemp > maxTemp)) {
+        } else if (!isError && wasError ) {
             System.out.println("Temperatura actual en rango. Última temperatura fuera de rango");
+
+            Map<String, Object> filterAlert = Map.of(
+                AlertsDao.CNT_ID, cntId,
+                AlertsDao.LOT_ID, lotId
+            );
+            List<String> columnsAlert = List.of(AlertsDao.ALT_ID);
+            List<SQLStatementBuilder.SQLOrder> orderByAlert = List.of(new SQLStatementBuilder.SQLOrder(AlertsDao.ALT_DATE_INIT, false));
+
+            EntityResult eRAlert = alertsService.alertsPaginationQuery(filterAlert, columnsAlert, 1, 0, orderByAlert);
+
+            if (eRAlert.isEmpty() || eRAlert.isWrong()){
+                return;
+            }
+            Map<String, Object> alertRow = eRAlert.getRecordValues(0);
+
+            Integer lastAlertId = (Integer) alertRow.get(AlertsDao.ALT_ID);
+
+            Map<String, Object> valuesToUpdate = Map.of(
+                    AlertsDao.ALT_DATE_END, LocalDateTime.now()
+                    );
+            Map<String, Object> filterToUpdate = Map.of(AlertsDao.ALT_ID, lastAlertId);
+            alertsService.alertsUpdate(valuesToUpdate, filterToUpdate);
         }
 
     }
