@@ -3,3 +3,9 @@
   visible-columns="TRP_ORIGIN;TRP_DESTINATION;CNT_NAME;VHC_PLATE;TRP_DATE" delete-button="no">
   <o-table-column attr="TRP_DATE" title="DATE" type="date" format="DD/MM/YYYY"></o-table-column>
 </o-table>
+
+<o-table attr="transports" title="TRANSPORTS" show-title="yes" service="transports" entity="transports" keys="TRP_ID"
+  columns="TRP_ID;ORIGIN_NAME;DESTINATION_NAME;CNT_NAME;VHC_PLATE;TRP_DATE"
+  visible-columns="ORIGIN_NAME;DESTINATION_NAME;CNT_NAME;VHC_PLATE;TRP_DATE" delete-button="no">
+  <o-table-column attr="TRP_DATE" title="DATE" type="date" format="DD/MM/YYYY"></o-table-column>
+</o-table>
