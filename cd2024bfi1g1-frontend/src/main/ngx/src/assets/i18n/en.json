@@ -130,5 +130,14 @@
   "LOCATION": "Location",
   "VEHICLES": "Vehicles",
   "PLATE": "Plate",
-  "MEASUREMENTS_HISTORIC": "Measurements historic"
+  "MEASUREMENTS_HISTORIC": "Measurements historic",
+  "PLN_NAME": "Plan",
+  "PLANS": "Plans",
+  "PLAN_DATA": "Plan Data",
+  "PLN_FXDPRC": "Plan fixed price",
+  "PLN_DEVPRC": "Plan device price",
+  "PLN_BNDLEPRC": "Plan bundle price",
+  "PLN_BNDLEREQUEST": "Plan bundle requests",
+  "PLN_START": "Plan start date",
+  "PLN_END": "Plan end date"
 }

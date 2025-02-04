@@ -130,5 +130,14 @@
   "LOCATION": "Localización",
   "VEHICLES": "Vehículos",
   "PLATE": "Matrícula",
-  "MEASUREMENTS_HISTORIC": "Histórico de medidas"
+  "MEASUREMENTS_HISTORIC": "Histórico de medidas",
+  "PLN_NAME": "Plan",
+  "PLANS": "Planes",
+  "PLAN_DATA": "Datos del plan",
+  "PLN_FXDPRC": "Precio fijo",
+  "PLN_DEVPRC": "Precio por dispositivo",
+  "PLN_BNDLEPRC": "Precio del paquete",
+  "PLN_BNDLEREQUEST": "Peticiones del paquete",
+  "PLN_START": "Fecha de inicio del plan",
+  "PLN_END": "Fecha final del plan"
 }
