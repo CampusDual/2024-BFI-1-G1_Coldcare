@@ -29,19 +29,23 @@
                 ]]>
             </Sentence>
         </Query>
-        <Query id="bill">
-            <AmbiguousColumns>
-                <AmbiguousColumn name="CMP_ID" prefix="c"/>
-            </AmbiguousColumns>
+        <Query id="monthlyData">
             <Sentence>
                 <![CDATA[
-                    SELECT COUNT(distinct D.dev_id) AS device_count,
-                    COUNT(M.me_id) AS measurement_count
-                    FROM devices d
-                    JOIN measurements m
-                    ON m.dev_id = d.dev_id
-                    WHERE d.cmp_id = ?
-   					AND m.me_date BETWEEN ? AND ?;
+                    WITH t AS (
+                        WITH m AS (
+                            SELECT m.*, EXTRACT(YEAR FROM me_date) AS year, EXTRACT(MONTH FROM me_date) AS month
+                            FROM measurements m
+                            )
+                        SELECT COUNT(DISTINCT d.dev_id) AS device_count, COUNT(me_id) AS measurement_count, cmp_id, year, month
+                        FROM m
+                        JOIN devices d ON d.dev_id = m.dev_id
+                        GROUP BY cmp_id, year, month
+                    )
+                SELECT #COLUMNS#
+                FROM t
+                #WHERE#
+                #ORDER#
                 ]]>
             </Sentence>
         </Query>
