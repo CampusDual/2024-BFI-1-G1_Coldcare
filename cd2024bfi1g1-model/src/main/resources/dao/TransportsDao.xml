@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<JdbcEntitySetup xmlns="http://www.ontimize.com/schema/jdbc"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://www.ontimize.com/schema/jdbc http://www.ontimize.com/schema/jdbc/ontimize-jdbc-dao.xsd"
+                 catalog="" schema="${mainschema}" table="transports" datasource="mainDataSource"
+                 sqlhandler="dbSQLStatementHandler">
+    <DeleteKeys>
+        <Column>TRP_ID</Column>
+    </DeleteKeys>
+    <UpdateKeys>
+        <Column>TRP_ID</Column>
+    </UpdateKeys>
+    <GeneratedKey>trp_id</GeneratedKey>
+    <Queries>
+        <Query id="default">
+            <AmbiguousColumns>
+                <AmbiguousColumn name="CNT_ID" prefix="t" />
+                <AmbiguousColumn name="VHC_ID" prefix="t" />
+            </AmbiguousColumns>
+            <Sentence>
+                <![CDATA[
+                    SELECT
+                        #COLUMNS#
+                    FROM transports t
+                    LEFT JOIN vehicles v ON t.VHC_ID = v.VHC_ID
+                    LEFT JOIN containers c ON t.CNT_ID = c.CNT_ID
+                    #WHERE#
+                    #ORDER#
+                ]]>
+            </Sentence>
+        </Query>
+    </Queries>
+</JdbcEntitySetup>
