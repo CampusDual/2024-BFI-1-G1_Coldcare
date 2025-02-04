@@ -124,5 +124,7 @@
   "DEVICE_GRAPH": "Gráfica",
   "LOT_ASSIGNMENT": "Asignación de lote",
   "CL_START_DATE": "Fecha de inicio",
-  "CL_END_DATE": "Fecha de fin"
+  "CL_END_DATE": "Fecha de fin",
+  "CL_INFO": "Detalles del contenedor lote"
+
 }

@@ -19,8 +19,8 @@ const routes: Routes = [
   { path: '', component: ContainersHomeComponent },
   { path: 'new', component: ContainersNewComponent },
   { path: ':CNT_ID', component: ContainersDetailsComponent },
-  { path: ':CNT_ID/measurements', component: ContainersLotsMeasurementsComponent },
   { path: ':CNT_ID/new', component: ContainersLotsAssignmentsComponent },
+  { path: ':CNT_ID/:CL_ID', component: ContainersLotsMeasurementsComponent },
 ];
 
 @NgModule({

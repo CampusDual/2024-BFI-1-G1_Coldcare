@@ -124,5 +124,6 @@
   "DEVICE_GRAPH": "Graph",
   "LOT_ASSIGNMENT": "Lot assignment",
   "CL_START_DATE": "Start date",
-  "CL_END_DATE": "End date"
+  "CL_END_DATE": "End date",
+  "CL_INFO": "Container lot data"
 }
