@@ -92,7 +92,8 @@ public class MeasurementsService implements IMeasurementsService {
         attrMap.put(MeasurementsDao.LOT_ID, lotId);
 
         Double temp = (Double) attrMap.get(MeasurementsDao.ME_TEMP);
-        this.computeMeasurementAlarm(temp, devId, lotId, cntId);
+        Integer meId = (Integer) attrMap.get(MeasurementsDao.ME_ID);
+        Integer altId = this.computeMeasurementAlarm(temp, devId, lotId, cntId, meId);
 
         EntityResult lastTimeResult = devicesService.lastTimeWithoutCMP(
                 Map.of(DevicesDao.DEV_ID, rowDevice.get(DevicesDao.DEV_ID)),
@@ -101,6 +102,8 @@ public class MeasurementsService implements IMeasurementsService {
 
         // Obtener el valor de dev_persistence (en minutos)
         Integer persistenceMinutes = (Integer) rowDevice.get(DevicesDao.DEV_PERSISTENCE);
+
+        EntityResult entityResult;
 
         if (!lastTimeResult.isEmpty() && !lastTimeResult.isWrong()) {
             // Obtener el valor de la última medición (me_date)
@@ -113,15 +116,28 @@ public class MeasurementsService implements IMeasurementsService {
                 long persistenceMillis = persistenceMinutes * 60000L; // Convertimos los minutos a milisegundos
 
                 if (currentTimeMillis - lastTimeMillis > persistenceMillis) {
-                    return this.daoHelper.insert(this.measurementsDao, attrMap);
+                    entityResult = this.daoHelper.insert(this.measurementsDao, attrMap);
                 } else {
                     return new EntityResultMapImpl(EntityResult.OPERATION_WRONG, EntityResult.NODATA_RESULT,
                             "Esperar más de " + persistenceMinutes + " minutos para insertar una nueva medición.");
                     }
 
         } else {
-            return this.daoHelper.insert(this.measurementsDao, attrMap);
+            entityResult = this.daoHelper.insert(this.measurementsDao, attrMap);
         }
+
+        if (altId == null) {
+            return entityResult;
+        }
+
+        Integer lastMeasurementId = (Integer) entityResult.get(MeasurementsDao.ME_ID);
+
+        Map<String, Object> valuesToUpdate = Map.of(
+                MeasurementsDao.ALT_ID, altId
+        );
+        Map<String, Object> filterToUpdate = Map.of(MeasurementsDao.ME_ID, lastMeasurementId);
+        this.measurementsUpdate(valuesToUpdate, filterToUpdate);
+        return entityResult;
     }
 
     @Override
@@ -140,7 +156,7 @@ public class MeasurementsService implements IMeasurementsService {
         return this.daoHelper.query(this.measurementsDao, keyMap, attrList, "container_lot");
     }
 
-    private void computeMeasurementAlarm(Double currentTemp, Integer devId, Integer lotId, Integer cntId){
+    private Integer computeMeasurementAlarm(Double currentTemp, Integer devId, Integer lotId, Integer cntId, Integer meId){
 
         Map<String, Object> filterTemp = Map.of(DevicesDao.DEV_ID, devId);
         List<String> columnsTemp = List.of(MeasurementsDao.ME_TEMP);
@@ -149,7 +165,7 @@ public class MeasurementsService implements IMeasurementsService {
         EntityResult eRTemp = this.measurementsPaginationQuery(filterTemp, columnsTemp, 1, 0, orderByTemp);
 
         if (eRTemp.isEmpty() || eRTemp.isWrong()){
-            return;
+            return null;
         }
         Map<String, Object> measurementRow = eRTemp.getRecordValues(0);
 
@@ -183,7 +199,7 @@ public class MeasurementsService implements IMeasurementsService {
             EntityResult eRAlert = alertsService.alertsPaginationQuery(filterAlert, columnsAlert, 1, 0, orderByAlert);
 
             if (eRAlert.isEmpty() || eRAlert.isWrong()){
-                return;
+                return null;
             }
             Map<String, Object> alertRow = eRAlert.getRecordValues(0);
 
@@ -195,6 +211,26 @@ public class MeasurementsService implements IMeasurementsService {
             Map<String, Object> filterToUpdate = Map.of(AlertsDao.ALT_ID, lastAlertId);
             alertsService.alertsUpdate(valuesToUpdate, filterToUpdate);
         }
+
+        if (isError) {
+            Map<String, Object> filterAlert = Map.of(
+                    AlertsDao.CNT_ID, cntId,
+                    AlertsDao.LOT_ID, lotId
+            );
+            List<String> columnsAlert = List.of(AlertsDao.ALT_ID);
+            List<SQLStatementBuilder.SQLOrder> orderByAlert = List.of(new SQLStatementBuilder.SQLOrder(AlertsDao.ALT_DATE_INIT, false));
+
+            EntityResult eRAlert = alertsService.alertsPaginationQuery(filterAlert, columnsAlert, 1, 0, orderByAlert);
+
+            if (eRAlert.isEmpty() || eRAlert.isWrong()){
+                return null;
+            }
+            Map<String, Object> alertRow = eRAlert.getRecordValues(0);
+
+            return (Integer) alertRow.get(AlertsDao.ALT_ID);
+        }
+
+        return null;
 
     }
 }
