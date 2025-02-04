@@ -2,6 +2,7 @@ package com.campusdual.cd2024bfi1g1.model.core.service;
 
 import com.campusdual.cd2024bfi1g1.api.core.service.ITransportsService;
 import com.campusdual.cd2024bfi1g1.model.core.dao.DevicesDao;
+import com.campusdual.cd2024bfi1g1.model.core.dao.TransportsDao;
 import com.campusdual.cd2024bfi1g1.model.core.dao.UserDao;
 import com.ontimize.jee.common.dto.EntityResult;
 import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
@@ -18,7 +19,7 @@ import java.util.Map;
 public class TransportsService implements ITransportsService {
 
     @Autowired
-    private UserDao transportsDao;
+    private TransportsDao transportsDao;
     @Autowired
     private DefaultOntimizeDaoHelper daoHelper;
     @Autowired
@@ -30,7 +31,7 @@ public class TransportsService implements ITransportsService {
             throws OntimizeJEERuntimeException {
 
         Integer cmpId = UserAndRoleService.getUserCompanyId(this.daoHelper, this.userDao);
-        keyMap.put(DevicesDao.CMP_ID, cmpId);
+        keyMap.put(TransportsDao.CMP_ID, cmpId);
 
         return this.daoHelper.query(this.transportsDao, keyMap, attrList);
     }

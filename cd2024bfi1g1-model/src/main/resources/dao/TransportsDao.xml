@@ -16,6 +16,7 @@
             <AmbiguousColumns>
                 <AmbiguousColumn name="CNT_ID" prefix="t" />
                 <AmbiguousColumn name="VHC_ID" prefix="t" />
+                <AmbiguousColumn name="CMP_ID" prefix="c" />
             </AmbiguousColumns>
             <Sentence>
                 <![CDATA[

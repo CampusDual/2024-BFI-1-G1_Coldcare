@@ -18,8 +18,9 @@ public class TransportsDao extends OntimizeJdbcDaoSupport {
     public static final String TRP_ORIGIN = "TRP_ORIGIN";
     public static final String TRP_DESTINATION = "TRP_DESTINATION";
     public static final String CNT_ID = "CNT_ID";
+    public static final String CMP_ID = "CMP_ID";
     public static final String VHC_ID = "VHC_ID";
     public static final String TRP_DATE = "TRP_DATE";
 
-    public static final List<String> COLUMNS = Arrays.asList(TRP_ID, TRP_ORIGIN, TRP_DESTINATION, CNT_ID, VHC_ID, TRP_DATE);
+    public static final List<String> COLUMNS = Arrays.asList(TRP_ID, TRP_ORIGIN, TRP_DESTINATION, CNT_ID, CMP_ID, VHC_ID, TRP_DATE);
 }
