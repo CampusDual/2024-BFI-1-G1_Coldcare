@@ -2,7 +2,7 @@ package com.campusdual.cd2024bfi1g1.model.core.service;
 
 import com.campusdual.cd2024bfi1g1.api.core.service.IMeasurementsService;
 import com.campusdual.cd2024bfi1g1.model.core.dao.DevicesDao;
-import com.campusdual.cd2024bfi1g1.model.core.service.DevicesService;
+import com.campusdual.cd2024bfi1g1.model.core.dao.LotsDao;
 import com.campusdual.cd2024bfi1g1.model.core.dao.MeasurementsDao;
 
 import com.ontimize.jee.common.db.AdvancedEntityResult;
@@ -15,13 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.sql.SQLOutput;
 import java.sql.Timestamp;
 import java.util.*;
-
-import org.springframework.security.access.annotation.Secured;
-import com.ontimize.jee.common.security.PermissionsProviderSecured;
 
 @Service("MeasurementsService")
 @Lazy
@@ -73,20 +68,25 @@ public class MeasurementsService implements IMeasurementsService {
             if (devState != null && !devState) {
                 return new EntityResultMapImpl(EntityResult.OPERATION_SUCCESSFUL, EntityResult.NODATA_RESULT);
             }
-
-            attrMap.put(MeasurementsDao.DEV_ID, rowDevice.get(DevicesDao.DEV_ID));
+            Integer devId = (Integer) rowDevice.get(DevicesDao.DEV_ID);
+            attrMap.put(MeasurementsDao.DEV_ID, devId);
 
             Map<String, Object> containerLotFilter = Map.of(DevicesDao.DEV_MAC, attrMap.get(DevicesDao.DEV_MAC));
             List<String> containerLotColumns = List.of("CNT_ID", "LOT_ID");
 
             EntityResult containerLotResult = this.daoHelper.query(this.measurementsDao, containerLotFilter, containerLotColumns, "container_lot");
-            if (!containerLotResult.isEmpty()) {
-                Map<String, Object> containerLotRow = containerLotResult.getRecordValues(0);
-                attrMap.put(MeasurementsDao.CNT_ID, containerLotRow.get("CNT_ID"));
-                attrMap.put(MeasurementsDao.LOT_ID, containerLotRow.get("LOT_ID"));
-            } else {
+            if (containerLotResult.isEmpty()) {
                 return new EntityResultMapImpl(EntityResult.OPERATION_WRONG, EntityResult.NODATA_RESULT, "Error querying container_lot");
             }
+            Map<String, Object> containerLotRow = containerLotResult.getRecordValues(0);
+            Integer cntId = (Integer) containerLotRow.get("CNT_ID");
+            Integer lotId = (Integer) containerLotRow.get("LOT_ID");
+
+            attrMap.put(MeasurementsDao.CNT_ID, cntId);
+            attrMap.put(MeasurementsDao.LOT_ID, lotId);
+
+            Double temp = (Double) attrMap.get(MeasurementsDao.ME_TEMP);
+            this.computeMeasurementAlarm(temp, devId, lotId);
 
             EntityResult lastTimeResult = devicesService.lastTimeWithoutCMP(
                     Map.of(DevicesDao.DEV_ID, rowDevice.get(DevicesDao.DEV_ID)),
@@ -136,4 +136,35 @@ public class MeasurementsService implements IMeasurementsService {
         return this.daoHelper.query(this.measurementsDao, keyMap, attrList, "container_lot");
     }
 
+    private void computeMeasurementAlarm(Double currentTemp, Integer devId, Integer lotId){
+
+        Map<String, Object> filterTemp = Map.of(DevicesDao.DEV_ID, devId);
+        List<String> columnsTemp = List.of(MeasurementsDao.ME_TEMP);
+        List<String> orderByTemp = List.of("ME_DATE");
+
+        EntityResult eRTemp = this.measurementsPaginationQuery(filterTemp, columnsTemp, 1, 0, orderByTemp);
+
+        Map<String, Object> measurementRow = eRTemp.getRecordValues(0);
+
+        Double lastTemp = (Double) measurementRow.get(MeasurementsDao.ME_TEMP);
+
+        Map<String, Object> filterLot = Map.of(LotsDao.LOT_ID, lotId);
+        List<String> columnsLot = List.of(LotsDao.MAX_TEMP, LotsDao.MIN_TEMP);
+
+        EntityResult eRMinMax = this.measurementsQuery(filterLot, columnsLot);
+
+        Map<String, Object> lotsRow = eRMinMax.getRecordValues(0);
+
+        Double minTemp = (Double) lotsRow.get(LotsDao.MIN_TEMP);
+        Double maxTemp = (Double) lotsRow.get(LotsDao.MAX_TEMP);
+
+        if ((currentTemp > maxTemp || currentTemp < minTemp) && lastTemp > minTemp && lastTemp < maxTemp) {
+            System.out.println("Temperatura actual fuera de rango. Última temperatura en rango");
+        }
+
+        if (currentTemp < maxTemp && currentTemp > minTemp && (lastTemp < minTemp || lastTemp > maxTemp)) {
+            System.out.println("Temperatura actual en rango. Última temperatura fuera de rango");
+        }
+
+    }
 }
