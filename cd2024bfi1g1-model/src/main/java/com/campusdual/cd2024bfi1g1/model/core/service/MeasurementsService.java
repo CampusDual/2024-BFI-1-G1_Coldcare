@@ -62,62 +62,60 @@ public class MeasurementsService implements IMeasurementsService {
             return new EntityResultMapImpl(EntityResult.OPERATION_WRONG, EntityResult.NODATA_RESULT, "No se ha podido realizar la query");
         }
         // Verificar si el dispositivo ya existe
-            Map<String, Object> rowDevice = query.getRecordValues(0);
+        Map<String, Object> rowDevice = query.getRecordValues(0);
 
-            Boolean devState = (Boolean) rowDevice.get(DevicesDao.DEV_STATE);
-            if (devState != null && !devState) {
-                return new EntityResultMapImpl(EntityResult.OPERATION_SUCCESSFUL, EntityResult.NODATA_RESULT);
-            }
-            Integer devId = (Integer) rowDevice.get(DevicesDao.DEV_ID);
-            attrMap.put(MeasurementsDao.DEV_ID, devId);
+        Boolean devState = (Boolean) rowDevice.get(DevicesDao.DEV_STATE);
+        if (devState != null && !devState) {
+            return new EntityResultMapImpl(EntityResult.OPERATION_SUCCESSFUL, EntityResult.NODATA_RESULT);
+        }
+        Integer devId = (Integer) rowDevice.get(DevicesDao.DEV_ID);
+        attrMap.put(MeasurementsDao.DEV_ID, devId);
 
-            Map<String, Object> containerLotFilter = Map.of(DevicesDao.DEV_MAC, attrMap.get(DevicesDao.DEV_MAC));
-            List<String> containerLotColumns = List.of("CNT_ID", "LOT_ID");
+        Map<String, Object> containerLotFilter = Map.of(DevicesDao.DEV_MAC, attrMap.get(DevicesDao.DEV_MAC));
+        List<String> containerLotColumns = List.of("CNT_ID", "LOT_ID");
 
-            EntityResult containerLotResult = this.daoHelper.query(this.measurementsDao, containerLotFilter, containerLotColumns, "container_lot");
-            if (containerLotResult.isEmpty()) {
-                return new EntityResultMapImpl(EntityResult.OPERATION_WRONG, EntityResult.NODATA_RESULT, "Error querying container_lot");
-            }
-            Map<String, Object> containerLotRow = containerLotResult.getRecordValues(0);
-            Integer cntId = (Integer) containerLotRow.get("CNT_ID");
-            Integer lotId = (Integer) containerLotRow.get("LOT_ID");
+        EntityResult containerLotResult = this.daoHelper.query(this.measurementsDao, containerLotFilter, containerLotColumns, "container_lot");
+        if (containerLotResult.isEmpty()) {
+            return new EntityResultMapImpl(EntityResult.OPERATION_WRONG, EntityResult.NODATA_RESULT, "Error querying container_lot");
+        }
+        Map<String, Object> containerLotRow = containerLotResult.getRecordValues(0);
+        Integer cntId = (Integer) containerLotRow.get("CNT_ID");
+        Integer lotId = (Integer) containerLotRow.get("LOT_ID");
 
-            attrMap.put(MeasurementsDao.CNT_ID, cntId);
-            attrMap.put(MeasurementsDao.LOT_ID, lotId);
+        attrMap.put(MeasurementsDao.CNT_ID, cntId);
+        attrMap.put(MeasurementsDao.LOT_ID, lotId);
 
-            Double temp = (Double) attrMap.get(MeasurementsDao.ME_TEMP);
-            this.computeMeasurementAlarm(temp, devId, lotId);
+        Double temp = (Double) attrMap.get(MeasurementsDao.ME_TEMP);
+        this.computeMeasurementAlarm(temp, devId, lotId);
 
-            EntityResult lastTimeResult = devicesService.lastTimeWithoutCMP(
-                    Map.of(DevicesDao.DEV_ID, rowDevice.get(DevicesDao.DEV_ID)),
-                    columns
-            );
+        EntityResult lastTimeResult = devicesService.lastTimeWithoutCMP(
+                Map.of(DevicesDao.DEV_ID, rowDevice.get(DevicesDao.DEV_ID)),
+                columns
+        );
 
-            // Obtener el valor de dev_persistence (en minutos)
-            Integer persistenceMinutes = (Integer) rowDevice.get(DevicesDao.DEV_PERSISTENCE);
+        // Obtener el valor de dev_persistence (en minutos)
+        Integer persistenceMinutes = (Integer) rowDevice.get(DevicesDao.DEV_PERSISTENCE);
 
-            if (!lastTimeResult.isEmpty() && !lastTimeResult.isWrong()) {
-                // Obtener el valor de la última medición (me_date)
-                Map<String, Object> rowLastTime = lastTimeResult.getRecordValues(0);
-                Timestamp lastDateObj = (Timestamp) rowLastTime.get(MeasurementsDao.ME_DATE);
+        if (!lastTimeResult.isEmpty() && !lastTimeResult.isWrong()) {
+            // Obtener el valor de la última medición (me_date)
+            Map<String, Object> rowLastTime = lastTimeResult.getRecordValues(0);
+            Timestamp lastDateObj = (Timestamp) rowLastTime.get(MeasurementsDao.ME_DATE);
 
-                    // Comprobar si han pasado más de los minutos configurados
-                    long currentTimeMillis = System.currentTimeMillis();
-                    long lastTimeMillis = lastDateObj.getTime(); // Obtenemos el tiempo en milisegundos de la última medición
-                    long persistenceMillis = persistenceMinutes * 60000L; // Convertimos los minutos a milisegundos
+                // Comprobar si han pasado más de los minutos configurados
+                long currentTimeMillis = System.currentTimeMillis();
+                long lastTimeMillis = lastDateObj.getTime(); // Obtenemos el tiempo en milisegundos de la última medición
+                long persistenceMillis = persistenceMinutes * 60000L; // Convertimos los minutos a milisegundos
 
-                    if (currentTimeMillis - lastTimeMillis > persistenceMillis) {
-                        return this.daoHelper.insert(this.measurementsDao, attrMap);
-                    } else {
-                        return new EntityResultMapImpl(EntityResult.OPERATION_WRONG, EntityResult.NODATA_RESULT,
-                                "Esperar más de " + persistenceMinutes + " minutos para insertar una nueva medición.");
-                        }
+                if (currentTimeMillis - lastTimeMillis > persistenceMillis) {
+                    return this.daoHelper.insert(this.measurementsDao, attrMap);
+                } else {
+                    return new EntityResultMapImpl(EntityResult.OPERATION_WRONG, EntityResult.NODATA_RESULT,
+                            "Esperar más de " + persistenceMinutes + " minutos para insertar una nueva medición.");
+                    }
 
-            } else {
-                return this.daoHelper.insert(this.measurementsDao, attrMap);
-            }
-
-
+        } else {
+            return this.daoHelper.insert(this.measurementsDao, attrMap);
+        }
     }
 
     @Override
