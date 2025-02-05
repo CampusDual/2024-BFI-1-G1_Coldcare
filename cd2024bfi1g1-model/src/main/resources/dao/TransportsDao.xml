@@ -24,9 +24,13 @@
                 <![CDATA[
             SELECT
                 t.TRP_ID,
+                t.TRP_ORIGIN,
                 lo.LOC_NAME AS ORIGIN_NAME,
+                t.TRP_DESTINATION,
                 ld.LOC_NAME AS DESTINATION_NAME,
+                t.CNT_ID,
                 c.CNT_NAME,
+                t.VHC_ID,
                 v.VHC_PLATE,
                 t.TRP_DATE
             FROM transports t
