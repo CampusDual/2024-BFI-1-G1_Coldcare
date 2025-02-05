@@ -121,12 +121,19 @@
   "TEMP_LOT": "Lot temperatures",
   "CONTAINER_ASSIGN": "Assign to container",
   "DEVICE_DATA": "Details",
-  "DEVICE_GRAPH": "Graph",
+  "LOC_ADDRESS": "Address",
+  "LOC_NAME": "Location Name",
+  "LOCATIONS": "Locations",
   "BILLS": "Bills",
   "BIL_EXPENSE": "Total expense",
   "BIL_DEVICES": "Total devices",
   "BIL_MEASUREMENTS": "Total measurements",
   "BIL_DATE": "Bill date",
   "CNT_MOBILITY": "Container Mobility",
-  "CURRENT_MOBILITY": "Enable container mobility"
+  "CURRENT_MOBILITY": "Enable container mobility",
+  "LOC_DATA": "Location Data",
+  "LOCATION": "Location",
+  "VEHICLES": "Vehicles",
+  "PLATE": "Plate",
+  "MEASUREMENTS_HISTORIC": "Measurements historic"
 }
