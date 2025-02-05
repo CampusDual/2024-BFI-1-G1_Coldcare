@@ -145,7 +145,7 @@ public class MeasurementsService implements IMeasurementsService {
         Integer lotId = (Integer) row.get(LotsDao.LOT_ID);
 
         if (cntId == null) {
-            return null; // No hay contenedor asignado
+            return Map.of(); // No hay contenedor asignado
         }
 
         if (lotId == null) {
