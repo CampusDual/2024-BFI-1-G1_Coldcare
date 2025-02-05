@@ -142,5 +142,6 @@
   "PLN_END": "Fecha final del plan",
   "PRICES": "Precios",
   "DATES": "Fechas",
-  "NAME": "Nombre"
+  "NAME": "Nombre",
+  "PLAN_ASSIGN": "Asignar plan"
 }

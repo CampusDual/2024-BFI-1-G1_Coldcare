@@ -1,0 +1,13 @@
+<o-form attr="lotsTemp" parent-keys="CMP_ID" keys="CMP_ID" keys-sql-types="INTEGER" service="companies"
+  entity="companies" header-actions="R;U">
+  <o-row attr="row1" layout-align="start stretch">
+    <o-column layout-align="start stretch" fxFlex="60" layout-padding>
+      <div class="inline-fields">
+        <o-text-input attr="CMP_NAME"></o-text-input>
+        <o-combo attr="PLN_ID" label="PLAN_ASSIGN" service="plan" entity="plan" value-column="PLN_ID"
+          columns="PLN_ID;PLN_NAME" visible-columns="PLN_NAME" null-selection="no" searchable="yes">
+        </o-combo>
+      </div>
+    </o-column>
+  </o-row>
+</o-form>
