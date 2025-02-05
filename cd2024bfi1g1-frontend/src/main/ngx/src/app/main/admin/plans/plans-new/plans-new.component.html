@@ -1,20 +1,26 @@
 <o-form attr="plans_form_insert" service="plans" entity="plans" fxLayout="column" keys="PLN_ID" show-header="true"
-  after-insert-mode="close" confirm-exit="false">
-  <o-row attr="row1" layout-align="start stretch">
-    <o-column title="PLAN_DATA">
-      <div fxLayout="row" fxLayoutAlign="start center" class="gap">
-        <o-text-input attr="PLN_NAME" class="margin-right-24" fxFlex.lg="30" fxFlex.xl="30" fxFlex="50"></o-text-input>
-        <o-text-input attr="PLN_FXDPRC" class="margin-right-24" fxFlex.lg="30" fxFlex.xl="30"
-          fxFlex="50"></o-text-input>
-        <o-text-input attr="PLN_DEVPRC" class="margin-right-24" fxFlex.lg="30" fxFlex.xl="30"
-          fxFlex="50"></o-text-input>
-        <o-text-input attr="PLN_BNDLEPRC" class="margin-right-24" fxFlex.lg="30" fxFlex.xl="30"
-          fxFlex="50"></o-text-input>
-        <o-text-input attr="PLN_BNDLEREQUEST" class="margin-right-24" fxFlex.lg="30" fxFlex.xl="30"
-          fxFlex="50"></o-text-input>
-        <o-text-input attr="PLN_START" class="margin-right-24" fxFlex.lg="30" fxFlex.xl="30" fxFlex="50"></o-text-input>
-        <o-text-input attr="PLN_END" class="margin-right-24" fxFlex.lg="30" fxFlex.xl="30" fxFlex="50"></o-text-input>
-      </div>
-    </o-column>
-  </o-row>
+  after-insert-mode="close" confirm-exit="false" header-actions="I;R;U">
+  <o-column title="NAME" layout-align="start stretch" layout-padding>
+    <div class="inline-fields">
+      <o-text-input attr="PLN_NAME" label="PLN_NAME" required="yes"></o-text-input>
+    </div>
+  </o-column>
+  <o-column title="PRICES" layout-align="start stretch" layout-padding>
+    <div class="inline-fields">
+      <o-text-input attr="PLN_FXDPRC" label="PLN_FXDPRC" required="yes"></o-text-input>
+      <o-text-input attr="PLN_DEVPRC" label="PLN_DEVPRC" required="yes"></o-text-input>
+      <o-text-input attr="PLN_BNDLEPRC" label="PLN_BNDLEPRC" required="yes"></o-text-input>
+      <o-text-input attr="PLN_BNDLEREQUEST" label="PLN_BNDLEREQUEST" required="yes"></o-text-input>
+    </div>
+  </o-column>
+  <o-column title="DATES" layout-align="start stretch" layout-padding>
+    <div class="inline-fields">
+      <o-date-input #DATES attr="PLN_START" value-type="timestamp" label="PLN_START" read-only="no" required="yes"
+        format="DD/MM/YYYY" show-week-numbers="true" mode="desktop" translate="yes">
+      </o-date-input>
+      <o-date-input #DATES attr="PLN_END" value-type="timestamp" label="PLN_END" read-only="no" required="no"
+        format="DD/MM/YYYY" show-week-numbers="true" mode="desktop" translate="yes">
+      </o-date-input>
+    </div>
+  </o-column>
 </o-form>
