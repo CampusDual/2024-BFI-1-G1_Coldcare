@@ -3,10 +3,12 @@ package com.campusdual.cd2024bfi1g1.model.core.service;
 import com.campusdual.cd2024bfi1g1.api.core.service.IContainersLotsService;
 import com.campusdual.cd2024bfi1g1.model.core.dao.ContainersLotsDao;
 import com.ontimize.jee.common.dto.EntityResult;
+import com.ontimize.jee.common.dto.EntityResultMapImpl;
 import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
 import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,6 +41,14 @@ public class ContainersLotsService implements IContainersLotsService {
 
     @Override
     public EntityResult containersLotsDelete(Map<String, Object> keyMap) throws OntimizeJEERuntimeException {
-        return this.daoHelper.delete(this.containersLotsDao, keyMap);
+        try{
+            return this.daoHelper.delete(this.containersLotsDao, keyMap);
+        }
+        catch(DataIntegrityViolationException e) {
+            EntityResult res = new EntityResultMapImpl();
+            res.setCode(EntityResult.OPERATION_WRONG);
+            res.setMessage("ERROR_CL_DELETE");
+            return res;
+        }
     }
 }

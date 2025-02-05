@@ -125,6 +125,7 @@
   "LOT_ASSIGNMENT": "Asignación de lote",
   "CL_START_DATE": "Fecha de inicio",
   "CL_END_DATE": "Fecha de fin",
-  "CL_INFO": "Detalles del contenedor lote"
-
+  "CL_INFO": "Detalles del contenedor lote",
+  "ACTIVE": "Activo",
+  "ERROR_CL_DELETE": "No se puede borrar el contenedor lote porque tiene medidas asociadas."
 }

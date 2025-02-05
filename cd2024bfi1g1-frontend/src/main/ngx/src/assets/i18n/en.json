@@ -125,5 +125,7 @@
   "LOT_ASSIGNMENT": "Lot assignment",
   "CL_START_DATE": "Start date",
   "CL_END_DATE": "End date",
-  "CL_INFO": "Container lot data"
+  "CL_INFO": "Container lot data",
+  "ACTIVE": "Active",
+  "ERROR_CL_DELETE": "Container lot can not be deleted because it has measurements associated."
 }
