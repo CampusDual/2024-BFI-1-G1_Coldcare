@@ -130,5 +130,6 @@
   "LOCATION": "Localización",
   "VEHICLES": "Vehículos",
   "PLATE": "Matrícula",
-  "MEASUREMENTS_HISTORIC": "Histórico de medidas"
+  "MEASUREMENTS_HISTORIC": "Histórico de medidas",
+  "COMPANY_DELETE_ERROR": "No se puede borrar una compañia asignada"
 }

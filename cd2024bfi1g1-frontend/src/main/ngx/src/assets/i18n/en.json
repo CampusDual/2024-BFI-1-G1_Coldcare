@@ -91,7 +91,7 @@
   "DEVICE_ASSIGNMENT": "Device assignment",
   "COMPANIES": "Companies",
   "CMP_NAME": "Company",
-  "COMPANY_DATA": "Company Data",
+  "COMPANY_DATA": "Company data",
   "CMP_ID": "Company",
   "FILTER": "Filter",
   "CLEAR": "Clear",
@@ -130,5 +130,6 @@
   "LOCATION": "Location",
   "VEHICLES": "Vehicles",
   "PLATE": "Plate",
-  "MEASUREMENTS_HISTORIC": "Measurements historic"
+  "MEASUREMENTS_HISTORIC": "Measurements historic",
+  "COMPANY_DELETE_ERROR": "Cannot delete an assigned company"
 }
