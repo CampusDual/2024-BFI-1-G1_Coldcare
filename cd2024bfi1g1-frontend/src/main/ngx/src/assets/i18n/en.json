@@ -142,5 +142,6 @@
   "DESTINATION_NAME": "Destination",
   "LOCATION_DELETE_ERROR": "Cannot delete an assigned location",
   "VEHICLE_DELETE_ERROR": "Cannot delete an assigned vehicle",
-  "MEASUREMENTS_HISTORIC": "Measurements historic"
+  "MEASUREMENTS_HISTORIC": "Measurements historic",
+  "CONTAINER_MOBILITY_ERROR": "Container in use, it is not allowed to change the mobility"
 }

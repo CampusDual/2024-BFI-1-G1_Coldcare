@@ -142,5 +142,6 @@
   "DESTINATION_NAME": "Destino",
   "LOCATION_DELETE_ERROR": "No se puede borrar una localización asignada",
   "VEHICLE_DELETE_ERROR": "No se puede borrar un vehículo asignado",
-  "MEASUREMENTS_HISTORIC": "Histórico de medidas"
+  "MEASUREMENTS_HISTORIC": "Histórico de medidas",
+  "CONTAINER_MOBILITY_ERROR": "Contenedor en uso, no está permitido cambiar la movilidad"
 }
