@@ -75,9 +75,8 @@ public class MeasurementsService implements IMeasurementsService {
         }
 
         Double currentTemp = (Double) attrMap.get(MeasurementsDao.ME_TEMP);
-        Integer meId = (Integer) attrMap.get(MeasurementsDao.ME_ID);
 
-        Integer altId = computeMeasurementAlert( currentTemp, devId, lotId, cntId, meId );
+        Integer altId = computeMeasurementAlert( currentTemp, devId, lotId, cntId);
 
         EntityResult eR = daoHelper.insert(measurementsDao, attrMap);
         if (altId != null) {
@@ -130,7 +129,7 @@ public class MeasurementsService implements IMeasurementsService {
     }
 
     private Map<String, Integer> getContainerLot(Map<String, Object> attrMap) {
-        Map<String, Object> filter = Map.of(DevicesDao.DEV_MAC, attrMap.get(DevicesDao.DEV_MAC));
+        Map<String, Object> filter = Map.of(DevicesDao.DEV_ID, attrMap.get(DevicesDao.DEV_ID));
         List<String> columns = List.of(
                 ContainersDao.CNT_ID,
                 LotsDao.LOT_ID
@@ -142,9 +141,20 @@ public class MeasurementsService implements IMeasurementsService {
         }
 
         Map<String, Object> row = eR.getRecordValues(0);
+        Integer cntId = (Integer) row.get(ContainersDao.CNT_ID);
+        Integer lotId = (Integer) row.get(LotsDao.LOT_ID);
+
+        if (cntId == null) {
+            return null; // No hay contenedor asignado
+        }
+
+        if (lotId == null) {
+            return Map.of(ContainersDao.CNT_ID, cntId); // Se devuelve solo el contenedor
+        }
+
         return Map.of(
-                ContainersDao.CNT_ID, (Integer) row.get(ContainersDao.CNT_ID),
-                LotsDao.LOT_ID, (Integer) row.get(LotsDao.LOT_ID)
+                ContainersDao.CNT_ID, cntId,
+                LotsDao.LOT_ID, lotId
         );
     }
 
@@ -190,12 +200,12 @@ public class MeasurementsService implements IMeasurementsService {
         Integer lastMeasurementId = (Integer) entityResult.get(MeasurementsDao.ME_ID);
 
         Map<String, Object> valuesToUpdate = Map.of(MeasurementsDao.ALT_ID, altId);
-        Map<String, Object> filterToUpdate = Map.of(MeasurementsDao.ME_ID, lastMeasurementId);
+        Map<String, Object> filter = Map.of(MeasurementsDao.ME_ID, lastMeasurementId);
 
-        measurementsUpdate(valuesToUpdate, filterToUpdate);
+        measurementsUpdate(valuesToUpdate, filter);
     }
 
-    private Integer computeMeasurementAlert(Double currentTemp, Integer devId, Integer lotId, Integer cntId, Integer meId) {
+    private Integer computeMeasurementAlert(Double currentTemp, Integer devId, Integer lotId, Integer cntId) {
         Double lastTemp = getLastRecordedTemperature(devId);
         if (lastTemp == null) {
             return null;
