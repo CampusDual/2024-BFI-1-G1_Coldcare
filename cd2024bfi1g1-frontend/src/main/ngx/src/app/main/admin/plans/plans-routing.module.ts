@@ -7,7 +7,7 @@ import { PlansDetailComponent } from './plans-detail/plans-detail.component';
 const routes: Routes = [
     { path: '', component: PlansHomeComponent },
     { path: 'new', component: PlansNewComponent },
-    { path: ':pln_id', component: PlansDetailComponent }
+    { path: ':PLN_ID', component: PlansDetailComponent }
 ];
 
 @NgModule({

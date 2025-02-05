@@ -139,5 +139,8 @@
   "PLN_BNDLEPRC": "Precio del paquete",
   "PLN_BNDLEREQUEST": "Peticiones del paquete",
   "PLN_START": "Fecha de inicio del plan",
-  "PLN_END": "Fecha final del plan"
+  "PLN_END": "Fecha final del plan",
+  "PRICES": "Precios",
+  "DATES": "Fechas",
+  "NAME": "Nombre"
 }

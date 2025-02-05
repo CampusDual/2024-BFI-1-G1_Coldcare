@@ -139,5 +139,8 @@
   "PLN_BNDLEPRC": "Plan bundle price",
   "PLN_BNDLEREQUEST": "Plan bundle requests",
   "PLN_START": "Plan start date",
-  "PLN_END": "Plan end date"
+  "PLN_END": "Plan end date",
+  "PRICES": "Prices",
+  "DATES": "Dates",
+  "NAME": "Name"
 }
