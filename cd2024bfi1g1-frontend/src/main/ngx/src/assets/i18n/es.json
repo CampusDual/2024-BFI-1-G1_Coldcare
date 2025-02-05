@@ -126,5 +126,7 @@
   "BIL_EXPENSE": "Gasto total",
   "BIL_DEVICES": "Total de dispositivos",
   "BIL_MEASUREMENTS": "Total de medidas",
-  "BIL_DATE": "Fecha de la factura"
+  "BIL_DATE": "Fecha de la factura",
+  "CNT_MOBILITY": "Mobilidad del contenedor",
+  "CURRENT_MOBILITY": "Habilitar movilidad del contenedor"
 }

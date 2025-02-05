@@ -126,5 +126,7 @@
   "BIL_EXPENSE": "Total expense",
   "BIL_DEVICES": "Total devices",
   "BIL_MEASUREMENTS": "Total measurements",
-  "BIL_DATE": "Bill date"
+  "BIL_DATE": "Bill date",
+  "CNT_MOBILITY": "Container Mobility",
+  "CURRENT_MOBILITY": "Enable container mobility"
 }

@@ -1,0 +1,4 @@
+<ng-template #templateref let-cellvalue="cellvalue" let-rowvalue="rowvalue">
+    <mat-icon *ngIf="cellvalue" class="enabled">circle</mat-icon>
+    <mat-icon *ngIf="!cellvalue" class="disabled">circle</mat-icon>
+</ng-template>
