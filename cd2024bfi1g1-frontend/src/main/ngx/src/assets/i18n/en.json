@@ -121,7 +121,6 @@
   "TEMP_LOT": "Lot temperatures",
   "CONTAINER_ASSIGN": "Assign to container",
   "DEVICE_DATA": "Details",
-  "DEVICE_GRAPH": "Graph",
   "LOC_ADDRESS": "Address",
   "LOC_NAME": "Location Name",
   "LOCATIONS": "Locations",
@@ -142,5 +141,6 @@
   "ORIGIN_NAME": "Origin",
   "DESTINATION_NAME": "Destination",
   "LOCATION_DELETE_ERROR": "Cannot delete an assigned location",
-  "VEHICLE_DELETE_ERROR": "Cannot delete an assigned vehicle"
+  "VEHICLE_DELETE_ERROR": "Cannot delete an assigned vehicle",
+  "MEASUREMENTS_HISTORIC": "Measurements historic"
 }
