@@ -47,41 +47,43 @@
             <Sentence>
                 <![CDATA[
                     with tmv as (
-                        SELECT c.*
+                        SELECT *
                         FROM containers c
-                        WHERE c.cnt_mobility
+                        #WHERE#
+                        AND c.cnt_mobility
                     )
-                    SELECT * FROM tmv #WHERE#;
+                    SELECT * FROM tmv;
                 ]]>
             </Sentence>
         </Query>
         <Query id="locations">
             <AmbiguousColumns>
                 <AmbiguousColumn name="LOC_ID" prefix="t" />
-                <AmbiguousColumn name="CMP_ID" prefix="t" />
             </AmbiguousColumns>
             <Sentence>
                 <![CDATA[
                     with loc as (
-                        SELECT l.*
+                        SELECT *
                         FROM locations l
+                        #WHERE#
+
                     )
-                    SELECT * FROM loc #WHERE#;
+                    SELECT * FROM loc;
                 ]]>
             </Sentence>
         </Query>
         <Query id="plates">
             <AmbiguousColumns>
                 <AmbiguousColumn name="VHC_ID" prefix="t" />
-                <AmbiguousColumn name="CMP_ID" prefix="t" />
             </AmbiguousColumns>
             <Sentence>
                 <![CDATA[
-                    with plt as (
+                    WITH plt AS (
                         SELECT v.*
                         FROM vehicles v
+                        #WHERE#
                     )
-                    SELECT * FROM plt #WHERE#;
+                    SELECT * FROM plt;
                 ]]>
             </Sentence>
         </Query>

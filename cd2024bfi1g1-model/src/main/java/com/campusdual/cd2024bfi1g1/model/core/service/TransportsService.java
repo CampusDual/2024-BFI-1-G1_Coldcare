@@ -4,6 +4,7 @@ import com.campusdual.cd2024bfi1g1.api.core.service.ITransportsService;
 import com.campusdual.cd2024bfi1g1.model.core.dao.DevicesDao;
 import com.campusdual.cd2024bfi1g1.model.core.dao.TransportsDao;
 import com.campusdual.cd2024bfi1g1.model.core.dao.UserDao;
+import com.campusdual.cd2024bfi1g1.model.core.dao.VehiclesDao;
 import com.ontimize.jee.common.dto.EntityResult;
 import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
 import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
@@ -62,18 +63,22 @@ public class TransportsService implements ITransportsService {
     @Override
     public EntityResult transportsMovilityQuery(Map<String, Object> keyMap, List<String> attrList)
             throws OntimizeJEERuntimeException {
-
+        Integer cmpId = UserAndRoleService.getUserCompanyId(this.daoHelper, this.userDao);
+        keyMap.put(TransportsDao.CMP_ID, cmpId);
         return this.daoHelper.query(this.transportsDao, keyMap, attrList, "movility");
     }
     @Override
     public EntityResult transportsLocationQuery(Map<String, Object> keyMap, List<String> attrList)
             throws OntimizeJEERuntimeException {
-
+        Integer cmpId = UserAndRoleService.getUserCompanyId(this.daoHelper, this.userDao);
+        keyMap.put(TransportsDao.CMP_ID, cmpId);
         return this.daoHelper.query(this.transportsDao, keyMap, attrList, "locations");
     }
     @Override
     public EntityResult transportsPlateQuery(Map<String, Object> keyMap, List<String> attrList)
             throws OntimizeJEERuntimeException {
+        Integer cmpId = UserAndRoleService.getUserCompanyId(this.daoHelper, this.userDao);
+        keyMap.put(VehiclesDao.CMP_ID, cmpId);
 
         return this.daoHelper.query(this.transportsDao, keyMap, attrList, "plates");
     }
