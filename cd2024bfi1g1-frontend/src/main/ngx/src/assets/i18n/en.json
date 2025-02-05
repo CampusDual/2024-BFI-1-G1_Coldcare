@@ -138,5 +138,9 @@
   "TRP_DATE": "Delivery date",
   "VEHICLE_DATA": "Vehicle Data",
   "VHC_PLATE": "Plate",
-  "DELIVERY_DATE": "Delivery date"
+  "DELIVERY_DATE": "Delivery date",
+  "ORIGIN_NAME": "Origin",
+  "DESTINATION_NAME": "Destination",
+  "LOCATION_DELETE_ERROR": "Cannot delete an assigned location",
+  "VEHICLE_DELETE_ERROR": "Cannot delete an assigned vehicle"
 }

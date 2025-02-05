@@ -138,5 +138,9 @@
   "TRP_DATE": "Fecha entrega",
   "VEHICLE_DATA": "Datos vehículo",
   "VHC_PLATE": "Matrícula",
-  "DELIVERY_DATE": "Fecha entrega"
+  "DELIVERY_DATE": "Fecha entrega",
+  "ORIGIN_NAME": "Origen",
+  "DESTINATION_NAME": "Destino",
+  "LOCATION_DELETE_ERROR": "No se puede borrar una localización asignada",
+  "VEHICLE_DELETE_ERROR": "No se puede borrar un vehículo asignado"
 }

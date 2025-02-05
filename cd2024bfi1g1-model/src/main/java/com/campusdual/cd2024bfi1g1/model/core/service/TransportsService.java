@@ -75,7 +75,7 @@ public class TransportsService implements ITransportsService {
     public EntityResult transportsPlateQuery(Map<String, Object> keyMap, List<String> attrList)
             throws OntimizeJEERuntimeException {
 
-        return this.daoHelper.query(this.transportsDao, keyMap, attrList, "matriculas");
+        return this.daoHelper.query(this.transportsDao, keyMap, attrList, "plates");
     }
 
 }

@@ -58,15 +58,15 @@
             </AmbiguousColumns>
             <Sentence>
                 <![CDATA[
-                    with des as (
+                    with loc as (
                         SELECT l.*
                         FROM locations l
                     )
-                    SELECT * FROM des #WHERE#;
+                    SELECT * FROM loc #WHERE#;
                 ]]>
             </Sentence>
         </Query>
-        <Query id="matriculas">
+        <Query id="plates">
             <AmbiguousColumns>
                 <AmbiguousColumn name="VHC_ID" prefix="t" />
                 <AmbiguousColumn name="CMP_ID" prefix="t" />
