@@ -93,7 +93,7 @@ public class MeasurementsService implements IMeasurementsService {
 
         Double temp = (Double) attrMap.get(MeasurementsDao.ME_TEMP);
         Integer meId = (Integer) attrMap.get(MeasurementsDao.ME_ID);
-        Integer altId = this.computeMeasurementAlarm(temp, devId, lotId, cntId, meId);
+        Integer altId = this.computeMeasurementAlert(temp, devId, lotId, cntId, meId);
 
         EntityResult lastTimeResult = devicesService.lastTimeWithoutCMP(
                 Map.of(DevicesDao.DEV_ID, rowDevice.get(DevicesDao.DEV_ID)),
@@ -156,81 +156,78 @@ public class MeasurementsService implements IMeasurementsService {
         return this.daoHelper.query(this.measurementsDao, keyMap, attrList, "container_lot");
     }
 
-    private Integer computeMeasurementAlarm(Double currentTemp, Integer devId, Integer lotId, Integer cntId, Integer meId){
-
-        Map<String, Object> filterTemp = Map.of(DevicesDao.DEV_ID, devId);
-        List<String> columnsTemp = List.of(MeasurementsDao.ME_TEMP);
-        List<SQLStatementBuilder.SQLOrder> orderByTemp = List.of(new SQLStatementBuilder.SQLOrder(MeasurementsDao.ME_DATE, false));
-
-        EntityResult eRTemp = this.measurementsPaginationQuery(filterTemp, columnsTemp, 1, 0, orderByTemp);
-
-        if (eRTemp.isEmpty() || eRTemp.isWrong()){
+    private Integer computeMeasurementAlert(Double currentTemp, Integer devId, Integer lotId, Integer cntId, Integer meId) {
+        Double lastTemp = getLastRecordedTemperature(devId);
+        if (lastTemp == null) {
             return null;
         }
-        Map<String, Object> measurementRow = eRTemp.getRecordValues(0);
-
-        Double lastTemp = (Double) measurementRow.get(MeasurementsDao.ME_TEMP);
 
         Double minTemp = lotsService.getMinTempForLotId(lotId);
         Double maxTemp = lotsService.getMaxTempForLotId(lotId);
 
-        boolean isError =(currentTemp > maxTemp || currentTemp < minTemp);
-        boolean wasError = (lastTemp < minTemp || lastTemp > maxTemp);
+        boolean isError = (currentTemp > maxTemp || currentTemp < minTemp);
+        boolean wasError = (lastTemp > maxTemp || lastTemp < minTemp);
 
-        if ( isError && !wasError) {
-            System.out.println("Temperatura actual fuera de rango. Última temperatura en rango");
-            Map<String, Object> valuesToInsert = Map.of(
+        if (isError && !wasError) {
+            createAlert(minTemp, maxTemp, cntId, lotId);
+        } else if (!isError && wasError) {
+            closeLastAlert(cntId, lotId);
+        }
+
+        return isError ? getLastAlertId(cntId, lotId) : null;
+    }
+
+    private Double getLastRecordedTemperature(Integer devId) {
+        Map<String, Object> filter = Map.of(DevicesDao.DEV_ID, devId);
+        List<String> columns = List.of(MeasurementsDao.ME_TEMP);
+        List<SQLStatementBuilder.SQLOrder> orderBy = List.of(
+                new SQLStatementBuilder.SQLOrder(MeasurementsDao.ME_DATE, false)
+        );
+
+        EntityResult eR = measurementsPaginationQuery(filter, columns, 1, 0, orderBy);
+        if (eR.isEmpty() || eR.isWrong()) {
+            return null;
+        }
+
+        return (Double) eR.getRecordValues(0).get(MeasurementsDao.ME_TEMP);
+    }
+
+    private void createAlert(Double minTemp, Double maxTemp, Integer cntId, Integer lotId) {
+        Map<String, Object> valuesToInsert = Map.of(
                 AlertsDao.ALT_MIN_TEMP, minTemp,
                 AlertsDao.ALT_MAX_TEMP, maxTemp,
                 AlertsDao.CNT_ID, cntId,
                 AlertsDao.LOT_ID, lotId
-            );
-            alertsService.alertsInsert(valuesToInsert);
-        } else if (!isError && wasError ) {
-            System.out.println("Temperatura actual en rango. Última temperatura fuera de rango");
+        );
+        alertsService.alertsInsert(valuesToInsert);
+    }
 
-            Map<String, Object> filterAlert = Map.of(
+    private void closeLastAlert(Integer cntId, Integer lotId) {
+        Integer lastAlertId = getLastAlertId(cntId, lotId);
+        if (lastAlertId == null) {
+            return;
+        }
+
+        Map<String, Object> valuesToUpdate = Map.of(AlertsDao.ALT_DATE_END, LocalDateTime.now());
+        Map<String, Object> filterToUpdate = Map.of(AlertsDao.ALT_ID, lastAlertId);
+        alertsService.alertsUpdate(valuesToUpdate, filterToUpdate);
+    }
+
+    private Integer getLastAlertId(Integer cntId, Integer lotId) {
+        Map<String, Object> filter = Map.of(
                 AlertsDao.CNT_ID, cntId,
                 AlertsDao.LOT_ID, lotId
-            );
-            List<String> columnsAlert = List.of(AlertsDao.ALT_ID);
-            List<SQLStatementBuilder.SQLOrder> orderByAlert = List.of(new SQLStatementBuilder.SQLOrder(AlertsDao.ALT_DATE_INIT, false));
+        );
+        List<String> columns = List.of(AlertsDao.ALT_ID);
+        List<SQLStatementBuilder.SQLOrder> orderBy = List.of(
+                new SQLStatementBuilder.SQLOrder(AlertsDao.ALT_DATE_INIT, false)
+        );
 
-            EntityResult eRAlert = alertsService.alertsPaginationQuery(filterAlert, columnsAlert, 1, 0, orderByAlert);
-
-            if (eRAlert.isEmpty() || eRAlert.isWrong()){
-                return null;
-            }
-            Map<String, Object> alertRow = eRAlert.getRecordValues(0);
-
-            Integer lastAlertId = (Integer) alertRow.get(AlertsDao.ALT_ID);
-
-            Map<String, Object> valuesToUpdate = Map.of(
-                    AlertsDao.ALT_DATE_END, LocalDateTime.now()
-                    );
-            Map<String, Object> filterToUpdate = Map.of(AlertsDao.ALT_ID, lastAlertId);
-            alertsService.alertsUpdate(valuesToUpdate, filterToUpdate);
+        EntityResult eR = alertsService.alertsPaginationQuery(filter, columns, 1, 0, orderBy);
+        if (eR.isEmpty() || eR.isWrong()) {
+            return null;
         }
 
-        if (isError) {
-            Map<String, Object> filterAlert = Map.of(
-                    AlertsDao.CNT_ID, cntId,
-                    AlertsDao.LOT_ID, lotId
-            );
-            List<String> columnsAlert = List.of(AlertsDao.ALT_ID);
-            List<SQLStatementBuilder.SQLOrder> orderByAlert = List.of(new SQLStatementBuilder.SQLOrder(AlertsDao.ALT_DATE_INIT, false));
-
-            EntityResult eRAlert = alertsService.alertsPaginationQuery(filterAlert, columnsAlert, 1, 0, orderByAlert);
-
-            if (eRAlert.isEmpty() || eRAlert.isWrong()){
-                return null;
-            }
-            Map<String, Object> alertRow = eRAlert.getRecordValues(0);
-
-            return (Integer) alertRow.get(AlertsDao.ALT_ID);
-        }
-
-        return null;
-
+        return (Integer) eR.getRecordValues(0).get(AlertsDao.ALT_ID);
     }
 }
