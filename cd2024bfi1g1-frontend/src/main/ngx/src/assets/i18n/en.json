@@ -131,5 +131,18 @@
   "VEHICLES": "Vehicles",
   "PLATE": "Plate",
   "MEASUREMENTS_HISTORIC": "Measurements historic",
-  "COMPANY_DELETE_ERROR": "Cannot delete an assigned company"
+  "COMPANY_DELETE_ERROR": "Cannot delete an assigned company",
+  "TRANSPORTS": "Transports",
+  "TRP_DATA": "Transport data",
+  "TRP_ORIGIN": "Origin",
+  "TRP_DESTINATION": "Destination",
+  "TRP_DATE": "Delivery date",
+  "VEHICLE_DATA": "Vehicle Data",
+  "VHC_PLATE": "Plate",
+  "DELIVERY_DATE": "Delivery date",
+  "ORIGIN_NAME": "Origin",
+  "DESTINATION_NAME": "Destination",
+  "LOCATION_DELETE_ERROR": "Cannot delete an assigned location",
+  "VEHICLE_DELETE_ERROR": "Cannot delete an assigned vehicle",
+  "CONTAINER_MOBILITY_ERROR": "Container in use, it is not allowed to change the mobility"
 }
