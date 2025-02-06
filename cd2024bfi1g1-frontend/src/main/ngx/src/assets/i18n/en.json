@@ -143,5 +143,6 @@
   "PRICES": "Prices",
   "DATES": "Dates",
   "NAME": "Name",
-  "PLAN_ASSIGN": "Assign a plan"
+  "PLAN_ASSIGN": "Assign a plan",
+  "START_DAY_EARLIER": "The start date must be earlier than the end date"
 }

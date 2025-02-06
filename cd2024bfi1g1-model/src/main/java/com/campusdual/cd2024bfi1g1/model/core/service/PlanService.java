@@ -5,6 +5,7 @@ import com.campusdual.cd2024bfi1g1.model.core.dao.DevicesDao;
 import com.campusdual.cd2024bfi1g1.model.core.dao.PlanDao;
 import com.campusdual.cd2024bfi1g1.model.core.dao.UserDao;
 import com.ontimize.jee.common.dto.EntityResult;
+import com.ontimize.jee.common.dto.EntityResultMapImpl;
 import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
 import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,15 @@ public class PlanService implements IPlanService {
 
     @Override
     public EntityResult planInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException {
+        if (attrMap.containsKey(PlanDao.PLN_END)) {
+            Date startDate = (Date)(attrMap.get(PlanDao.PLN_START));
+            Date endDate = (Date)(attrMap.get(PlanDao.PLN_END));
+
+            if (startDate.after(endDate)) {
+                return new EntityResultMapImpl(EntityResult.OPERATION_WRONG, EntityResult.NODATA_RESULT,
+                        "START_DAY_EARLIER");
+            }
+        }
         return this.daoHelper.insert(this.planDao, attrMap);
     }
 
@@ -92,5 +102,11 @@ public class PlanService implements IPlanService {
             }
         }
         return true;
+    }
+
+    private boolean insertDateOK(Map<String, Object> attrMap, Map<String, Object> keyMap) throws OntimizeJEERuntimeException {
+
+        return true;
+
     }
 }
