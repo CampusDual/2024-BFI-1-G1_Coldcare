@@ -91,7 +91,7 @@
   "DEVICE_ASSIGNMENT": "Device assignment",
   "COMPANIES": "Companies",
   "CMP_NAME": "Company",
-  "COMPANY_DATA": "Company Data",
+  "COMPANY_DATA": "Company data",
   "CMP_ID": "Company",
   "FILTER": "Filter",
   "CLEAR": "Clear",
@@ -136,6 +136,8 @@
   "LOCATION": "Location",
   "VEHICLES": "Vehicles",
   "PLATE": "Plate",
+  "MEASUREMENTS_HISTORIC": "Measurements historic",
+  "COMPANY_DELETE_ERROR": "Cannot delete an assigned company",
   "TRANSPORTS": "Transports",
   "TRP_DATA": "Transport data",
   "TRP_ORIGIN": "Origin",
@@ -148,6 +150,5 @@
   "DESTINATION_NAME": "Destination",
   "LOCATION_DELETE_ERROR": "Cannot delete an assigned location",
   "VEHICLE_DELETE_ERROR": "Cannot delete an assigned vehicle",
-  "MEASUREMENTS_HISTORIC": "Measurements historic",
   "CONTAINER_MOBILITY_ERROR": "Container in use, it is not allowed to change the mobility"
 }
