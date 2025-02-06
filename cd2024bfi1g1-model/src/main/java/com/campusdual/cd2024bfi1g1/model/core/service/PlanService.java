@@ -10,8 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Map;
+import javax.swing.text.Keymap;
+import java.util.*;
+
+import static com.campusdual.cd2024bfi1g1.model.core.dao.DevicesDao.CNT_ID;
 
 @Service ("PlanService")
 @Lazy
@@ -36,11 +38,68 @@ public class PlanService implements IPlanService {
 
     @Override
     public EntityResult planUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap) throws OntimizeJEERuntimeException {
-        return this.daoHelper.update(this.planDao, attrMap, keyMap);
+        Object plnId = keyMap.get(PlanDao.PLN_ID);
+
+            if (isDateOK(attrMap,keyMap)){
+                return this.daoHelper.update(this.planDao, attrMap, keyMap);
+            }
+            else {
+                throw new OntimizeJEERuntimeException("'min_temp' no puede ser mayor que 'max_temp'.");
+            }
+
+
     }
 
     @Override
     public EntityResult planDelete(Map<String, Object> keyMap) throws OntimizeJEERuntimeException {
         return this.daoHelper.delete(this.planDao, keyMap);
+    }
+
+    private boolean isDateOK(Map<String, Object> attrMap, Map<String, Object> keyMap) throws OntimizeJEERuntimeException {
+
+        if (attrMap.containsKey(PlanDao.PLN_START) && attrMap.containsKey(PlanDao.PLN_END)) {
+            if (((Date) attrMap.get(PlanDao.PLN_START)).after ((Date) attrMap.get(PlanDao.PLN_END))) {
+                return false;
+            }
+            else {
+                return true;
+            }
+
+
+        }
+        else if (attrMap.containsKey(PlanDao.PLN_START)) {
+
+            List<String> attrList = new ArrayList<>();
+            attrList.add(PlanDao.PLN_END);
+
+            EntityResult result = this.daoHelper.query(this.planDao, keyMap, attrList);
+            if ( result.get(PlanDao.PLN_END) == null || result.get(PlanDao.PLN_END).toString().isEmpty()) {
+
+                return true;
+            }
+            else {
+                if (((Date) attrMap.get(PlanDao.PLN_START)).after ((Date)result.get(PlanDao.PLN_END) )) {
+                    return false;
+                }
+                else {
+                    return true;
+                }
+            }
+        }
+        else if (attrMap.containsKey(PlanDao.PLN_END))
+        {
+
+            List<String> attrList = new ArrayList<>();
+            attrList.add(PlanDao.PLN_START);
+
+            EntityResult result = this.daoHelper.query(this.planDao, keyMap, attrList);
+            if (((Date) attrMap.get(PlanDao.PLN_END)).before ((Date)result.get(PlanDao.PLN_START) )) {
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+        return true;
     }
 }
