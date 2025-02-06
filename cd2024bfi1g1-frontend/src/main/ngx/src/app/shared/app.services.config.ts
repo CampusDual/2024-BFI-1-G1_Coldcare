@@ -22,5 +22,8 @@ export const SERVICE_CONFIG: Object = {
   },
   'locations': {
     'path': '/locations'
+  },
+  'alerts': {
+    'path': '/alerts'
   }
 };

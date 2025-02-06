@@ -13,12 +13,32 @@
     <GeneratedKey>alt_id</GeneratedKey>
     <Queries>
         <Query id="default">
+            <AmbiguousColumns>
+                <AmbiguousColumn name="ALT_ID" prefix="a" />
+                <AmbiguousColumn name="CNT_ID" prefix="a" />
+                <AmbiguousColumn name="LOT_ID" prefix="a" />
+            </AmbiguousColumns>
             <Sentence>
                 <![CDATA[
+                    WITH t AS (
+                        SELECT
+                            alt_id,
+                            ROUND(avg(me_temp)::numeric, 2) AS avg_temp,
+                            EXTRACT(EPOCH FROM (MAX(me_date) - MIN(me_date))) AS alt_duration,
+                            ROUND(avg(me_humidity)::numeric, 2) AS avg_humidity
+                        FROM
+                            measurements m
+                        WHERE
+                            alt_id IS NOT NULL
+                        GROUP BY m.alt_id
+                    )
                     SELECT
                         #COLUMNS#
                     FROM
-                        ${mainschema}.alerts
+                        ${mainschema}.alerts a
+                    INNER JOIN t ON a.alt_id = t.alt_id
+                    INNER JOIN containers c ON a.cnt_id = c.cnt_id
+                    INNER JOIN lots l ON a.lot_id = l.lot_id
                     #WHERE#
                     #ORDER#
                 ]]>
