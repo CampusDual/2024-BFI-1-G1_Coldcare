@@ -28,5 +28,8 @@ export const SERVICE_CONFIG: Object = {
   },
   'vehicles': {
     'path': '/vehicles'
+  },
+  'transports': {
+    'path': '/transports'
   }
 }

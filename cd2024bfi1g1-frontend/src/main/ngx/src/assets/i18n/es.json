@@ -136,5 +136,18 @@
   "LOCATION": "Localización",
   "VEHICLES": "Vehículos",
   "PLATE": "Matrícula",
-  "MEASUREMENTS_HISTORIC": "Histórico de medidas"
+  "TRANSPORTS": "Transportes",
+  "TRP_DATA": "Datos del transporte",
+  "TRP_ORIGIN": "Origen",
+  "TRP_DESTINATION": "Destino",
+  "TRP_DATE": "Fecha entrega",
+  "VEHICLE_DATA": "Datos vehículo",
+  "VHC_PLATE": "Matrícula",
+  "DELIVERY_DATE": "Fecha entrega",
+  "ORIGIN_NAME": "Origen",
+  "DESTINATION_NAME": "Destino",
+  "LOCATION_DELETE_ERROR": "No se puede borrar una localización asignada",
+  "VEHICLE_DELETE_ERROR": "No se puede borrar un vehículo asignado",
+  "MEASUREMENTS_HISTORIC": "Histórico de medidas",
+  "CONTAINER_MOBILITY_ERROR": "Contenedor en uso, no está permitido cambiar la movilidad"
 }
