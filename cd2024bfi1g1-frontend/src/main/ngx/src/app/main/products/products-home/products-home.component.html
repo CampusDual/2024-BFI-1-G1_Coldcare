@@ -1,0 +1,10 @@
+<o-table #productsTable attr="productTable" service="product" entity="product" keys="PRO_ID"
+    columns="PRO_ID;PRO_NAME;PRO_MIN_TEMP;PRO_MAX_TEMP" visible-columns="PRO_NAME;PRO_MIN_TEMP;PRO_MAX_TEMP"
+    query-rows="20" select-all-checkbox-visible="no" insert-button="no" delete-button="no" refresh-button="yes"
+    quick-filter="no" pageable="true" detail-mode="none" title="PRODUCTS" show-title="yes">
+    <!-- Columnas de la Tabla -->
+    <o-table-column attr="PRO_NAME" title="NAME" type="date" format="DD/MM/YYYY HH:mm:ss"></o-table-column>
+    <o-table-column attr="PRO_MIN_TEMP" title="PRO_MIN_TEMP"></o-table-column>
+    <o-table-column attr="PRO_MAX_TEMP" title="PRO_MAX_TEMP"></o-table-column>
+
+</o-table>

@@ -8,11 +8,11 @@ import org.springframework.stereotype.Repository;
 import java.util.Arrays;
 import java.util.List;
 
-@Repository("ProductDao")
+@Repository("ProductsDao")
 @Lazy
-@ConfigurationFile(configurationFile = "dao/ProductDao.xml", configurationFilePlaceholder = "dao/placeholders.properties")
+@ConfigurationFile(configurationFile = "dao/ProductsDao.xml", configurationFilePlaceholder = "dao/placeholders.properties")
 
-public class ProductDao extends OntimizeJdbcDaoSupport {
+public class ProductsDao extends OntimizeJdbcDaoSupport {
     public static final String PRO_ID = "PRO_ID";
     public static final String PRO_NAME = "PRO_NAME";
     public static final String PRO_MIN_TEMP = "PRO_MIN_TEMP";

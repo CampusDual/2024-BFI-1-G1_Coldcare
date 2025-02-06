@@ -130,5 +130,9 @@
   "LOCATION": "Location",
   "VEHICLES": "Vehicles",
   "PLATE": "Plate",
-  "MEASUREMENTS_HISTORIC": "Measurements historic"
+  "MEASUREMENTS_HISTORIC": "Measurements historic",
+  "PRODUCTS": "Products",
+  "PRO_NAME": "Product name",
+  "PRO_MAX_TEMP": "Maximum product temperature",
+  "PRO_MIN_TEMP": "Minimum product temperature"
 }

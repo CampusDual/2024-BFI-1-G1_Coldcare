@@ -5,6 +5,7 @@ import { SharedModule } from '../shared/shared.module';
 import { MainRoutingModule } from './main-routing.module';
 import { MainComponent } from './main.component';
 import { ProfileComponent } from './profile/profile.component';
+import { ProductsNewComponent } from './products/products-new/products-new.component';
 
 
 
@@ -17,7 +18,8 @@ import { ProfileComponent } from './profile/profile.component';
   ],
   declarations: [
     MainComponent,
-    ProfileComponent
+    ProfileComponent,
+    ProductsNewComponent
   ]
 })
 export class MainModule { }
