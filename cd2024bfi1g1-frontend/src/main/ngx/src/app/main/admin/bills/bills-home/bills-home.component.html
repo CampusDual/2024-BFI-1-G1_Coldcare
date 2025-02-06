@@ -1,12 +1,13 @@
 <o-table attr="billsTable" service="bills" entity="bills" keys="BIL_ID"
-    columns="BIL_ID;BIL_DATE;BIL_EXPENSE;BIL_DEVICES;BIL_MEASUREMENTS;CMP_ID;CMP_NAME"
-    visible-columns="BIL_DATE;BIL_EXPENSE;BIL_DEVICES;BIL_MEASUREMENTS;CMP_NAME" query-rows="20"
+    columns="BIL_ID;BIL_YEAR;BIL_MONTH;BIL_EXPENSE;BIL_DEVICES;BIL_MEASUREMENTS;CMP_ID;CMP_NAME"
+    visible-columns="BIL_YEAR;BIL_MONTH;BIL_EXPENSE;BIL_DEVICES;BIL_MEASUREMENTS;CMP_NAME" query-rows="20"
     select-all-checkbox-visible="no" insert-button="no" delete-button="no" refresh-button="yes" quick-filter="no"
-    pageable="true" detail-mode="none" show-title="yes" style="margin-left: 5px;">
+    pageable="true" detail-mode="none" show-title="yes">
     <!-- Columnas de la Tabla -->
-    <o-table-column attr="BIL_DATE" type="date" format="DD/MM/YYYY HH:mm:ss"></o-table-column>
-    <o-table-column attr="BIL_EXPENSE"></o-table-column>
-    <o-table-column attr="BIL_DEVICES"></o-table-column>
-    <o-table-column attr="BIL_MEASUREMENTS"></o-table-column>
-    <o-table-column attr="CMP_NAME"></o-table-column>
+    <o-table-column attr="BIL_YEAR" title-align="center" content-align="center"></o-table-column>
+    <o-table-column attr="BIL_MONTH" title-align="center" content-align="center"></o-table-column>
+    <o-table-column attr="BIL_EXPENSE" format="" title-align="center" content-align="center"></o-table-column>
+    <o-table-column attr="BIL_DEVICES" title-align="center" content-align="center"></o-table-column>
+    <o-table-column attr="BIL_MEASUREMENTS" title-align="center" content-align="center"></o-table-column>
+    <o-table-column attr="CMP_NAME" title-align="center" content-align="center"></o-table-column>
 </o-table>

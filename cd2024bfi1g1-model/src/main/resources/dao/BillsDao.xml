@@ -18,12 +18,9 @@
             </AmbiguousColumns>
             <Sentence>
                 <![CDATA[
-                    SELECT
-                        #COLUMNS#
-                    FROM
-                        bills b
-                         JOIN companies c
-                        ON c.cmp_id = b.cmp_id
+                    SELECT #COLUMNS#
+                    FROM bills b
+                    JOIN companies c ON c.cmp_id = b.cmp_id
                     #WHERE#
                     #ORDER#
                 ]]>

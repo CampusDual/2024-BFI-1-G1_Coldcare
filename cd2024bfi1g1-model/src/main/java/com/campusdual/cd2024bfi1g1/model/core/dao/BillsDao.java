@@ -16,9 +16,10 @@ public class BillsDao extends OntimizeJdbcDaoSupport {
 
     public static final String BIL_ID = "BIL_ID";
     public static final String CMP_ID = "CMP_ID";
-    public static final String BIL_DATE = "BIL_DATE";
+    public static final String BIL_MONTH = "BIL_MONTH";
+    public static final String BIL_YEAR = "BIL_YEAR";
     public static final String BIL_MEASUREMENTS = "BIL_MEASUREMENTS";
     public static final String BIL_DEVICES = "BIL_DEVICES";
     public static final String BIL_EXPENSE = "BIL_EXPENSE";
-    public static final List<String> COLUMNS = Arrays.asList(BIL_ID, CMP_ID, BIL_DATE, BIL_MEASUREMENTS, BIL_DEVICES,BIL_EXPENSE);
+    public static final List<String> COLUMNS = Arrays.asList(BIL_ID, CMP_ID, BIL_YEAR, BIL_MONTH, BIL_MEASUREMENTS, BIL_DEVICES,BIL_EXPENSE);
 }

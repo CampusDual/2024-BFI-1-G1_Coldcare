@@ -9,7 +9,7 @@ import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
-import java.time.LocalDate;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,44 +53,61 @@ public class BillsService implements IBillsService {
         return this.daoHelper.delete(this.billsDao, keyMap);
     }
 
-    public void createBills() {
+    public float calculateBillExpense(int nActiveDevices, int nPetitions) {
 
-        int year = LocalDate.now().minusMonths(1).getYear();
-        int month = LocalDate.now().minusMonths(1).getMonthValue();
-        Map<String, Object> keyMapData = new HashMap<>();
-        keyMapData.put("year", year);
-        keyMapData.put("month", month);
-        EntityResult resultCMP = billsDataQuery(keyMapData, List.of("cmp_id"));
-        for (int i = 0; i < resultCMP.calculateRecordNumber(); i++) {
-            if (resultCMP.getRecordValues(i).get("cmp_id") != null) {
-                keyMapData.put("cmp_id", resultCMP.getRecordValues(i).get("cmp_id"));
-                EntityResult resultData = billsDataQuery(keyMapData, List.of("device_count", "measurement_count"));
+        float price = 3.4f;
+        float devicePrice = 1.5f;
+        float price1000 = 10.2f;
+        float totalExpense = price + (devicePrice * nActiveDevices) + (float) Math.ceil(nPetitions / 1000.0) * price1000;
+        return Math.round(totalExpense * 100.0f) / 100.0f;
+    }
 
-                int nActiveDevices = 0;
-                int nPetitions = 0;
-                float price = 3.4f;
-                float devicePrice = 1.5f;
-                float price1000 = 10.2f;
+    public void modifyData (int year, int month) {
 
-                if (resultData != null && resultData.calculateRecordNumber() > 0) {
-                    nActiveDevices = ((Number) resultData.getRecordValues(0).get("device_count")).intValue();
-                    nPetitions = ((Number) resultData.getRecordValues(0).get("measurement_count")).intValue();
+        Map<String, Object> keyMap = new HashMap<>();
+        keyMap.put("YEAR", year);
+        keyMap.put("MONTH", month);
+        EntityResult result = billsDataQuery(keyMap, List.of(BillsDao.CMP_ID, "DEVICE_COUNT", "MEASUREMENT_COUNT"));
+
+        for (int i = 0; i < result.calculateRecordNumber(); i++) {
+            Map<String,Object> row = result.getRecordValues(i);
+            Integer cmp_id = (Integer) row.get(BillsDao.CMP_ID);
+            if (cmp_id != null) {
+                Map<String, Object> keyMapData = new HashMap<>();
+                keyMapData.put(BillsDao.CMP_ID, cmp_id);
+                keyMapData.put(BillsDao.BIL_MONTH, month);
+                keyMapData.put(BillsDao.BIL_YEAR, year);
+                EntityResult resultData = billsQuery(keyMapData, List.of(BillsDao.BIL_ID));
+                Map<String, Object> rowData = resultData.getRecordValues(0);
+
+                int nActiveDevices = ((Number) row.get("DEVICE_COUNT")).intValue();
+                int nPetitions = ((Number) row.get("MEASUREMENT_COUNT")).intValue();
+                float totalExpense = this.calculateBillExpense(nActiveDevices, nPetitions);
+
+                if (resultData.calculateRecordNumber() > 0) {
+                    Map<String, Object> updateData = new HashMap<>();
+                    updateData.put(BillsDao.BIL_DEVICES, nActiveDevices);
+                    updateData.put(BillsDao.BIL_MEASUREMENTS, nPetitions);
+                    updateData.put(BillsDao.BIL_EXPENSE, totalExpense);
+                    Map<String, Object> filter = new HashMap<>();
+                    filter.put(BillsDao.BIL_ID, rowData.get(BillsDao.BIL_ID));
+
+                    System.out.println("Updating with following data: " + updateData);
+                    this.billsUpdate(updateData, filter);
                 }
+                else {
+                    Map<String, Object> insertData = new HashMap<>();
+                    insertData.put(BillsDao.CMP_ID, cmp_id);
+                    insertData.put(BillsDao.BIL_MONTH, month);
+                    insertData.put(BillsDao.BIL_YEAR, year);
+                    insertData.put(BillsDao.BIL_DEVICES, nActiveDevices);
+                    insertData.put(BillsDao.BIL_MEASUREMENTS, nPetitions);
+                    insertData.put(BillsDao.BIL_EXPENSE, totalExpense);
 
-                float totalExpense = price + (devicePrice * nActiveDevices) + (float) Math.ceil(nPetitions / 1000.0) * price1000;
-
-                Map<String, Object> billData = new HashMap<>();
-                billData.put(BillsDao.CMP_ID, resultCMP.getRecordValues(i).get("cmp_id"));
-                billData.put(BillsDao.BIL_DATE, LocalDate.of(year, month, 1));
-                billData.put(BillsDao.BIL_DEVICES, nActiveDevices);
-                billData.put(BillsDao.BIL_MEASUREMENTS, nPetitions);
-                billData.put(BillsDao.BIL_EXPENSE, totalExpense);
-
-                this.billsInsert(billData);
-            } else {
-                return;
+                    System.out.println("Inserting following data: " + insertData);
+                    this.billsInsert(insertData);
+                }
             }
-
         }
     }
 }
