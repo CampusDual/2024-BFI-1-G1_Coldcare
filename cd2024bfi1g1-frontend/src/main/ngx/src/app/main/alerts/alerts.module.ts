@@ -4,10 +4,12 @@ import { OntimizeWebModule } from 'ontimize-web-ngx';
 
 import { AlertsRoutingModule } from './alerts-routing.module';
 import { AlertsHomeComponent } from './alerts-home/alerts-home.component';
+import { AlertsDurationRendererComponent } from './alerts-duration-renderer/alerts-duration-renderer.component';
 
 @NgModule({
   declarations: [
-    AlertsHomeComponent
+    AlertsHomeComponent,
+    AlertsDurationRendererComponent
   ],
   imports: [
     CommonModule,
