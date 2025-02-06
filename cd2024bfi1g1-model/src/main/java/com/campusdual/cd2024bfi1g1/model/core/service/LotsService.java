@@ -13,6 +13,7 @@ import com.ontimize.jee.common.services.user.UserInformation;
 import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -64,7 +65,8 @@ public class LotsService implements ILotsService {
         Integer cmpId = UserAndRoleService.getUserCompanyId(this.daoHelper, this.userDao);
         attrMap.put(DevicesDao.CMP_ID, cmpId);
 
-        validarCamposTemp(attrMap);
+        EntityResult res = validarCamposTemp(attrMap);
+        if (res != null) return res;
 
         return this.daoHelper.insert(this.lotsDao, attrMap);
     }
@@ -122,7 +124,8 @@ public class LotsService implements ILotsService {
                 }
             }
         }
-        validarCamposTemp(attrMap);
+        EntityResult res = validarCamposTemp(attrMap);
+        if (res != null) return res;
 
         return this.daoHelper.update(this.lotsDao, attrMap, keyMap);
     }
@@ -150,12 +153,15 @@ public class LotsService implements ILotsService {
         return this.daoHelper.query(this.lotsDao, keyMap, attrList, "historic_lot_measurements");
     }
 
-    private void validarCamposTemp(Map<String, Object> attrMap) throws OntimizeJEERuntimeException {
+    private EntityResult validarCamposTemp(Map<String, Object> attrMap) throws OntimizeJEERuntimeException {
         Object minTemp = attrMap.get("MIN_TEMP");
         Object maxTemp = attrMap.get("MAX_TEMP");
 
         if (minTemp == null && maxTemp == null) {
-            throw new OntimizeJEERuntimeException("Debes proporcionar al menos un valor para 'min_temp' o 'max_temp'.");
+            EntityResult res = new EntityResultMapImpl();
+            res.setCode(EntityResult.OPERATION_WRONG);
+            res.setMessage("MEASUREMENTS_INSERT_ERROR");
+            return res;
         }
 
         if (minTemp != null && maxTemp != null) {
@@ -164,12 +170,19 @@ public class LotsService implements ILotsService {
                 Float maxTempValue = Float.parseFloat(maxTemp.toString());
 
                 if (minTempValue >= maxTempValue) {
-                    throw new OntimizeJEERuntimeException("'min_temp' no puede ser mayor que 'max_temp'.");
+                    EntityResult res = new EntityResultMapImpl();
+                    res.setCode(EntityResult.OPERATION_WRONG);
+                    res.setMessage("MEASUREMENTS_INVALID_ERROR");
+                    return res;
                 }
             } catch (NumberFormatException e) {
-                throw new OntimizeJEERuntimeException("Los campos 'min_temp' y 'max_temp' deben ser valores numéricos.");
+                EntityResult res = new EntityResultMapImpl();
+                res.setCode(EntityResult.OPERATION_WRONG);
+                res.setMessage("MEASUREMENTS_DATA_ERROR");
+                return res;
             }
         }
+        return null;
     }
 
     public double getMaxTempForLotId(Object lotId) {

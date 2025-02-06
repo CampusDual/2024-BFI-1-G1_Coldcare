@@ -144,5 +144,8 @@
   "DESTINATION_NAME": "Destination",
   "LOCATION_DELETE_ERROR": "Cannot delete an assigned location",
   "VEHICLE_DELETE_ERROR": "Cannot delete an assigned vehicle",
-  "CONTAINER_MOBILITY_ERROR": "Container in use, it is not allowed to change the mobility"
+  "CONTAINER_MOBILITY_ERROR": "Container in use, it is not allowed to change the mobility",
+  "MEASUREMENTS_INSERT_ERROR": "Required to insert either a minimum or maximum temp",
+  "MEASUREMENTS_INVALID_ERROR": "Minimum temperature cannot be higher than maximum temperature",
+  "MEASUREMENTS_DATA_ERROR": "Numerical fields in temperature required"
 }
