@@ -1,6 +1,7 @@
 package com.campusdual.cd2024bfi1g1.model.core.service;
 
 import com.campusdual.cd2024bfi1g1.api.core.service.IPlanService;
+import com.campusdual.cd2024bfi1g1.model.core.dao.DevicesDao;
 import com.campusdual.cd2024bfi1g1.model.core.dao.PlanDao;
 import com.campusdual.cd2024bfi1g1.model.core.dao.UserDao;
 import com.ontimize.jee.common.dto.EntityResult;
@@ -44,7 +45,7 @@ public class PlanService implements IPlanService {
                 return this.daoHelper.update(this.planDao, attrMap, keyMap);
             }
             else {
-                throw new OntimizeJEERuntimeException("'min_temp' no puede ser mayor que 'max_temp'.");
+                throw new OntimizeJEERuntimeException("La fecha final debe ser posterior a la inicial.");
             }
 
 
@@ -64,21 +65,14 @@ public class PlanService implements IPlanService {
             else {
                 return true;
             }
+        } else if (attrMap.containsKey(PlanDao.PLN_START)) {
+            List<String> column = List.of(PlanDao.PLN_END);
+            EntityResult result = this.daoHelper.query(this.planDao, keyMap, column);
 
-
-        }
-        else if (attrMap.containsKey(PlanDao.PLN_START)) {
-
-            List<String> attrList = new ArrayList<>();
-            attrList.add(PlanDao.PLN_END);
-
-            EntityResult result = this.daoHelper.query(this.planDao, keyMap, attrList);
-            if ( result.get(PlanDao.PLN_END) == null || result.get(PlanDao.PLN_END).toString().isEmpty()) {
-
+            if ( result.getRecordValues(0).get(PlanDao.PLN_END) == null) {
                 return true;
-            }
-            else {
-                if (((Date) attrMap.get(PlanDao.PLN_START)).after ((Date)result.get(PlanDao.PLN_END) )) {
+            } else {
+                if (((Date) attrMap.get(PlanDao.PLN_START)).after ((Date) result.getRecordValues(0).get(PlanDao.PLN_END))) {
                     return false;
                 }
                 else {
@@ -88,12 +82,9 @@ public class PlanService implements IPlanService {
         }
         else if (attrMap.containsKey(PlanDao.PLN_END))
         {
-
-            List<String> attrList = new ArrayList<>();
-            attrList.add(PlanDao.PLN_START);
-
-            EntityResult result = this.daoHelper.query(this.planDao, keyMap, attrList);
-            if (((Date) attrMap.get(PlanDao.PLN_END)).before ((Date)result.get(PlanDao.PLN_START) )) {
+            List<String> column = List.of(PlanDao.PLN_START);
+            EntityResult result = this.daoHelper.query(this.planDao, keyMap, column);
+            if (((Date) attrMap.get(PlanDao.PLN_END)).before ((Date) result.getRecordValues(0).get(PlanDao.PLN_START))) {
                 return false;
             }
             else {
