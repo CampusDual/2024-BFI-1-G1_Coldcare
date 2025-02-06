@@ -81,7 +81,10 @@ public class LotsService implements ILotsService {
         }
 
         if ( attrMap.containsKey("MIN_TEMP") && attrMap.get("MIN_TEMP") instanceof NullValue && attrMap.containsKey("MAX_TEMP") && attrMap.get("MAX_TEMP") instanceof NullValue) {
-            throw new OntimizeJEERuntimeException("Debes proporcionar al menos un valor para 'min_temp' o 'max_temp'.");
+            EntityResult res = new EntityResultMapImpl();
+            res.setCode(EntityResult.OPERATION_WRONG);
+            res.setMessage("MEASUREMENTS_INSERT_ERROR");
+            return res;
         }
 
         if (attrMap.containsKey("MIN_TEMP") && attrMap.get("MIN_TEMP") instanceof NullValue) {
@@ -89,7 +92,10 @@ public class LotsService implements ILotsService {
             double maxTemp = getMaxTempForLotId(lotId);
             if (Double.isNaN(maxTemp)) {
                 if (!attrMap.containsKey("MAX_TEMP")) {
-                    throw new OntimizeJEERuntimeException("No pueden ser ambos nulos");
+                    EntityResult res = new EntityResultMapImpl();
+                    res.setCode(EntityResult.OPERATION_WRONG);
+                    res.setMessage("MEASUREMENTS_INSERT_ERROR");
+                    return res;
                 }
             }
 
@@ -101,7 +107,10 @@ public class LotsService implements ILotsService {
             double minTemp = getMinTempForLotId(lotId);
             if (Double.isNaN(minTemp)) {
                 if (!attrMap.containsKey("MIN_TEMP")) {
-                    throw new OntimizeJEERuntimeException("No pueden ser ambos nulos");
+                    EntityResult res = new EntityResultMapImpl();
+                    res.setCode(EntityResult.OPERATION_WRONG);
+                    res.setMessage("MEASUREMENTS_INSERT_ERROR");
+                    return res;
                 }
             }
             return this.daoHelper.update(this.lotsDao, attrMap, keyMap);
