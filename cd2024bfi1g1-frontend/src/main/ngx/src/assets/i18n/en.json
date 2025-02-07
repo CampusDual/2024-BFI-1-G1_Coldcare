@@ -154,8 +154,9 @@
   "MEASUREMENTS_INSERT_ERROR": "Required to insert either a minimum or maximum temperature",
   "MEASUREMENTS_INVALID_ERROR": "Minimum temperature cannot be higher than maximum",
   "MEASUREMENTS_DATA_ERROR": "Numerical fields in temperature required",
+  "PRO_DATA": "Product data",
   "PRODUCTS": "Products",
   "PRO_NAME": "Product name",
-  "PRO_MAX_TEMP": "Maximum product temperature (ºC)",
-  "PRO_MIN_TEMP": "Minimum product temperature (ºC)"
+  "PRO_MAX_TEMP": "Maximum temperature (ºC)",
+  "PRO_MIN_TEMP": "Minimum temperature (ºC)"
 }
