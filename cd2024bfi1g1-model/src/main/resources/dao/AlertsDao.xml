@@ -44,5 +44,23 @@
                 ]]>
             </Sentence>
         </Query>
+        <Query id="default_basic">
+            <AmbiguousColumns>
+                <AmbiguousColumn name="CNT_ID" prefix="a" />
+                <AmbiguousColumn name="LOT_ID" prefix="a" />
+            </AmbiguousColumns>
+            <Sentence>
+                <![CDATA[
+                    SELECT
+                        #COLUMNS#
+                    FROM
+                        ${mainschema}.alerts a
+                    INNER JOIN containers c ON a.cnt_id = c.cnt_id
+                    INNER JOIN lots l ON a.lot_id = l.lot_id
+                    #WHERE#
+                    #ORDER#
+                ]]>
+            </Sentence>
+        </Query>
     </Queries>
 </JdbcEntitySetup>

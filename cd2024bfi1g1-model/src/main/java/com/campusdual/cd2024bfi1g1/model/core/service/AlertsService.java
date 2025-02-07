@@ -30,7 +30,7 @@ public class AlertsService implements IAlertsService {
 
     @Override
     public AdvancedEntityResult alertsPaginationQuery(Map<?, ?> keysValues, List<?> attributes, int pagesize, int offset, List<?> orderBy) throws OntimizeJEERuntimeException {
-        return this.daoHelper.paginationQuery(this.alertsDao, keysValues, attributes, pagesize, offset, orderBy);
+        return this.daoHelper.paginationQuery(this.alertsDao, keysValues, attributes, pagesize, offset, orderBy, "default_basic");
     }
 
     @Override

@@ -25,11 +25,11 @@ public class MeasurementsService implements IMeasurementsService {
     @Autowired
     private MeasurementsDao measurementsDao;
     @Autowired
+    private LotsDao lotsDao;
+    @Autowired
     private DefaultOntimizeDaoHelper daoHelper;
     @Autowired
     private DevicesService devicesService;
-    @Autowired
-    private LotsService lotsService;
     @Autowired
     private AlertsService alertsService;
 
@@ -46,43 +46,50 @@ public class MeasurementsService implements IMeasurementsService {
 
     @Override
     public EntityResult measurementsInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException {
-        Integer devId = getDeviceId(attrMap);
+        Integer devId = getOrCreateDeviceId(attrMap);
         if (devId == null) {
-            return new EntityResultMapImpl(EntityResult.OPERATION_WRONG, EntityResult.NODATA_RESULT, "No se ha podido realizar la query");
+            return new EntityResultMapImpl(EntityResult.OPERATION_WRONG, EntityResult.NODATA_RESULT, "Device not found");
         }
 
         attrMap.put(MeasurementsDao.DEV_ID, devId);
 
-        Map<String, Integer> containerLot = getContainerLot(attrMap);
-        if (containerLot == null) {
-            return new EntityResultMapImpl(EntityResult.OPERATION_WRONG, EntityResult.NODATA_RESULT, "Error querying container_lot");
+        Map<String, Object> deviceInfo = getDeviceInfo(devId);
+        if (deviceInfo == null) {
+            return new EntityResultMapImpl(EntityResult.OPERATION_WRONG, EntityResult.NODATA_RESULT, "Error querying device info");
         }
 
-        Integer cntId = containerLot.get(ContainersDao.CNT_ID);
-        Integer lotId = containerLot.get(MeasurementsDao.LOT_ID);
+        Integer cntId = (Integer) deviceInfo.get(ContainersDao.CNT_ID);
+        Integer lotId = (Integer) deviceInfo.get(MeasurementsDao.LOT_ID);
+        if (cntId != null) {
+            attrMap.put(MeasurementsDao.CNT_ID, cntId);
+        }
+        if (lotId != null) {
+            attrMap.put(MeasurementsDao.LOT_ID, lotId);
+        }
 
-        attrMap.put(MeasurementsDao.CNT_ID, cntId);
-        attrMap.put(MeasurementsDao.LOT_ID, lotId);
-
-        Integer persistenceMinutes = getPersistenceMinutes(devId);
+        Integer persistenceMinutes = (Integer) deviceInfo.get(DevicesDao.DEV_PERSISTENCE);
         if (persistenceMinutes == null) {
-            return new EntityResultMapImpl(EntityResult.OPERATION_WRONG, EntityResult.NODATA_RESULT, "Error obteniendo persistencia del dispositivo");
+            return new EntityResultMapImpl(EntityResult.OPERATION_WRONG, EntityResult.NODATA_RESULT, "Error querying device persistence");
         }
+        Boolean devState = (Boolean) deviceInfo.get(DevicesDao.DEV_STATE);
 
-        if (!canInsertMeasurement(devId, persistenceMinutes)) {
+        if (!canInsertMeasurement(devId, persistenceMinutes, devState)) {
             return new EntityResultMapImpl(EntityResult.OPERATION_WRONG, EntityResult.NODATA_RESULT,
-                    "Esperar más de " + persistenceMinutes + " minutos para insertar una nueva medición.");
+                    "Wait more than " + persistenceMinutes + " minutes to insert new measurement");
         }
 
         Double currentTemp = (Double) attrMap.get(MeasurementsDao.ME_TEMP);
 
-        Integer altId = computeMeasurementAlert( currentTemp, devId, lotId, cntId);
-
-        EntityResult eR = daoHelper.insert(measurementsDao, attrMap);
-        if (altId != null) {
-            updateMeasurementAlert(eR, altId);
+        if (lotId == null) {
+            return daoHelper.insert(measurementsDao, attrMap);
         }
-        return eR;
+
+        Integer altId = computeMeasurementAlert(currentTemp, devId, lotId, cntId);
+        if (altId != null) {
+            attrMap.put(AlertsDao.ALT_ID, altId);
+        }
+
+        return daoHelper.insert(measurementsDao, attrMap);
     }
 
     @Override
@@ -101,7 +108,7 @@ public class MeasurementsService implements IMeasurementsService {
         return this.daoHelper.query(this.measurementsDao, keyMap, attrList, "container_lot");
     }
 
-    private Integer getDeviceId(Map<String, Object> attrMap) {
+    private Integer getOrCreateDeviceId(Map<String, Object> attrMap) {
         Map<String, Object> filter = Map.of(DevicesDao.DEV_MAC, attrMap.get(DevicesDao.DEV_MAC));
         List<String> columns = List.of(
                 DevicesDao.DEV_ID,
@@ -111,12 +118,12 @@ public class MeasurementsService implements IMeasurementsService {
         );
 
         EntityResult query = devicesService.devicesQuery(filter, columns);
+        if (query.isWrong()) {
+            return null;
+        }
         if (query.isEmpty()) {
             EntityResult eR = devicesService.devicesInsert(filter);
             return (Integer) eR.get(DevicesDao.DEV_ID);
-        }
-        if (query.isWrong()) {
-            return null;
         }
 
         Map<String, Object> rowDevice = query.getRecordValues(0);
@@ -128,54 +135,55 @@ public class MeasurementsService implements IMeasurementsService {
         return (Integer) rowDevice.get(DevicesDao.DEV_ID);
     }
 
-    private Map<String, Integer> getContainerLot(Map<String, Object> attrMap) {
-        Map<String, Object> filter = Map.of(DevicesDao.DEV_ID, attrMap.get(DevicesDao.DEV_ID));
+    private Map<String, Object> getDeviceInfo(Integer devId) {
+        Map<String, Object> filter = Map.of(DevicesDao.DEV_ID, devId);
         List<String> columns = List.of(
                 ContainersDao.CNT_ID,
-                LotsDao.LOT_ID
+                LotsDao.LOT_ID,
+                DevicesDao.DEV_PERSISTENCE,
+                DevicesDao.DEV_STATE
         );
 
         EntityResult eR = this.daoHelper.query(measurementsDao, filter, columns, "container_lot");
-        if (eR.isEmpty()) {
+        if (eR.isEmpty() || eR.isWrong()) {
             return null;
         }
 
         Map<String, Object> row = eR.getRecordValues(0);
         Integer cntId = (Integer) row.get(ContainersDao.CNT_ID);
         Integer lotId = (Integer) row.get(LotsDao.LOT_ID);
+        Integer devPersistence = (Integer) row.get(DevicesDao.DEV_PERSISTENCE);
+        Boolean devState = (Boolean) row.get(DevicesDao.DEV_STATE);
 
         if (cntId == null) {
-            return Map.of(); // No hay contenedor asignado
+            return Map.of(
+                    DevicesDao.DEV_PERSISTENCE, devPersistence,
+                    DevicesDao.DEV_STATE, devState
+            );
         }
 
         if (lotId == null) {
-            return Map.of(ContainersDao.CNT_ID, cntId); // Se devuelve solo el contenedor
+            return Map.of(
+                    ContainersDao.CNT_ID, cntId,
+                    DevicesDao.DEV_PERSISTENCE, devPersistence,
+                    DevicesDao.DEV_STATE, devState
+            );
         }
 
         return Map.of(
                 ContainersDao.CNT_ID, cntId,
-                LotsDao.LOT_ID, lotId
+                LotsDao.LOT_ID, lotId,
+                DevicesDao.DEV_PERSISTENCE, devPersistence,
+                DevicesDao.DEV_STATE, devState
         );
     }
 
-    private boolean canInsertMeasurement(Integer devId, int persistenceMinutes) {
-        List<String> columns = List.of(
-                DevicesDao.DEV_ID,
-                DevicesDao.DEV_MAC,
-                DevicesDao.DEV_PERSISTENCE,
-                DevicesDao.DEV_STATE
-        );
-        EntityResult lastTimeResult = devicesService.lastTimeWithoutCMP(
-                Map.of(DevicesDao.DEV_ID, devId),
-                columns
-        );
-
-        if (lastTimeResult.isEmpty() || lastTimeResult.isWrong()) {
+    private boolean canInsertMeasurement(Integer devId, Integer persistenceMinutes, Boolean devState) {
+        Map<String, Object> measurementInfo = getLastRecordedMeasurement(devId);
+        if (measurementInfo == null) {
             return true;
         }
-
-        // Obtener el valor de la última medición (me_date)
-        Timestamp lastDate = (Timestamp) lastTimeResult.getRecordValues(0).get(MeasurementsDao.ME_DATE);
+        Timestamp lastDate = (Timestamp) measurementInfo.get(MeasurementsDao.ME_DATE);
 
         // Comprobar si han pasado más de los minutos configurados
         long currentTimeMillis = System.currentTimeMillis();
@@ -185,34 +193,22 @@ public class MeasurementsService implements IMeasurementsService {
         return (currentTimeMillis - lastTimeMillis) > persistenceMillis;
     }
 
-    private Integer getPersistenceMinutes(Integer devId) {
-        EntityResult result = devicesService.devicesQuery(
-                Map.of(DevicesDao.DEV_ID, devId),
-                List.of(DevicesDao.DEV_PERSISTENCE)
-        );
-        if (result.isEmpty() || result.isWrong()) {
+    private Integer computeMeasurementAlert(Double currentTemp, Integer devId, Integer lotId, Integer cntId) {
+        Map<String, Object> measurementInfo = getLastRecordedMeasurement(devId);
+        if (measurementInfo == null) {
             return null;
         }
-        return (Integer) result.getRecordValues(0).get(DevicesDao.DEV_PERSISTENCE);
-    }
-
-    private void updateMeasurementAlert(EntityResult entityResult, Integer altId) {
-        Integer lastMeasurementId = (Integer) entityResult.get(MeasurementsDao.ME_ID);
-
-        Map<String, Object> valuesToUpdate = Map.of(MeasurementsDao.ALT_ID, altId);
-        Map<String, Object> filter = Map.of(MeasurementsDao.ME_ID, lastMeasurementId);
-
-        measurementsUpdate(valuesToUpdate, filter);
-    }
-
-    private Integer computeMeasurementAlert(Double currentTemp, Integer devId, Integer lotId, Integer cntId) {
-        Double lastTemp = getLastRecordedTemperature(devId);
+        Double lastTemp = (Double) measurementInfo.get(MeasurementsDao.ME_TEMP);
         if (lastTemp == null) {
             return null;
         }
+        Map<String, Object> minMaxTemp = getLotMinMaxTemperature(lotId);
+        if (minMaxTemp == null) {
+            return null;
+        }
 
-        Double minTemp = lotsService.getMinTempForLotId(lotId);
-        Double maxTemp = lotsService.getMaxTempForLotId(lotId);
+        Double minTemp = (Double) minMaxTemp.get(LotsDao.MIN_TEMP);
+        Double maxTemp = (Double) minMaxTemp.get(LotsDao.MAX_TEMP);
 
         boolean isError = (currentTemp > maxTemp || currentTemp < minTemp);
         boolean wasError = (lastTemp > maxTemp || lastTemp < minTemp);
@@ -226,9 +222,30 @@ public class MeasurementsService implements IMeasurementsService {
         return isError ? getLastAlertId(cntId, lotId) : null;
     }
 
-    private Double getLastRecordedTemperature(Integer devId) {
+    private Map<String, Object> getLotMinMaxTemperature(Integer lotId) {
+        Map<String, Object> filter = Map.of(LotsDao.LOT_ID, lotId);
+        List<String> columns = List.of(
+                LotsDao.MIN_TEMP,
+                LotsDao.MAX_TEMP
+        );
+
+        EntityResult eR = this.daoHelper.query(this.lotsDao, filter, columns);
+        if (eR.isEmpty() || eR.isWrong()) {
+            return null;
+        }
+
+        return Map.of(
+                LotsDao.MIN_TEMP, eR.getRecordValues(0).get(LotsDao.MIN_TEMP),
+                LotsDao.MAX_TEMP, eR.getRecordValues(0).get(LotsDao.MAX_TEMP)
+        );
+    }
+
+    private Map<String, Object> getLastRecordedMeasurement(Integer devId) {
         Map<String, Object> filter = Map.of(DevicesDao.DEV_ID, devId);
-        List<String> columns = List.of(MeasurementsDao.ME_TEMP);
+        List<String> columns = List.of(
+                MeasurementsDao.ME_TEMP,
+                MeasurementsDao.ME_DATE
+        );
         List<SQLStatementBuilder.SQLOrder> orderBy = List.of(
                 new SQLStatementBuilder.SQLOrder(MeasurementsDao.ME_DATE, false)
         );
@@ -238,7 +255,10 @@ public class MeasurementsService implements IMeasurementsService {
             return null;
         }
 
-        return (Double) eR.getRecordValues(0).get(MeasurementsDao.ME_TEMP);
+        return Map.of(
+                MeasurementsDao.ME_TEMP, eR.getRecordValues(0).get(MeasurementsDao.ME_TEMP),
+                MeasurementsDao.ME_DATE, eR.getRecordValues(0).get(MeasurementsDao.ME_DATE)
+        );
     }
 
     private void createAlert(Double minTemp, Double maxTemp, Integer cntId, Integer lotId) {
