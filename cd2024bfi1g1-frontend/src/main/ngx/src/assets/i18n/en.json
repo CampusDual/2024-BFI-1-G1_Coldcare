@@ -130,5 +130,8 @@
   "ALERTS": "Alerts",
   "LOC_DATA": "Location Data",
   "LOCATION": "Location",
-  "FILTER_ALERTS": "Alert filter"
+  "FILTER_ALERTS": "Alert filter",
+  "AVG_TEMP": "Average Temperature",
+  "AVG_HUMIDITY": "Average Humidity",
+  "DURATION": "Duration"
 }

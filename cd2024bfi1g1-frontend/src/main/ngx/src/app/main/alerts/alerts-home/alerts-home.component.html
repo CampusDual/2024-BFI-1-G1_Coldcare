@@ -19,12 +19,12 @@
             query-on-change="no" query-on-change-delay="500" [expression-builder]="createFilter">
         </o-filter-builder>
 
-        <o-table #alertsTable attr="alertsTable" service="alerts" entity="alerts" keys="ALT_ID"
-            columns="ALT_ID;ALT_DATE_INIT;CNT_NAME;LOT_NAME;AVG_TEMP;AVG_HUMIDITY;ALT_MIN_TEMP;ALT_MAX_TEMP;ALT_DURATION"
+        <o-table #alertsTable attr="alertsTable" service="alerts" entity="alertsWithCalculatedColumns" keys="ALT_ID"
+            columns="ALT_ID;ALT_DATE_INIT;ALT_DATE_END;CNT_NAME;LOT_NAME;AVG_TEMP;AVG_HUMIDITY;ALT_MIN_TEMP;ALT_MAX_TEMP"
             visible-columns="ALT_DATE_INIT;CNT_NAME;LOT_NAME;AVG_TEMP;AVG_HUMIDITY;ALT_MIN_TEMP;ALT_MAX_TEMP;ALT_DURATION"
-            query-rows="20" select-all-checkbox-visible="no" insert-button="no" delete-button="no" refresh-button="yes"
-            quick-filter="no" pageable="true" detail-mode="none" title="ALERTS" show-title="yes"
-            sort-columns="ALT_DATE_INIT:DESC" virtual-scroll="false">
+            select-all-checkbox-visible="no" insert-button="no" delete-button="no" refresh-button="yes"
+            quick-filter="no" detail-mode="none" title="ALERTS" show-title="yes" sort-columns="ALT_DATE_INIT:DESC"
+            virtual-scroll="false">
             <o-table-column attr="ALT_DATE_INIT" title="DATE" type="date" format="DD/MM/YYYY HH:mm:ss"></o-table-column>
             <o-table-column attr="ME_TEMP" title="TEMPERATURE"></o-table-column>
             <o-table-column attr="ME_HUMIDITY" title="HUMIDITY"></o-table-column>

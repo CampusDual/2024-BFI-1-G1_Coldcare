@@ -36,7 +36,6 @@
                         SELECT
                             alt_id,
                             ROUND(avg(me_temp)::numeric, 2) AS avg_temp,
-                            EXTRACT(EPOCH FROM (MAX(me_date) - MIN(me_date))) AS alt_duration,
                             ROUND(avg(me_humidity)::numeric, 2) AS avg_humidity
                         FROM
                             measurements m
