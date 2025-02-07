@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<JdbcEntitySetup xmlns="http://www.ontimize.com/schema/jdbc"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://www.ontimize.com/schema/jdbc http://www.ontimize.com/schema/jdbc/ontimize-jdbc-dao.xsd"
+                 catalog="" schema="${mainschema}" table="bills" datasource="mainDataSource"
+                 sqlhandler="dbSQLStatementHandler">
+    <DeleteKeys>
+        <Column>BIL_ID</Column>
+    </DeleteKeys>
+    <UpdateKeys>
+        <Column>BIL_ID</Column>
+    </UpdateKeys>
+    <GeneratedKey>bil_id</GeneratedKey>
+    <Queries>
+        <Query id="default">
+            <AmbiguousColumns>
+                <AmbiguousColumn name="CMP_ID" prefix="c"/>
+            </AmbiguousColumns>
+            <Sentence>
+                <![CDATA[
+                    SELECT #COLUMNS#
+                    FROM bills b
+                    JOIN companies c ON c.cmp_id = b.cmp_id
+                    #WHERE#
+                    #ORDER#
+                ]]>
+            </Sentence>
+        </Query>
+        <Query id="monthlyData">
+            <Sentence>
+                <![CDATA[
+                    WITH t AS (
+                        WITH m AS (
+                            SELECT m.*, EXTRACT(YEAR FROM me_date) AS year, EXTRACT(MONTH FROM me_date) AS month
+                            FROM measurements m
+                            )
+                        SELECT COUNT(DISTINCT d.dev_id) AS device_count, COUNT(me_id) AS measurement_count, cmp_id, year, month
+                        FROM m
+                        JOIN devices d ON d.dev_id = m.dev_id
+                        GROUP BY cmp_id, year, month
+                    )
+                SELECT #COLUMNS#
+                FROM t
+                #WHERE#
+                #ORDER#
+                ]]>
+            </Sentence>
+        </Query>
+    </Queries>
+</JdbcEntitySetup>

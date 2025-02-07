@@ -20,6 +20,9 @@ export const SERVICE_CONFIG: Object = {
   'companies': {
     'path': '/companies'
   },
+  'bills': {
+    'path': '/bills'
+  },
   'locations': {
     'path': '/locations'
   },
@@ -28,5 +31,8 @@ export const SERVICE_CONFIG: Object = {
   },
   'products': {
     'path': '/products'
+    },
+  'transports': {
+    'path': '/transports'
   }
-};
+}
