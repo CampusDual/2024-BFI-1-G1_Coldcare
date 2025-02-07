@@ -13,6 +13,18 @@
     <GeneratedKey>alt_id</GeneratedKey>
     <Queries>
         <Query id="default">
+            <Sentence>
+                <![CDATA[
+                    SELECT
+                        #COLUMNS#
+                    FROM
+                        ${mainschema}.alerts
+                    #WHERE#
+                    #ORDER#
+                ]]>
+            </Sentence>
+        </Query>
+        <Query id="alertsWithCalculatedColumns">
             <AmbiguousColumns>
                 <AmbiguousColumn name="ALT_ID" prefix="a" />
                 <AmbiguousColumn name="CNT_ID" prefix="a" />
@@ -44,7 +56,7 @@
                 ]]>
             </Sentence>
         </Query>
-        <Query id="default_basic">
+        <Query id="alertsWithContainerAndLot">
             <AmbiguousColumns>
                 <AmbiguousColumn name="CNT_ID" prefix="a" />
                 <AmbiguousColumn name="LOT_ID" prefix="a" />

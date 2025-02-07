@@ -9,6 +9,7 @@ import java.util.Map;
 
 public interface IAlertsService {
     EntityResult alertsQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
+    EntityResult alertsWithCalculatedColumnsQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
     AdvancedEntityResult alertsPaginationQuery(Map<?, ?> keysValues, List<?> attributes, int pagesize, int offset, List<?> orderBy) throws OntimizeJEERuntimeException;
     EntityResult alertsInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException;
     EntityResult alertsUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap) throws OntimizeJEERuntimeException;
