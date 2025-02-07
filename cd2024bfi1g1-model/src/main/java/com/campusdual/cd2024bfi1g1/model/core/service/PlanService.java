@@ -68,49 +68,6 @@ public class PlanService implements IPlanService {
         return this.daoHelper.delete(this.planDao, keyMap);
     }
 
-    /*private boolean isDateOK(Map<String, Object> attrMap, Map<String, Object> keyMap) throws OntimizeJEERuntimeException {
 
-        if (attrMap.containsKey(PlanDao.PLN_START) && attrMap.containsKey(PlanDao.PLN_END)) {
-            if (((Date) attrMap.get(PlanDao.PLN_START)).after ((Date) attrMap.get(PlanDao.PLN_END))) {
-                return false;
-            }
-            else {
-                return true;
-            }
-        } else if (attrMap.containsKey(PlanDao.PLN_START)) {
-            List<String> column = List.of(PlanDao.PLN_END);
-            EntityResult result = this.daoHelper.query(this.planDao, keyMap, column);
-
-            if ( result.getRecordValues(0).get(PlanDao.PLN_END) == null) {
-                return true;
-            } else {
-                if (((Date) attrMap.get(PlanDao.PLN_START)).after ((Date) result.getRecordValues(0).get(PlanDao.PLN_END))) {
-                    return false;
-                }
-                else {
-                    return true;
-                }
-            }
-        }
-        else if (attrMap.containsKey(PlanDao.PLN_END))
-        {
-            List<String> column = List.of(PlanDao.PLN_START);
-            EntityResult result = this.daoHelper.query(this.planDao, keyMap, column);
-            if (((Date) attrMap.get(PlanDao.PLN_END)).before ((Date) result.getRecordValues(0).get(PlanDao.PLN_START))) {
-                return false;
-            }
-            else {
-                return true;
-            }
-        }
-        return true;
-    }
-
-    private boolean insertDateOK(Map<String, Object> attrMap, Map<String, Object> keyMap) throws OntimizeJEERuntimeException {
-
-        return true;
-
-    }
-    */
 
 }
