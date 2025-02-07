@@ -145,7 +145,7 @@
   "LOCATION_DELETE_ERROR": "No se puede borrar una localización asignada",
   "VEHICLE_DELETE_ERROR": "No se puede borrar un vehículo asignado",
   "CONTAINER_MOBILITY_ERROR": "Contenedor en uso, no está permitido cambiar la movilidad",
-  "MEASUREMENTS_INSERT_ERROR": "Obligatorio insertar temp minima o maxima",
-  "MEASUREMENTS_INVALID_ERROR": "Temperatura mínima no puede ser mayor que la máxima",
+  "MEASUREMENTS_INSERT_ERROR": "Obligatorio insertar temperatura minima o maxima",
+  "MEASUREMENTS_INVALID_ERROR": "La temperatura mínima no puede ser mayor que la máxima",
   "MEASUREMENTS_DATA_ERROR": "Obligatorio campos numéricos en temperatura"
 }
