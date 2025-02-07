@@ -131,8 +131,9 @@
   "VEHICLES": "Vehículos",
   "PLATE": "Matrícula",
   "MEASUREMENTS_HISTORIC": "Histórico de medidas",
+  "PRO_DATA": "Datos del producto",
   "PRODUCTS": "Productos",
   "PRO_NAME": "Nombre del producto",
-  "PRO_MAX_TEMP": "Máxima temperatura del producto (ºC)",
-  "PRO_MIN_TEMP": "Mínima temperatura del producto (ºC)"
+  "PRO_MAX_TEMP": "Máxima temperatura (ºC)",
+  "PRO_MIN_TEMP": "Mínima temperatura (ºC)"
 }
