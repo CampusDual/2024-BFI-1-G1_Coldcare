@@ -7,7 +7,7 @@ import { CompaniesDetailsComponent } from './companies-details/companies-details
 const routes: Routes = [
   { path: '', component: CompaniesHomeComponent },
   { path: 'new', component: CompaniesNewComponent },
-  { path: ':CMP_ID', component: CompaniesDetailsComponent }
+  { path: ':CMP_ID', component: CompaniesDetailsComponent },
 ];
 
 @NgModule({

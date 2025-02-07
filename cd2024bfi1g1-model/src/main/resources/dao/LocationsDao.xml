@@ -24,5 +24,23 @@
                 ]]>
             </Sentence>
         </Query>
+        <Query id="hayOrigenDestino">
+            <AmbiguousColumns>
+                <AmbiguousColumn name="CMP_ID" prefix="l" />
+                <AmbiguousColumn name="LOC_ID" prefix="tor" />
+                <AmbiguousColumn name="LOC_ID" prefix="td" />
+            </AmbiguousColumns>
+            <Sentence>
+                <![CDATA[
+                    SELECT
+                        tor.TRP_ORIGIN, td.TRP_DESTINATION
+                    FROM
+                        ${mainschema}.locations l
+                    LEFT JOIN transports tor ON tor.TRP_ORIGIN = l.LOC_ID
+                    LEFT JOIN transports td ON td.TRP_DESTINATION = l.LOC_ID
+                    #WHERE#
+                ]]>
+            </Sentence>
+        </Query>
     </Queries>
 </JdbcEntitySetup>
