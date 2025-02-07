@@ -6,6 +6,9 @@
         <o-text-input attr="LOT_NAME" required="yes"></o-text-input>
         <o-real-input attr="MIN_TEMP" clear-button="yes"></o-real-input>
         <o-real-input attr="MAX_TEMP" clear-button="yes"></o-real-input>
+        <o-combo attr="PRO_ID" label="PRO_NAME" service="products" entity="products" value-column="PRO_ID"
+          columns="PRO_ID;PRO_NAME" visible-columns="PRO_NAME" null-selection="no" searchable="no"
+          required="true"></o-combo>
       </div>
     </o-column>
   </o-row>
