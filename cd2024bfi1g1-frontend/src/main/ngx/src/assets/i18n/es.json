@@ -133,6 +133,6 @@
   "MEASUREMENTS_HISTORIC": "Histórico de medidas",
   "PRODUCTS": "Productos",
   "PRO_NAME": "Nombre del producto",
-  "PRO_MAX_TEMP": "Máxima temperatura del producto",
-  "PRO_MIN_TEMP": "Mínima temperatura del producto"
+  "PRO_MAX_TEMP": "Máxima temperatura del producto (ºC)",
+  "PRO_MIN_TEMP": "Mínima temperatura del producto (ºC)"
 }

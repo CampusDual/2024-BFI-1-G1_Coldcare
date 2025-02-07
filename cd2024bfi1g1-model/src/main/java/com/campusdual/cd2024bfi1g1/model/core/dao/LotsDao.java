@@ -22,6 +22,7 @@ public class LotsDao extends OntimizeJdbcDaoSupport {
     public static final String CMP_ID = "CMP_ID";
     public static final String MIN_TEMP = "MIN_TEMP";
     public static final String MAX_TEMP = "MAX_TEMP";
+    public static final String PRO_ID = "PRO_ID";
 
-    public static final List<String> COLUMNS = Arrays.asList(LOT_ID, LOT_NAME, USR_ID, DEV_NAME, CMP_ID, MIN_TEMP, MAX_TEMP);
+    public static final List<String> COLUMNS = Arrays.asList(LOT_ID, LOT_NAME, USR_ID, DEV_NAME, CMP_ID, MIN_TEMP, MAX_TEMP, PRO_ID);
 }

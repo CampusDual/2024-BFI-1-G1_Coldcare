@@ -1,17 +1,10 @@
-<o-table attr="productsTable" title="PRODUCTS" show-title="yes" service="products" entity="products" keys="PRO_ID"
-    columns="PRO_ID;PRO_NAME;PRO_MIN_TEMP;PRO_MAX_TEMP" visible-columns="PRO_NAME;PRO_MIN_TEMP;PRO_MAX_TEMP"
-    delete-button="no" refresh-button="yes">
-    <o-table-column attr="PRO_NAME" title="NAME"></o-table-column>
-</o-table>
-
-
 <o-table #productsTable attr="productsTable" service="products" entity="products" keys="PRO_ID"
     columns="PRO_ID;PRO_NAME;PRO_MIN_TEMP;PRO_MAX_TEMP" visible-columns="PRO_NAME;PRO_MIN_TEMP;PRO_MAX_TEMP"
-    select-all-checkbox-visible="no" insert-button="no" delete-button="no" refresh-button="yes" detail-mode="none"
-    title="PRODUCTS" show-title="yes">
+    query-rows="20" select-all-checkbox-visible="no" insert-button="yes" delete-button="no" refresh-button="yes"
+    quick-filter="no" pageable="true" detail-mode="none" title="PRODUCTS" show-title="yes">
     <!-- Columnas de la Tabla -->
-    <o-table-column attr="PRO_NAME" title="NAME" type="string"></o-table-column>
-    <o-table-column attr="PRO_MIN_TEMP" title="PRO_MIN_TEMP" type="real"></o-table-column>
-    <o-table-column attr="PRO_MAX_TEMP" title="PRO_MAX_TEMP" type="real"></o-table-column>
+    <o-table-column attr="PRO_NAME" title-align="center" content-align="center"></o-table-column>
+    <o-table-column attr="PRO_MIN_TEMP" title-align="center" content-align="center"></o-table-column>
+    <o-table-column attr="PRO_MAX_TEMP" title-align="center" content-align="center"></o-table-column>
 
 </o-table>
