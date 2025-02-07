@@ -30,5 +30,27 @@
                 ]]>
             </Sentence>
         </Query>
+        <Query id="get_dates">
+            <Sentence>
+                <![CDATA[
+                    SELECT #COLUMNS#
+                    FROM CONTAINERS_LOTS
+                    #WHERE#
+                ]]>
+            </Sentence>
+        </Query>
+        <Query id="have_associated_measurements">
+            <AmbiguousColumns>
+                <AmbiguousColumn name="CL_ID" prefix="cl"/>
+            </AmbiguousColumns>
+            <Sentence>
+                <![CDATA[
+                    SELECT #COLUMNS#
+                    FROM CONTAINERS_LOTS cl
+                    INNER JOIN MEASUREMENTS m ON cl.CL_ID = m.CL_ID
+                    #WHERE#
+                ]]>
+            </Sentence>
+        </Query>
     </Queries>
 </JdbcEntitySetup>

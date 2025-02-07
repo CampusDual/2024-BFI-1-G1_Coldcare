@@ -127,5 +127,6 @@
   "CL_END_DATE": "End date",
   "CL_INFO": "Container lot data",
   "ACTIVE": "Active",
+  "ERROR_DATE_ALREADY_EXIST": "The start date or end date field matches with another lot",
   "ERROR_CL_DELETE": "Container lot can not be deleted because it has measurements associated."
 }
