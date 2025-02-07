@@ -15,7 +15,7 @@ export class ContainersLotsBooleanRendererComponent extends OBaseTableCellRender
     const start = new Date(startDate);
     const end = new Date(endDate);
 
-    return currentDate >= start && currentDate <= end;
+    return (currentDate >= start && (endDate === undefined)) || (currentDate >= start && currentDate <= end);
   }
 
 }
