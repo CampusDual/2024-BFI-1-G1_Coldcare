@@ -92,7 +92,7 @@ public class Util {
             bexComplete = new BasicExpression(bexComplete, BasicOperator.OR_OP, betweenStartWithoutEnd);
 
         } else {
-            BasicExpression be1 = new BasicExpression(fieldEnd, BasicOperator.MORE_EQUAL_OP, startDayValue);
+            BasicExpression be1 = new BasicExpression(fieldEnd, BasicOperator.MORE_OP, startDayValue);
             bexComplete = new BasicExpression(endDateIsNull, BasicOperator.OR_OP, be1);
         }
 
