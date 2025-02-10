@@ -1,22 +1,17 @@
 package com.campusdual.cd2024bfi1g1.model.core.service;
 
 import com.campusdual.cd2024bfi1g1.api.core.service.IPlanService;
-import com.campusdual.cd2024bfi1g1.model.core.dao.DevicesDao;
 import com.campusdual.cd2024bfi1g1.model.core.dao.PlanDao;
 import com.campusdual.cd2024bfi1g1.model.core.dao.PricingDao;
 import com.campusdual.cd2024bfi1g1.model.core.dao.UserDao;
 import com.ontimize.jee.common.dto.EntityResult;
-import com.ontimize.jee.common.dto.EntityResultMapImpl;
 import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
 import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.Keymap;
 import java.util.*;
-
-import static com.campusdual.cd2024bfi1g1.model.core.dao.DevicesDao.CNT_ID;
 
 @Service ("PlanService")
 @Lazy
@@ -54,20 +49,21 @@ public class PlanService implements IPlanService {
 
     @Override
     public EntityResult planUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap) throws OntimizeJEERuntimeException {
-        Object plnId = keyMap.get(PlanDao.PLN_ID);
-
-
-        return this.daoHelper.update(this.planDao, attrMap, keyMap);
-
-
-
+        EntityResult toRet = this.daoHelper.update(this.planDao, attrMap, keyMap);
+        Map<String, Object> prices = attrMap;
+        prices.remove(PlanDao.PLN_NAME);
+        EntityResult noNameRet = pricingService.pricingUpdate(prices, keyMap);
+        if(attrMap.containsKey(PlanDao.PLN_NAME)){
+            return toRet;
+        }else{
+            return noNameRet;
+        }
     }
 
     @Override
     public EntityResult planDelete(Map<String, Object> keyMap) throws OntimizeJEERuntimeException {
         return this.daoHelper.delete(this.planDao, keyMap);
     }
-
 
 
 }
