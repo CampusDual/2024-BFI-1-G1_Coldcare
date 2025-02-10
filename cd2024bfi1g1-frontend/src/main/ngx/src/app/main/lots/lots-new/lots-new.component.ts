@@ -13,8 +13,6 @@ export class LotsNewComponent {
   @ViewChild('maxTempInput', { static: false }) maxTempInput!: ORealInputComponent;
 
   onNewProductChange(event: any) {
-    console.log(event);
-    
     if (!event || !event.newValue) return;
     let selectedProduct = event.newValue;
     const data = this.productCombo.getDataArray();
@@ -22,7 +20,6 @@ export class LotsNewComponent {
        if (selectedProduct === row.PRO_ID) {
         this.minTempInput.setValue(row.PRO_MIN_TEMP);
         this.maxTempInput.setValue(row.PRO_MAX_TEMP);
-
        }
     }
   }

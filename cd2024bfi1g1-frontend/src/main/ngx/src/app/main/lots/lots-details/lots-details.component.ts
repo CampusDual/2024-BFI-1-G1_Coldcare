@@ -12,13 +12,10 @@ export class LotsDetailsComponent {
   @ViewChild('minTempInput', { static: false }) minTempInput!: ORealInputComponent;
   @ViewChild('maxTempInput', { static: false }) maxTempInput!: ORealInputComponent;
 
-  onDetailProductChange(event: any) {
-    console.log(event);
-    if (!event || !event.newValue) return;
-    let selectedProduct = event.newValue;
+  importTemperature() {
     const data = this.productCombo.getDataArray();
     for (let row of data) {
-       if (selectedProduct === row.PRO_ID) {
+       if (this.productCombo.getValue() === row.PRO_ID) {
         this.minTempInput.setValue(row.PRO_MIN_TEMP);
         this.maxTempInput.setValue(row.PRO_MAX_TEMP);
        }

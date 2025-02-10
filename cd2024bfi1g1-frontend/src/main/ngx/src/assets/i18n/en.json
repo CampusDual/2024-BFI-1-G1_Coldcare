@@ -104,6 +104,7 @@
   "LOT_HISTORY": "Lot history",
   "LOT_DETAIL": "Lot detail",
   "LOT_NEW": "New lot",
+  "LOT_IMPORT": "Import temperatures",
   "DEVICE_PERSISTENCE": "Device persistance",
   "LOT_DATA": "Lot data",
   "CNT_NAME": "Container name",
