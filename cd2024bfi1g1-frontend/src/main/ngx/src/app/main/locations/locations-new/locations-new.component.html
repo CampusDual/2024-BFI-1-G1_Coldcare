@@ -1,0 +1,13 @@
+<o-form attr="locations_form_insert" service="locations" entity="locations" fxLayout="column" keys="LOC_ID"
+  show-header="true" after-insert-mode="close" confirm-exit="false">
+  <o-row attr="row1" layout-align="start stretch">
+    <o-column title="LOC_DATA" layout-align="start stretch" fxFlex="60" layout-padding>
+      <div fxLayout="row" fxLayoutAlign="start center" class="gap">
+        <o-text-input attr="LOC_NAME" class="margin-right-24" fxFlex.lg="30" fxFlex.xl="30" fxFlex="50"
+          required="yes"></o-text-input>
+        <o-text-input attr="LOC_ADDRESS" class="margin-right-24" fxFlex.lg="30" fxFlex.xl="30" fxFlex="50"
+          required="yes"></o-text-input>
+      </div>
+    </o-column>
+  </o-row>
+</o-form>

@@ -16,10 +16,12 @@ export const routes: Routes = [
       { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
       { path: 'settings', loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule) },
       { path: 'profile', component: ProfileComponent },
-      { path: 'devices', loadChildren: () => import('./devices/devices.module').then(m => m.DevicesModule) },    
+      { path: 'devices', loadChildren: () => import('./devices/devices.module').then(m => m.DevicesModule) },
       { path: 'containers', loadChildren: () => import('./containers/containers.module').then(m => m.ContainersModule) },
       { path: 'lots', loadChildren: () => import('./lots/lots.module').then(m => m.LotsModule) },
-
+      { path: 'locations', loadChildren: () => import('./locations/locations.module').then(m => m.LocationsModule) },
+      { path: 'vehicles', loadChildren: () => import('./vehicles/vehicles.module').then(m => m.VehiclesModule) },
+      { path: 'transports', loadChildren: () => import('./transports/transports.module').then(m => m.TransportsModule) }
     ]
   }
 ];

@@ -118,12 +118,22 @@ public class UserAndRoleService implements IUserAndRoleService {
 	@Secured({ PermissionsProviderSecured.SECURED })
 	@Transactional(rollbackFor = Throwable.class)
 	public EntityResult userInsert(final Map<?, ?> keysValues) throws OntimizeJEERuntimeException {
-		return this.daoHelper.insert(this.userDao, this.encryptPassword(keysValues));
+		EntityResult userInsertResult = this.daoHelper.insert(this.userDao, this.encryptPassword(keysValues));
+
+		if (!userInsertResult.isEmpty()) {
+			Object userId = userInsertResult.get("USR_ID");
+
+			Map<String, Object> roleKeysValues = new HashMap<>();
+			roleKeysValues.put(UserRoleDao.USR_ID, userId);
+			roleKeysValues.put(UserRoleDao.ROL_ID, 2);
+
+			return this.daoHelper.insert(this.userRolesDao, roleKeysValues);
+
+		} else {
+			throw new OntimizeJEERuntimeException("No se pudo insertar el usuario.");
+		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 */
 	@Override
 	@Secured({ PermissionsProviderSecured.SECURED })
 	public EntityResult roleQuery(final Map<?, ?> keysValues, final List<?> attributes) throws OntimizeJEERuntimeException {

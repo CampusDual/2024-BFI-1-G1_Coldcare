@@ -1,6 +1,5 @@
 <o-form show-header="no" query-on-init="no" fxFill>
-  <o-column>
-    <label layout-padding>{{"FILTER_USERS" | oTranslate}}</label>
+  <o-column title="FILTER_USERS">
     <div class="inline-fields">
       <div fxLayout="row" fxLayoutGap="15px" layout-padding>
         <o-text-input attr="name" label="USR_NAME"></o-text-input>
@@ -21,7 +20,7 @@
       columns="USR_ID;USR_NAME;USR_LOGIN;CMP_ID;CMP_NAME" visible-columns="USR_NAME;USR_LOGIN;CMP_NAME"
       sort-columns="USR_NAME" query-rows="25" quick-filter="yes" row-height="medium" pageable="true" query-on-init="yes"
       query-on-bind="false" select-all-checkbox-visible="no" insert-button="yes" delete-button="no" refresh-button="yes"
-      fixed-header="yes" class="home-table" fxFlex export-mode="local" detail-mode="none" show-title="true"
+      fixed-header="yes" class="home-table" fxFlex export-mode="local" detail-mode="click" show-title="true"
       title="USERS" virtual-scroll="no">
       <o-table-columns-filter columns="USR_NAME;USR_LOGIN;CMP_NAME"></o-table-columns-filter>
     </o-table>

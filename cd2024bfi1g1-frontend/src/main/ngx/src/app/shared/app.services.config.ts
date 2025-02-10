@@ -14,7 +14,7 @@ export const SERVICE_CONFIG: Object = {
   'containers': {
     'path': '/containers'
   },
-  'lots':{
+  'lots': {
     'path': '/lots'
   },
   'companies': {
@@ -22,5 +22,17 @@ export const SERVICE_CONFIG: Object = {
   },
   'containersLots': {
     'path': '/containersLots'
+  },
+  'bills': {
+    'path': '/bills'
+  },
+  'locations': {
+    'path': '/locations'
+  },
+  'vehicles': {
+    'path': '/vehicles'
+  },
+  'transports': {
+    'path': '/transports'
   }
-};
+}

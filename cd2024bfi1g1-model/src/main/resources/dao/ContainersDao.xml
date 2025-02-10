@@ -24,5 +24,21 @@
                 ]]>
             </Sentence>
         </Query>
+        <Query id="check_cnt_id">
+            <AmbiguousColumns>
+                <AmbiguousColumn name="CNT_ID" prefix="c" />
+            </AmbiguousColumns>
+            <Sentence>
+                <![CDATA[
+                    SELECT
+                        #COLUMNS#
+                    FROM
+                        ${mainschema}.containers c
+                    JOIN transports t ON t.cnt_id = c.cnt_id
+                    #WHERE#
+                    #ORDER#
+                ]]>
+            </Sentence>
+        </Query>
     </Queries>
 </JdbcEntitySetup>

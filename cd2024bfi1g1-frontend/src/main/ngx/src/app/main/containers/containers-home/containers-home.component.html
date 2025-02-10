@@ -1,4 +1,7 @@
 <o-table attr="containers" title="CONTAINERS" service="containers" entity="containers" keys="CNT_ID"
-  columns="CNT_ID;CNT_NAME" visible-columns="CNT_NAME" delete-button="no" show-title="true">
+  columns="CNT_ID;CNT_NAME;CNT_MOBILITY" visible-columns="CNT_NAME;CNT_MOBILITY" delete-button="no" show-title="true">
   <o-table-column attr="CNT_NAME" title="IDENTIFIER"></o-table-column>
+  <o-table-column attr="CNT_MOBILITY" title="CNT_MOBILITY">
+    <app-containers-boolean-renderer></app-containers-boolean-renderer>
+  </o-table-column>
 </o-table>
