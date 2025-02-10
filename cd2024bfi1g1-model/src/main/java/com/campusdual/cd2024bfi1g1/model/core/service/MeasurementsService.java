@@ -155,27 +155,19 @@ public class MeasurementsService implements IMeasurementsService {
         Integer devPersistence = (Integer) row.get(DevicesDao.DEV_PERSISTENCE);
         Boolean devState = (Boolean) row.get(DevicesDao.DEV_STATE);
 
-        if (cntId == null) {
-            return Map.of(
-                    DevicesDao.DEV_PERSISTENCE, devPersistence,
-                    DevicesDao.DEV_STATE, devState
-            );
+        Map<String, Object> result = new HashMap<>();
+        result.put(DevicesDao.DEV_PERSISTENCE, devPersistence);
+        result.put(DevicesDao.DEV_STATE, devState);
+
+        if (cntId != null) {
+            result.put(ContainersDao.CNT_ID, cntId);
         }
 
-        if (lotId == null) {
-            return Map.of(
-                    ContainersDao.CNT_ID, cntId,
-                    DevicesDao.DEV_PERSISTENCE, devPersistence,
-                    DevicesDao.DEV_STATE, devState
-            );
+        if (lotId != null) {
+            result.put(LotsDao.LOT_ID, lotId);
         }
 
-        return Map.of(
-                ContainersDao.CNT_ID, cntId,
-                LotsDao.LOT_ID, lotId,
-                DevicesDao.DEV_PERSISTENCE, devPersistence,
-                DevicesDao.DEV_STATE, devState
-        );
+        return result;
     }
 
     private boolean canInsertMeasurement(Integer devId, Integer persistenceMinutes, Boolean devState) {
@@ -210,59 +202,51 @@ public class MeasurementsService implements IMeasurementsService {
         Double lotMinTemp = (Double) lotMinMaxTemp.get(LotsDao.MIN_TEMP);
         Double lotMaxTemp = (Double) lotMinMaxTemp.get(LotsDao.MAX_TEMP);
 
-        boolean isError;
-
         Integer altId = (Integer) measurementInfo.get(MeasurementsDao.ALT_ID);
 
-        if (measurementInfo.get(MeasurementsDao.ALT_ID) != null) {
-            Map<String, Object> filter = Map.of(
-                    AlertsDao.ALT_ID, altId
-            );
-            List<String> columns = List.of(
-                    AlertsDao.ALT_MIN_TEMP,
-                    AlertsDao.ALT_MAX_TEMP
-            );
+        if (altId != null) {
+            return handleExistingAlert(currentTemp, altId, lotMinTemp, lotMaxTemp, cntId, lotId);
+        }
+        return handleNewAlert(currentTemp, lotMinTemp, lotMaxTemp, cntId, lotId);
+    }
 
-            EntityResult eR = alertsService.alertsQuery(filter, columns);
-            if (eR.isEmpty() || eR.isWrong()) {
-                return null;
-            }
+    private Integer handleExistingAlert(Double currentTemp, Integer altId, Double lotMinTemp, Double lotMaxTemp, Integer cntId, Integer lotId) {
+        Map<String, Object> filter = Map.of(AlertsDao.ALT_ID, altId);
+        List<String> columns = List.of(
+                AlertsDao.ALT_MIN_TEMP,
+                AlertsDao.ALT_MAX_TEMP
+        );
 
-            Double altMinTemp = (Double) eR.getRecordValues(0).get(AlertsDao.ALT_MIN_TEMP);
-            Double altMaxTemp = (Double) eR.getRecordValues(0).get(AlertsDao.ALT_MAX_TEMP);
+        EntityResult eR = alertsService.alertsQuery(filter, columns);
+        if (eR.isEmpty() || eR.isWrong()) {
+            return null;
+        }
 
-            boolean isRangeChanged = (!altMaxTemp.equals(lotMaxTemp) || !altMinTemp.equals(lotMinTemp));
+        Double altMinTemp = (Double) eR.getRecordValues(0).get(AlertsDao.ALT_MIN_TEMP);
+        Double altMaxTemp = (Double) eR.getRecordValues(0).get(AlertsDao.ALT_MAX_TEMP);
 
-            if (isRangeChanged) {
-                closeLastAlert(cntId, lotId);
+        if (!altMaxTemp.equals(lotMaxTemp) || !altMinTemp.equals(lotMinTemp)) {
+            closeLastAlert(cntId, lotId);
+            return handleNewAlert(currentTemp, lotMinTemp, lotMaxTemp, cntId, lotId);
+        }
 
-                isError = (currentTemp > lotMaxTemp || currentTemp < lotMinTemp);
+        return checkAndHandleAlert(currentTemp, altMinTemp, altMaxTemp, cntId, lotId);
+    }
 
-                if (isError) {
-                    createAlert(lotMinTemp, lotMaxTemp, cntId, lotId);
-                }
-
-                return isError ? getLastAlertId(cntId, lotId) : null;
-            }
-
-            isError = (currentTemp > altMaxTemp || currentTemp < altMinTemp);
-
-            if (!isError) {
-                closeLastAlert(cntId, lotId);
-                return null;
-            }
-
+    private Integer handleNewAlert(Double currentTemp, Double minTemp, Double maxTemp, Integer cntId, Integer lotId) {
+        if (currentTemp > maxTemp || currentTemp < minTemp) {
+            createAlert(minTemp, maxTemp, cntId, lotId);
             return getLastAlertId(cntId, lotId);
-
         }
+        return null;
+    }
 
-        isError = (currentTemp > lotMaxTemp || currentTemp < lotMinTemp);
-
-        if (isError) {
-            createAlert(lotMinTemp, lotMaxTemp, cntId, lotId);
+    private Integer checkAndHandleAlert(Double currentTemp, Double minTemp, Double maxTemp, Integer cntId, Integer lotId) {
+        if (currentTemp > maxTemp || currentTemp < minTemp) {
+            return getLastAlertId(cntId, lotId);
         }
-
-        return isError ? getLastAlertId(cntId, lotId) : null;
+        closeLastAlert(cntId, lotId);
+        return null;
     }
 
     private Map<String, Object> getLotMinMaxTemperature(Integer lotId) {
@@ -299,18 +283,17 @@ public class MeasurementsService implements IMeasurementsService {
             return null;
         }
 
-        if (eR.getRecordValues(0).get(MeasurementsDao.ALT_ID) == null) {
-            return Map.of(
-                    MeasurementsDao.ME_TEMP, eR.getRecordValues(0).get(MeasurementsDao.ME_TEMP),
-                    MeasurementsDao.ME_DATE, eR.getRecordValues(0).get(MeasurementsDao.ME_DATE)
-            );
+        Map<String, Object> result = new HashMap<>();
+
+        result.put(MeasurementsDao.ME_TEMP, eR.getRecordValues(0).get(MeasurementsDao.ME_TEMP));
+        result.put(MeasurementsDao.ME_DATE, eR.getRecordValues(0).get(MeasurementsDao.ME_DATE));
+
+        if (eR.getRecordValues(0).get(MeasurementsDao.ALT_ID) != null) {
+            result.put(MeasurementsDao.ALT_ID, eR.getRecordValues(0).get(MeasurementsDao.ALT_ID));
         }
 
-        return Map.of(
-                MeasurementsDao.ME_TEMP, eR.getRecordValues(0).get(MeasurementsDao.ME_TEMP),
-                MeasurementsDao.ME_DATE, eR.getRecordValues(0).get(MeasurementsDao.ME_DATE),
-                MeasurementsDao.ALT_ID, eR.getRecordValues(0).get(MeasurementsDao.ALT_ID)
-        );
+        return result;
+
     }
 
     private void createAlert(Double minTemp, Double maxTemp, Integer cntId, Integer lotId) {
