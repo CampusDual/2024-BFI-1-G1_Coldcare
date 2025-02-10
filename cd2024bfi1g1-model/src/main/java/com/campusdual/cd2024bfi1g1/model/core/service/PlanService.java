@@ -41,10 +41,8 @@ public class PlanService implements IPlanService {
         Map<String, Object> plan = new HashMap<String, Object>();
         plan.put(PlanDao.PLN_NAME, attrMap.get(PlanDao.PLN_NAME));
         EntityResult toRet = this.daoHelper.insert(this.planDao, plan);
-
         Map<String, Object> prices = new HashMap<String, Object>();
-        int comodin = (Integer) toRet.get(PlanDao.PLN_ID);
-        prices.put(PricingDao.PLN_ID, comodin);
+        prices.put(PricingDao.PLN_ID, toRet.get(PlanDao.PLN_ID));
         prices.put(PricingDao.PRC_FPRC, attrMap.get(PricingDao.PRC_FPRC));
         prices.put(PricingDao.PRC_DPRC, attrMap.get(PricingDao.PRC_DPRC));
         prices.put(PricingDao.PRC_BPRC, attrMap.get(PricingDao.PRC_BPRC));
@@ -57,6 +55,8 @@ public class PlanService implements IPlanService {
     @Override
     public EntityResult planUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap) throws OntimizeJEERuntimeException {
         Object plnId = keyMap.get(PlanDao.PLN_ID);
+
+
         return this.daoHelper.update(this.planDao, attrMap, keyMap);
 
 

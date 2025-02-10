@@ -8,18 +8,18 @@
   </o-column>
   <o-column title="PRICES" layout-align="start stretch" layout-padding>
     <div class="inline-fields">
-      <o-text-input attr="PLN_FXDPRC" label="PLN_FXDPRC" required="yes"></o-text-input>
-      <o-text-input attr="PLN_DEVPRC" label="PLN_DEVPRC" required="yes"></o-text-input>
-      <o-text-input attr="PLN_BNDLEPRC" label="PLN_BNDLEPRC" required="yes"></o-text-input>
-      <o-text-input attr="PLN_BNDLEREQUEST" label="PLN_BNDLEREQUEST" required="yes"></o-text-input>
+      <o-text-input attr="PRC_FPRC" label="PLN_FXDPRC" required="yes"></o-text-input>
+      <o-text-input attr="PRC_DPRC" label="PLN_DEVPRC" required="yes"></o-text-input>
+      <o-text-input attr="PRC_BPRC" label="PLN_BNDLEPRC" required="yes"></o-text-input>
+      <o-text-input attr="PRC_BREQ" label="PLN_BNDLEREQUEST" required="yes"></o-text-input>
     </div>
   </o-column>
   <o-column title="DATES" layout-align="start stretch" layout-padding>
     <div class="inline-fields">
-      <o-date-input #DATES attr="PLN_START" value-type="timestamp" label="PLN_START" read-only="no" required="yes"
+      <o-date-input #DATES attr="PRC_START" value-type="timestamp" label="PLN_START" read-only="no" required="yes"
         format="DD/MM/YYYY" show-week-numbers="true" mode="desktop" translate="yes">
       </o-date-input>
-      <o-date-input #DATES attr="PLN_END" value-type="timestamp" label="PLN_END" read-only="no" required="no"
+      <o-date-input #DATES attr="PRC_END" value-type="timestamp" label="PLN_END" read-only="no" required="no"
         format="DD/MM/YYYY" show-week-numbers="true" mode="desktop" translate="yes">
       </o-date-input>
     </div>
