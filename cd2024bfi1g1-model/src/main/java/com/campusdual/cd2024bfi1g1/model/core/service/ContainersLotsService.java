@@ -2,6 +2,7 @@ package com.campusdual.cd2024bfi1g1.model.core.service;
 
 import com.campusdual.cd2024bfi1g1.api.core.service.IContainersLotsService;
 import com.campusdual.cd2024bfi1g1.model.core.dao.ContainersLotsDao;
+import com.campusdual.cd2024bfi1g1.model.core.util.Util;
 import com.ontimize.jee.common.db.SQLStatementBuilder;
 import com.ontimize.jee.common.dto.EntityResult;
 import com.ontimize.jee.common.dto.EntityResultMapImpl;
@@ -11,10 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
-
-import com.ontimize.jee.common.db.SQLStatementBuilder.BasicExpression;
-import com.ontimize.jee.common.db.SQLStatementBuilder.BasicOperator;
-import com.ontimize.jee.common.db.SQLStatementBuilder.BasicField;
 
 import java.util.*;
 
@@ -37,7 +34,8 @@ public class ContainersLotsService implements IContainersLotsService {
     public EntityResult containersLotsInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException {
 
         try {
-            if (filterStartAndEndDates(attrMap) && validateStartAndEndDates(attrMap))
+            if (filterStartAndEndDates(attrMap) &&
+                Util.validateStartAndEndDates((Date) attrMap.get(ContainersLotsDao.CL_START_DATE), (Date) attrMap.get(ContainersLotsDao.CL_END_DATE)))
                 return this.daoHelper.insert(this.containersLotsDao, attrMap);
             else {
                 return controlErrors();
@@ -55,7 +53,10 @@ public class ContainersLotsService implements IContainersLotsService {
             Integer clId = (Integer) keyMap.get(ContainersLotsDao.CL_ID);
             Map<String, Object> valData = getContainerLotData(clId);
 
-            if (filterStartAndEndDates(valData) && validateStartAndEndDates(valData)) {
+            valData.putAll(attrMap);
+
+            if (filterStartAndEndDates(valData) &&
+                Util.validateStartAndEndDates((Date) valData.get(ContainersLotsDao.CL_START_DATE), (Date) valData.get(ContainersLotsDao.CL_END_DATE))) {
                 return this.daoHelper.update(this.containersLotsDao, attrMap, keyMap);
             } else {
                 return controlErrors();
@@ -70,10 +71,7 @@ public class ContainersLotsService implements IContainersLotsService {
         try {
             return this.daoHelper.delete(this.containersLotsDao, keyMap);
         } catch (DataIntegrityViolationException e) {
-            EntityResult res = new EntityResultMapImpl();
-            res.setCode(EntityResult.OPERATION_WRONG);
-            res.setMessage("ERROR_CL_DELETE");
-            return res;
+            return controlErrors();
         }
     }
 
@@ -81,7 +79,12 @@ public class ContainersLotsService implements IContainersLotsService {
 
         //Creamos un nuevo mapa con las condiciones
         Map<String, Object> conditions = new HashMap<>(attrMap);
-        conditions.put(SQLStatementBuilder.ExtendedSQLConditionValuesProcessor.EXPRESSION_KEY, searchBetweenWithDates(attrMap));
+        conditions.put(
+                SQLStatementBuilder.ExtendedSQLConditionValuesProcessor.EXPRESSION_KEY,
+                Util.searchBetweenWithDates(ContainersLotsDao.CL_START_DATE, (Date) attrMap.get(ContainersLotsDao.CL_START_DATE),
+                        ContainersLotsDao.CL_END_DATE, (Date) attrMap.get(ContainersLotsDao.CL_END_DATE),
+                        ContainersLotsDao.CL_ID, (Integer) attrMap.get(ContainersLotsDao.CL_ID))
+        );
         conditions.remove(ContainersLotsDao.CL_START_DATE);
         conditions.remove(ContainersLotsDao.CL_END_DATE);
         conditions.remove(ContainersLotsDao.LOT_ID);
@@ -94,14 +97,6 @@ public class ContainersLotsService implements IContainersLotsService {
         EntityResult result = this.daoHelper.query(this.containersLotsDao, conditions, queryColumns, "get_dates");
 
         return result.isEmpty();
-    }
-
-    private boolean validateStartAndEndDates(Map<String, Object> data) {
-
-        Date startDate = (Date) data.get(ContainersLotsDao.CL_START_DATE);
-        Date endDate = (Date) data.get(ContainersLotsDao.CL_END_DATE);
-
-        return startDate == null || endDate == null || startDate.equals(endDate) || endDate.after(startDate);
     }
 
     private Map<String, Object> getContainerLotData(Integer clId) {
@@ -119,66 +114,6 @@ public class ContainersLotsService implements IContainersLotsService {
         Map<String, Object> data = new HashMap<>(result.getRecordValues(0));
 
         return data;
-    }
-
-    private BasicExpression searchBetweenWithDates(Map<String, Object> dataToFilter) {
-
-        if (!dataToFilter.containsKey(ContainersLotsDao.CL_START_DATE) && !dataToFilter.containsKey(ContainersLotsDao.CL_END_DATE)) {
-            return null;
-        }
-
-        BasicField fieldStart = new BasicField(ContainersLotsDao.CL_START_DATE);
-        BasicField fieldEnd = new BasicField(ContainersLotsDao.CL_END_DATE);
-
-        Date startDate = (Date) dataToFilter.get(ContainersLotsDao.CL_START_DATE);
-
-        BasicExpression startDateBetween = new BasicExpression(
-                new BasicExpression(fieldStart, BasicOperator.LESS_EQUAL_OP, startDate),
-                BasicOperator.AND_OP,
-                new BasicExpression(fieldEnd, BasicOperator.MORE_OP, startDate)
-        );
-
-        BasicExpression endDateBetween, betweenStartAndEndDate, betweenStartWithoutEnd, bexComplete;
-        if (dataToFilter.containsKey(ContainersLotsDao.CL_END_DATE)) {
-            Date endDate = (Date) dataToFilter.get(ContainersLotsDao.CL_END_DATE);
-
-            endDateBetween = new BasicExpression(
-                    new BasicExpression(fieldStart, BasicOperator.LESS_OP, endDate),
-                    BasicOperator.AND_OP,
-                    new BasicExpression(fieldEnd, BasicOperator.MORE_EQUAL_OP, endDate)
-            );
-
-            betweenStartAndEndDate = new BasicExpression(
-                    new BasicExpression(fieldStart, BasicOperator.MORE_EQUAL_OP, startDate),
-                    BasicOperator.AND_OP,
-                    new BasicExpression(fieldEnd, BasicOperator.LESS_EQUAL_OP, endDate)
-
-            );
-
-            betweenStartWithoutEnd = new BasicExpression(
-                    new BasicExpression(fieldStart, BasicOperator.MORE_EQUAL_OP, startDate),
-                    BasicOperator.AND_OP,
-                    new BasicExpression(fieldStart, BasicOperator.LESS_OP, endDate)
-            );
-
-            bexComplete = new BasicExpression(startDateBetween, BasicOperator.OR_OP, endDateBetween);
-            bexComplete = new BasicExpression(bexComplete, BasicOperator.OR_OP, betweenStartAndEndDate);
-            bexComplete = new BasicExpression(bexComplete, BasicOperator.OR_OP, betweenStartWithoutEnd);
-
-        } else {
-            BasicExpression endDateIsNull = new BasicExpression(fieldEnd, BasicOperator.NULL_OP, null);
-            bexComplete = new BasicExpression(endDateIsNull, BasicOperator.OR_OP, startDateBetween);
-        }
-
-
-        if (dataToFilter.containsKey(ContainersLotsDao.CL_ID)) {
-            Integer clId = (Integer) dataToFilter.get(ContainersLotsDao.CL_ID);
-            BasicField fieldClId = new BasicField(ContainersLotsDao.CL_ID);
-            BasicExpression excludeSameId = new BasicExpression(fieldClId, BasicOperator.NOT_EQUAL_OP, clId);
-            bexComplete = new BasicExpression(excludeSameId, BasicOperator.AND_OP, bexComplete);
-        }
-
-        return bexComplete;
     }
 
     private EntityResult controlErrors() {
