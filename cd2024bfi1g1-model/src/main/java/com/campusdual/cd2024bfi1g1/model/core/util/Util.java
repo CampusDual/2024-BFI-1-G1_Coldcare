@@ -132,7 +132,7 @@ public class Util {
     public static EntityResult controlErrors(String msgError) {
         EntityResult res = new EntityResultMapImpl();
         res.setCode(EntityResult.OPERATION_WRONG);
-        res.setMessage("ERROR_DATE_ALREADY_EXIST");
+        res.setMessage(msgError);
         return res;
     }
 }
