@@ -2,10 +2,12 @@ import { MenuRootItem } from 'ontimize-web-ngx';
 
 export const MENU_CONFIG: MenuRootItem[] = [
   { id: 'devices', name: 'DEVICES', icon: 'router', route: '/main/devices' },
-  { id: 'contenedores', name: 'CONTAINERS', icon: 'local_shipping', route: '/main/containers' },
+  { id: 'contenedores', name: 'CONTAINERS', icon: 'takeout_dining', route: '/main/containers' },
   { id: 'lots', name: 'LOTS', icon: 'archive', route: '/main/lots' },
   { id: 'locations', name: 'LOCATIONS', icon: 'location_on', route: '/main/locations' },
   { id: 'alerts', name: 'ALERTS', icon: 'priority_high', route: '/main/alerts' },
+  { id: 'vehicles', name: 'VEHICLES', icon: 'directions_car', route: '/main/vehicles' },
+  { id: 'transports', name: 'TRANSPORTS', icon: 'local_shipping', route: '/main/transports' },
   {
     id: 'admin', name: 'ADMIN', icon: 'admin_panel_settings',
     items: [
@@ -14,6 +16,7 @@ export const MENU_CONFIG: MenuRootItem[] = [
       { id: 'companies', name: 'COMPANIES', icon: 'apartment', route: '/main/admin/companies' },
       { id: 'devices-without-users', name: 'DEVICE_ASSIGNMENT', route: '/main/admin/devices-without-users', icon: 'developer_board' },
       { id: 'medidas', name: 'MEASUREMENTS', icon: 'thermostat', route: '/main/admin/medidas' },
+      { id: 'bills', name: 'BILLS', icon: 'receipt long', route: '/main/admin/bills' },
     ]
   },
   { id: 'logout', name: 'LOGOUT', route: '/login', icon: 'power_settings_new', confirm: 'yes' }

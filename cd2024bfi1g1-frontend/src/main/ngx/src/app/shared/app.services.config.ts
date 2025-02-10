@@ -20,10 +20,19 @@ export const SERVICE_CONFIG: Object = {
   'companies': {
     'path': '/companies'
   },
+  'bills': {
+    'path': '/bills'
+  },
   'locations': {
     'path': '/locations'
   },
   'alerts': {
     'path': '/alerts'
+  },
+  'vehicles': {
+    'path': '/vehicles'
+  },
+  'transports': {
+    'path': '/transports'
   }
 };

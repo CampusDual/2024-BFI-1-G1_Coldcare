@@ -1,6 +1,5 @@
 package com.campusdual.cd2024bfi1g1.model.core.service;
 
-
 import com.campusdual.cd2024bfi1g1.api.core.service.ILotsService;
 import com.campusdual.cd2024bfi1g1.model.core.dao.LotsDao;
 import com.campusdual.cd2024bfi1g1.model.core.dao.DevicesDao;
@@ -64,7 +63,9 @@ public class LotsService implements ILotsService {
         Integer cmpId = UserAndRoleService.getUserCompanyId(this.daoHelper, this.userDao);
         attrMap.put(DevicesDao.CMP_ID, cmpId);
 
-        validarCamposTemp(attrMap);
+        EntityResult res = validarCamposTemp(attrMap);
+        if (res != null)
+            return res;
 
         return this.daoHelper.insert(this.lotsDao, attrMap);
     }
@@ -78,8 +79,12 @@ public class LotsService implements ILotsService {
             return this.daoHelper.update(this.lotsDao, attrMap, keyMap);
         }
 
-        if ( attrMap.containsKey("MIN_TEMP") && attrMap.get("MIN_TEMP") instanceof NullValue && attrMap.containsKey("MAX_TEMP") && attrMap.get("MAX_TEMP") instanceof NullValue) {
-            throw new OntimizeJEERuntimeException("Debes proporcionar al menos un valor para 'min_temp' o 'max_temp'.");
+        if (attrMap.containsKey("MIN_TEMP") && attrMap.get("MIN_TEMP") instanceof NullValue
+                && attrMap.containsKey("MAX_TEMP") && attrMap.get("MAX_TEMP") instanceof NullValue) {
+            EntityResult res = new EntityResultMapImpl();
+            res.setCode(EntityResult.OPERATION_WRONG);
+            res.setMessage("MEASUREMENTS_INSERT_ERROR");
+            return res;
         }
 
         if (attrMap.containsKey("MIN_TEMP") && attrMap.get("MIN_TEMP") instanceof NullValue) {
@@ -87,7 +92,10 @@ public class LotsService implements ILotsService {
             double maxTemp = getMaxTempForLotId(lotId);
             if (Double.isNaN(maxTemp)) {
                 if (!attrMap.containsKey("MAX_TEMP")) {
-                    throw new OntimizeJEERuntimeException("No pueden ser ambos nulos");
+                    EntityResult res = new EntityResultMapImpl();
+                    res.setCode(EntityResult.OPERATION_WRONG);
+                    res.setMessage("MEASUREMENTS_INSERT_ERROR");
+                    return res;
                 }
             }
 
@@ -99,7 +107,10 @@ public class LotsService implements ILotsService {
             double minTemp = getMinTempForLotId(lotId);
             if (Double.isNaN(minTemp)) {
                 if (!attrMap.containsKey("MIN_TEMP")) {
-                    throw new OntimizeJEERuntimeException("No pueden ser ambos nulos");
+                    EntityResult res = new EntityResultMapImpl();
+                    res.setCode(EntityResult.OPERATION_WRONG);
+                    res.setMessage("MEASUREMENTS_INSERT_ERROR");
+                    return res;
                 }
             }
             return this.daoHelper.update(this.lotsDao, attrMap, keyMap);
@@ -122,12 +133,12 @@ public class LotsService implements ILotsService {
                 }
             }
         }
-        validarCamposTemp(attrMap);
+        EntityResult res = validarCamposTemp(attrMap);
+        if (res != null)
+            return res;
 
         return this.daoHelper.update(this.lotsDao, attrMap, keyMap);
     }
-
-
 
     @Override
     public EntityResult lotsDelete(Map<String, Object> keyMap) throws OntimizeJEERuntimeException {
@@ -141,21 +152,26 @@ public class LotsService implements ILotsService {
     }
 
     @Override
-    public EntityResult historicLotContainerQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
+    public EntityResult historicLotContainerQuery(Map<String, Object> keyMap, List<String> attrList)
+            throws OntimizeJEERuntimeException {
         return this.daoHelper.query(this.lotsDao, keyMap, attrList, "historic_lot_container");
     }
 
     @Override
-    public EntityResult measurementLotContainerQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
+    public EntityResult measurementLotContainerQuery(Map<String, Object> keyMap, List<String> attrList)
+            throws OntimizeJEERuntimeException {
         return this.daoHelper.query(this.lotsDao, keyMap, attrList, "historic_lot_measurements");
     }
 
-    private void validarCamposTemp(Map<String, Object> attrMap) throws OntimizeJEERuntimeException {
+    private EntityResult validarCamposTemp(Map<String, Object> attrMap) throws OntimizeJEERuntimeException {
         Object minTemp = attrMap.get("MIN_TEMP");
         Object maxTemp = attrMap.get("MAX_TEMP");
 
         if (minTemp == null && maxTemp == null) {
-            throw new OntimizeJEERuntimeException("Debes proporcionar al menos un valor para 'min_temp' o 'max_temp'.");
+            EntityResult res = new EntityResultMapImpl();
+            res.setCode(EntityResult.OPERATION_WRONG);
+            res.setMessage("MEASUREMENTS_INSERT_ERROR");
+            return res;
         }
 
         if (minTemp != null && maxTemp != null) {
@@ -164,12 +180,19 @@ public class LotsService implements ILotsService {
                 Float maxTempValue = Float.parseFloat(maxTemp.toString());
 
                 if (minTempValue >= maxTempValue) {
-                    throw new OntimizeJEERuntimeException("'min_temp' no puede ser mayor que 'max_temp'.");
+                    EntityResult res = new EntityResultMapImpl();
+                    res.setCode(EntityResult.OPERATION_WRONG);
+                    res.setMessage("MEASUREMENTS_INVALID_ERROR");
+                    return res;
                 }
             } catch (NumberFormatException e) {
-                throw new OntimizeJEERuntimeException("Los campos 'min_temp' y 'max_temp' deben ser valores numéricos.");
+                EntityResult res = new EntityResultMapImpl();
+                res.setCode(EntityResult.OPERATION_WRONG);
+                res.setMessage("MEASUREMENTS_DATA_ERROR");
+                return res;
             }
         }
+        return null;
     }
 
     public double getMaxTempForLotId(Object lotId) {
@@ -198,7 +221,6 @@ public class LotsService implements ILotsService {
         return Double.NaN;
     }
 
-
     public double getMinTempForLotId(Object lotId) {
         Map<String, Object> keyMap = new HashMap<>();
         keyMap.put("LOT_ID", lotId);
@@ -224,8 +246,5 @@ public class LotsService implements ILotsService {
 
         return Double.NaN;
     }
-
-
-
 
 }

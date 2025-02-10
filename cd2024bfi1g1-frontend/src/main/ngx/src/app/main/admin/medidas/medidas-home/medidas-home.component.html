@@ -1,15 +1,13 @@
 <o-form attr="medidasTable" include-parent-keys="yes" parent-keys="DEV_ID" keys-sql-types="INTEGER" service="devices"
   entity="devices" show-header="false">
-  <o-column>
+  <o-column layout-align="start stretch" layout-padding>
 
-    <div fxLayout="row" layout-padding fxLayoutGap="35px">
+    <div class="inline-fields">
       <div>
-        <label class="input-comp-title">{{"DEVICE_NAME_LABEL" | oTranslate }}</label>
         <o-combo attr="DEV_ID" label="DEVICE_NAME_INPUT" service="devices" entity="devices" value-column="DEV_ID"
           columns="DEV_ID;DEV_NAME" visible-columns="DEV_NAME" null-selection="yes" searchable="yes"></o-combo>
       </div>
       <div>
-        <label class="input-comp-title">{{"DATE_RANGE_LABEL" | oTranslate }}</label>
         <o-daterange-input attr="ME_DATE" label="DATE_RANGE_INPUT" read-only="no" required="no" format="DD/MM/YYYY"
           show-week-numbers="true" mode="desktop" automatic-binding="false" translate="yes">
         </o-daterange-input>
