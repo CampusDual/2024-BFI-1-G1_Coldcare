@@ -31,15 +31,14 @@
         </Query>
         <Query id="container_lot">
             <AmbiguousColumns>
-                <AmbiguousColumn name="CNT_ID" prefix="c" />
+                <AmbiguousColumn name="CNT_ID" prefix="cl" />
             </AmbiguousColumns>
             <Sentence>
                 <![CDATA[
                     SELECT #COLUMNS#
-                    FROM devices d
-                    LEFT JOIN containers c ON d.cnt_id = c.cnt_id
+                    FROM DEVICES d
+                    LEFT JOIN CONTAINERS_LOTS cl ON d.CNT_ID = cl.CNT_ID
                     #WHERE#
-
                 ]]>
             </Sentence>
         </Query>

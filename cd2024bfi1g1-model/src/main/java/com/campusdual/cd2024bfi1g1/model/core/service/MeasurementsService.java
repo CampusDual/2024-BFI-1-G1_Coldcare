@@ -1,11 +1,13 @@
 package com.campusdual.cd2024bfi1g1.model.core.service;
 
 import com.campusdual.cd2024bfi1g1.api.core.service.IMeasurementsService;
+import com.campusdual.cd2024bfi1g1.model.core.dao.ContainersLotsDao;
 import com.campusdual.cd2024bfi1g1.model.core.dao.DevicesDao;
-import com.campusdual.cd2024bfi1g1.model.core.service.DevicesService;
 import com.campusdual.cd2024bfi1g1.model.core.dao.MeasurementsDao;
 
+import com.campusdual.cd2024bfi1g1.model.core.util.Util;
 import com.ontimize.jee.common.db.AdvancedEntityResult;
+import com.ontimize.jee.common.db.SQLStatementBuilder;
 import com.ontimize.jee.common.dto.EntityResult;
 import com.ontimize.jee.common.dto.EntityResultMapImpl;
 import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
@@ -15,13 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.sql.SQLOutput;
 import java.sql.Timestamp;
 import java.util.*;
-
-import org.springframework.security.access.annotation.Secured;
-import com.ontimize.jee.common.security.PermissionsProviderSecured;
 
 @Service("MeasurementsService")
 @Lazy
@@ -77,13 +74,14 @@ public class MeasurementsService implements IMeasurementsService {
             attrMap.put(MeasurementsDao.DEV_ID, rowDevice.get(DevicesDao.DEV_ID));
 
             Map<String, Object> containerLotFilter = Map.of(DevicesDao.DEV_MAC, attrMap.get(DevicesDao.DEV_MAC));
-            List<String> containerLotColumns = List.of("CNT_ID", "LOT_ID");
+            containerLotFilter.put(SQLStatementBuilder.ExtendedSQLConditionValuesProcessor.EXPRESSION_KEY,
+                    Util.getCurrentLot(ContainersLotsDao.CL_START_DATE, ContainersLotsDao.CL_END_DATE));
+            List<String> containerLotColumns = List.of(MeasurementsDao.CL_ID);
 
             EntityResult containerLotResult = this.daoHelper.query(this.measurementsDao, containerLotFilter, containerLotColumns, "container_lot");
             if (!containerLotResult.isEmpty()) {
                 Map<String, Object> containerLotRow = containerLotResult.getRecordValues(0);
-                attrMap.put(MeasurementsDao.CNT_ID, containerLotRow.get("CNT_ID"));
-                attrMap.put(MeasurementsDao.LOT_ID, containerLotRow.get("LOT_ID"));
+                attrMap.put(MeasurementsDao.CL_ID, containerLotRow.get(MeasurementsDao.CL_ID));
             } else {
                 return new EntityResultMapImpl(EntityResult.OPERATION_WRONG, EntityResult.NODATA_RESULT, "Error querying container_lot");
             }
@@ -116,8 +114,6 @@ public class MeasurementsService implements IMeasurementsService {
             } else {
                 return this.daoHelper.insert(this.measurementsDao, attrMap);
             }
-
-
     }
 
     @Override

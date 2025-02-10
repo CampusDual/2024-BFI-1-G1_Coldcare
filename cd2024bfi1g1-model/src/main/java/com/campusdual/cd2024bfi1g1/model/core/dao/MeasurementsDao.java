@@ -19,8 +19,7 @@ public class MeasurementsDao extends OntimizeJdbcDaoSupport{
     public static final String ME_HUMIDITY = "ME_HUMIDITY";
     public static final String ME_DATE = "ME_DATE";
     public static final String DEV_ID = "DEV_ID";
-    public static final String LOT_ID = "LOT_ID";
-    public static final String CNT_ID = "CNT_ID";
+    public static final String CL_ID = "CL_ID";
 
-    public static final List<String> COLUMNS = Arrays.asList(ME_ID, ME_TEMP, ME_HUMIDITY, ME_DATE, DEV_ID, LOT_ID, CNT_ID);
+    public static final List<String> COLUMNS = Arrays.asList(ME_ID, ME_TEMP, ME_HUMIDITY, ME_DATE, DEV_ID, CL_ID);
 }

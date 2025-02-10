@@ -32,6 +32,34 @@ public class Util {
     }
 
     /**
+     *
+     * @param startDayKey
+     * @param endDateKey
+     * @return
+     */
+    public static BasicExpression getCurrentLot(String startDayKey, String endDateKey) {
+        BasicField fieldStart = new BasicField(startDayKey);
+        BasicField fieldEnd = new BasicField(endDateKey);
+        Date currentDate = new Date();
+
+        BasicExpression endDateIsNull = new BasicExpression(fieldEnd, BasicOperator.NULL_OP, null);
+
+        BasicExpression betweenStartWithoutEnd = new BasicExpression(
+                endDateIsNull,
+                BasicOperator.OR_OP,
+                new BasicExpression(fieldEnd, BasicOperator.MORE_EQUAL_OP, currentDate)
+        );
+
+        BasicExpression currentDateBetween = new BasicExpression(
+                new BasicExpression(fieldStart, BasicOperator.LESS_EQUAL_OP, currentDate),
+                BasicOperator.AND_OP,
+                betweenStartWithoutEnd
+        );
+
+        return currentDateBetween;
+    }
+
+    /**
      * Crea una expresión de búsqueda basada en un rango de fechas y un identificador opcional.
      * Permite filtrar registros según una fecha de inicio y una fecha de fin, con la opción
      * de excluir un registro específico en caso de realizar una actualización.
@@ -107,17 +135,18 @@ public class Util {
     }
 
     /**
-     * Valida la relación entre una fecha de inicio y una fecha de fin.
+     * Validates the relationship between a start date and an end date.
      *
-     * La validación considera las siguientes reglas:
-     * - Si alguna de las fechas es `null`, se considera válida.
-     * - Si las fechas son iguales, se considera válida.
-     * - Si la fecha de fin es posterior a la fecha de inicio, se considera válida.
-     * - Si la fecha de fin es anterior a la fecha de inicio, se considera inválida.
+     * The validation considers the following rules:
+     * - If either of the dates is null, it is considered valid.
+     * - If the dates are equal, it is considered valid.
+     * - If the end date is after the start date, it is considered valid.
+     * - If the end date is before the start date, it is considered invalid.
      *
-     * @param startDate Fecha de inicio (puede ser `null`).
-     * @param endDate   Fecha de fin (puede ser `null`).
-     * @return `true` si la relación entre las fechas es válida, `false` si la fecha de fin es anterior a la fecha de inicio.
+     * @param startDate Start date (may be null).
+     * @param endDate End date (may be null).
+     * @return true if the relationship between the dates is valid,
+     * false if the end date is before the start date.
      */
     public static boolean validateStartAndEndDates(Date startDate, Date endDate) {
 
