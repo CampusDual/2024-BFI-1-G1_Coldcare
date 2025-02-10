@@ -38,7 +38,7 @@ public class ContainersLotsService implements IContainersLotsService {
                 Util.validateStartAndEndDates((Date) attrMap.get(ContainersLotsDao.CL_START_DATE), (Date) attrMap.get(ContainersLotsDao.CL_END_DATE)))
                 return this.daoHelper.insert(this.containersLotsDao, attrMap);
             else {
-                return controlErrors();
+                return Util.controlErrors("ERROR_DATE_ALREADY_EXIST");
             }
         } catch (OntimizeJEERuntimeException ex) {
             throw new OntimizeJEERuntimeException("Algo salio mal al insertar datos");
@@ -59,7 +59,7 @@ public class ContainersLotsService implements IContainersLotsService {
                 Util.validateStartAndEndDates((Date) valData.get(ContainersLotsDao.CL_START_DATE), (Date) valData.get(ContainersLotsDao.CL_END_DATE))) {
                 return this.daoHelper.update(this.containersLotsDao, attrMap, keyMap);
             } else {
-                return controlErrors();
+                return Util.controlErrors("ERROR_DATE_ALREADY_EXIST");
             }
         } catch (OntimizeJEERuntimeException ex) {
             throw new OntimizeJEERuntimeException("Algo salio mal al actualizar los datos");
@@ -71,7 +71,7 @@ public class ContainersLotsService implements IContainersLotsService {
         try {
             return this.daoHelper.delete(this.containersLotsDao, keyMap);
         } catch (DataIntegrityViolationException e) {
-            return controlErrors();
+            return Util.controlErrors("ERROR_CL_DELETE");
         }
     }
 
@@ -116,10 +116,4 @@ public class ContainersLotsService implements IContainersLotsService {
         return data;
     }
 
-    private EntityResult controlErrors() {
-        EntityResult res = new EntityResultMapImpl();
-        res.setCode(EntityResult.OPERATION_WRONG);
-        res.setMessage("ERROR_DATE_ALREADY_EXIST");
-        return res;
-    }
 }

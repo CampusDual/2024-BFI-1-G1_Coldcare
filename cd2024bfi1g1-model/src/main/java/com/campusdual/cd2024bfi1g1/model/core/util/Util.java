@@ -1,9 +1,10 @@
 package com.campusdual.cd2024bfi1g1.model.core.util;
 
-import com.campusdual.cd2024bfi1g1.model.core.dao.ContainersLotsDao;
 import com.ontimize.jee.common.db.SQLStatementBuilder.BasicOperator;
 import com.ontimize.jee.common.db.SQLStatementBuilder.BasicField;
 import com.ontimize.jee.common.db.SQLStatementBuilder.BasicExpression;
+import com.ontimize.jee.common.dto.EntityResult;
+import com.ontimize.jee.common.dto.EntityResultMapImpl;
 import com.ontimize.jee.common.services.user.UserInformation;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -123,4 +124,15 @@ public class Util {
         return startDate == null || endDate == null || startDate.equals(endDate) || endDate.after(startDate);
     }
 
+    /**
+     * Recive un codigo de mensaje de error que debe de estar guardado previamente en el .json del proyecto
+     * @param msgError Mensaje de error guardado en el .json del proyecto
+     * @return devuelve un EntityResult con el mensaje de error.
+     */
+    public static EntityResult controlErrors(String msgError) {
+        EntityResult res = new EntityResultMapImpl();
+        res.setCode(EntityResult.OPERATION_WRONG);
+        res.setMessage("ERROR_DATE_ALREADY_EXIST");
+        return res;
+    }
 }
