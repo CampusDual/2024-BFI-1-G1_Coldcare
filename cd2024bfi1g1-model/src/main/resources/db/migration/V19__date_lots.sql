@@ -28,3 +28,4 @@ WHERE m.lot_id = cl.lot_id
 
 ALTER TABLE measurements DROP COLUMN cnt_id;
 ALTER TABLE measurements DROP COLUMN lot_id;
+ALTER TABLE containers DROP COLUMN lot_id;
