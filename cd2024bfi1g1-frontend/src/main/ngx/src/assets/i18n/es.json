@@ -100,6 +100,8 @@
   "LOTS": "Lotes",
   "LOT_NAME": "Nombre del lote",
   "LOT_HISTORY": "Historial de lote",
+  "LOT_DETAIL": "Detalle del lote",
+  "LOT_NEW": "Nuevo lote",
   "DEVICE_PERSISTENCE": "Persistencia del dispositivo",
   "LOT_DATA": "Datos del lote",
   "CLEAR": "Limpiar",

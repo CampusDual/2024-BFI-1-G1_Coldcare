@@ -1,4 +1,11 @@
-<o-table attr="lots" title="LOTS" show-title="yes" service="lots" entity="lots" keys="LOT_ID" columns="LOT_ID;LOT_NAME"
-    visible-columns="LOT_NAME" delete-button="no">
-    <o-table-column attr="LOT_NAME" title="IDENTIFIER"></o-table-column>
+<o-table attr="lotsTable" service="lots" entity="lotsProducts" keys="LOT_ID"
+    columns="PRO_ID;PRO_NAME;PRO_MIN_TEMP;PRO_MAX_TEMP;LOT_ID;LOT_NAME"
+    visible-columns="LOT_NAME;PRO_NAME;PRO_MIN_TEMP;PRO_MAX_TEMP" select-all-checkbox-visible="no" insert-button="yes"
+    delete-button="no" refresh-button="yes" title="LOTS" show-title="yes">
+    <!-- Columnas de la Tabla -->
+    <o-table-column attr="LOT_NAME" title-align="center" content-align="center"></o-table-column>
+    <o-table-column attr="PRO_NAME" title-align="center" content-align="center"></o-table-column>
+    <o-table-column attr="PRO_MIN_TEMP" title-align="center" content-align="center"></o-table-column>
+    <o-table-column attr="PRO_MAX_TEMP" title-align="center" content-align="center"></o-table-column>
+
 </o-table>

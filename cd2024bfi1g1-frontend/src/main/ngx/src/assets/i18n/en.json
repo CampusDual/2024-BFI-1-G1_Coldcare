@@ -102,6 +102,8 @@
   "LOTS": "Lots",
   "LOT_NAME": "Lot name",
   "LOT_HISTORY": "Lot history",
+  "LOT_DETAIL": "Lot detail",
+  "LOT_NEW": "New lot",
   "DEVICE_PERSISTENCE": "Device persistance",
   "LOT_DATA": "Lot data",
   "CNT_NAME": "Container name",
