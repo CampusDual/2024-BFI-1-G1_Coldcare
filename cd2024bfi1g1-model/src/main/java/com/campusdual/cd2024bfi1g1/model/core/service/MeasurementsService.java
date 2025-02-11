@@ -109,6 +109,9 @@ public class MeasurementsService implements IMeasurementsService {
     }
 
     private Integer getOrCreateDeviceId(Map<String, Object> attrMap) {
+        if (!attrMap.containsKey(DevicesDao.DEV_MAC) || attrMap.get(DevicesDao.DEV_MAC) == null) {
+            return null;
+        }
         Map<String, Object> filter = Map.of(DevicesDao.DEV_MAC, attrMap.get(DevicesDao.DEV_MAC));
         List<String> columns = List.of(
                 DevicesDao.DEV_ID,
@@ -127,8 +130,8 @@ public class MeasurementsService implements IMeasurementsService {
         }
 
         Map<String, Object> rowDevice = query.getRecordValues(0);
-        Boolean enabled = (Boolean) rowDevice.get(DevicesDao.DEV_STATE);
-        if (enabled != null && !enabled) {
+        Boolean enabled = (Boolean) rowDevice.getOrDefault(DevicesDao.DEV_STATE, false);
+        if (!enabled){
             return null;
         }
 
@@ -172,7 +175,7 @@ public class MeasurementsService implements IMeasurementsService {
 
     private boolean canInsertMeasurement(Integer devId, Integer persistenceMinutes, Boolean devState) {
         Map<String, Object> measurementInfo = getLastRecordedMeasurement(devId);
-        if (measurementInfo == null) {
+        if (measurementInfo == null || !measurementInfo.containsKey(MeasurementsDao.ME_DATE)) {
             return true;
         }
         Timestamp lastDate = (Timestamp) measurementInfo.get(MeasurementsDao.ME_DATE);
@@ -182,16 +185,12 @@ public class MeasurementsService implements IMeasurementsService {
         long lastTimeMillis = lastDate.getTime();
         long persistenceMillis = persistenceMinutes * 60000L;
 
-        return (currentTimeMillis - lastTimeMillis) > persistenceMillis;
+        return ((currentTimeMillis - lastTimeMillis) > persistenceMillis) && devState;
     }
 
     private Integer computeMeasurementAlert(Double currentTemp, Integer devId, Integer lotId, Integer cntId) {
         Map<String, Object> measurementInfo = getLastRecordedMeasurement(devId);
         if (measurementInfo == null) {
-            return null;
-        }
-        Double lastTemp = (Double) measurementInfo.get(MeasurementsDao.ME_TEMP);
-        if (lastTemp == null) {
             return null;
         }
         Map<String, Object> lotMinMaxTemp = getLotMinMaxTemperature(lotId);
@@ -214,7 +213,8 @@ public class MeasurementsService implements IMeasurementsService {
         Map<String, Object> filter = Map.of(AlertsDao.ALT_ID, altId);
         List<String> columns = List.of(
                 AlertsDao.ALT_MIN_TEMP,
-                AlertsDao.ALT_MAX_TEMP
+                AlertsDao.ALT_MAX_TEMP,
+                AlertsDao.LOT_ID
         );
 
         EntityResult eR = alertsService.alertsQuery(filter, columns);
@@ -224,9 +224,12 @@ public class MeasurementsService implements IMeasurementsService {
 
         Double altMinTemp = (Double) eR.getRecordValues(0).get(AlertsDao.ALT_MIN_TEMP);
         Double altMaxTemp = (Double) eR.getRecordValues(0).get(AlertsDao.ALT_MAX_TEMP);
+        Integer altLotId = (Integer) eR.getRecordValues(0).get(AlertsDao.LOT_ID);
 
-        if (!altMaxTemp.equals(lotMaxTemp) || !altMinTemp.equals(lotMinTemp)) {
-            closeLastAlert(cntId, lotId);
+        if ((altMaxTemp != null && !altMaxTemp.equals(lotMaxTemp)) ||
+                altMinTemp != null && !altMinTemp.equals(lotMinTemp) ||
+                altLotId == null || !altLotId.equals(lotId)) {
+            closeCurrentAlert(altId);
             return handleNewAlert(currentTemp, lotMinTemp, lotMaxTemp, cntId, lotId);
         }
 
@@ -234,7 +237,7 @@ public class MeasurementsService implements IMeasurementsService {
     }
 
     private Integer handleNewAlert(Double currentTemp, Double minTemp, Double maxTemp, Integer cntId, Integer lotId) {
-        if (currentTemp > maxTemp || currentTemp < minTemp) {
+        if ((maxTemp != null && currentTemp > maxTemp) || (minTemp != null && currentTemp < minTemp)) {
             createAlert(minTemp, maxTemp, cntId, lotId);
             return getLastAlertId(cntId, lotId);
         }
@@ -242,7 +245,7 @@ public class MeasurementsService implements IMeasurementsService {
     }
 
     private Integer checkAndHandleAlert(Double currentTemp, Double minTemp, Double maxTemp, Integer cntId, Integer lotId) {
-        if (currentTemp > maxTemp || currentTemp < minTemp) {
+        if ((maxTemp != null && currentTemp > maxTemp) || (minTemp != null && currentTemp < minTemp)) {
             return getLastAlertId(cntId, lotId);
         }
         closeLastAlert(cntId, lotId);
@@ -261,16 +264,25 @@ public class MeasurementsService implements IMeasurementsService {
             return null;
         }
 
-        return Map.of(
-                LotsDao.MIN_TEMP, eR.getRecordValues(0).get(LotsDao.MIN_TEMP),
-                LotsDao.MAX_TEMP, eR.getRecordValues(0).get(LotsDao.MAX_TEMP)
-        );
+        Double lotMinTemp = (Double) eR.getRecordValues(0).get(LotsDao.MIN_TEMP);
+        Double lotMaxTemp = (Double) eR.getRecordValues(0).get(LotsDao.MAX_TEMP);
+
+        Map<String, Object> result = new HashMap<>();
+
+        if (lotMinTemp != null) {
+            result.put(LotsDao.MIN_TEMP, lotMinTemp);
+        }
+
+        if (lotMaxTemp != null) {
+            result.put(LotsDao.MAX_TEMP, lotMaxTemp);
+        }
+
+        return result;
     }
 
     private Map<String, Object> getLastRecordedMeasurement(Integer devId) {
         Map<String, Object> filter = Map.of(DevicesDao.DEV_ID, devId);
         List<String> columns = List.of(
-                MeasurementsDao.ME_TEMP,
                 MeasurementsDao.ME_DATE,
                 MeasurementsDao.ALT_ID
         );
@@ -285,7 +297,6 @@ public class MeasurementsService implements IMeasurementsService {
 
         Map<String, Object> result = new HashMap<>();
 
-        result.put(MeasurementsDao.ME_TEMP, eR.getRecordValues(0).get(MeasurementsDao.ME_TEMP));
         result.put(MeasurementsDao.ME_DATE, eR.getRecordValues(0).get(MeasurementsDao.ME_DATE));
 
         if (eR.getRecordValues(0).get(MeasurementsDao.ALT_ID) != null) {
@@ -297,12 +308,18 @@ public class MeasurementsService implements IMeasurementsService {
     }
 
     private void createAlert(Double minTemp, Double maxTemp, Integer cntId, Integer lotId) {
-        Map<String, Object> valuesToInsert = Map.of(
-                AlertsDao.ALT_MIN_TEMP, minTemp,
-                AlertsDao.ALT_MAX_TEMP, maxTemp,
-                AlertsDao.CNT_ID, cntId,
-                AlertsDao.LOT_ID, lotId
-        );
+        Map<String, Object> valuesToInsert = new HashMap<>();
+
+        valuesToInsert.put(AlertsDao.CNT_ID, cntId);
+        valuesToInsert.put(AlertsDao.LOT_ID, lotId);
+
+        if (minTemp != null) {
+            valuesToInsert.put(AlertsDao.ALT_MIN_TEMP, minTemp);
+        }
+        if (maxTemp != null) {
+            valuesToInsert.put(AlertsDao.ALT_MAX_TEMP, maxTemp);
+        }
+
         alertsService.alertsInsert(valuesToInsert);
     }
 
@@ -314,6 +331,12 @@ public class MeasurementsService implements IMeasurementsService {
 
         Map<String, Object> valuesToUpdate = Map.of(AlertsDao.ALT_DATE_END, LocalDateTime.now());
         Map<String, Object> filterToUpdate = Map.of(AlertsDao.ALT_ID, lastAlertId);
+        alertsService.alertsUpdate(valuesToUpdate, filterToUpdate);
+    }
+
+    private void closeCurrentAlert(Integer altId) {
+        Map<String, Object> valuesToUpdate = Map.of(AlertsDao.ALT_DATE_END, LocalDateTime.now());
+        Map<String, Object> filterToUpdate = Map.of(AlertsDao.ALT_ID, altId);
         alertsService.alertsUpdate(valuesToUpdate, filterToUpdate);
     }
 
