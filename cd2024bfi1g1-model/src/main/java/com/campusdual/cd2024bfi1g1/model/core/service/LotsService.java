@@ -157,12 +157,6 @@ public class LotsService implements ILotsService {
         return this.daoHelper.query(this.lotsDao, keyMap, attrList, "historic_lot_container");
     }
 
-    @Override
-    public EntityResult measurementLotContainerQuery(Map<String, Object> keyMap, List<String> attrList)
-            throws OntimizeJEERuntimeException {
-        return this.daoHelper.query(this.lotsDao, keyMap, attrList, "historic_lot_measurements");
-    }
-
     private EntityResult validarCamposTemp(Map<String, Object> attrMap) throws OntimizeJEERuntimeException {
         Object minTemp = attrMap.get("MIN_TEMP");
         Object maxTemp = attrMap.get("MAX_TEMP");
@@ -246,5 +240,4 @@ public class LotsService implements ILotsService {
 
         return Double.NaN;
     }
-
 }

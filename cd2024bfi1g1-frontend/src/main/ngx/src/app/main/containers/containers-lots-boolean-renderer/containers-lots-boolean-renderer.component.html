@@ -1,0 +1,8 @@
+<ng-template #templateref let-cellvalue="cellvalue" let-rowvalue="rowvalue">
+    <ng-container *ngIf="isDateInRange(rowvalue.CL_START_DATE, rowvalue.CL_END_DATE)">
+        <mat-icon class="enabled">circle</mat-icon>
+    </ng-container>
+    <ng-container *ngIf="!isDateInRange(rowvalue.CL_START_DATE, rowvalue.CL_END_DATE)">
+        <mat-icon class="disabled">circle</mat-icon>
+    </ng-container>
+</ng-template>

@@ -3,6 +3,7 @@ package com.campusdual.cd2024bfi1g1.model.core.service;
 import com.campusdual.cd2024bfi1g1.api.core.service.IMeasurementsService;
 import com.campusdual.cd2024bfi1g1.model.core.dao.*;
 
+import com.campusdual.cd2024bfi1g1.model.core.util.Util;
 import com.ontimize.jee.common.db.AdvancedEntityResult;
 import com.ontimize.jee.common.db.SQLStatementBuilder;
 import com.ontimize.jee.common.dto.EntityResult;
@@ -40,7 +41,8 @@ public class MeasurementsService implements IMeasurementsService {
     }
 
     @Override
-    public AdvancedEntityResult measurementsPaginationQuery(Map<?, ?> keysValues, List<?> attributes, int pagesize, int offset, List<?> orderBy) throws OntimizeJEERuntimeException {
+    public AdvancedEntityResult measurementsPaginationQuery(Map<?, ?> keysValues, List<?> attributes, int pagesize,
+            int offset, List<?> orderBy) throws OntimizeJEERuntimeException {
         return this.daoHelper.paginationQuery(this.measurementsDao, keysValues, attributes, pagesize, offset, orderBy);
     }
 
@@ -48,14 +50,16 @@ public class MeasurementsService implements IMeasurementsService {
     public EntityResult measurementsInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException {
         Integer devId = getOrCreateDeviceId(attrMap);
         if (devId == null) {
-            return new EntityResultMapImpl(EntityResult.OPERATION_WRONG, EntityResult.NODATA_RESULT, "Device not found");
+            return new EntityResultMapImpl(EntityResult.OPERATION_WRONG, EntityResult.NODATA_RESULT,
+                    "Device not found");
         }
 
         attrMap.put(MeasurementsDao.DEV_ID, devId);
 
         Map<String, Object> deviceInfo = getDeviceInfo(devId);
         if (deviceInfo == null) {
-            return new EntityResultMapImpl(EntityResult.OPERATION_WRONG, EntityResult.NODATA_RESULT, "Error querying device info");
+            return new EntityResultMapImpl(EntityResult.OPERATION_WRONG, EntityResult.NODATA_RESULT,
+                    "Error querying device info");
         }
 
         Integer cntId = (Integer) deviceInfo.get(ContainersDao.CNT_ID);
@@ -69,7 +73,8 @@ public class MeasurementsService implements IMeasurementsService {
 
         Integer persistenceMinutes = (Integer) deviceInfo.get(DevicesDao.DEV_PERSISTENCE);
         if (persistenceMinutes == null) {
-            return new EntityResultMapImpl(EntityResult.OPERATION_WRONG, EntityResult.NODATA_RESULT, "Error querying device persistence");
+            return new EntityResultMapImpl(EntityResult.OPERATION_WRONG, EntityResult.NODATA_RESULT,
+                    "Error querying device persistence");
         }
         Boolean devState = (Boolean) deviceInfo.get(DevicesDao.DEV_STATE);
 
@@ -79,6 +84,22 @@ public class MeasurementsService implements IMeasurementsService {
         }
 
         Double currentTemp = (Double) attrMap.get(MeasurementsDao.ME_TEMP);
+
+        Map<String, Object> containerLotFilter = new HashMap<>();
+
+        containerLotFilter.put(DevicesDao.DEV_MAC, attrMap.get(DevicesDao.DEV_MAC));
+        containerLotFilter.put(SQLStatementBuilder.ExtendedSQLConditionValuesProcessor.EXPRESSION_KEY,
+                Util.isDateInCurrentRange(ContainersLotsDao.CL_START_DATE, ContainersLotsDao.CL_END_DATE));
+        List<String> containerLotColumns = List.of(MeasurementsDao.CL_ID);
+
+        EntityResult containerLotResult = this.daoHelper.query(this.measurementsDao, containerLotFilter,
+                containerLotColumns, "container_lot");
+        if (!containerLotResult.isEmpty()) {
+            Map<String, Object> containerLotRow = containerLotResult.getRecordValues(0);
+            attrMap.put(MeasurementsDao.CL_ID, containerLotRow.get(MeasurementsDao.CL_ID));
+        } else {
+            attrMap.put(MeasurementsDao.CL_ID, null);
+        }
 
         if (lotId == null) {
             return daoHelper.insert(measurementsDao, attrMap);
@@ -104,7 +125,8 @@ public class MeasurementsService implements IMeasurementsService {
     }
 
     @Override
-    public EntityResult ContainerLotQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
+    public EntityResult ContainerLotQuery(Map<String, Object> keyMap, List<String> attrList)
+            throws OntimizeJEERuntimeException {
         return this.daoHelper.query(this.measurementsDao, keyMap, attrList, "container_lot");
     }
 
@@ -117,8 +139,7 @@ public class MeasurementsService implements IMeasurementsService {
                 DevicesDao.DEV_ID,
                 DevicesDao.DEV_MAC,
                 DevicesDao.DEV_PERSISTENCE,
-                DevicesDao.DEV_STATE
-        );
+                DevicesDao.DEV_STATE);
 
         EntityResult query = devicesService.devicesQuery(filter, columns);
         if (query.isWrong()) {
@@ -131,7 +152,7 @@ public class MeasurementsService implements IMeasurementsService {
 
         Map<String, Object> rowDevice = query.getRecordValues(0);
         Boolean enabled = (Boolean) rowDevice.getOrDefault(DevicesDao.DEV_STATE, false);
-        if (!enabled){
+        if (!enabled) {
             return null;
         }
 
@@ -144,8 +165,7 @@ public class MeasurementsService implements IMeasurementsService {
                 ContainersDao.CNT_ID,
                 LotsDao.LOT_ID,
                 DevicesDao.DEV_PERSISTENCE,
-                DevicesDao.DEV_STATE
-        );
+                DevicesDao.DEV_STATE);
 
         EntityResult eR = this.daoHelper.query(measurementsDao, filter, columns, "container_lot");
         if (eR.isEmpty() || eR.isWrong()) {
@@ -208,13 +228,13 @@ public class MeasurementsService implements IMeasurementsService {
         return handleNewAlert(currentTemp, lotMinTemp, lotMaxTemp, cntId, lotId, devId);
     }
 
-    private Integer handleExistingAlert(Double currentTemp, Integer altId, Double lotMinTemp, Double lotMaxTemp, Integer cntId, Integer lotId, Integer devId) {
+    private Integer handleExistingAlert(Double currentTemp, Integer altId, Double lotMinTemp, Double lotMaxTemp,
+            Integer cntId, Integer lotId, Integer devId) {
         Map<String, Object> filter = Map.of(AlertsDao.ALT_ID, altId);
         List<String> columns = List.of(
                 AlertsDao.ALT_MIN_TEMP,
                 AlertsDao.ALT_MAX_TEMP,
-                AlertsDao.LOT_ID
-        );
+                AlertsDao.LOT_ID);
 
         EntityResult eR = alertsService.alertsQuery(filter, columns);
         if (eR.isEmpty() || eR.isWrong()) {
@@ -235,7 +255,8 @@ public class MeasurementsService implements IMeasurementsService {
         return checkAndHandleAlert(currentTemp, altMinTemp, altMaxTemp, cntId, lotId, devId);
     }
 
-    private Integer handleNewAlert(Double currentTemp, Double minTemp, Double maxTemp, Integer cntId, Integer lotId, Integer devId) {
+    private Integer handleNewAlert(Double currentTemp, Double minTemp, Double maxTemp, Integer cntId, Integer lotId,
+            Integer devId) {
         if ((maxTemp != null && currentTemp > maxTemp) || (minTemp != null && currentTemp < minTemp)) {
             createAlert(minTemp, maxTemp, cntId, lotId, devId);
             return getLastAlertId(cntId, lotId, devId);
@@ -243,7 +264,8 @@ public class MeasurementsService implements IMeasurementsService {
         return null;
     }
 
-    private Integer checkAndHandleAlert(Double currentTemp, Double minTemp, Double maxTemp, Integer cntId, Integer lotId, Integer devId) {
+    private Integer checkAndHandleAlert(Double currentTemp, Double minTemp, Double maxTemp, Integer cntId,
+            Integer lotId, Integer devId) {
         if ((maxTemp != null && currentTemp > maxTemp) || (minTemp != null && currentTemp < minTemp)) {
             return getLastAlertId(cntId, lotId, devId);
         }
@@ -255,8 +277,7 @@ public class MeasurementsService implements IMeasurementsService {
         Map<String, Object> filter = Map.of(LotsDao.LOT_ID, lotId);
         List<String> columns = List.of(
                 LotsDao.MIN_TEMP,
-                LotsDao.MAX_TEMP
-        );
+                LotsDao.MAX_TEMP);
 
         EntityResult eR = this.daoHelper.query(this.lotsDao, filter, columns);
         if (eR.isEmpty() || eR.isWrong()) {
@@ -283,11 +304,9 @@ public class MeasurementsService implements IMeasurementsService {
         Map<String, Object> filter = Map.of(DevicesDao.DEV_ID, devId);
         List<String> columns = List.of(
                 MeasurementsDao.ME_DATE,
-                MeasurementsDao.ALT_ID
-        );
+                MeasurementsDao.ALT_ID);
         List<SQLStatementBuilder.SQLOrder> orderBy = List.of(
-                new SQLStatementBuilder.SQLOrder(MeasurementsDao.ME_DATE, false)
-        );
+                new SQLStatementBuilder.SQLOrder(MeasurementsDao.ME_DATE, false));
 
         EntityResult eR = measurementsPaginationQuery(filter, columns, 1, 0, orderBy);
         if (eR.isEmpty() || eR.isWrong()) {
@@ -344,12 +363,10 @@ public class MeasurementsService implements IMeasurementsService {
         Map<String, Object> filter = Map.of(
                 AlertsDao.CNT_ID, cntId,
                 AlertsDao.LOT_ID, lotId,
-                AlertsDao.DEV_ID, devId
-        );
+                AlertsDao.DEV_ID, devId);
         List<String> columns = List.of(AlertsDao.ALT_ID);
         List<SQLStatementBuilder.SQLOrder> orderBy = List.of(
-                new SQLStatementBuilder.SQLOrder(AlertsDao.ALT_DATE_INIT, false)
-        );
+                new SQLStatementBuilder.SQLOrder(AlertsDao.ALT_DATE_INIT, false));
 
         EntityResult eR = alertsService.alertsPaginationQuery(filter, columns, 1, 0, orderBy);
         if (eR.isEmpty() || eR.isWrong()) {
