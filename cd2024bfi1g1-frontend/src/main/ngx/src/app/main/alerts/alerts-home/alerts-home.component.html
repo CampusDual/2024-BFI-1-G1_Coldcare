@@ -20,29 +20,23 @@
         </o-filter-builder>
 
         <o-table #alertsTable attr="alertsTable" service="alerts" entity="alertsWithCalculatedColumns" keys="ALT_ID"
-            columns="ALT_ID;ALT_DATE_INIT;ALT_DATE_END;CNT_NAME;LOT_NAME;AVG_TEMP;AVG_HUMIDITY;MAX_TEMP_DEV;MAX_HUMIDITY_DEV;MIN_TEMP_DEV;MIN_HUMIDITY_DEV;ALT_MIN_TEMP;ALT_MAX_TEMP"
-            visible-columns="ALT_DATE_INIT;CNT_NAME;LOT_NAME;ALT_DURATION;ALT_MIN_TEMP;ALT_MAX_TEMP;AVG_TEMP;MAX_TEMP_DEV;MIN_TEMP_DEV;AVG_HUMIDITY;MAX_HUMIDITY_DEV;MIN_HUMIDITY_DEV"
+            columns="ALT_ID;ALT_DATE_INIT;ALT_DATE_END;CNT_NAME;LOT_NAME;AVG_TEMP;AVG_HUMIDITY;ALT_MIN_TEMP;ALT_MAX_TEMP"
+            visible-columns="ALT_DATE_INIT;CNT_NAME;LOT_NAME;AVG_TEMP;AVG_HUMIDITY;ALT_MIN_TEMP;ALT_MAX_TEMP;ALT_DURATION"
             select-all-checkbox-visible="no" insert-button="no" delete-button="no" refresh-button="yes"
             quick-filter="no" detail-mode="none" title="ALERTS" show-title="yes" sort-columns="ALT_DATE_INIT:DESC"
-            virtual-scroll="true">
+            virtual-scroll="false">
             <o-table-column attr="ALT_DATE_INIT" title="DATE" type="date" format="DD/MM/YYYY HH:mm:ss"></o-table-column>
-            <o-table-column attr="CNT_NAME" title="CONTAINER"></o-table-column>
-            <o-table-column attr="LOT_NAME" title="LOT"></o-table-column>
-            <o-table-column attr="ALT_DURATION" title="DURATION" content-align="center">
+            <o-table-column attr="CNT_NAME" title="CNT_NAME"></o-table-column>
+            <o-table-column attr="LOT_NAME" title="LOT_NAME"></o-table-column>
+            <o-table-column attr="ALT_MIN_TEMP" title="MIN_TEMP" content-align="start">
+                <o-table-cell-renderer-real max-decimal-digits="2"></o-table-cell-renderer-real>
+            </o-table-column>
+            <o-table-column attr="ALT_MAX_TEMP" title="MAX_TEMP" content-align="start">
+                <o-table-cell-renderer-real max-decimal-digits="2"></o-table-cell-renderer-real>
+            </o-table-column>
+            <o-table-column attr="ALT_DURATION" title="DURATION">
                 <app-alerts-duration-renderer></app-alerts-duration-renderer>
             </o-table-column>
-            <o-table-column attr="ALT_MIN_TEMP" title="ALT_MIN_TEMP" content-align="center">
-                <o-table-cell-renderer-real max-decimal-digits="2"></o-table-cell-renderer-real>
-            </o-table-column>
-            <o-table-column attr="ALT_MAX_TEMP" title="ALT_MAX_TEMP" content-align="center">
-                <o-table-cell-renderer-real max-decimal-digits="2"></o-table-cell-renderer-real>
-            </o-table-column>
-            <o-table-column attr="AVG_TEMP" title="AVG_TEMP" content-align="center"></o-table-column>
-            <o-table-column attr="MAX_TEMP_DEV" title="MAX_TEMP" content-align="center"></o-table-column>
-            <o-table-column attr="MIN_TEMP_DEV" title="MIN_TEMP" content-align="center"></o-table-column>
-            <o-table-column attr="AVG_HUMIDITY" title="AVG_HUMIDITY" content-align="center"></o-table-column>
-            <o-table-column attr="MAX_HUMIDITY_DEV" title="MAX_HUMIDITY" content-align="center"></o-table-column>
-            <o-table-column attr="MIN_HUMIDITY_DEV" title="MIN_HUMIDITY" content-align="center"></o-table-column>
         </o-table>
     </o-column>
 

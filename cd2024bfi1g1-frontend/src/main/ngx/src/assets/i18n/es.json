@@ -158,11 +158,5 @@
   "CONTAINER_MOBILITY_ERROR": "Contenedor en uso, no está permitido cambiar la movilidad",
   "MEASUREMENTS_INSERT_ERROR": "Obligatorio insertar temperatura mínima o máxima",
   "MEASUREMENTS_INVALID_ERROR": "La temperatura mínima no puede ser mayor que la máxima",
-  "MEASUREMENTS_DATA_ERROR": "Obligatorio campos numéricos en temperatura",
-  "CONTAINER": "Contenedor",
-  "LOT": "Lote",
-  "ALT_MAX_TEMP": "Rango Max Temp",
-  "ALT_MIN_TEMP": "Rango Min Temp",
-  "MAX_HUMIDITY": "Max Humedad",
-  "MIN_HUMIDITY": "Min Humedad"
+  "MEASUREMENTS_DATA_ERROR": "Obligatorio campos numéricos en temperatura"
 }
