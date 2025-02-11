@@ -36,7 +36,11 @@
                         SELECT
                             alt_id,
                             ROUND(avg(me_temp)::numeric, 2) AS avg_temp,
-                            ROUND(avg(me_humidity)::numeric, 2) AS avg_humidity
+                            ROUND(avg(me_humidity)::numeric, 2) AS avg_humidity,
+                            ROUND(max(me_temp)::numeric, 2) AS max_temp_dev,
+                            ROUND(min(me_temp)::numeric, 2) AS min_temp_dev,
+                            ROUND(max(me_humidity)::numeric, 2) AS max_humidity_dev,
+                            ROUND(min(me_humidity)::numeric, 2) AS min_humidity_dev
                         FROM
                             measurements m
                         WHERE
