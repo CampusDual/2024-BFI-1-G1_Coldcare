@@ -201,7 +201,7 @@ public class MeasurementsService implements IMeasurementsService {
         Double lotMinTemp = (Double) lotMinMaxTemp.get(LotsDao.MIN_TEMP);
         Double lotMaxTemp = (Double) lotMinMaxTemp.get(LotsDao.MAX_TEMP);
 
-        Integer altId = (Integer) measurementInfo.get(MeasurementsDao.ALT_ID);
+        Integer altId = (Integer) getDeviceAlertId(devId, lotId);
 
         if (altId != null) {
             return handleExistingAlert(currentTemp, altId, lotMinTemp, lotMaxTemp, cntId, lotId);
@@ -233,22 +233,22 @@ public class MeasurementsService implements IMeasurementsService {
             return handleNewAlert(currentTemp, lotMinTemp, lotMaxTemp, cntId, lotId);
         }
 
-        return checkAndHandleAlert(currentTemp, altMinTemp, altMaxTemp, cntId, lotId);
+        return checkAndHandleAlert(currentTemp, altId, altMinTemp, altMaxTemp);
     }
 
-    private Integer handleNewAlert(Double currentTemp, Double minTemp, Double maxTemp, Integer cntId, Integer lotId) {
+    private Integer handleNewAlert(Double currentTemp, Double minTemp, Double maxTemp, Integer devId, Integer lotId) {
         if ((maxTemp != null && currentTemp > maxTemp) || (minTemp != null && currentTemp < minTemp)) {
-            createAlert(minTemp, maxTemp, cntId, lotId);
-            return getLastAlertId(cntId, lotId);
+            createAlert(minTemp, maxTemp, devId, lotId);
+            return getLastAlertId(devId, lotId);
         }
         return null;
     }
 
-    private Integer checkAndHandleAlert(Double currentTemp, Double minTemp, Double maxTemp, Integer cntId, Integer lotId) {
+    private Integer checkAndHandleAlert(Double currentTemp, Integer altId, Double minTemp, Double maxTemp) {
         if ((maxTemp != null && currentTemp > maxTemp) || (minTemp != null && currentTemp < minTemp)) {
-            return getLastAlertId(cntId, lotId);
+            return altId;
         }
-        closeLastAlert(cntId, lotId);
+        closeCurrentAlert(altId);
         return null;
     }
 
@@ -280,6 +280,29 @@ public class MeasurementsService implements IMeasurementsService {
         return result;
     }
 
+    private Integer getDeviceAlertId(Integer devId, Integer lotId) {
+        Map<String, Object> filter = Map.of(
+                AlertsDao.DEV_ID, devId,
+                AlertsDao.LOT_ID, lotId
+        );
+
+        List<String> columns = List.of(
+                AlertsDao.ALT_ID,
+                AlertsDao.ALT_DATE_END
+        );
+        List<SQLStatementBuilder.SQLOrder> orderBy = List.of(
+                new SQLStatementBuilder.SQLOrder(AlertsDao.ALT_DATE_INIT, false)
+        );
+
+        EntityResult eR = alertsService.alertsPaginationQuery(filter, columns, 1, 0, orderBy);
+        if (eR.isEmpty() || eR.isWrong() || eR.getRecordValues(0).get(AlertsDao.ALT_DATE_END) == null) {
+            return null;
+        }
+
+        return (Integer) eR.getRecordValues(0).get(AlertsDao.ALT_ID);
+    }
+
+
     private Map<String, Object> getLastRecordedMeasurement(Integer devId) {
         Map<String, Object> filter = Map.of(DevicesDao.DEV_ID, devId);
         List<String> columns = List.of(
@@ -307,10 +330,10 @@ public class MeasurementsService implements IMeasurementsService {
 
     }
 
-    private void createAlert(Double minTemp, Double maxTemp, Integer cntId, Integer lotId) {
+    private void createAlert(Double minTemp, Double maxTemp, Integer devId, Integer lotId) {
         Map<String, Object> valuesToInsert = new HashMap<>();
 
-        valuesToInsert.put(AlertsDao.CNT_ID, cntId);
+        valuesToInsert.put(AlertsDao.DEV_ID, devId);
         valuesToInsert.put(AlertsDao.LOT_ID, lotId);
 
         if (minTemp != null) {
