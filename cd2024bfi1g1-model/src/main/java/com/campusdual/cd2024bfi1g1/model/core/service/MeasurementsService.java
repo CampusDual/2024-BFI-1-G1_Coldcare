@@ -202,14 +202,13 @@ public class MeasurementsService implements IMeasurementsService {
         Double lotMaxTemp = (Double) lotMinMaxTemp.get(LotsDao.MAX_TEMP);
 
         Integer altId = (Integer) measurementInfo.get(MeasurementsDao.ALT_ID);
-
         if (altId != null) {
-            return handleExistingAlert(currentTemp, altId, lotMinTemp, lotMaxTemp, cntId, lotId);
+            return handleExistingAlert(currentTemp, altId, lotMinTemp, lotMaxTemp, cntId, lotId, devId);
         }
-        return handleNewAlert(currentTemp, lotMinTemp, lotMaxTemp, cntId, lotId);
+        return handleNewAlert(currentTemp, lotMinTemp, lotMaxTemp, cntId, lotId, devId);
     }
 
-    private Integer handleExistingAlert(Double currentTemp, Integer altId, Double lotMinTemp, Double lotMaxTemp, Integer cntId, Integer lotId) {
+    private Integer handleExistingAlert(Double currentTemp, Integer altId, Double lotMinTemp, Double lotMaxTemp, Integer cntId, Integer lotId, Integer devId) {
         Map<String, Object> filter = Map.of(AlertsDao.ALT_ID, altId);
         List<String> columns = List.of(
                 AlertsDao.ALT_MIN_TEMP,
@@ -230,25 +229,25 @@ public class MeasurementsService implements IMeasurementsService {
                 altMinTemp != null && !altMinTemp.equals(lotMinTemp) ||
                 altLotId == null || !altLotId.equals(lotId)) {
             closeCurrentAlert(altId);
-            return handleNewAlert(currentTemp, lotMinTemp, lotMaxTemp, cntId, lotId);
+            return handleNewAlert(currentTemp, lotMinTemp, lotMaxTemp, cntId, lotId, devId);
         }
 
-        return checkAndHandleAlert(currentTemp, altMinTemp, altMaxTemp, cntId, lotId);
+        return checkAndHandleAlert(currentTemp, altMinTemp, altMaxTemp, cntId, lotId, devId);
     }
 
-    private Integer handleNewAlert(Double currentTemp, Double minTemp, Double maxTemp, Integer cntId, Integer lotId) {
+    private Integer handleNewAlert(Double currentTemp, Double minTemp, Double maxTemp, Integer cntId, Integer lotId, Integer devId) {
         if ((maxTemp != null && currentTemp > maxTemp) || (minTemp != null && currentTemp < minTemp)) {
             createAlert(minTemp, maxTemp, cntId, lotId);
-            return getLastAlertId(cntId, lotId);
+            return getLastAlertId(cntId, lotId, devId);
         }
         return null;
     }
 
-    private Integer checkAndHandleAlert(Double currentTemp, Double minTemp, Double maxTemp, Integer cntId, Integer lotId) {
+    private Integer checkAndHandleAlert(Double currentTemp, Double minTemp, Double maxTemp, Integer cntId, Integer lotId, Integer devId) {
         if ((maxTemp != null && currentTemp > maxTemp) || (minTemp != null && currentTemp < minTemp)) {
-            return getLastAlertId(cntId, lotId);
+            return getLastAlertId(cntId, lotId, devId);
         }
-        closeLastAlert(cntId, lotId);
+        closeLastAlert(cntId, lotId, devId);
         return null;
     }
 
@@ -323,8 +322,8 @@ public class MeasurementsService implements IMeasurementsService {
         alertsService.alertsInsert(valuesToInsert);
     }
 
-    private void closeLastAlert(Integer cntId, Integer lotId) {
-        Integer lastAlertId = getLastAlertId(cntId, lotId);
+    private void closeLastAlert(Integer cntId, Integer lotId, Integer devId) {
+        Integer lastAlertId = getLastAlertId(cntId, lotId, devId);
         if (lastAlertId == null) {
             return;
         }
@@ -340,10 +339,11 @@ public class MeasurementsService implements IMeasurementsService {
         alertsService.alertsUpdate(valuesToUpdate, filterToUpdate);
     }
 
-    private Integer getLastAlertId(Integer cntId, Integer lotId) {
+    private Integer getLastAlertId(Integer cntId, Integer lotId, Integer devId) {
         Map<String, Object> filter = Map.of(
                 AlertsDao.CNT_ID, cntId,
-                AlertsDao.LOT_ID, lotId
+                AlertsDao.LOT_ID, lotId,
+                AlertsDao.DEV_ID, devId
         );
         List<String> columns = List.of(AlertsDao.ALT_ID);
         List<SQLStatementBuilder.SQLOrder> orderBy = List.of(
