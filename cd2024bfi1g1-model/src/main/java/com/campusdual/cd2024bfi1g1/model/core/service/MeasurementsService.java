@@ -73,9 +73,11 @@ public class MeasurementsService implements IMeasurementsService {
 
             attrMap.put(MeasurementsDao.DEV_ID, rowDevice.get(DevicesDao.DEV_ID));
 
-            Map<String, Object> containerLotFilter = Map.of(DevicesDao.DEV_MAC, attrMap.get(DevicesDao.DEV_MAC));
+            Map<String, Object> containerLotFilter = new HashMap<>();
+
+            containerLotFilter.put(DevicesDao.DEV_MAC, attrMap.get(DevicesDao.DEV_MAC));
             containerLotFilter.put(SQLStatementBuilder.ExtendedSQLConditionValuesProcessor.EXPRESSION_KEY,
-                    Util.getCurrentLot(ContainersLotsDao.CL_START_DATE, ContainersLotsDao.CL_END_DATE));
+                    Util.isDateInCurrentRange(ContainersLotsDao.CL_START_DATE, ContainersLotsDao.CL_END_DATE));
             List<String> containerLotColumns = List.of(MeasurementsDao.CL_ID);
 
             EntityResult containerLotResult = this.daoHelper.query(this.measurementsDao, containerLotFilter, containerLotColumns, "container_lot");
@@ -83,7 +85,7 @@ public class MeasurementsService implements IMeasurementsService {
                 Map<String, Object> containerLotRow = containerLotResult.getRecordValues(0);
                 attrMap.put(MeasurementsDao.CL_ID, containerLotRow.get(MeasurementsDao.CL_ID));
             } else {
-                return new EntityResultMapImpl(EntityResult.OPERATION_WRONG, EntityResult.NODATA_RESULT, "Error querying container_lot");
+                attrMap.put(MeasurementsDao.CL_ID, null);
             }
 
             EntityResult lastTimeResult = devicesService.lastTimeWithoutCMP(

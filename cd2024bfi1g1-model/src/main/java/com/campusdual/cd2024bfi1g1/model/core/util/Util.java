@@ -32,12 +32,20 @@ public class Util {
     }
 
     /**
+     * Creates a {@code BasicExpression} to check if a date range stored in the database
+     * falls within today.
      *
-     * @param startDayKey
-     * @param endDateKey
-     * @return
+     * <p>The date is considered valid if:
+     * <ul>
+     *   <li>The start date is less than or equal to today.</li>
+     *   <li>The end date is either null or greater than or equal to today.</li>
+     * </ul>
+     *
+     * @param startDayKey The key representing the start date field in the database.
+     * @param endDateKey  The key representing the end date field in the database.
+     * @return A {@code BasicExpression} evaluating whether today's date is within the stored date range.
      */
-    public static BasicExpression getCurrentLot(String startDayKey, String endDateKey) {
+    public static BasicExpression isDateInCurrentRange (String startDayKey, String endDateKey) {
         BasicField fieldStart = new BasicField(startDayKey);
         BasicField fieldEnd = new BasicField(endDateKey);
         Date currentDate = new Date();
@@ -60,23 +68,23 @@ public class Util {
     }
 
     /**
-     * Crea una expresión de búsqueda basada en un rango de fechas y un identificador opcional.
-     * Permite filtrar registros según una fecha de inicio y una fecha de fin, con la opción
-     * de excluir un registro específico en caso de realizar una actualización.
+     * Creates a search expression based on a date range and an optional identifier.
+     * It allows filtering records according to a start date and an end date, with the option
+     * to exclude a specific record when performing an update.
      *
-     * La fecha de inicio **no debe ser nula ni vacía** en ningún caso.
-     * Si otros campos no deben ser considerados en la búsqueda, se pueden pasar como `null` o vacíos.
-     * La expresión permite que la fecha de inicio coincida con la fecha de fin de algún registro
-     * almacenado en la base de datos.
+     * The start date **must not be null or empty** under any circumstances.
+     * If other fields should not be considered in the search, they can be passed as `null` or empty.
+     * The expression allows the start date to match the end date of a record
+     * stored in the database.
      *
-     * @param startDayKey   Clave del campo que representa la fecha de inicio (obligatorio).
-     * @param startDayValue Valor de la fecha de inicio (obligatorio, no nulo ni vacío).
-     * @param endDateKey    Clave del campo que representa la fecha de fin (opcional).
-     * @param endDateValue  Valor de la fecha de fin (opcional).
-     * @param selfIdKey     Clave del identificador del registro a excluir (opcional).
-     * @param selfIdValue   Valor del identificador del registro a excluir (opcional).
-     * @return Una BasicExpression de búsqueda con las condiciones especificadas y null en caso de que la
-     * fecha de inicio y fin estén vacías.
+     * @param startDayKey   Key representing the start date field (mandatory).
+     * @param startDayValue Value of the start date (mandatory, not null or empty).
+     * @param endDateKey    Key representing the end date field (optional).
+     * @param endDateValue  Value of the end date (optional).
+     * @param selfIdKey     Key of the identifier of the record to exclude (optional).
+     * @param selfIdValue   Value of the identifier of the record to exclude (optional).
+     * @return A BasicExpression for search with the specified conditions, or null if both
+     *         the start and end dates are empty.
      */
     public static BasicExpression searchBetweenWithDates(String startDayKey, Date startDayValue, String endDateKey, Date endDateValue, String selfIdKey, Integer selfIdValue) {
 
@@ -135,18 +143,18 @@ public class Util {
     }
 
     /**
-     * Validates the relationship between a start date and an end date.
+     * Checks the validity of the relationship between a start date and an end date.
      *
-     * The validation considers the following rules:
-     * - If either of the dates is null, it is considered valid.
-     * - If the dates are equal, it is considered valid.
+     * The validation follows these rules:
+     * - If either date is null, it is considered valid.
+     * - If both dates are equal, it is considered valid.
      * - If the end date is after the start date, it is considered valid.
      * - If the end date is before the start date, it is considered invalid.
      *
-     * @param startDate Start date (may be null).
-     * @param endDate End date (may be null).
-     * @return true if the relationship between the dates is valid,
-     * false if the end date is before the start date.
+     * @param startDate The start date (can be null).
+     * @param endDate   The end date (can be null).
+     * @return {@code true} if the date relationship is valid,
+     *         {@code false} if the end date is before the start date.
      */
     public static boolean validateStartAndEndDates(Date startDate, Date endDate) {
 
@@ -154,9 +162,10 @@ public class Util {
     }
 
     /**
-     * Recive un codigo de mensaje de error que debe de estar guardado previamente en el .json del proyecto
-     * @param msgError Mensaje de error guardado en el .json del proyecto
-     * @return devuelve un EntityResult con el mensaje de error.
+     * Receives an error message code that must be previously stored in the project's .json file.
+     *
+     * @param msgError Error message stored in the project's .json file.
+     * @return An {@code EntityResult} containing the error message.
      */
     public static EntityResult controlErrors(String msgError) {
         EntityResult res = new EntityResultMapImpl();
