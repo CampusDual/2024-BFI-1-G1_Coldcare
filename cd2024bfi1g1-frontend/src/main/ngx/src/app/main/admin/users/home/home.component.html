@@ -2,9 +2,12 @@
   <o-column title="FILTER_USERS">
     <div class="inline-fields">
       <div fxLayout="row" fxLayoutGap="15px" layout-padding>
-        <o-text-input attr="name" label="USR_NAME"></o-text-input>
-        <o-text-input attr="login" label="USR_LOGIN"></o-text-input>
-        <o-text-input attr="company" label="CMP_NAME"></o-text-input>
+        <o-text-input attr="name" label="USR_NAME" automatic-binding="false"
+          automatic-registering="false"></o-text-input>
+        <o-text-input attr="login" label="USR_LOGIN" automatic-binding="false"
+          automatic-registering="false"></o-text-input>
+        <o-text-input attr="company" label="CMP_NAME" automatic-binding="false"
+          automatic-registering="false"></o-text-input>
       </div>
       <div fxLayoutAlign="end center" fxLayoutGap="8px">
         <o-button attr="filter" [oFilterBuilderQuery]="filterBuilder" type="FLAT" color="primary" label="FILTER">
