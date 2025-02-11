@@ -34,5 +34,8 @@ export const SERVICE_CONFIG: Object = {
   },
   'plan': {
     'path': '/plan'
+  },
+  'pricing': {
+    'path': '/pricing'
   }
 }

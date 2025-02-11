@@ -10,36 +10,13 @@
     <GeneratedKey>pln_id</GeneratedKey>
     <Queries>
         <Query id="default">
-            <AmbiguousColumns>
-                <AmbiguousColumn name="PLN_ID" prefix="p"/>
-            </AmbiguousColumns>
             <Sentence>
                 <![CDATA[
                     SELECT
                         #COLUMNS#
                     FROM
                         ${mainschema}.plans p
-                    LEFT JOIN ${mainschema}.pricing r
-                    	ON p.PLN_ID = r.PLN_ID
                     #WHERE#
-                    #ORDER#
-                ]]>
-            </Sentence>
-        </Query>
-        <Query id="modify">
-            <AmbiguousColumns>
-                <AmbiguousColumn name="PLN_ID" prefix="p"/>
-            </AmbiguousColumns>
-            <Sentence>
-                <![CDATA[
-                    SELECT
-                        #COLUMNS#
-                    FROM
-                        ${mainschema}.plans p
-                    LEFT JOIN ${mainschema}.pricing r
-                    	ON p.PLN_ID = r.PLN_ID
-                    #WHERE#
-                    r.PRC_END = NULL
                     #ORDER#
                 ]]>
             </Sentence>

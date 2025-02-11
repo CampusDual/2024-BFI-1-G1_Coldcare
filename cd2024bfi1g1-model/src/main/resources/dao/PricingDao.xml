@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <JdbcEntitySetup xmlns="http://www.ontimize.com/schema/jdbc"
-                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                 xsi:schemaLocation="http://www.ontimize.com/schema/jdbc http://www.ontimize.com/schema/jdbc/ontimize-jdbc-dao.xsd"
-                 catalog="" schema="${mainschema}" table="pricing" datasource="mainDataSource"
-                 sqlhandler="dbSQLStatementHandler">
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.ontimize.com/schema/jdbc http://www.ontimize.com/schema/jdbc/ontimize-jdbc-dao.xsd" catalog="" schema="${mainschema}" table="pricing" datasource="mainDataSource" sqlhandler="dbSQLStatementHandler">
     <DeleteKeys>
         <Column>PRC_ID</Column>
     </DeleteKeys>
@@ -13,12 +10,17 @@
     <GeneratedKey>prc_id</GeneratedKey>
     <Queries>
         <Query id="default">
+            <AmbiguousColumns>
+                <AmbiguousColumn name="PLN_ID" prefix="r"/>
+            </AmbiguousColumns>
             <Sentence>
                 <![CDATA[
                     SELECT
                         #COLUMNS#
                     FROM
-                        ${mainschema}.pricing
+                        ${mainschema}.pricing r
+                    LEFT JOIN plans p
+                        ON r.PLN_ID = p.PLN_ID
                     #WHERE#
                     #ORDER#
                 ]]>

@@ -4,6 +4,8 @@ import com.campusdual.cd2024bfi1g1.api.core.service.IPlanService;
 import com.campusdual.cd2024bfi1g1.model.core.dao.PlanDao;
 import com.campusdual.cd2024bfi1g1.model.core.dao.PricingDao;
 import com.campusdual.cd2024bfi1g1.model.core.dao.UserDao;
+import com.campusdual.cd2024bfi1g1.model.core.util.Util;
+import com.ontimize.jee.common.db.SQLStatementBuilder;
 import com.ontimize.jee.common.dto.EntityResult;
 import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
 import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
@@ -28,7 +30,7 @@ public class PlanService implements IPlanService {
 
     @Override
     public EntityResult planQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
-        return this.daoHelper.query(this.planDao, keyMap, attrList);
+            return this.daoHelper.query(this.planDao, keyMap, attrList);
     }
 
     @Override
@@ -49,15 +51,7 @@ public class PlanService implements IPlanService {
 
     @Override
     public EntityResult planUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap) throws OntimizeJEERuntimeException {
-        EntityResult toRet = this.daoHelper.update(this.planDao, attrMap, keyMap);
-        Map<String, Object> prices = attrMap;
-        prices.remove(PlanDao.PLN_NAME);
-        EntityResult noNameRet = pricingService.pricingUpdate(prices, keyMap);
-        if(attrMap.containsKey(PlanDao.PLN_NAME)){
-            return toRet;
-        }else{
-            return noNameRet;
-        }
+      return this.daoHelper.update(this.planDao, attrMap, keyMap);
     }
 
     @Override
