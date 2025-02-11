@@ -237,7 +237,7 @@ public class MeasurementsService implements IMeasurementsService {
 
     private Integer handleNewAlert(Double currentTemp, Double minTemp, Double maxTemp, Integer cntId, Integer lotId, Integer devId) {
         if ((maxTemp != null && currentTemp > maxTemp) || (minTemp != null && currentTemp < minTemp)) {
-            createAlert(minTemp, maxTemp, cntId, lotId);
+            createAlert(minTemp, maxTemp, cntId, lotId, devId);
             return getLastAlertId(cntId, lotId, devId);
         }
         return null;
@@ -306,11 +306,12 @@ public class MeasurementsService implements IMeasurementsService {
 
     }
 
-    private void createAlert(Double minTemp, Double maxTemp, Integer cntId, Integer lotId) {
+    private void createAlert(Double minTemp, Double maxTemp, Integer cntId, Integer lotId, Integer devId) {
         Map<String, Object> valuesToInsert = new HashMap<>();
 
         valuesToInsert.put(AlertsDao.CNT_ID, cntId);
         valuesToInsert.put(AlertsDao.LOT_ID, lotId);
+        valuesToInsert.put(AlertsDao.DEV_ID, devId);
 
         if (minTemp != null) {
             valuesToInsert.put(AlertsDao.ALT_MIN_TEMP, minTemp);
