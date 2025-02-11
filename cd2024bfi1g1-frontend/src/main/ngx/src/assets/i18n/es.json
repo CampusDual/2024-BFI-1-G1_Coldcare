@@ -165,9 +165,10 @@
   "MEASUREMENTS_INSERT_ERROR": "Obligatorio insertar temperatura mínima o máxima",
   "MEASUREMENTS_INVALID_ERROR": "La temperatura mínima no puede ser mayor que la máxima",
   "MEASUREMENTS_DATA_ERROR": "Obligatorio campos numéricos en temperatura",
-  "PRO_DATA": "Datos del producto",
+  "PRO_NEW": "Nuevo producto",
   "PRODUCTS": "Productos",
   "PRO_NAME": "Nombre del producto",
   "PRO_MAX_TEMP": "Máxima temperatura (ºC)",
-  "PRO_MIN_TEMP": "Mínima temperatura (ºC)"
+  "PRO_MIN_TEMP": "Mínima temperatura (ºC)",
+  "PRO_DETAIL": "Detalle del producto"
 }

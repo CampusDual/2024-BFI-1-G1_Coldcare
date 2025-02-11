@@ -6,6 +6,7 @@ import { ProductsRoutingModule } from './products-routing.module';
 import { ProductsNewComponent } from './products-new/products-new.component';
 import { ProductsHomeComponent } from './products-home/products-home.component';
 import { SharedModule } from '../../shared/shared.module';
+import { ProductsDetailComponent } from './products-detail/products-detail.component';
 
 
 
@@ -13,6 +14,7 @@ import { SharedModule } from '../../shared/shared.module';
   declarations: [
     ProductsNewComponent,
     ProductsHomeComponent,
+    ProductsDetailComponent,
   ],
   imports: [CommonModule,
     OntimizeWebModule,
