@@ -6,21 +6,23 @@
       <div fxLayout="row" fxLayoutAlign="start center" class="gap">
         <o-text-input attr="CNT_NAME" class="margin-right-24" fxFlex.lg="30" fxFlex.xl="30" fxFlex="50"
           layout-margin-right></o-text-input>
-        <o-combo attr="LOT_ID" label="CURRENT_LOT" service="lots" entity="lots" value-column="LOT_ID"
-          columns="LOT_ID;LOT_NAME" visible-columns="LOT_NAME" null-selection="no" searchable="yes"
-          layout-margin-right></o-combo>
         <o-slide-toggle attr="CNT_MOBILITY" label="CURRENT_MOBILITY" read-only="no"></o-slide-toggle>
 
       </div>
     </o-column>
   </o-row>
+
   <o-row>
     <o-column class="extend">
-      <o-table attr="lotHistory" title="LOT_HISTORY" show-title="yes" service="lots" entity="historicLotContainer"
-        keys="LOT_ID" parent-keys="CNT_ID" columns="LOT_ID;LOT_NAME" visible-columns="LOT_NAME" delete-button="no"
-        insert-button="no" refresh-button="false">
+      <o-table attr="lotHistory" title="LOT_HISTORY" show-title="yes" service="containersLots" entity="containersLots"
+        keys="CL_ID" parent-keys="CNT_ID" columns="CL_ID;LOT_NAME;CL_START_DATE;CL_END_DATE"
+        visible-columns="LOT_NAME;CL_START_DATE;CL_END_DATE" delete-button="no" refresh-button="false">
+        <o-table-column attr="ACTIVE" title="ACTIVE" title-align="center"
+          content-align="center"><app-containers-lots-boolean-renderer /></o-table-column>
+        <o-table-column attr="LOT_NAME" title="LOT_NAME"></o-table-column>
+        <o-table-column attr="CL_START_DATE" title="CL_START_DATE" type="date" format="DD/MM/YYYY"></o-table-column>
+        <o-table-column attr="CL_END_DATE" title="CL_END_DATE" type="date" format="DD/MM/YYYY"></o-table-column>
       </o-table>
-
     </o-column>
 
     <o-column class="extend">
@@ -32,5 +34,4 @@
       </o-table>
     </o-column>
   </o-row>
-
 </o-form>

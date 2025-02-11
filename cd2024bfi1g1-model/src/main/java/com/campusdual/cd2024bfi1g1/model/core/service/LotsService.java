@@ -1,6 +1,5 @@
 package com.campusdual.cd2024bfi1g1.model.core.service;
 
-
 import com.campusdual.cd2024bfi1g1.api.core.service.ILotsService;
 import com.campusdual.cd2024bfi1g1.model.core.dao.LotsDao;
 import com.campusdual.cd2024bfi1g1.model.core.dao.DevicesDao;
@@ -13,7 +12,6 @@ import com.ontimize.jee.common.services.user.UserInformation;
 import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -139,8 +137,6 @@ public class LotsService implements ILotsService {
         return this.daoHelper.update(this.lotsDao, attrMap, keyMap);
     }
 
-
-
     @Override
     public EntityResult lotsDelete(Map<String, Object> keyMap) throws OntimizeJEERuntimeException {
         return this.daoHelper.delete(this.lotsDao, keyMap);
@@ -155,11 +151,6 @@ public class LotsService implements ILotsService {
     @Override
     public EntityResult historicLotContainerQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
         return this.daoHelper.query(this.lotsDao, keyMap, attrList, "historic_lot_container");
-    }
-
-    @Override
-    public EntityResult measurementLotContainerQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
-        return this.daoHelper.query(this.lotsDao, keyMap, attrList, "historic_lot_measurements");
     }
 
     private EntityResult validarCamposTemp(Map<String, Object> attrMap) throws OntimizeJEERuntimeException {
@@ -246,8 +237,4 @@ public class LotsService implements ILotsService {
 
         return Double.NaN;
     }
-
-
-
-
 }
