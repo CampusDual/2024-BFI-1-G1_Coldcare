@@ -47,17 +47,20 @@ public class LotsService implements ILotsService {
         return userId;
     }
 
+    public EntityResult queryLots(Map<String, Object> keyMap, List<String> attrList)
+            throws OntimizeJEERuntimeException {
+
+            return this.daoHelper.query(this.lotsDao, keyMap, attrList);
+    }
+
     @Override
     public EntityResult lotsQuery(Map<String, Object> keyMap, List<String> attrList)
             throws OntimizeJEERuntimeException {
 
         Integer cmpId = UserAndRoleService.getUserCompanyId(this.daoHelper, this.userDao);
-        if (cmpId == null) {
-            return this.daoHelper.query(this.lotsDao, keyMap, attrList);
-        }
         keyMap.put(DevicesDao.CMP_ID, cmpId);
 
-        return this.daoHelper.query(this.lotsDao, keyMap, attrList);
+        return this.queryLots(keyMap,attrList);
     }
 
     @Override

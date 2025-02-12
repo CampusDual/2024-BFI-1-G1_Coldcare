@@ -251,7 +251,7 @@ public class MeasurementsService implements IMeasurementsService {
                 LotsDao.MIN_TEMP,
                 LotsDao.MAX_TEMP);
 
-        EntityResult eR = this.lotsService.lotsQuery(filter, columns);
+        EntityResult eR = this.lotsService.queryLots(filter, columns);
         if (eR.isEmpty() || eR.isWrong()) {
             return null;
         }
