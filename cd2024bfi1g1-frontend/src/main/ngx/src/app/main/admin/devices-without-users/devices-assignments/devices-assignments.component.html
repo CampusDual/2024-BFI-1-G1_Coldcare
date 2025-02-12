@@ -1,8 +1,10 @@
 <o-form attr="devicesTable" parent-keys="DEV_ID" keys="DEV_ID" keys-sql-types="INTEGER" service="devices"
     entity="devices" header-actions="R;U">
     <div class="inline-fields">
-        <o-text-input attr="DEV_MAC" read-only="true"></o-text-input>
-        <o-combo attr="CMP_ID" service="companies" entity="companies" value-column="CMP_ID" columns="CMP_ID;CMP_NAME"
-            visible-columns="CMP_NAME" null-selection="yes" searchable="no"></o-combo>
+        <o-column title="ASSIGN_CMP" appearance="no" layout-gap="15px" fxFlex="1 1 100%" layout-align="start stretch">
+            <o-text-input attr="DEV_MAC" read-only="true"></o-text-input>
+            <o-combo attr="CMP_ID" service="companies" entity="companies" value-column="CMP_ID"
+                columns="CMP_ID;CMP_NAME" visible-columns="CMP_NAME" null-selection="yes" searchable="no"></o-combo>
+        </o-column>
     </div>
 </o-form>
