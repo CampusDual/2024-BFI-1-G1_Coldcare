@@ -4,8 +4,8 @@
         <label layout-padding>{{"FILTER_ALERTS" | oTranslate}}</label>
         <div class="inline-fields">
             <div fxLayout="row" fxLayoutGap="15px" layout-padding>
-                <o-text-input attr="lote" label="LOT_NAME"></o-text-input>
                 <o-text-input attr="contenedor" label="CNT_NAME"></o-text-input>
+                <o-text-input attr="lote" label="LOT_NAME"></o-text-input>
             </div>
             <div fxLayoutAlign="end center" fxLayoutGap="8px">
                 <o-button attr="filter" [oFilterBuilderQuery]="filterBuilder" type="FLAT" color="primary"
@@ -21,7 +21,7 @@
 
         <o-table #alertsTable attr="alertsTable" service="alerts" entity="alertsWithCalculatedColumns" keys="ALT_ID"
             columns="ALT_ID;ALT_DATE_INIT;ALT_DATE_END;CNT_NAME;LOT_NAME;AVG_TEMP;AVG_HUMIDITY;MAX_TEMP_DEV;MAX_HUMIDITY_DEV;MIN_TEMP_DEV;MIN_HUMIDITY_DEV;ALT_MIN_TEMP;ALT_MAX_TEMP"
-            visible-columns="ALT_DATE_INIT;CNT_NAME;LOT_NAME;ALT_DURATION;ALT_MIN_TEMP;ALT_MAX_TEMP;AVG_TEMP;MAX_TEMP_DEV;MIN_TEMP_DEV;AVG_HUMIDITY;MAX_HUMIDITY_DEV;MIN_HUMIDITY_DEV"
+            visible-columns="ALT_DATE_INIT;CNT_NAME;LOT_NAME;ALT_DURATION;ALT_MIN_TEMP;ALT_MAX_TEMP;MIN_TEMP_DEV;MAX_TEMP_DEV;AVG_HUMIDITY"
             select-all-checkbox-visible="no" insert-button="no" delete-button="no" refresh-button="yes"
             quick-filter="no" detail-mode="none" title="ALERTS" show-title="yes" sort-columns="ALT_DATE_INIT:DESC"
             virtual-scroll="false" horizontal-scroll="true">
@@ -37,12 +37,9 @@
             <o-table-column attr="ALT_MAX_TEMP" title="ALT_MAX_TEMP" content-align="center">
                 <o-table-cell-renderer-real max-decimal-digits="2"></o-table-cell-renderer-real>
             </o-table-column>
-            <o-table-column attr="AVG_TEMP" title="AVG_TEMP" content-align="center"></o-table-column>
             <o-table-column attr="MAX_TEMP_DEV" title="MAX_TEMP" content-align="center"></o-table-column>
             <o-table-column attr="MIN_TEMP_DEV" title="MIN_TEMP" content-align="center"></o-table-column>
             <o-table-column attr="AVG_HUMIDITY" title="AVG_HUMIDITY" content-align="center"></o-table-column>
-            <o-table-column attr="MAX_HUMIDITY_DEV" title="MAX_HUMIDITY" content-align="center"></o-table-column>
-            <o-table-column attr="MIN_HUMIDITY_DEV" title="MIN_HUMIDITY" content-align="center"></o-table-column>
         </o-table>
     </o-column>
 
