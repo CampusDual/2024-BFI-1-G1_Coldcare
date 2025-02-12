@@ -25,14 +25,14 @@ export class MedidasAdminComponent {
             if (fil.value.startDate) {
               filters.push(
                 FilterExpressionUtils.buildExpressionMoreEqual(
-                  "ME_DATE", fil.value.startDate._d.getTime()
+                  "ME_DATE", fil.value.startDate
                 )
               );
             }
             if (fil.value.endDate) {
               filters.push(
                 FilterExpressionUtils.buildExpressionLessEqual(
-                  "ME_DATE", fil.value.endDate._d.getTime()
+                  "ME_DATE", fil.value.endDate
                 )
               );
             }
