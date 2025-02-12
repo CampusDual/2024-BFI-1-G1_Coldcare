@@ -1,7 +1,7 @@
 <o-form attr="lotsDetail" parent-keys="LOT_ID" keys="LOT_ID" keys-sql-types="INTEGER" service="lots" entity="lots"
   header-actions="R;U">
   <o-row attr="row1" layout-align="start stretch">
-    <o-column title="LOT_DETAIL" layout-align="start stretch" fxFlex="70" layout-padding>
+    <o-column title="LOT_DETAIL" layout-align="start stretch" layout-padding>
       <div class="inline-fields">
         <o-text-input #lotName attr="LOT_NAME" required="yes"></o-text-input>
         <o-combo #productCombo attr="PRO_ID" label="Producto" service="products" entity="products" value-column="PRO_ID"
