@@ -1,8 +1,8 @@
 <ng-template #templateref let-cellvalue="cellvalue" let-rowvalue="rowvalue">
-    <span *ngIf="calculateElapsedGreaterThan15Min(cellvalue)" class="red">
+    <span *ngIf="!isDeviceStateFalse(rowvalue) && calculateElapsedGreaterThan15Min(cellvalue)" class="red">
         {{ getCellData(cellvalue)|date: 'dd/MM/yyy HH:mm' }}
     </span>
-    <span *ngIf="!calculateElapsedGreaterThan15Min(cellvalue)">
+    <span *ngIf="isDeviceStateFalse(rowvalue) || !calculateElapsedGreaterThan15Min(cellvalue)">
         {{ getCellData(cellvalue)|date: 'dd/MM/yyy HH:mm' }}
     </span>
 </ng-template>

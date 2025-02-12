@@ -25,6 +25,7 @@
                         containers_lots cl
                     JOIN LOTS l ON cl.lot_id = l.lot_id
                     JOIN CONTAINERS c ON c.CNT_ID = cl.CNT_ID
+                    JOIN PRODUCTS p ON l.pro_id = p.pro_id
                     #WHERE#
                     #ORDER#
                 ]]>

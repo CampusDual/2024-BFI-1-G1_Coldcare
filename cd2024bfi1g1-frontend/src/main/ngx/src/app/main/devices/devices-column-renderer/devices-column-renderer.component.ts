@@ -18,6 +18,10 @@ export class DevicesColumnRendererComponent extends OBaseTableCellRenderer imple
     return dif > this.TIME;
   }
 
+  isDeviceStateFalse(rowValue: any): boolean {
+    return rowValue.DEV_STATE === false;
+  }
+
   getCellData(value: any) {
     return value;
   }

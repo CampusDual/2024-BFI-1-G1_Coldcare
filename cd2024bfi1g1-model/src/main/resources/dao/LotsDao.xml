@@ -76,5 +76,22 @@
                 ]]>
             </Sentence>
         </Query>
+
+        <Query id="lotsProducts">
+            <Sentence>
+                <![CDATA[
+                    WITH t AS (
+                        SELECT p.PRO_ID, p.PRO_NAME, l.MIN_TEMP, l.MAX_TEMP, l.LOT_ID, l.LOT_NAME, l.CMP_ID
+                        FROM
+                        lots l JOIN products p ON p.pro_id = l.pro_id
+                        )
+                    SELECT #COLUMNS#
+                    FROM t
+                    #WHERE#
+                    #ORDER#
+                ]]>
+            </Sentence>
+        </Query>
+
     </Queries>
 </JdbcEntitySetup>

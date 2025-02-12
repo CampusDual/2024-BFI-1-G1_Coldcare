@@ -35,6 +35,9 @@ export const SERVICE_CONFIG: Object = {
   'vehicles': {
     'path': '/vehicles'
   },
+  'products': {
+    'path': '/products'
+    },
   'transports': {
     'path': '/transports'
   }

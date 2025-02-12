@@ -1,11 +1,16 @@
-<o-form attr="lotsTemp" parent-keys="LOT_ID" keys="LOT_ID" keys-sql-types="INTEGER" service="lots" entity="lots"
+<o-form attr="lotsDetail" parent-keys="LOT_ID" keys="LOT_ID" keys-sql-types="INTEGER" service="lots" entity="lots"
   header-actions="R;U">
   <o-row attr="row1" layout-align="start stretch">
-    <o-column title="TEMP_LOT" layout-align="start stretch" fxFlex="60" layout-padding>
+    <o-column title="LOT_DETAIL" layout-align="start stretch" layout-padding>
       <div class="inline-fields">
-        <o-text-input attr="LOT_NAME" required="yes"></o-text-input>
-        <o-real-input attr="MIN_TEMP" clear-button="yes"></o-real-input>
-        <o-real-input attr="MAX_TEMP" clear-button="yes"></o-real-input>
+        <o-text-input #lotName attr="LOT_NAME" required="yes"></o-text-input>
+        <o-combo #productCombo attr="PRO_ID" label="Producto" service="products" entity="products" value-column="PRO_ID"
+          columns="PRO_ID;PRO_NAME;PRO_MIN_TEMP;PRO_MAX_TEMP" visible-columns="PRO_NAME" null-selection="no"
+          searchable="no" required="true"></o-combo>
+        <o-real-input #minTempInput attr="MIN_TEMP" clear-button="yes"></o-real-input>
+        <o-real-input #maxTempInput attr="MAX_TEMP" clear-button="yes"></o-real-input>
+        <o-button attr="LOT_IMPORT" type="RAISED" label="LOT_IMPORT" layout-padding color="primary"
+          (onClick)="importTemperature()"></o-button>
       </div>
     </o-column>
   </o-row>

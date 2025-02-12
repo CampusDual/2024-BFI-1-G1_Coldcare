@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { OComboComponent, ORealInputComponent } from 'ontimize-web-ngx';
 
 @Component({
   selector: 'app-lots-details',
@@ -7,4 +8,17 @@ import { Component } from '@angular/core';
 })
 export class LotsDetailsComponent {
 
+  @ViewChild('productCombo', {static: false} ) productCombo!: OComboComponent;
+  @ViewChild('minTempInput', { static: false }) minTempInput!: ORealInputComponent;
+  @ViewChild('maxTempInput', { static: false }) maxTempInput!: ORealInputComponent;
+
+  importTemperature() {
+    const data = this.productCombo.getDataArray();
+    for (let row of data) {
+       if (this.productCombo.getValue() === row.PRO_ID) {
+        this.minTempInput.setValue(row.PRO_MIN_TEMP);
+        this.maxTempInput.setValue(row.PRO_MAX_TEMP);
+       }
+    }
+  }
 }

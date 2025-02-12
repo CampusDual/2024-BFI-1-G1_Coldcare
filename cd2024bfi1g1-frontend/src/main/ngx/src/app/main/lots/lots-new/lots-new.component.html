@@ -1,12 +1,14 @@
-<o-form attr="lots_form_insert" service="lots" entity="lots" fxLayout="column" keys="LOT_ID" show-header="true"
-  after-insert-mode="close" confirm-exit="false">
+<o-form attr="lotsNew" service="lots" entity="lots" keys="LOT_ID" show-header="true" after-insert-mode="close"
+  confirm-exit="false">
   <o-row attr="row1" layout-align="start stretch">
-    <o-column title="LOT_DATA" layout-align="start stretch" fxFlex="60" layout-padding>
-      <div fxLayout="row" fxLayoutAlign="start center" class="gap">
-        <o-text-input attr="LOT_NAME" class="margin-right-24" fxFlex.lg="30" fxFlex.xl="30" fxFlex="50"
-          required="yes"></o-text-input>
-        <o-real-input attr="MIN_TEMP" clear-button="yes"></o-real-input>
-        <o-real-input attr="MAX_TEMP" clear-button="yes"></o-real-input>
+    <o-column title="LOT_NEW" layout-align="start stretch" fxFlex="60" layout-padding>
+      <div class="inline-fields">
+        <o-text-input #lotName attr="LOT_NAME" required="yes"></o-text-input>
+        <o-combo #productCombo attr="PRO_ID" label="Producto" service="products" entity="products" value-column="PRO_ID"
+          columns="PRO_ID;PRO_NAME;PRO_MIN_TEMP;PRO_MAX_TEMP" visible-columns="PRO_NAME" null-selection="no"
+          searchable="no" required="true" (onValueChange)="onNewProductChange($event)"></o-combo>
+        <o-real-input #minTempInput attr="MIN_TEMP" label="Temp. Mínima" clear-button="yes"></o-real-input>
+        <o-real-input #maxTempInput attr="MAX_TEMP" label="Temp. Máxima" clear-button="yes"></o-real-input>
       </div>
     </o-column>
   </o-row>
