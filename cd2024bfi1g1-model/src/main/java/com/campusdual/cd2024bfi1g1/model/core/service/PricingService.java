@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,7 +51,30 @@ public class PricingService implements IPricingService {
     @Override
     public EntityResult pricingUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap) throws OntimizeJEERuntimeException {
         if(!attrMap.containsKey(PlanDao.PLN_NAME)){
-           return this.daoHelper.update(this.pricingDao, attrMap, keyMap);
+            Map<String, Object> ending = new HashMap<>();
+            ending.put(PricingDao.PRC_END, LocalDateTime.now());
+            this.daoHelper.update(this.pricingDao, ending, keyMap);
+
+            List<String> columns = List.of(
+                    PricingDao.PRC_FPRC, PricingDao.PRC_DPRC, PricingDao.PRC_BPRC, PricingDao.PRC_BREQ, PricingDao.PRC_START
+            );
+            EntityResult result = this.daoHelper.query(this.pricingDao, keyMap, columns);
+
+            if (result.calculateRecordNumber() == 0) {
+                throw new OntimizeJEERuntimeException("No se encontró el pricing para actualizar.");
+            }
+            Map<String, Object> previousPricing = result.getRecordValues(0);
+            Map<String, Object> newPricing = new HashMap<>(previousPricing);
+            newPricing.putAll(attrMap); // Reemplaza solo los valores modificados
+            newPricing.put(PricingDao.PRC_START, LocalDateTime.now()); // Nueva fecha de inicio
+
+            // Insertar el nuevo pricing
+            return this.pricingInsert(newPricing);
+            /*Solo registra la fecha final a la fecha de hoy, al llamar al metodo insert, no obtiene el PLN_ID y no
+            genera el nuevo pricing*/
+           //return this.daoHelper.update(this.pricingDao, attrMap, keyMap);
+
+
         }else if(attrMap.size()==1){
             return planService.planUpdate(attrMap, keyMap);
         }else{
@@ -61,6 +85,7 @@ public class PricingService implements IPricingService {
             prices.remove(PlanDao.PLN_NAME);
             return this.daoHelper.update(this.pricingDao, prices, keyMap);
         }
+
     }
 
     @Override
