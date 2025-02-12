@@ -10,7 +10,6 @@ import java.util.Map;
 public interface IMeasurementsService {
 
     EntityResult measurementsQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
-    EntityResult ContainerLotQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
     EntityResult measurementsInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException;
     EntityResult measurementsUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap) throws OntimizeJEERuntimeException;
     AdvancedEntityResult measurementsPaginationQuery(Map<?, ?> keysValues, List<?> attributes, int pagesize, int offset, List<?> orderBy) throws OntimizeJEERuntimeException;

@@ -52,6 +52,9 @@ public class LotsService implements ILotsService {
             throws OntimizeJEERuntimeException {
 
         Integer cmpId = UserAndRoleService.getUserCompanyId(this.daoHelper, this.userDao);
+        if (cmpId == null) {
+            return this.daoHelper.query(this.lotsDao, keyMap, attrList);
+        }
         keyMap.put(DevicesDao.CMP_ID, cmpId);
 
         return this.daoHelper.query(this.lotsDao, keyMap, attrList);

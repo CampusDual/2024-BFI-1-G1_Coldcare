@@ -3,7 +3,6 @@ package com.campusdual.cd2024bfi1g1.model.core.service;
 import com.campusdual.cd2024bfi1g1.api.core.service.IMeasurementsService;
 import com.campusdual.cd2024bfi1g1.model.core.dao.*;
 
-import com.campusdual.cd2024bfi1g1.model.core.util.Util;
 import com.ontimize.jee.common.db.AdvancedEntityResult;
 import com.ontimize.jee.common.db.SQLStatementBuilder;
 import com.ontimize.jee.common.dto.EntityResult;
@@ -26,13 +25,16 @@ public class MeasurementsService implements IMeasurementsService {
     @Autowired
     private MeasurementsDao measurementsDao;
     @Autowired
-    private LotsDao lotsDao;
-    @Autowired
     private DefaultOntimizeDaoHelper daoHelper;
     @Autowired
     private DevicesService devicesService;
     @Autowired
     private AlertsService alertsService;
+    @Autowired
+    private LotsService lotsService;
+    @Autowired
+    private ContainersLotsService containersLotsService;
+
 
     @Override
     public EntityResult measurementsQuery(Map<String, Object> keyMap, List<String> attrList)
@@ -62,15 +64,6 @@ public class MeasurementsService implements IMeasurementsService {
                     "Error querying device info");
         }
 
-        Integer cntId = (Integer) deviceInfo.get(ContainersDao.CNT_ID);
-        Integer lotId = (Integer) deviceInfo.get(MeasurementsDao.LOT_ID);
-        if (cntId != null) {
-            attrMap.put(MeasurementsDao.CNT_ID, cntId);
-        }
-        if (lotId != null) {
-            attrMap.put(MeasurementsDao.LOT_ID, lotId);
-        }
-
         Integer persistenceMinutes = (Integer) deviceInfo.get(DevicesDao.DEV_PERSISTENCE);
         if (persistenceMinutes == null) {
             return new EntityResultMapImpl(EntityResult.OPERATION_WRONG, EntityResult.NODATA_RESULT,
@@ -83,29 +76,15 @@ public class MeasurementsService implements IMeasurementsService {
                     "Wait more than " + persistenceMinutes + " minutes to insert new measurement");
         }
 
-        Double currentTemp = (Double) attrMap.get(MeasurementsDao.ME_TEMP);
-
-        Map<String, Object> containerLotFilter = new HashMap<>();
-
-        containerLotFilter.put(DevicesDao.DEV_MAC, attrMap.get(DevicesDao.DEV_MAC));
-        containerLotFilter.put(SQLStatementBuilder.ExtendedSQLConditionValuesProcessor.EXPRESSION_KEY,
-                Util.isDateInCurrentRange(ContainersLotsDao.CL_START_DATE, ContainersLotsDao.CL_END_DATE));
-        List<String> containerLotColumns = List.of(MeasurementsDao.CL_ID);
-
-        EntityResult containerLotResult = this.daoHelper.query(this.measurementsDao, containerLotFilter,
-                containerLotColumns, "container_lot");
-        if (!containerLotResult.isEmpty()) {
-            Map<String, Object> containerLotRow = containerLotResult.getRecordValues(0);
-            attrMap.put(MeasurementsDao.CL_ID, containerLotRow.get(MeasurementsDao.CL_ID));
-        } else {
-            attrMap.put(MeasurementsDao.CL_ID, null);
-        }
-
-        if (lotId == null) {
+        Integer clId = (Integer) deviceInfo.get(ContainersLotsDao.CL_ID);
+        if (clId == null) {
             return daoHelper.insert(measurementsDao, attrMap);
         }
 
-        Integer altId = computeMeasurementAlert(currentTemp, devId, lotId, cntId);
+        attrMap.put(MeasurementsDao.CL_ID, clId);
+
+        Double currentTemp = (Double) attrMap.get(MeasurementsDao.ME_TEMP);
+        Integer altId = computeMeasurementAlert(currentTemp, devId, clId);
         if (altId != null) {
             attrMap.put(AlertsDao.ALT_ID, altId);
         }
@@ -122,12 +101,6 @@ public class MeasurementsService implements IMeasurementsService {
     @Override
     public EntityResult measurementsDelete(Map<String, Object> keyMap) throws OntimizeJEERuntimeException {
         return this.daoHelper.delete(this.measurementsDao, keyMap);
-    }
-
-    @Override
-    public EntityResult ContainerLotQuery(Map<String, Object> keyMap, List<String> attrList)
-            throws OntimizeJEERuntimeException {
-        return this.daoHelper.query(this.measurementsDao, keyMap, attrList, "container_lot");
     }
 
     private Integer getOrCreateDeviceId(Map<String, Object> attrMap) {
@@ -162,19 +135,17 @@ public class MeasurementsService implements IMeasurementsService {
     private Map<String, Object> getDeviceInfo(Integer devId) {
         Map<String, Object> filter = Map.of(DevicesDao.DEV_ID, devId);
         List<String> columns = List.of(
-                ContainersDao.CNT_ID,
-                LotsDao.LOT_ID,
+                ContainersLotsDao.CL_ID,
                 DevicesDao.DEV_PERSISTENCE,
                 DevicesDao.DEV_STATE);
 
-        EntityResult eR = this.daoHelper.query(measurementsDao, filter, columns, "container_lot");
+        EntityResult eR = this.devicesService.containerLotQuery(filter, columns);
         if (eR.isEmpty() || eR.isWrong()) {
             return null;
         }
 
         Map<String, Object> row = eR.getRecordValues(0);
-        Integer cntId = (Integer) row.get(ContainersDao.CNT_ID);
-        Integer lotId = (Integer) row.get(LotsDao.LOT_ID);
+
         Integer devPersistence = (Integer) row.get(DevicesDao.DEV_PERSISTENCE);
         Boolean devState = (Boolean) row.get(DevicesDao.DEV_STATE);
 
@@ -182,13 +153,11 @@ public class MeasurementsService implements IMeasurementsService {
         result.put(DevicesDao.DEV_PERSISTENCE, devPersistence);
         result.put(DevicesDao.DEV_STATE, devState);
 
-        if (cntId != null) {
-            result.put(ContainersDao.CNT_ID, cntId);
+        Integer clId = (Integer) row.get(ContainersLotsDao.CL_ID);
+        if (clId == null) {
+            return result;
         }
-
-        if (lotId != null) {
-            result.put(LotsDao.LOT_ID, lotId);
-        }
+        result.put(ContainersLotsDao.CL_ID, clId);
 
         return result;
     }
@@ -208,9 +177,13 @@ public class MeasurementsService implements IMeasurementsService {
         return ((currentTimeMillis - lastTimeMillis) > persistenceMillis) && devState;
     }
 
-    private Integer computeMeasurementAlert(Double currentTemp, Integer devId, Integer lotId, Integer cntId) {
+    private Integer computeMeasurementAlert(Double currentTemp, Integer devId, Integer clId) {
         Map<String, Object> measurementInfo = getLastRecordedMeasurement(devId);
         if (measurementInfo == null) {
+            return null;
+        }
+        Integer lotId = getLotId(clId);
+        if (lotId == null) {
             return null;
         }
         Map<String, Object> lotMinMaxTemp = getLotMinMaxTemperature(lotId);
@@ -223,18 +196,18 @@ public class MeasurementsService implements IMeasurementsService {
 
         Integer altId = (Integer) measurementInfo.get(MeasurementsDao.ALT_ID);
         if (altId != null) {
-            return handleExistingAlert(currentTemp, altId, lotMinTemp, lotMaxTemp, cntId, lotId, devId);
+            return handleExistingAlert(currentTemp, altId, lotMinTemp, lotMaxTemp, clId, devId);
         }
-        return handleNewAlert(currentTemp, lotMinTemp, lotMaxTemp, cntId, lotId, devId);
+        return handleNewAlert(currentTemp, lotMinTemp, lotMaxTemp, clId, devId);
     }
 
     private Integer handleExistingAlert(Double currentTemp, Integer altId, Double lotMinTemp, Double lotMaxTemp,
-            Integer cntId, Integer lotId, Integer devId) {
+            Integer clId, Integer devId) {
         Map<String, Object> filter = Map.of(AlertsDao.ALT_ID, altId);
         List<String> columns = List.of(
                 AlertsDao.ALT_MIN_TEMP,
                 AlertsDao.ALT_MAX_TEMP,
-                AlertsDao.LOT_ID);
+                AlertsDao.CL_ID);
 
         EntityResult eR = alertsService.alertsQuery(filter, columns);
         if (eR.isEmpty() || eR.isWrong()) {
@@ -243,33 +216,32 @@ public class MeasurementsService implements IMeasurementsService {
 
         Double altMinTemp = (Double) eR.getRecordValues(0).get(AlertsDao.ALT_MIN_TEMP);
         Double altMaxTemp = (Double) eR.getRecordValues(0).get(AlertsDao.ALT_MAX_TEMP);
-        Integer altLotId = (Integer) eR.getRecordValues(0).get(AlertsDao.LOT_ID);
+        Integer altClId = (Integer) eR.getRecordValues(0).get(AlertsDao.CL_ID);
 
         if ((altMaxTemp != null && !altMaxTemp.equals(lotMaxTemp)) ||
                 altMinTemp != null && !altMinTemp.equals(lotMinTemp) ||
-                altLotId == null || !altLotId.equals(lotId)) {
+                altClId == null || !altClId.equals(clId)) {
             closeCurrentAlert(altId);
-            return handleNewAlert(currentTemp, lotMinTemp, lotMaxTemp, cntId, lotId, devId);
+            return handleNewAlert(currentTemp, lotMinTemp, lotMaxTemp, clId, devId);
         }
 
-        return checkAndHandleAlert(currentTemp, altMinTemp, altMaxTemp, cntId, lotId, devId);
+        return checkAndHandleAlert(currentTemp, altMinTemp, altMaxTemp, clId, devId);
     }
 
-    private Integer handleNewAlert(Double currentTemp, Double minTemp, Double maxTemp, Integer cntId, Integer lotId,
+    private Integer handleNewAlert(Double currentTemp, Double minTemp, Double maxTemp, Integer clId,
             Integer devId) {
         if ((maxTemp != null && currentTemp > maxTemp) || (minTemp != null && currentTemp < minTemp)) {
-            createAlert(minTemp, maxTemp, cntId, lotId, devId);
-            return getLastAlertId(cntId, lotId, devId);
+            createAlert(minTemp, maxTemp, clId, devId);
+            return getLastAlertId(clId, devId);
         }
         return null;
     }
 
-    private Integer checkAndHandleAlert(Double currentTemp, Double minTemp, Double maxTemp, Integer cntId,
-            Integer lotId, Integer devId) {
+    private Integer checkAndHandleAlert(Double currentTemp, Double minTemp, Double maxTemp, Integer clId, Integer devId) {
         if ((maxTemp != null && currentTemp > maxTemp) || (minTemp != null && currentTemp < minTemp)) {
-            return getLastAlertId(cntId, lotId, devId);
+            return getLastAlertId(clId, devId);
         }
-        closeLastAlert(cntId, lotId, devId);
+        closeLastAlert(clId, devId);
         return null;
     }
 
@@ -279,7 +251,7 @@ public class MeasurementsService implements IMeasurementsService {
                 LotsDao.MIN_TEMP,
                 LotsDao.MAX_TEMP);
 
-        EntityResult eR = this.daoHelper.query(this.lotsDao, filter, columns);
+        EntityResult eR = this.lotsService.lotsQuery(filter, columns);
         if (eR.isEmpty() || eR.isWrong()) {
             return null;
         }
@@ -325,11 +297,10 @@ public class MeasurementsService implements IMeasurementsService {
 
     }
 
-    private void createAlert(Double minTemp, Double maxTemp, Integer cntId, Integer lotId, Integer devId) {
+    private void createAlert(Double minTemp, Double maxTemp, Integer clId, Integer devId) {
         Map<String, Object> valuesToInsert = new HashMap<>();
 
-        valuesToInsert.put(AlertsDao.CNT_ID, cntId);
-        valuesToInsert.put(AlertsDao.LOT_ID, lotId);
+        valuesToInsert.put(AlertsDao.CL_ID, clId);
         valuesToInsert.put(AlertsDao.DEV_ID, devId);
 
         if (minTemp != null) {
@@ -342,8 +313,8 @@ public class MeasurementsService implements IMeasurementsService {
         alertsService.alertsInsert(valuesToInsert);
     }
 
-    private void closeLastAlert(Integer cntId, Integer lotId, Integer devId) {
-        Integer lastAlertId = getLastAlertId(cntId, lotId, devId);
+    private void closeLastAlert(Integer clId, Integer devId) {
+        Integer lastAlertId = getLastAlertId(clId, devId);
         if (lastAlertId == null) {
             return;
         }
@@ -359,10 +330,23 @@ public class MeasurementsService implements IMeasurementsService {
         alertsService.alertsUpdate(valuesToUpdate, filterToUpdate);
     }
 
-    private Integer getLastAlertId(Integer cntId, Integer lotId, Integer devId) {
+    private Integer getLotId(Integer clId) {
+        Map<String, Object> filter = Map.of(ContainersLotsDao.CL_ID, clId);
+        List<String> columns = List.of(
+                LotsDao.LOT_ID
+        );
+
+        EntityResult eR = this.containersLotsService.containersLotsQuery(filter, columns);
+        if (eR.isEmpty() || eR.isWrong()) {
+            return null;
+        }
+
+        return (Integer) eR.getRecordValues(0).get(LotsDao.LOT_ID);
+    }
+
+    private Integer getLastAlertId(Integer clId, Integer devId) {
         Map<String, Object> filter = Map.of(
-                AlertsDao.CNT_ID, cntId,
-                AlertsDao.LOT_ID, lotId,
+                AlertsDao.CL_ID, clId,
                 AlertsDao.DEV_ID, devId);
         List<String> columns = List.of(AlertsDao.ALT_ID);
         List<SQLStatementBuilder.SQLOrder> orderBy = List.of(

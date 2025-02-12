@@ -436,7 +436,7 @@ public class UserAndRoleService implements IUserAndRoleService {
 
 		Map<String, Object> filter = new HashMap<>();
 		filter.put(UserDao.USR_ID, userId);
-		List<String> columns = List.of("CMP_ID");
+		List<String> columns = List.of(UserDao.CMP_ID);
 
 		EntityResult userEr = daoHelper.query(userDao, filter, columns);
 		if (userEr.isEmpty()) {
@@ -444,6 +444,6 @@ public class UserAndRoleService implements IUserAndRoleService {
 		}
 
 		Map<String, Object> user = userEr.getRecordValues(0);
-		return (Integer) user.get("CMP_ID");
+		return (Integer) user.get(UserDao.CMP_ID);
 	}
 }

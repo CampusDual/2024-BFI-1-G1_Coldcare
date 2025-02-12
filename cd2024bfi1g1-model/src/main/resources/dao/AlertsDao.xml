@@ -27,8 +27,7 @@
         <Query id="alertsWithCalculatedColumns">
             <AmbiguousColumns>
                 <AmbiguousColumn name="ALT_ID" prefix="a" />
-                <AmbiguousColumn name="CNT_ID" prefix="a" />
-                <AmbiguousColumn name="LOT_ID" prefix="a" />
+                <AmbiguousColumn name="CL_ID" prefix="a" />
             </AmbiguousColumns>
             <Sentence>
                 <![CDATA[
@@ -45,24 +44,23 @@
                             measurements m
                         WHERE
                             alt_id IS NOT NULL
-                        GROUP BY m.alt_id
+                        GROUP BY
+                            m.alt_id
                     )
                     SELECT
                         #COLUMNS#
                     FROM
                         ${mainschema}.alerts a
                     INNER JOIN t ON a.alt_id = t.alt_id
-                    INNER JOIN containers c ON a.cnt_id = c.cnt_id
-                    INNER JOIN lots l ON a.lot_id = l.lot_id
+                    INNER JOIN containers_lots cl ON a.cl_id = cl.cl_id
                     #WHERE#
                     #ORDER#
                 ]]>
             </Sentence>
         </Query>
-        <Query id="alertsWithContainerAndLot">
+        <Query id="alertsWithContainersLots">
             <AmbiguousColumns>
-                <AmbiguousColumn name="CNT_ID" prefix="a" />
-                <AmbiguousColumn name="LOT_ID" prefix="a" />
+                <AmbiguousColumn name="CL_ID" prefix="a" />
             </AmbiguousColumns>
             <Sentence>
                 <![CDATA[
@@ -70,8 +68,7 @@
                         #COLUMNS#
                     FROM
                         ${mainschema}.alerts a
-                    INNER JOIN containers c ON a.cnt_id = c.cnt_id
-                    INNER JOIN lots l ON a.lot_id = l.lot_id
+                    INNER JOIN containers_lots cl ON a.cl_id = cl.cl_id
                     #WHERE#
                     #ORDER#
                 ]]>

@@ -1,6 +1,6 @@
 package com.campusdual.cd2024bfi1g1.model.core.service;
-import com.campusdual.cd2024bfi1g1.api.core.service.IDevicesService;
 
+import com.campusdual.cd2024bfi1g1.api.core.service.IDevicesService;
 
 import com.campusdual.cd2024bfi1g1.model.core.dao.DevicesDao;
 import com.campusdual.cd2024bfi1g1.model.core.dao.UserDao;
@@ -37,7 +37,7 @@ public class DevicesService implements IDevicesService {
     @Override
     public EntityResult devicesWithoutUserQuery(Map<String, Object> keyMap, List<String> attrList)
             throws OntimizeJEERuntimeException {
-        return this.daoHelper.query(this.devicesDao, keyMap, attrList,"devicesWithoutUser");
+        return this.daoHelper.query(this.devicesDao, keyMap, attrList, "devicesWithoutUser");
     }
 
     @Override
@@ -52,8 +52,7 @@ public class DevicesService implements IDevicesService {
             throws OntimizeJEERuntimeException {
         Map<String, Object> valuesMap = new HashMap<>();
         valuesMap = attrMap;
-        if (attrMap.containsKey(CNT_ID) && (attrMap.get(CNT_ID) == null || attrMap.get(CNT_ID).toString().isEmpty()))
-        {
+        if (attrMap.containsKey(CNT_ID) && (attrMap.get(CNT_ID) == null || attrMap.get(CNT_ID).toString().isEmpty())) {
             valuesMap.put(CNT_ID, null);
         }
         if (attrMap.containsKey(CMP_ID)) {
@@ -66,9 +65,8 @@ public class DevicesService implements IDevicesService {
                 Object currentCntId = query.getRecordValues(0).get(DevicesDao.CNT_ID);
                 if (currentCntId != null) {
                     throw new OntimizeJEERuntimeException();
-                }
-                else if (attrMap.containsKey(CMP_ID) && (attrMap.get(CMP_ID) == null || attrMap.get(CMP_ID).toString().isEmpty()))
-                {
+                } else if (attrMap.containsKey(CMP_ID)
+                        && (attrMap.get(CMP_ID) == null || attrMap.get(CMP_ID).toString().isEmpty())) {
                     valuesMap.put(CMP_ID, null);
                 }
 
@@ -89,7 +87,7 @@ public class DevicesService implements IDevicesService {
         Integer cmpId = UserAndRoleService.getUserCompanyId(this.daoHelper, this.userDao);
         keyMap.put(DevicesDao.CMP_ID, cmpId);
 
-        return this.daoHelper.query(this.devicesDao, keyMap, attrList, "last_time" );
+        return this.daoHelper.query(this.devicesDao, keyMap, attrList, "last_time");
     }
 
     public EntityResult lastTimeWithoutCMP(Map<String, Object> keyMap, List<String> attrList)
@@ -97,6 +95,11 @@ public class DevicesService implements IDevicesService {
 
         return this.daoHelper.query(this.devicesDao, keyMap, attrList, "last_time");
     }
+
+    @Override
+    public EntityResult containerLotQuery(Map<String, Object> keyMap, List<String> attrList)
+            throws OntimizeJEERuntimeException {
+
+        return this.daoHelper.query(this.devicesDao, keyMap, attrList, "container_lot");
+    }
 }
-
-
