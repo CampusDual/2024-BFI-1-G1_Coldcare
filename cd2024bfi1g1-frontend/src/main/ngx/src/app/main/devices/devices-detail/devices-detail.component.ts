@@ -70,10 +70,8 @@ export class DevicesDetailComponent {
           filters.push(FilterExpressionUtils.buildExpressionEquals('DEV_ID', fil.value));
         }
         if (fil.attr === 'ME_DATE') {
-          filters.push(FilterExpressionUtils.buildExpressionMoreEqual('ME_DATE', fil.value.startDate._d.getTime()));
-        }
-        if (fil.attr === 'ME_DATE') {
-          filters.push(FilterExpressionUtils.buildExpressionLessEqual('ME_DATE', fil.value.endDate._d.getTime()));
+          filters.push(FilterExpressionUtils.buildExpressionMoreEqual('ME_DATE', fil.value.startDate));
+          filters.push(FilterExpressionUtils.buildExpressionLessEqual('ME_DATE', fil.value.endDate));
         }
       }
     });

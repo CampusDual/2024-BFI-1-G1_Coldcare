@@ -97,7 +97,7 @@ public class Util {
 
         BasicExpression endDateIsNull = new BasicExpression(fieldEnd, BasicOperator.NULL_OP, null);
 
-        BasicExpression endDateBetween, betweenStartAndEndDate, betweenStartWithoutEnd, bexComplete;
+        BasicExpression  bexComplete;
         if (!"".equals(endDateKey) && endDateValue != null) {
 
             BasicExpression startDateBetween = new BasicExpression(
@@ -106,19 +106,19 @@ public class Util {
                     new BasicExpression(fieldEnd, BasicOperator.MORE_OP, startDayValue)
             );
 
-            endDateBetween = new BasicExpression(
+            BasicExpression endDateBetween = new BasicExpression(
                     new BasicExpression(fieldStart, BasicOperator.LESS_OP, endDateValue),
                     BasicOperator.AND_OP,
                     new BasicExpression(fieldEnd, BasicOperator.MORE_EQUAL_OP, endDateValue)
             );
 
-            betweenStartAndEndDate = new BasicExpression(
+            BasicExpression betweenStartAndEndDate = new BasicExpression(
                     new BasicExpression(fieldStart, BasicOperator.MORE_EQUAL_OP, startDayValue),
                     BasicOperator.AND_OP,
                     new BasicExpression(fieldEnd, BasicOperator.LESS_EQUAL_OP, endDateValue)
             );
 
-            betweenStartWithoutEnd = new BasicExpression(
+            BasicExpression betweenStartWithoutEnd = new BasicExpression(
                     endDateIsNull,
                     BasicOperator.AND_OP,
                     new BasicExpression(fieldStart, BasicOperator.LESS_OP, endDateValue)
