@@ -24,14 +24,14 @@
         </Query>
         <Query id="origin">
             <AmbiguousColumns>
-                <AmbiguousColumn name="CL_ID" prefix="cl"/>
+                <AmbiguousColumn name="CNT_ID" prefix="cl"/>
             </AmbiguousColumns>
             <Sentence>
                 <![CDATA[
                     SELECT #COLUMNS#
                     FROM TRANSFERS t
                         JOIN CONTAINERS_LOTS cl ON t.TRA_ORIGIN_CL = cl.CL_ID
-                        JOIN CONTAINERS c ON cl.CL_ID = c.CL_ID
+                        JOIN CONTAINERS c ON cl.CNT_ID = c.CNT_ID
                     #WHERE#
                     #ORDER#
                 ]]>
@@ -39,14 +39,14 @@
         </Query>
         <Query id="destiny">
             <AmbiguousColumns>
-                <AmbiguousColumn name="CL_ID" prefix="cl"/>
+                <AmbiguousColumn name="CNT_ID" prefix="cl"/>
             </AmbiguousColumns>
             <Sentence>
                 <![CDATA[
                     SELECT #COLUMNS#
                     FROM TRANSFERS t
                         JOIN CONTAINERS_LOTS cl ON t.TRA_DESTINY_CL = cl.CL_ID
-                        JOIN CONTAINERS c ON cl.CL_ID = c.CL_ID
+                        JOIN CONTAINERS c ON cl.CNT_ID = c.CNT_ID
                     #WHERE#
                     #ORDER#
                 ]]>
