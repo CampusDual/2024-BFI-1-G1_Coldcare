@@ -20,11 +20,22 @@
         </o-filter-builder>
 
         <o-table #alertsTable attr="alertsTable" service="alerts" entity="alertsWithCalculatedColumns" keys="ALT_ID"
-            columns="ALT_ID;ALT_DATE_INIT;ALT_DATE_END;CNT_NAME;LOT_NAME;AVG_TEMP;AVG_HUMIDITY;MAX_TEMP_DEV;MAX_HUMIDITY_DEV;MIN_TEMP_DEV;MIN_HUMIDITY_DEV;ALT_MIN_TEMP;ALT_MAX_TEMP"
-            visible-columns="ALT_DATE_INIT;CNT_NAME;LOT_NAME;ALT_DURATION;ALT_MIN_TEMP;ALT_MAX_TEMP;MIN_TEMP_DEV;MAX_TEMP_DEV;AVG_HUMIDITY"
+            columns="ALT_ID;ALT_DATE_INIT;ALT_DATE_END;CNT_NAME;LOT_NAME;AVG_TEMP;AVG_HUMIDITY;MAX_TEMP_DEV;MAX_HUMIDITY_DEV;MIN_TEMP_DEV;MIN_HUMIDITY_DEV;ALT_MIN_TEMP;ALT_MAX_TEMP;ALT_STATE"
+            visible-columns="ALT_STATE;ALT_DATE_INIT;CNT_NAME;LOT_NAME;ALT_DURATION;ALT_MIN_TEMP;ALT_MAX_TEMP;MIN_TEMP_DEV;MAX_TEMP_DEV;AVG_HUMIDITY"
             select-all-checkbox-visible="no" insert-button="no" delete-button="no" refresh-button="yes"
             quick-filter="no" detail-mode="none" title="ALERTS" show-title="yes" sort-columns="ALT_DATE_INIT:DESC"
-            virtual-scroll="false" horizontal-scroll="true">
+            virtual-scroll="false" horizontal-scroll="true" quick-filter="yes" edition-mode="click">
+
+            <o-table-column attr="ALT_STATE" title="STADE" fxLayoutGap="1px">
+                <!-- auto-commit="false" -->
+                <o-table-cell-renderer-boolean render-true-value="check_circle" render-false-value="highlight_off"
+                    render-type="icon" boolean-type="string" true-value="true" false-value="false">
+                </o-table-cell-renderer-boolean>
+                <o-table-cell-editor-boolean show-notification-on-edit="false" true-value="true" false-value="false"
+                    boolean-type="string" (editionStarted)="editionStarted($event)"
+                    (editionCancelled)="editionCancelled($event)"
+                    (editionCommitted)="editionCommitted($event)"></o-table-cell-editor-boolean>
+            </o-table-column>
             <o-table-column attr="ALT_DATE_INIT" title="DATE" type="date" format="DD/MM/YYYY HH:mm:ss"></o-table-column>
             <o-table-column attr="CNT_NAME" title="CONTAINER"></o-table-column>
             <o-table-column attr="LOT_NAME" title="LOT"></o-table-column>

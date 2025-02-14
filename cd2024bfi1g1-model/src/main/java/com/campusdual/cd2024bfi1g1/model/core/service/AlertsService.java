@@ -50,6 +50,11 @@ public class AlertsService implements IAlertsService {
             throws OntimizeJEERuntimeException {
         return this.daoHelper.update(this.alertsDao, attrMap, keyMap);
     }
+    @Override
+    public EntityResult  alertsWithCalculatedColumnsUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap)
+            throws OntimizeJEERuntimeException {
+        return this.daoHelper.update(this.alertsDao, attrMap, keyMap);
+    }
 
     @Override
     public EntityResult alertsDelete(Map<String, Object> keyMap)
