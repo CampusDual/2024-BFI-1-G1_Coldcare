@@ -1,5 +1,5 @@
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
-import { OMapComponent } from 'ontimize-web-ngx-map';
+import { OMapComponent, OMapLayerComponent } from 'ontimize-web-ngx-map';
 import * as L from 'leaflet';
 import { OTableComponent } from 'ontimize-web-ngx';
 
@@ -16,8 +16,14 @@ export class TransportsMapComponent implements AfterViewInit {
 
 
   ngAfterViewInit() {
-    this.cargarCoordenadas();
+    if (this.oMap) {
+      console.log('Referencia a oMap:', this.oMap);
+      this.cargarCoordenadas();
+    } else {
+      console.error('oMap es undefined en ngAfterViewInit');
+    }
   }
+  
 
   cargarCoordenadas() {
     try {
@@ -50,5 +56,6 @@ export class TransportsMapComponent implements AfterViewInit {
       }
     });
     this.dataArrayCoordinates = data;
+    this.cargarCoordenadas();
   }
 }
