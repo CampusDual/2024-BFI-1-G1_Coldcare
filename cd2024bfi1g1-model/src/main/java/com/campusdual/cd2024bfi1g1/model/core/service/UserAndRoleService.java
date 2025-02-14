@@ -141,6 +141,11 @@ public class UserAndRoleService implements IUserAndRoleService {
 	}
 
 	@Override
+	public EntityResult roleWithoutAdminQuery(Map<?, ?> keysValues, List<?> attributes) throws OntimizeJEERuntimeException {
+		return this.daoHelper.query(this.roleDao, keysValues, attributes, "asignRole");
+	}
+
+	@Override
 	public EntityResult myRoleQuery(Map<?, ?> keysValues, List<?> attributes) throws OntimizeJEERuntimeException {
 
 
@@ -446,4 +451,6 @@ public class UserAndRoleService implements IUserAndRoleService {
 		Map<String, Object> user = userEr.getRecordValues(0);
 		return (Integer) user.get(UserDao.CMP_ID);
 	}
+
+
 }

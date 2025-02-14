@@ -38,6 +38,17 @@
                 ]]>
 			</Sentence>
 		</Query>
+		<Query id="asignRole">
+			<Sentence>
+				<![CDATA[
+                    SELECT
+                        #COLUMNS#
+                    FROM ${mainschema}.usr_role
+                    #WHERE# rol_name <> 'admin'
+                    #ORDER#
+                ]]>
+			</Sentence>
+		</Query>
 		<Query id="fullRolesWithUser">
 			<AmbiguousColumns>
 				<AmbiguousColumn name="usr_id" prefix="fulljoin" />
