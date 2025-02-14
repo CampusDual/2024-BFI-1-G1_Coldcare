@@ -24,6 +24,15 @@
                 ]]>
 			</Sentence>
 		</Query>
+		<Query id="asignRole">
+			<Sentence>
+				<![CDATA[
+                    SELECT #COLUMNS#
+                    FROM usr_role
+                    WHERE rol_name <> 'admin'
+                ]]>
+			</Sentence>
+		</Query>
 		<Query id="clientPermissions">
 			<Sentence>
                 <![CDATA[

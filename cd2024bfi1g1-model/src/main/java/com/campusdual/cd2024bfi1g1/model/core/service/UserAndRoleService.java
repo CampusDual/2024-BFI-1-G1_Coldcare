@@ -121,11 +121,12 @@ public class UserAndRoleService implements IUserAndRoleService {
 		EntityResult userInsertResult = this.daoHelper.insert(this.userDao, this.encryptPassword(keysValues));
 
 		if (!userInsertResult.isEmpty()) {
-			Object userId = userInsertResult.get("USR_ID");
+			Integer userId = (Integer) userInsertResult.get(UserDao.USR_ID);
+			Integer rolId = (Integer) keysValues.get(RoleDao.ROL_ID);
 
 			Map<String, Object> roleKeysValues = new HashMap<>();
 			roleKeysValues.put(UserRoleDao.USR_ID, userId);
-			roleKeysValues.put(UserRoleDao.ROL_ID, 2);
+			roleKeysValues.put(UserRoleDao.ROL_ID, rolId);
 
 			return this.daoHelper.insert(this.userRolesDao, roleKeysValues);
 
