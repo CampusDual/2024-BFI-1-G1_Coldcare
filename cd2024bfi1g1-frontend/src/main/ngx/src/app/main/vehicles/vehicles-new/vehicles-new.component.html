@@ -5,6 +5,9 @@
             <div fxLayout="row" fxLayoutAlign="start center" class="gap">
                 <o-text-input attr="VHC_PLATE" class="margin-right-24" fxFlex.lg="30" fxFlex.xl="30"
                     fxFlex="50"></o-text-input>
+                <o-combo attr="USR_ID" service="vehicles" entity="userTransporter" value-column="USR_ID"
+                    columns="USR_ID;USR_NAME" visible-columns="USR_NAME" null-selection="no" searchable="no"
+                    required="yes"></o-combo>
             </div>
         </o-column>
     </o-row>

@@ -24,5 +24,22 @@
                 ]]>
             </Sentence>
         </Query>
+        <Query id="userTransporter">
+            <AmbiguousColumns>
+                <AmbiguousColumn name="usr_id" prefix="u" />
+                <AmbiguousColumn name="rol_id" prefix="r" />
+            </AmbiguousColumns>
+            <Sentence>
+                <![CDATA[
+                    SELECT
+                        #COLUMNS#
+                    FROM ${mainschema}.usr_user u
+                        INNER JOIN ${mainschema}.usr_user_role ur ON (u.usr_id = ur.usr_id)
+                        INNER JOIN ${mainschema}.usr_role r ON ur.rol_id = r.rol_id
+                    WHERE r.rol_id = 3
+                    #ORDER#
+                ]]>
+            </Sentence>
+        </Query>
     </Queries>
 </JdbcEntitySetup>

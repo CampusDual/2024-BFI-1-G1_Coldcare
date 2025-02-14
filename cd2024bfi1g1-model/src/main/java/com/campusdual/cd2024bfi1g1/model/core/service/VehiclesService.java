@@ -59,4 +59,11 @@ public class VehiclesService implements IVehiclesService {
             return res;
         }
     }
+
+    @Override
+    public EntityResult userTransporterQuery(Map<String, Object> keyMap, List<String> attrList)
+            throws OntimizeJEERuntimeException {
+        return this.daoHelper.query(this.vehiclesDao, keyMap, attrList, "userTransporter");
+    }
+
 }

@@ -4,6 +4,9 @@
     <o-column title="VEHICLE_DATA" layout-align="start stretch" layout-padding>
       <div class="inline-fields">
         <o-text-input attr="VHC_PLATE"></o-text-input>
+        <o-combo attr="USR_ID" service="vehicles" entity="userTransporter" value-column="USR_ID"
+          columns="USR_ID;USR_NAME" visible-columns="USR_NAME" null-selection="no" searchable="no"
+          required="yes"></o-combo>
       </div>
     </o-column>
   </o-row>
