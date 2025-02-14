@@ -191,5 +191,7 @@
   "LOC_NEW": "Nueva localización",
   "TRP_NEW": "Nuevo transporte",
   "VEHICLE_NEW": "Nuevo vehículo",
-  "ASSIGN_CMP": "Asignar empresa"
+  "ASSIGN_CMP": "Asignar empresa",
+  "CL_ORIGIN": "Contenedor de origen",
+  "CL_DESTINY": "Contenedor destino"
 }

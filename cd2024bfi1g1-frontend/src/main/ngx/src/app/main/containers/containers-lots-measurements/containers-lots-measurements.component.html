@@ -15,10 +15,29 @@
     </div>
   </o-column>
 
-  <o-table attr="containerLotMeasurements" service="measurements" entity="measurements" keys="ME_ID" parent-keys="CL_ID"
-    columns="ME_ID;ME_DATE;ME_TEMP;ME_HUMIDITY;DEV_NAME" visible-columns="ME_DATE;ME_TEMP;ME_HUMIDITY;DEV_NAME"
-    query-rows="20" select-all-checkbox-visible="no" insert-button="no" delete-button="no" refresh-button="yes"
-    quick-filter="no" pageable="true" virtual-scroll="no" [row-class]="rowClass">
+  <o-row>
+    <o-column class="extend">
+      <o-table attr="clOriginTable" title="CL_ORIGIN" show-title="yes" service="transfers" entity="transfersOrigin"
+        keys="TRA_ID" parent-keys="CL_ID" columns="TRA_ID;CNT_NAME" visible-columns="CNT_NAME" delete-button="no"
+        refresh-button="false" quick-filter="no">
+        <o-table-column attr="CNT_NAME" title="CNT_NAME"></o-table-column>
+      </o-table>
+    </o-column>
+
+    <o-column class="extend">
+      <o-table attr="clDestinyTable" title="CL_DESTINY" show-title="yes" service="transfers" entity="transfersDestiny"
+        keys="TRA_ID" parent-keys="CL_ID" columns="TRA_ID;CL_ID;CNT_NAME" visible-columns="CNT_NAME" delete-button="no"
+        refresh-button="false" quick-filter="no">
+        <o-table-column attr="CNT_NAME" title="CNT_NAME"></o-table-column>
+      </o-table>
+    </o-column>
+  </o-row>
+
+  <o-table attr="containerLotMeasurements" title="MEASUREMENTS" show-title="yes" service="measurements"
+    entity="measurements" keys="ME_ID" parent-keys="CL_ID" columns="ME_ID;ME_DATE;ME_TEMP;ME_HUMIDITY;DEV_NAME"
+    visible-columns="ME_DATE;ME_TEMP;ME_HUMIDITY;DEV_NAME" query-rows="20" select-all-checkbox-visible="no"
+    insert-button="no" delete-button="no" refresh-button="yes" quick-filter="no" pageable="true" virtual-scroll="no"
+    [row-class]="rowClass">
     <o-table-column attr="ME_DATE" title="DATE" type="date" format="DD/MM/YYYY HH:mm:ss"></o-table-column>
     <o-table-column attr="ME_TEMP" title-align="center" content-align="center" title="TEMPERATURE"></o-table-column>
     <o-table-column attr="ME_HUMIDITY" title-align="center" content-align="center" title="HUMIDITY"></o-table-column>

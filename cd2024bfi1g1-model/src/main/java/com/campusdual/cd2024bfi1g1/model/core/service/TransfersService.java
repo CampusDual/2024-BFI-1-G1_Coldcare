@@ -30,6 +30,18 @@ public class TransfersService implements ITransfersService {
     }
 
     @Override
+    public EntityResult transfersOriginQuery(Map<String, Object> keyMap, List<String> attrList)
+            throws OntimizeJEERuntimeException {
+        return this.daoHelper.query(this.transfersDao, keyMap, attrList, "origin");
+    }
+
+    @Override
+    public EntityResult transfersDestinyQuery(Map<String, Object> keyMap, List<String> attrList)
+            throws OntimizeJEERuntimeException {
+        return this.daoHelper.query(this.transfersDao, keyMap, attrList, "destiny");
+    }
+
+    @Override
     public EntityResult transfersInsert(Map<String, Object> attrMap)
             throws OntimizeJEERuntimeException {
         return this.daoHelper.insert(this.transfersDao, attrMap);
