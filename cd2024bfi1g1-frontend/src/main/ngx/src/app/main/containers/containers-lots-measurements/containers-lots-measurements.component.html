@@ -18,16 +18,16 @@
   <o-row>
     <o-column class="extend">
       <o-table attr="clOriginTable" title="CL_ORIGIN" show-title="yes" service="transfers" entity="transfersOrigin"
-        keys="TRA_ID" parent-keys="CL_ID" columns="TRA_ID;CL_ID;CNT_NAME" visible-columns="CL_ID;CNT_NAME"
-        delete-button="no" refresh-button="false" quick-filter="no">
+        keys="TRA_ID" parent-keys="CL_ID" columns="TRA_ID;CNT_NAME" visible-columns="CNT_NAME" delete-button="no"
+        refresh-button="false" quick-filter="no" insert-form-route="newOrigin/new">
         <o-table-column attr="CNT_NAME" title="CNT_NAME"></o-table-column>
       </o-table>
     </o-column>
 
     <o-column class="extend">
       <o-table attr="clDestinyTable" title="CL_DESTINY" show-title="yes" service="transfers" entity="transfersDestiny"
-        keys="TRA_ID" parent-keys="CL_ID" columns="TRA_ID;CL_ID;CNT_NAME" visible-columns="CL_ID;CNT_NAME"
-        delete-button="no" refresh-button="false" quick-filter="no">
+        keys="TRA_ID" parent-keys="CL_ID" columns="TRA_ID;CNT_NAME" visible-columns="CNT_NAME" delete-button="no"
+        refresh-button="false" quick-filter="no" insert-form-route="newDestiny/new">
         <o-table-column attr="CNT_NAME" title="CNT_NAME"></o-table-column>
       </o-table>
     </o-column>

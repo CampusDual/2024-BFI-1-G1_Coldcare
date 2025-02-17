@@ -4,6 +4,7 @@ import com.campusdual.cd2024bfi1g1.api.core.service.ITransfersService;
 import com.campusdual.cd2024bfi1g1.model.core.dao.ContainersLotsDao;
 import com.campusdual.cd2024bfi1g1.model.core.dao.TransfersDao;
 import com.campusdual.cd2024bfi1g1.model.core.dao.UserDao;
+import com.campusdual.cd2024bfi1g1.model.core.util.Util;
 import com.ontimize.jee.common.dto.EntityResult;
 import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
 import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
@@ -11,9 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service("TransfersService")
 @Lazy
@@ -53,10 +52,43 @@ public class TransfersService implements ITransfersService {
         return this.daoHelper.query(this.transfersDao, filterByOrigin, attrList, "destiny");
     }
 
-    @Override
-    public EntityResult transfersInsert(Map<String, Object> attrMap)
+    public EntityResult transfersOriginInsert(Map<String, Object> attrMap)
             throws OntimizeJEERuntimeException {
-        return this.daoHelper.insert(this.transfersDao, attrMap);
+
+        try {
+            if (!Objects.equals(attrMap.get(transfersDao.TRA_ORIGIN_CL), attrMap.get(clDao.CL_ID))) {
+                Map<String, Object> valuesOriginInsert = new HashMap<>();
+                valuesOriginInsert.put(transfersDao.TRA_ORIGIN_CL, attrMap.get(transfersDao.TRA_ORIGIN_CL));
+                valuesOriginInsert.put(transfersDao.TRA_DESTINY_CL, attrMap.get(clDao.CL_ID));
+
+                return this.daoHelper.insert(this.transfersDao, valuesOriginInsert);
+            }
+            else {
+                return Util.controlErrors("ERROR_SAME_CONTAINER");
+            }
+        } catch (OntimizeJEERuntimeException ex) {
+            throw new OntimizeJEERuntimeException("Algo salio mal al insertar datos");
+        }
+
+    }
+
+    public EntityResult transfersDestinyInsert(Map<String, Object> attrMap)
+            throws OntimizeJEERuntimeException {
+
+        try {
+            if (!Objects.equals(attrMap.get(transfersDao.TRA_DESTINY_CL), attrMap.get(clDao.CL_ID))) {
+                Map<String, Object> valuesDestinyInsert = new HashMap<>();
+                valuesDestinyInsert.put(transfersDao.TRA_DESTINY_CL, attrMap.get(transfersDao.TRA_DESTINY_CL));
+                valuesDestinyInsert.put(transfersDao.TRA_ORIGIN_CL, attrMap.get(clDao.CL_ID));
+
+                return this.daoHelper.insert(this.transfersDao, valuesDestinyInsert);
+            }
+            else {
+                return Util.controlErrors("ERROR_SAME_CONTAINER");
+            }
+        } catch (OntimizeJEERuntimeException ex) {
+            throw new OntimizeJEERuntimeException("Algo salio mal al insertar datos");
+        }
     }
 
     @Override

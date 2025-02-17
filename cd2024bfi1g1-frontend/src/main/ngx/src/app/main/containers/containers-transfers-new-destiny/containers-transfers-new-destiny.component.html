@@ -1,0 +1,10 @@
+<o-form attr="newDestiny" service="transfers" entity="transfersDestiny" keys="TRA_ID" show-header="true"
+    after-insert-mode="close" confirm-exit="false">
+    <o-column title="TRANSFER_NEW_DESTINY">
+        <div class="inline-fields">
+            <o-combo attr="TRA_DESTINY_CL" label="CL_DESTINY" service="containersLots" entity="containersLots"
+                value-column="CL_ID" columns="CL_ID;CNT_NAME" visible-columns="CNT_NAME" null-selection="no"
+                searchable="no" required="true"></o-combo>
+        </div>
+    </o-column>
+</o-form>

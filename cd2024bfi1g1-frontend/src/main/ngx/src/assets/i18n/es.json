@@ -193,5 +193,8 @@
   "VEHICLE_NEW": "Nuevo vehículo",
   "ASSIGN_CMP": "Asignar empresa",
   "CL_ORIGIN": "Contenedor de origen",
-  "CL_DESTINY": "Contenedor destino"
+  "CL_DESTINY": "Contenedor de destino",
+  "TRANSFER_NEW_ORIGIN": "Nuevo contenedor de origen",
+  "TRANSFER_NEW_DESTINY": "Nuevo contenedor de destino",
+  "ERROR_SAME_CONTAINER": "No puedes transferir al mismo contenedor"
 }

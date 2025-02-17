@@ -10,7 +10,8 @@ public interface ITransfersService {
     EntityResult transfersQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
     EntityResult transfersOriginQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
     EntityResult transfersDestinyQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
-    EntityResult transfersInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException;
+    EntityResult transfersOriginInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException;
+    EntityResult transfersDestinyInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException;
     EntityResult transfersUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap) throws OntimizeJEERuntimeException;
     EntityResult transfersDelete(Map<String, Object> keyMap) throws OntimizeJEERuntimeException;
 }
