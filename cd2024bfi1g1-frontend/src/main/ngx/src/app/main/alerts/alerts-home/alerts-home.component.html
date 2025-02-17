@@ -28,12 +28,13 @@
 
             <o-table-button label="BTN_SAVED" icon="check" (onClick)="selectionRow($event)"></o-table-button>
 
-            <o-table-column attr=" ALT_STATE" fxLayoutGap="1px">
+            <o-table-column attr="ALT_STATE" fxLayoutGap="1px" auto-commit="false">
                 <o-table-cell-renderer-boolean render-true-value="check_circle" render-false-value="highlight_off"
-                    render-type="icon" boolean-type="boolean" true-value="1" false-value="0" auto-commit="false">
+                    render-type="icon" boolean-type="boolean-type" true-value="true" false-value="false">
+
                 </o-table-cell-renderer-boolean>
-                <o-table-cell-editor-boolean show-notification-on-edit="0" true-value="1" false-value="0"
-                    boolean-type="boolean" (editionStarted)="editionStarted($event)"
+                <o-table-cell-editor-boolean show-notification-on-edit="false" true-value="true" false-value="false"
+                    boolean-type="boolean-type" (editionStarted)="editionStarted($event)"
                     (editionCancelled)="editionCancelled($event)" (editionCommitted)="editionCommitted($event)">
                 </o-table-cell-editor-boolean>
             </o-table-column>
