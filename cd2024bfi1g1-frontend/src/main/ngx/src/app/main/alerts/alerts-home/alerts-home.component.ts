@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { OntimizeService, Expression, FilterExpressionUtils, OTableComponent, Util } from 'ontimize-web-ngx';
 
 
@@ -9,7 +9,7 @@ import { OntimizeService, Expression, FilterExpressionUtils, OTableComponent, Ut
 })
 export class AlertsHomeComponent {
   @ViewChild("alertsTable") alertsTable: OTableComponent;
-  constructor(private ontimizeService: OntimizeService) {
+  constructor(private ontimizeService: OntimizeService, private cd: ChangeDetectorRef) {
     this.ontimizeService.configureService(
       this.ontimizeService.getDefaultServiceConfiguration('alertsWithCalculatedColumns')
     );
@@ -79,7 +79,7 @@ export class AlertsHomeComponent {
 
         },
         complete() {
-
+          this.cd.detectChanges()
         }
       })
 
