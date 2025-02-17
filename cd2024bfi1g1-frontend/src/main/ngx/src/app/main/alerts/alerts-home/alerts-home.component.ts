@@ -1,7 +1,6 @@
-import { identifierName } from '@angular/compiler';
 import { Component, ViewChild } from '@angular/core';
-import { Expression, FilterExpressionUtils, OTableComponent, Util } from 'ontimize-web-ngx';
-import { identity } from 'rxjs';
+import { OntimizeService, Expression, FilterExpressionUtils, OTableComponent, Util } from 'ontimize-web-ngx';
+
 
 @Component({
   selector: 'app-alerts-home',
@@ -10,6 +9,7 @@ import { identity } from 'rxjs';
 })
 export class AlertsHomeComponent {
   @ViewChild("alertsTable") alertsTable: OTableComponent;
+  constructor(private ontimizeService: OntimizeService) { }
 
   createFilter(values: Array<{ attr; value }>): Expression {
     // Prepare simple expressions from the filter components values
@@ -43,56 +43,39 @@ export class AlertsHomeComponent {
     }
   }
 
-  editionStarted(arg: any) {
-    console.log('editionStarted');
-    console.log(arg);
-  }
-
-  editionCancelled(arg: any) {
-    console.log('editionCancelled');
-    console.log(arg);
-  }
-
-  editionCommitted(arg: any) {
-    console.log('editionCommitted');
-    console.log(arg);
-  }
 
   selectionRow(event) {
 
+    const selectedRows = this.alertsTable.getSelectedItems();
 
-    console.log(this.alertsTable.getSelectedItems());
-
-  }
-  /*
-    selectionRow() {
-  
-    /*  const data = this.alertsTable.getDataArray();
-      for (let row of data) {
-        if (row.getValue("ALT_STATE")) {
-          console.log(row.getValue("ALT_STATE"));
-        }
-        console.log(row);
-      }
-  
-      // Verificar si Ontimize proporciona un método para obtener las filas seleccionadas
-      const selectedRows = this.alertsTable.selectAll;
-  
-      console.log("a", this.alertsTable.selectAll);
-      console.log("b", this.alertsTable.selectAllCheckbox);
-      console.log("c", this.alertsTable.selectedRow);
-      console.log(selectedRows);
-      // Si 'selectedRows' es una propiedad de filas seleccionadas, utilizamos directamente
-      if (Array.isArray(selectedRows) && selectedRows.length > 0) {
-        console.log('Filas seleccionadas:', selectedRows);
-        selectedRows.forEach(row => {
-          console.log('Guardando estado para fila:', row);
-          // Aquí puedes realizar cualquier acción, como guardar el estado de la fila
-        });
-      } else {
-        console.log('No hay filas seleccionadas');
-      }
+    if (selectedRows.length === 0) {
+      console.log("No hay filas seleccionadas");
+      return;
     }
-  */
+
+
+    const dataToSave = selectedRows.map(row => ({
+      ALT_STATE: row.ALT_STATE = row.ALT_STATE === true ? false : true,
+      LOT_NAME: row.LOT_NAME,
+      AVG_HUMIDITY: row.AVG_HUMIDITY,
+      MIN_TEMP_DEV: row.MIN_TEMP_DEV,
+      ALT_DATE_INIT: row.ALT_DATE_INIT,
+    }));
+
+
+    this.ontimizeService.configureService(
+      this.ontimizeService.getDefaultServiceConfiguration('alertsWithCalculatedColumns')
+    );
+
+    this.ontimizeService.query(dataToSave, [], 'alertsWithCalculatedColumns', { operation: 'update' })
+      .subscribe(
+        response => {
+          console.log('Datos actualizados correctamente:', response);
+        },
+        error => {
+          console.error('Error al actualizar los datos:', error);
+        }
+      );
+  }
 
 }
