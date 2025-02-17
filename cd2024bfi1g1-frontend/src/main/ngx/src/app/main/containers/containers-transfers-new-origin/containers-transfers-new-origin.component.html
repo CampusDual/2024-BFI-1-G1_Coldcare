@@ -2,9 +2,10 @@
     after-insert-mode="close" confirm-exit="false">
     <o-column title="TRANSFER_NEW_ORIGIN">
         <div class="inline-fields">
-            <o-combo attr="TRA_ORIGIN_CL" label="CL_ORIGIN" service="containersLots" entity="containersLots"
+            <o-combo attr="TRA_ORIGIN_CL" label="CL_ORIGIN" service="containersLots" entity="containersLotsTransfers"
                 value-column="CL_ID" columns="CL_ID;CNT_NAME" visible-columns="CNT_NAME" null-selection="no"
-                searchable="no" required="true"></o-combo>
+                searchable="no" required="true" parent-keys="CL_ID"></o-combo>
+            <o-integer-input attr="CL_ID" oHidden></o-integer-input>
         </div>
     </o-column>
 </o-form>

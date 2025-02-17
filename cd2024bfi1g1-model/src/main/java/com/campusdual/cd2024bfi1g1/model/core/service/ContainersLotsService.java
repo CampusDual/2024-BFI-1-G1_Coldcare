@@ -3,9 +3,11 @@ package com.campusdual.cd2024bfi1g1.model.core.service;
 import com.campusdual.cd2024bfi1g1.api.core.service.IContainersLotsService;
 import com.campusdual.cd2024bfi1g1.model.core.dao.ContainersLotsDao;
 import com.campusdual.cd2024bfi1g1.model.core.util.Util;
+import com.ontimize.jee.common.db.SQLStatementBuilder.BasicOperator;
+import com.ontimize.jee.common.db.SQLStatementBuilder.BasicField;
+import com.ontimize.jee.common.db.SQLStatementBuilder.BasicExpression;
 import com.ontimize.jee.common.db.SQLStatementBuilder;
 import com.ontimize.jee.common.dto.EntityResult;
-import com.ontimize.jee.common.dto.EntityResultMapImpl;
 import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
 import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +26,27 @@ public class ContainersLotsService implements IContainersLotsService {
     @Autowired
     private DefaultOntimizeDaoHelper daoHelper;
 
-
     @Override
     public EntityResult containersLotsQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
+        return this.daoHelper.query(this.containersLotsDao, keyMap, attrList);
+    }
+
+    @Override
+    public EntityResult containersLotsTransfersQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
+        Integer lotId = getLotIdByClId(this.daoHelper, this.containersLotsDao, (Integer) keyMap.get(ContainersLotsDao.CL_ID));
+
+        BasicField fieldClId = new BasicField(ContainersLotsDao.CL_ID);
+        BasicField fieldLotId = new BasicField(ContainersLotsDao.LOT_ID);
+
+        BasicExpression conditions = new BasicExpression(
+                new BasicExpression(fieldClId, BasicOperator.NOT_EQUAL_OP, keyMap.get(ContainersLotsDao.CL_ID)),
+                BasicOperator.AND_OP,
+                new BasicExpression(fieldLotId, BasicOperator.EQUAL_OP, lotId)
+        );
+
+        keyMap.put(SQLStatementBuilder.ExtendedSQLConditionValuesProcessor.EXPRESSION_KEY, conditions);
+        keyMap.remove(ContainersLotsDao.CL_ID);
+
         return this.daoHelper.query(this.containersLotsDao, keyMap, attrList);
     }
 
@@ -114,6 +134,21 @@ public class ContainersLotsService implements IContainersLotsService {
         Map<String, Object> data = new HashMap<>(result.getRecordValues(0));
 
         return data;
+    }
+
+    public static Integer getLotIdByClId(DefaultOntimizeDaoHelper daoHelper, ContainersLotsDao clDao, Integer clId){
+        Map<String, Object> filter = new HashMap<>();
+        filter.put(ContainersLotsDao.CL_ID, clId);
+        List<String> columns = List.of(ContainersLotsDao.LOT_ID);
+
+        EntityResult lotEr = daoHelper.query(clDao, filter, columns);
+
+        if (lotEr.isEmpty()) {
+            throw new RuntimeException("Unknown lot");
+        }
+
+        Map<String, Object> lot = lotEr.getRecordValues(0);
+        return (Integer) lot.get(ContainersLotsDao.LOT_ID);
     }
 
 }
