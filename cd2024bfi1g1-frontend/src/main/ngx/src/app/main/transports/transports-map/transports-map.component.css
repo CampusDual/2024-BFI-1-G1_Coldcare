@@ -3,6 +3,7 @@ o-map {
     width: 100%;
     display: block;
 }
+
 o-table {
     display: none !important;
-  }
+}

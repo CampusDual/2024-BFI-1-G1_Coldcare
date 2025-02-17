@@ -24,9 +24,6 @@ public class TransportsCoordinatesService implements ITransportsCoordinatesServi
     @Override
     public EntityResult transportsCoordinatesQuery(Map<String, Object> keyMap, List<String> attrList)
             throws OntimizeJEERuntimeException {
-        if (keyMap.containsKey(TransportsCoordinatesDao.TRP_ID)){
-            keyMap.put(TransportsCoordinatesDao.TRP_ID, Integer.parseInt(keyMap.get(TransportsCoordinatesDao.TRP_ID).toString()));
-        }
         return this.daoHelper.query(this.transportsCoordinatesDao, keyMap, attrList);
     }
 
