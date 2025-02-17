@@ -1,4 +1,5 @@
-<o-table #coordinatesTable attr="tablaCoordenadas" service="transportsCoordinates" entity="transportsCoordinates"
+<o-table #coordinatesTable attr="tablaCoordenadas" parent-keys="TRP_ID" keys="TRP_ID" keys-sql-types="INTEGER"
+    service="transportsCoordinates" entity="transportsCoordinates"
     columns="TC_ID;TC_LATITUDE;TC_LONGITUDE;TC_DATE;TRP_ID" visible-columns="TC_LATITUDE;TC_LONGITUDE;TC_DATE"
     (onDataLoaded)="fillChart($event)">
 </o-table>
