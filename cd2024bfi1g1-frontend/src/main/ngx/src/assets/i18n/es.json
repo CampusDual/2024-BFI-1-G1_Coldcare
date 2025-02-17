@@ -188,5 +188,6 @@
   "PRO_DETAIL": "Detalles del producto",
   "COMPANY_NEW": "Nueva empresa",
   "ASSIGN_CMP": "Asignar empresa",
-  "VEHICLE_DUPLICATE_INSERT": "Ya existe un vehiculo con ese nombre"
+  "VEHICLE_DUPLICATE_INSERT": "Ya existe un vehiculo con ese nombre",
+  "TRP_STATE": "Estado"
 }

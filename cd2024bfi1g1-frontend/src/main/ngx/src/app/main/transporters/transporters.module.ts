@@ -4,11 +4,13 @@ import { OntimizeWebModule } from 'ontimize-web-ngx';
 
 import { TransportersRoutingModule } from './transporters-routing.module';
 import { TransportersHomeComponent } from './transporters-home/transporters-home.component';
+import { TransportersDetailsComponent } from './transporters-details/transporters-details.component';
 
 
 @NgModule({
   declarations: [
-    TransportersHomeComponent
+    TransportersHomeComponent,
+    TransportersDetailsComponent
   ],
   imports: [
     CommonModule,
