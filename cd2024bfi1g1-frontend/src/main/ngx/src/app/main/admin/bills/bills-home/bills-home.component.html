@@ -5,7 +5,9 @@
     quick-filter="no" pageable="true" detail-mode="none" show-title="yes">
     <!-- Columnas de la Tabla -->
     <o-table-column attr="BIL_YEAR" title-align="center" content-align="center"></o-table-column>
-    <o-table-column attr="BIL_MONTH" title-align="center" content-align="center"></o-table-column>
+    <o-table-column attr="BIL_MONTH" title-align="center" content-align="center">
+        <app-bills-month-renderer></app-bills-month-renderer>
+    </o-table-column>
     <o-table-column attr="BIL_EXPENSE" format="" title-align="center" content-align="center"></o-table-column>
     <o-table-column attr="BIL_DEVICES" title-align="center" content-align="center"></o-table-column>
     <o-table-column attr="BIL_MEASUREMENTS" title-align="center" content-align="center"></o-table-column>
