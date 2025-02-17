@@ -424,6 +424,12 @@ public class UserAndRoleService implements IUserAndRoleService {
 		}
 	}
 
+	@Override
+	public EntityResult UserWithRoleQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
+		return this.daoHelper.query(this.userRolesDao, keyMap, attrList, "userRole");
+	}
+
+
 	protected boolean checkPasswords(final String storedPassword, final String password) throws OntimizeJEERuntimeException {
 		if (this.passwordEncrypter == null) {
 			return (password != null && storedPassword.equals(password));
@@ -452,6 +458,8 @@ public class UserAndRoleService implements IUserAndRoleService {
 		Map<String, Object> user = userEr.getRecordValues(0);
 		return (Integer) user.get(UserDao.CMP_ID);
 	}
+
+
 
 
 }
