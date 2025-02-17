@@ -13,12 +13,17 @@
     <GeneratedKey>vhc_id</GeneratedKey>
     <Queries>
         <Query id="default">
+            <AmbiguousColumns>
+                <AmbiguousColumn name="CMP_ID" prefix="v" />
+                <AmbiguousColumn name="USR_ID" prefix="u" />
+            </AmbiguousColumns>
             <Sentence>
                 <![CDATA[
                     SELECT
                         #COLUMNS#
                     FROM
-                        ${mainschema}.vehicles
+                        ${mainschema}.vehicles v
+                    JOIN usr_user u ON v.usr_id = u.usr_id
                     #WHERE#
                     #ORDER#
                 ]]>
@@ -36,7 +41,7 @@
                     FROM ${mainschema}.usr_user u
                         INNER JOIN ${mainschema}.usr_user_role ur ON (u.usr_id = ur.usr_id)
                         INNER JOIN ${mainschema}.usr_role r ON ur.rol_id = r.rol_id
-                    WHERE r.rol_id = 3
+                    #WHERE# AND r.rol_id = 3
                     #ORDER#
                 ]]>
             </Sentence>

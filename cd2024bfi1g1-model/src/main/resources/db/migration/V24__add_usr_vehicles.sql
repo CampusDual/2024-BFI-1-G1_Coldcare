@@ -1,1 +1,1 @@
-ALTER TABLE public.vehicles ADD usr_name string NOT NULL;
+ALTER TABLE public.vehicles ADD usr_id int NOT NULL;
