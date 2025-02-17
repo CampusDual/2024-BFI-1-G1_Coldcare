@@ -41,7 +41,7 @@ public class TransportsService implements ITransportsService {
     public EntityResult transportsInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException {
 
         Integer cmpId = UserAndRoleService.getUserCompanyId(this.daoHelper, this.userDao);
-        attrMap.put(DevicesDao.CMP_ID, cmpId);
+        attrMap.put(TransportsDao.CMP_ID, cmpId);
 
         return this.daoHelper.insert(this.transportsDao, attrMap);
     }
@@ -51,7 +51,7 @@ public class TransportsService implements ITransportsService {
             throws OntimizeJEERuntimeException {
 
         Integer cmpId = UserAndRoleService.getUserCompanyId(this.daoHelper, this.userDao);
-        attrMap.put(DevicesDao.CMP_ID, cmpId);
+        attrMap.put(TransportsDao.CMP_ID, cmpId);
 
         return this.daoHelper.update(this.transportsDao, attrMap, keyMap);
     }
