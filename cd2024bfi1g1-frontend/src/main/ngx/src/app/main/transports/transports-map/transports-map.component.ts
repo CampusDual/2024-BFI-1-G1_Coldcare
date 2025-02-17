@@ -43,16 +43,19 @@ export class TransportsMapComponent implements AfterViewInit {
       if (waypoints.length > 1) {
         this.routingControl = L.Routing.control({
           waypoints: waypoints,
-          routeWhileDragging: true,
-          createMarker: () => null, // Evitar marcadores extra
-          lineOptions: { styles: [{ color: 'blue', weight: 4 }] },
-          router: L.routing.osrmv1({ serviceUrl: 'https://router.project-osrm.org/route/v1' }), // Usa OSRM
+          routeWhileDragging: false, 
+          draggableWaypoints: false, 
+          addWaypoints: false, 
+          createMarker: () => null, 
+          lineOptions: { 
+            styles: [{ color: 'blue', weight: 4 }],
+            interactive: false
+          },
+          router: L.routing.osrmv1({ serviceUrl: 'https://router.project-osrm.org/route/v1' })
         }).addTo(map);
-        //Eliminar el panel de control
-        if (this.routingControl) {
-          const itineraryContainer = document.querySelector('.leaflet-routing-container');
-          if (itineraryContainer) itineraryContainer.remove();
-        }
+
+        const itineraryContainer = document.querySelector('.leaflet-routing-container');
+        if (itineraryContainer) itineraryContainer.remove();
       }
 
     } catch (error) {
