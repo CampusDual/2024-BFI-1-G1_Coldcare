@@ -22,18 +22,18 @@
         <o-table #alertsTable attr="alertsTable" service="alerts" entity="alertsWithCalculatedColumns" keys="ALT_ID"
             columns="ALT_ID;ALT_DATE_INIT;ALT_DATE_END;CNT_NAME;LOT_NAME;AVG_TEMP;AVG_HUMIDITY;MAX_TEMP_DEV;MAX_HUMIDITY_DEV;MIN_TEMP_DEV;MIN_HUMIDITY_DEV;ALT_MIN_TEMP;ALT_MAX_TEMP;ALT_STATE"
             visible-columns="ALT_STATE;ALT_DATE_INIT;CNT_NAME;LOT_NAME;ALT_DURATION;ALT_MIN_TEMP;ALT_MAX_TEMP;MIN_TEMP_DEV;MAX_TEMP_DEV;AVG_HUMIDITY"
-            select-all-checkbox-visible="no" insert-button="no" delete-button="no" refresh-button="yes"
+            select-all-checkbox-visible="yes" insert-button="no" delete-button="no" refresh-button="yes"
             quick-filter="no" detail-mode="none" title="ALERTS" show-title="yes" sort-columns="ALT_DATE_INIT:DESC"
-            virtual-scroll="false" horizontal-scroll="true" quick-filter="yes" edition-mode="click">
+            virtual-scroll="false" horizontal-scroll="true" quick-filter="yes" selection-mode="multiple">
 
-            <o-table-button label="BTN_SAVED" icon="check"></o-table-button>
+            <o-table-button label="BTN_SAVED" icon="check" (onClick)="selectionRow($event)"></o-table-button>
 
-            <o-table-column attr="ALT_STATE" fxLayoutGap="1px" auto-commit="false">
+            <o-table-column attr="ALT_STATE" fxLayoutGap="1px">
                 <o-table-cell-renderer-boolean render-true-value="check_circle" render-false-value="highlight_off"
-                    render-type="icon" boolean-type="string" true-value="true" false-value="false" auto-commit="false">
+                    render-type="icon" boolean-type="boolean" true-value="1" false-value="0" auto-commit="false">
                 </o-table-cell-renderer-boolean>
-                <o-table-cell-editor-boolean show-notification-on-edit="false" true-value="true" false-value="false"
-                    boolean-type="string" (editionStarted)="editionStarted($event)"
+                <o-table-cell-editor-boolean show-notification-on-edit="0" true-value="1" false-value="0"
+                    boolean-type="boolean" (editionStarted)="editionStarted($event)"
                     (editionCancelled)="editionCancelled($event)" (editionCommitted)="editionCommitted($event)">
                 </o-table-cell-editor-boolean>
             </o-table-column>
