@@ -60,6 +60,7 @@ export class AlertsHomeComponent {
 
   selectionRow(event) {
 
+
     console.log(this.alertsTable.getSelectedItems());
   }
   /*
