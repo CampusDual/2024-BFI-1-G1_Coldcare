@@ -26,34 +26,33 @@ export class TransportsMapComponent implements AfterViewInit {
 
   cargarCoordenadas() {
     try {
-      // Obtener el mapa de Ontimize
       const map = this.oMap.getLMap();
 
-      // Limpiar la ruta anterior si existe
       if (this.routingControl) {
         map.removeControl(this.routingControl);
       }
 
-      // Agregar marcadores al mapa
       const waypoints: L.Routing.Waypoint[] = [];
       this.dataArrayCoordinates.forEach(punto => {
         const latLng = L.latLng(punto["TC_LATITUDE"], punto["TC_LONGITUDE"]);
         waypoints.push(L.routing.waypoint(latLng));
 
-        // Agregar marcadores
         L.marker(latLng).addTo(map);
       });
 
-      // Dibujar la ruta por carretera solo si hay más de un punto
       if (waypoints.length > 1) {
         this.routingControl = L.Routing.control({
           waypoints: waypoints,
           routeWhileDragging: true,
-          show: false, // Ocultar el panel de instrucciones
           createMarker: () => null, // Evitar marcadores extra
           lineOptions: { styles: [{ color: 'blue', weight: 4 }] },
-          router: L.routing.osrmv1({ serviceUrl: 'https://router.project-osrm.org/route/v1' }) // Usa OSRM
+          router: L.routing.osrmv1({ serviceUrl: 'https://router.project-osrm.org/route/v1' }), // Usa OSRM
         }).addTo(map);
+        //Eliminar el panel de control
+        if (this.routingControl) {
+          const itineraryContainer = document.querySelector('.leaflet-routing-container');
+          if (itineraryContainer) itineraryContainer.remove();
+        }
       }
 
     } catch (error) {
