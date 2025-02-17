@@ -9,7 +9,12 @@ import { OntimizeService, Expression, FilterExpressionUtils, OTableComponent, Ut
 })
 export class AlertsHomeComponent {
   @ViewChild("alertsTable") alertsTable: OTableComponent;
-  constructor(private ontimizeService: OntimizeService) { }
+  constructor(private ontimizeService: OntimizeService) {
+    this.ontimizeService.configureService(
+      this.ontimizeService.getDefaultServiceConfiguration('alertsWithCalculatedColumns')
+    );
+
+  }
 
   createFilter(values: Array<{ attr; value }>): Expression {
     // Prepare simple expressions from the filter components values
@@ -56,25 +61,46 @@ export class AlertsHomeComponent {
 
     const dataToSave = selectedRows.map(row => ({
       ALT_STATE: row.ALT_STATE = row.ALT_STATE === true ? false : true,
-      LOT_NAME: row.LOT_NAME,
-      AVG_HUMIDITY: row.AVG_HUMIDITY,
-      MIN_TEMP_DEV: row.MIN_TEMP_DEV,
-      ALT_DATE_INIT: row.ALT_DATE_INIT,
+      ALT_ID: row.ALT_ID
     }));
+    console.log(dataToSave);
 
+    dataToSave.map(row => {
+      console.log(row.ALT_STATE);
 
-    this.ontimizeService.configureService(
-      this.ontimizeService.getDefaultServiceConfiguration('alertsWithCalculatedColumns')
-    );
+      const attrMap = { ALT_STATE: row.ALT_STATE };
+      const keyMap = { ALT_ID: row.ALT_ID }
 
-    this.ontimizeService.query(dataToSave, [], 'alertsWithCalculatedColumns', { operation: 'update' })
-      .subscribe(
-        response => {
-          console.log('Datos actualizados correctamente:', response);
+      this.ontimizeService.update(keyMap, attrMap, 'alertsWithCalculatedColumns').subscribe({
+        next(value) {
+
         },
-        error => {
-          console.error('Error al actualizar los datos:', error);
+        error(err) {
+
+        },
+        complete() {
+
         }
-      );
+      })
+
+
+
+    })
+
+
+
+
+    //  this.ontimizeService.update(ALT_STATE[], 'alertsWithCalculatedColumns').subscribe({
+
+    //   next(res: any) {
+
+
+    //   }, error(err) {
+
+    //   }, complete() {
+
+    //   },
+
   }
+
 }
