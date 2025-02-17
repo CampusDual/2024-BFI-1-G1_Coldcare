@@ -186,10 +186,8 @@
   "PRO_MAX_TEMP": "Maximum temperature (ºC)",
   "PRO_MIN_TEMP": "Minimum temperature (ºC)",
   "PRO_DETAIL": "Product details",
-  "CONTAINER_NEW": "New container",
   "COMPANY_NEW": "New company",
-  "LOC_NEW": "New location",
-  "TRP_NEW": "New transport",
-  "VEHICLE_NEW": "New vehicle",
-  "ASSIGN_CMP": "Assign company"
+  "ASSIGN_CMP": "Assign company",
+  "MASTERS": "Masters",
+  "CONSUMPTIONS": "Consumptions"
 }
