@@ -41,8 +41,7 @@ export class AlertsHomeComponent {
 
       this.ontimizeService.update(keyMap, attrMap, 'alertsWithCalculatedColumns').subscribe({
         next(value) {
-          console.log(value),
-            this.cd.detectChanges()
+
         },
         error(err) {
           console.log(err)
