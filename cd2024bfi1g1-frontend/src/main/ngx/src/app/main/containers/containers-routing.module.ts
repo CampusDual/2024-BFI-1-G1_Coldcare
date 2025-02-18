@@ -27,7 +27,6 @@ const routes: Routes = [
   { path: ':CNT_ID/:CL_ID', component: ContainersLotsMeasurementsComponent },
   { path: ':CNT_ID/:CL_ID/newOrigin/new', component: ContainersTransfersNewOriginComponent },
   { path: ':CNT_ID/:CL_ID/newDestiny/new', component: ContainersTransfersNewDestinyComponent }
-
 ];
 
 @NgModule({
