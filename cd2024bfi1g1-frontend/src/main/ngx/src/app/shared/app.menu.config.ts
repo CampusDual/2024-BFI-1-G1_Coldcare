@@ -5,6 +5,7 @@ export const MENU_CONFIG: MenuRootItem[] = [
   { id: 'contenedores', name: 'CONTAINERS', icon: 'warehouse', route: '/main/containers' },
   { id: 'lots', name: 'LOTS', svgIcon: 'ontimize:containerIcon', route: '/main/lots' },
   { id: 'transports', name: 'TRANSPORTS', icon: 'local_shipping', route: '/main/transports' },
+  { id: 'alerts', name: 'ALERTS', icon: 'priority_high', route: '/main/alerts' },
   {
     id: 'masters', name: 'MASTERS', icon: 'key',
     items: [
@@ -13,7 +14,6 @@ export const MENU_CONFIG: MenuRootItem[] = [
       { id: 'products', name: 'PRODUCTS', icon: 'inventory', route: '/main/products' }
     ]
   },
-  { id: 'alerts', name: 'ALERTS', icon: 'priority_high', route: '/main/alerts' },
   { id: 'devices-without-users', name: 'DEVICE_ASSIGNMENT', route: '/main/admin/devices-without-users', icon: 'developer_board' },
   { id: 'medidas', name: 'MEASUREMENTS', icon: 'thermostat', route: '/main/admin/medidas' },
   { id: 'companies', name: 'COMPANIES', icon: 'apartment', route: '/main/admin/companies' },
