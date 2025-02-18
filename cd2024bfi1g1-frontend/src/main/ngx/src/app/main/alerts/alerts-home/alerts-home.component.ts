@@ -13,8 +13,51 @@ export class AlertsHomeComponent {
     this.ontimizeService.configureService(
       this.ontimizeService.getDefaultServiceConfiguration('alertsWithCalculatedColumns')
     );
+    this.ontimizeService.configureService(this.ontimizeService.getDefaultServiceConfiguration('alerts'));
 
   }
+
+  selectionRow(event) {
+
+    const selectedRows = this.alertsTable.getSelectedItems();
+
+    if (selectedRows.length === 0) {
+      console.log("No hay filas seleccionadas");
+      return;
+    }
+
+
+    const dataToSave = selectedRows.map(row => ({
+      ALT_STATE: row.ALT_STATE = row.ALT_STATE === true ? false : true,
+      ALT_ID: row.ALT_ID
+    }));
+    console.log(dataToSave);
+
+    dataToSave.map(row => {
+      //console.log(row.ALT_STATE);
+
+      const attrMap = { ALT_STATE: row.ALT_STATE };
+      const keyMap = { ALT_ID: row.ALT_ID }
+
+      this.ontimizeService.update(keyMap, attrMap, 'alertsWithCalculatedColumns').subscribe({
+        next(value) {
+          console.log(value),
+            this.cd.detectChanges()
+        },
+        error(err) {
+          console.log(err)
+        },
+        complete() {
+          this.cd.detectChanges()
+        }
+      });
+
+    })
+
+  }
+
+
+
 
   createFilter(values: Array<{ attr; value }>): Expression {
     // Prepare simple expressions from the filter components values
@@ -49,58 +92,6 @@ export class AlertsHomeComponent {
   }
 
 
-  selectionRow(event) {
 
-    const selectedRows = this.alertsTable.getSelectedItems();
-
-    if (selectedRows.length === 0) {
-      console.log("No hay filas seleccionadas");
-      return;
-    }
-
-
-    const dataToSave = selectedRows.map(row => ({
-      ALT_STATE: row.ALT_STATE = row.ALT_STATE === true ? false : true,
-      ALT_ID: row.ALT_ID
-    }));
-    console.log(dataToSave);
-
-    dataToSave.map(row => {
-      console.log(row.ALT_STATE);
-
-      const attrMap = { ALT_STATE: row.ALT_STATE };
-      const keyMap = { ALT_ID: row.ALT_ID }
-
-      this.ontimizeService.update(keyMap, attrMap, 'alertsWithCalculatedColumns').subscribe({
-        next(value) {
-
-        },
-        error(err) {
-
-        },
-        complete() {
-          this.cd.detectChanges()
-        }
-      })
-
-
-
-    })
-
-
-
-
-    //  this.ontimizeService.update(ALT_STATE[], 'alertsWithCalculatedColumns').subscribe({
-
-    //   next(res: any) {
-
-
-    //   }, error(err) {
-
-    //   }, complete() {
-
-    //   },
-
-  }
 
 }
