@@ -189,5 +189,17 @@
   "COMPANY_NEW": "New company",
   "ASSIGN_CMP": "Assign company",
   "MASTERS": "Masters",
-  "CONSUMPTIONS": "Consumptions"
+  "CONSUMPTIONS": "Consumptions",
+  "JANUARY": "January",
+  "FEBRUARY": "Fecruary",
+  "MARCH": "March",
+  "APRIL": "April",
+  "MAY": "May",
+  "JUNE": "June",
+  "JULY": "July",
+  "AUGUST": "August",
+  "SEPTEMBER": "September",
+  "OCTOBER": "October",
+  "NOVEMBER": "November",
+  "DECEMBER": "December"
 }
