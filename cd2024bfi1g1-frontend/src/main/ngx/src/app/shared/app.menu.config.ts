@@ -17,7 +17,7 @@ export const MENU_CONFIG: MenuRootItem[] = [
   { id: 'devices-without-users', name: 'DEVICE_ASSIGNMENT', route: '/main/admin/devices-without-users', icon: 'developer_board' },
   { id: 'medidas', name: 'MEASUREMENTS', icon: 'thermostat', route: '/main/admin/medidas' },
   { id: 'companies', name: 'COMPANIES', icon: 'apartment', route: '/main/admin/companies' },
-  { id: 'bills', name: 'BILLS', icon: 'receipt long', route: '/main/admin/bills' },
+  { id: 'consumptions', name: 'CONSUMPTIONS', icon: 'payments', route: '/main/admin/bills' },
   { id: 'users', name: 'USERS', route: '/main/admin/users', icon: 'person' },
   { id: 'logout', name: 'LOGOUT', route: '/login', icon: 'power_settings_new', confirm: 'yes' }
 ];

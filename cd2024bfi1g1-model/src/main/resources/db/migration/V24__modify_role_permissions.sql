@@ -3,5 +3,5 @@ SET rol_json_client_permission='{"menu": [{ "attr": "contenedores", "visible": f
 WHERE rol_id=1;
 
 UPDATE public.usr_role
-SET rol_json_client_permission='{"menu": [{ "attr": "users", "visible": false, "enabled": false },{ "attr": "companies", "visible": false, "enabled": false },{ "attr": "devices-without-users", "visible": false, "enabled": false },{ "attr": "medidas", "visible": false, "enabled": false },{ "attr": "bills", "visible": false, "enabled": false }]}'
+SET rol_json_client_permission='{"menu": [{ "attr": "users", "visible": false, "enabled": false },{ "attr": "companies", "visible": false, "enabled": false },{ "attr": "devices-without-users", "visible": false, "enabled": false },{ "attr": "medidas", "visible": false, "enabled": false },{ "attr": "consumptions", "visible": false, "enabled": false }]}'
 WHERE rol_id=2;
