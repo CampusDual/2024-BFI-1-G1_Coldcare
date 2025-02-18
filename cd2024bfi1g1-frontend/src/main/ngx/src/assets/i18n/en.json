@@ -188,7 +188,6 @@
   "PRO_DETAIL": "Product details",
   "COMPANY_NEW": "New company",
   "ASSIGN_CMP": "Assign company",
-  "MASTERS": "Masters",
   "CONSUMPTIONS": "Consumptions",
   "JANUARY": "January",
   "FEBRUARY": "Fecruary",
@@ -201,5 +200,6 @@
   "SEPTEMBER": "September",
   "OCTOBER": "October",
   "NOVEMBER": "November",
-  "DECEMBER": "December"
+  "DECEMBER": "December",
+  "MASTERS": "Masters"
 }
