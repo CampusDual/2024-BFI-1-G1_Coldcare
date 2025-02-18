@@ -191,5 +191,6 @@
   "LOC_NEW": "Nueva localización",
   "TRP_NEW": "Nuevo transporte",
   "VEHICLE_NEW": "Nuevo vehículo",
-  "ASSIGN_CMP": "Asignar empresa"
+  "ASSIGN_CMP": "Asignar empresa",
+  "CONTAINERS_HISTORY": "Historial de contenedores"
 }
