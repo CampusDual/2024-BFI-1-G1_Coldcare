@@ -1,0 +1,2 @@
+export const TRP_STATUS_INIT = "TRP_STATUS_INIT"
+export const TRP_STATUS_END = "TRP_STATUS_END"

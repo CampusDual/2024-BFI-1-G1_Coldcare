@@ -189,5 +189,7 @@
   "COMPANY_NEW": "Nueva empresa",
   "ASSIGN_CMP": "Asignar empresa",
   "VEHICLE_DUPLICATE_INSERT": "Ya existe un vehiculo con ese nombre",
-  "TRP_STATE": "Estado"
+  "TRP_STATE": "Estado",
+  "TRP_STATUS_INIT": "Iniciado",
+  "TRP_STATUS_END": "Finalizado"
 }
