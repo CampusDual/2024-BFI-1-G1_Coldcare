@@ -14,6 +14,10 @@
         <o-combo attr="VHC_ID" label="VEHICLES" service="transports" entity="transportsPlate" value-column="VHC_ID"
           columns="VHC_ID;VHC_PLATE" visible-columns="VHC_PLATE" null-selection="no" searchable="yes"></o-combo>
         <o-date-input attr="TRP_DATE" label="DELIVERY_DATE" read-only="no" required="yes"></o-date-input>
+        <o-combo attr="TRP_STATE" label="TRP_STATE" service="transports" entity="transportsPlate"
+          value-column="TRP_STATE" columns="TRP_STATE" visible-columns="TRP_STATE"></o-combo>
+        <o-combo attr="USR_ID" label="USR_ID" service="transports" entity="transportsPlate" value-column="USR_ID"
+          columns="USR_ID;USR_NAME" visible-columns=" USR_ID"></o-combo>
       </div>
     </o-column>
   </o-row>

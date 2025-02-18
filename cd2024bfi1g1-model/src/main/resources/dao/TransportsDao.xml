@@ -19,6 +19,7 @@
                 <AmbiguousColumn name="CMP_ID" prefix="c" />
                 <AmbiguousColumn name="LOC_ID" prefix="lo" />
                 <AmbiguousColumn name="LOC_ID" prefix="ld" />
+                <AmbiguousColumn name="USR_ID" prefix="us" />
             </AmbiguousColumns>
             <Sentence>
                 <![CDATA[
@@ -39,6 +40,7 @@
             LEFT JOIN containers c ON t.CNT_ID = c.CNT_ID
             LEFT JOIN locations lo ON t.TRP_ORIGIN = lo.LOC_ID
             LEFT JOIN locations ld ON t.TRP_DESTINATION = ld.LOC_ID
+            LEFT JOIN usr_user  us ON t.USR_ID = us.USR_ID
             #WHERE#
             #ORDER#
         ]]>
