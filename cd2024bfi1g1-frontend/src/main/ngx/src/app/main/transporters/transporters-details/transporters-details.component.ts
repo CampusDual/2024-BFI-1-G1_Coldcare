@@ -1,33 +1,59 @@
-import { Component, ViewChild } from '@angular/core';
-import { OButtonComponent, OTextInputComponent, OFormComponent } from 'ontimize-web-ngx';
+import { Component, ViewChild, OnDestroy, OnInit } from '@angular/core';
+import { OButtonComponent, OTextInputComponent, OFormComponent, OTranslateService } from 'ontimize-web-ngx';
+import { Subscription } from 'rxjs';
 import { TRP_STATUS_END, TRP_STATUS_INIT } from 'src/app/shared/constants';
-
 
 @Component({
   selector: 'app-transporters-details',
   templateUrl: './transporters-details.component.html',
   styleUrls: ['./transporters-details.component.css']
 })
-export class TransportersDetailsComponent {
+export class TransportersDetailsComponent implements OnInit, OnDestroy {
 
   @ViewChild('init', { static: false }) init!: OButtonComponent;
   @ViewChild('end', { static: false }) end!: OButtonComponent;
   @ViewChild('stateInput', { static: false }) stateInput!: OTextInputComponent;
-  @ViewChild('form', { static: false }) form!: OFormComponent; 
+  @ViewChild('form', { static: false }) form!: OFormComponent;
+
+  private currentState: string = '';
+  private languageChangeSubscription!: Subscription;
+
+  constructor(private translateService: OTranslateService) {}
+
+  ngOnInit() {
+    this.languageChangeSubscription = this.translateService.onLanguageChanged.subscribe(() => {
+      this.updateTranslatedState();
+    });
+  }
 
   setStatusInit() {
-    this.updateTransportState(TRP_STATUS_INIT);
+    this.currentState = TRP_STATUS_INIT;
+    this.updateTransportState();
   }
 
   setStatusEnd() {
-    this.updateTransportState(TRP_STATUS_END);
+    this.currentState = TRP_STATUS_END;
+    this.updateTransportState();
   }
 
-  private updateTransportState(newState: string) {
+  private updateTransportState() {
     if (this.form) {
-      this.stateInput.setValue(newState);
-      this.form.setFieldValue('TRP_STATE', newState);
+      const translatedState = this.translateService.get(this.currentState);
+      this.stateInput.setValue(translatedState);
+      this.form.setFieldValue('TRP_STATE', translatedState);
     }
   }
-  
+
+  private updateTranslatedState() {
+    if (this.currentState) {
+      this.updateTransportState();
+    }
+  }
+
+  ngOnDestroy() {
+    if (this.languageChangeSubscription) {
+      this.languageChangeSubscription.unsubscribe();
+    }
+  }
+
 }

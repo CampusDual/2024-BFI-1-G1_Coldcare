@@ -191,5 +191,7 @@
   "VEHICLE_DUPLICATE_INSERT": "Ya existe un vehiculo con ese nombre",
   "TRP_STATE": "Estado",
   "TRP_STATUS_INIT": "Iniciado",
-  "TRP_STATUS_END": "Finalizado"
+  "TRP_STATUS_END": "Finalizado",
+  "BTN_INIT": "Iniciar",
+  "BTN_END": "Finalizar"
 }

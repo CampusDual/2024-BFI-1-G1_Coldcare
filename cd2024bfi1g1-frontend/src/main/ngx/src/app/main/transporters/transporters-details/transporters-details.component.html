@@ -7,13 +7,12 @@
         <o-text-input attr="DESTINATION_NAME" read-only="yes"></o-text-input>
         <o-date-input attr="TRP_DATE" label="DELIVERY_DATE" read-only="yes"></o-date-input>
         <o-text-input attr="VHC_PLATE" read-only="yes"></o-text-input>
-        <o-text-input #stateInput attr="TRP_STATE" [placeholder]="'TRP_STATUS_INIT' | oTranslate">{{ 'TRP_STATUS_INIT' |
-          oTranslate }}</o-text-input>
+        <o-text-input #stateInput attr="TRP_STATE"></o-text-input>
 
-        <o-button #init attr="BTN_INIT" type="RAISED" label="Iniciar" layout-padding color="accent"
+        <o-button #init attr="BTN_INIT" type="RAISED" label="BTN_INIT" layout-padding color="accent"
           (onClick)="setStatusInit()"></o-button>
 
-        <o-button #end attr="BTN_END" type="RAISED" label="Finalizar" layout-padding color="warn"
+        <o-button #end attr="BTN_END" type="RAISED" label="BTN_END" layout-padding color="warn"
           (onClick)="setStatusEnd()"></o-button>
 
       </div>
