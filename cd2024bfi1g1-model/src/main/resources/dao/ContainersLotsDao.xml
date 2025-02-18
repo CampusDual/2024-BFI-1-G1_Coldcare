@@ -54,6 +54,9 @@
             </Sentence>
         </Query>
         <Query id="containers_of_lot">
+            <AmbiguousColumns>
+                <AmbiguousColumn name="CNT_ID" prefix="cl"/>
+            </AmbiguousColumns>
             <Sentence>
                 <![CDATA[
                     SELECT

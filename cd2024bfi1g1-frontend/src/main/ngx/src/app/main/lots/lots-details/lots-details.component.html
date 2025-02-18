@@ -16,9 +16,9 @@
   </o-row>
   <o-row>
     <o-table attr="containersInLot" title="CONTAINERS_HISTORY" show-title="yes" service="containersLots"
-      entity="containersOfLot" keys="CL_ID" parent-keys="CNT_ID" columns="CL_ID;CNT_ID;CL_START_DATE;CL_END_DATE"
+      entity="containersOfLot" keys="CL_ID" parent-keys="LOT_ID" columns="CL_ID;CNT_ID;CL_START_DATE;CL_END_DATE"
       visible-columns="CNT_NAME;CL_START_DATE;CL_END_DATE" delete-button="no" insert-button="false"
-      refresh-button="false">
+      refresh-button="true">
       <o-table-column attr="CNT_NAME" title="CNT_NAME"></o-table-column>
       <o-table-column attr="CL_START_DATE" title="CL_START_DATE" type="date" format="DD/MM/YYYY"></o-table-column>
       <o-table-column attr="CL_END_DATE" title="CL_END_DATE" type="date" format="DD/MM/YYYY"></o-table-column>
