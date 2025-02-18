@@ -75,6 +75,11 @@ public class ContainersLotsService implements IContainersLotsService {
         }
     }
 
+    @Override
+    public EntityResult containersOfLotQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
+        return this.daoHelper.query(this.containersLotsDao, keyMap, attrList, "containers_of_lot");
+    }
+
     private boolean filterStartAndEndDates(Map<String, Object> attrMap) {
 
         //Creamos un nuevo mapa con las condiciones
