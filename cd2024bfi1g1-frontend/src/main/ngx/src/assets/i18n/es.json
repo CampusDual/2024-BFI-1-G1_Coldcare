@@ -189,5 +189,7 @@
   "COMPANY_NEW": "Nueva empresa",
   "ASSIGN_CMP": "Asignar empresa",
   "ALT_STATE": "Estado",
-  "BTN_SAVED": "Guardado"
+  "BTN_SAVED": "Guardado",
+  "true": "Vista",
+  "false": "No vistas"
 }

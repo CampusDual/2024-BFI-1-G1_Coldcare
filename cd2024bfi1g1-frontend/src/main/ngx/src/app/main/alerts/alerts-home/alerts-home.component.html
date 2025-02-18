@@ -6,6 +6,15 @@
             <div fxLayout="row" fxLayoutGap="15px" layout-padding>
                 <o-text-input attr="contenedor" label="CNT_NAME"></o-text-input>
                 <o-text-input attr="lote" label="LOT_NAME"></o-text-input>
+
+                <!-- <o-combo attr="STA_NAME_CHOOSE" service="states" entity="state" value-column="STA_ID"
+                    columns="STA_ID;STA_NAME" visible-columns="STA_NAME" null-selection="yes" searchable="yes"
+                    translate="yes"></o-combo> -->
+
+                <o-combo attr="estado" label="ALT_STATE" value-column="ALT_STATE" columns="ALT_STATE"
+                    visible-columns="ALT_STATE" null-selection="yes" searchable="yes" translate="yes"
+                    [static-data]="[{ALT_STATE:true},{ALT_STATE:false}]"></o-combo>
+
             </div>
             <div fxLayoutAlign="end center" fxLayoutGap="8px">
                 <o-button attr="filter" [oFilterBuilderQuery]="filterBuilder" type="FLAT" color="primary"
@@ -15,7 +24,7 @@
                     icon="clear"></o-button>
             </div>
         </div>
-        <o-filter-builder #filterBuilder attr="thefilter" filters="lote;contenedor" [target]="alertsTable"
+        <o-filter-builder #filterBuilder attr="thefilter" filters="lote;contenedor;estado" [target]="alertsTable"
             query-on-change="no" query-on-change-delay="500" [expression-builder]="createFilter">
         </o-filter-builder>
 

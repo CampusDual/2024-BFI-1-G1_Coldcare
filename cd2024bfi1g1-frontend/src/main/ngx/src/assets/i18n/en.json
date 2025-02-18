@@ -189,5 +189,7 @@
   "COMPANY_NEW": "New company",
   "ASSIGN_CMP": "Assign company",
   "ALT_STATE": "State",
-  "BTN_SAVED": "Saved"
+  "BTN_SAVED": "Saved",
+  "true": "view",
+  "false": "Not views"
 }

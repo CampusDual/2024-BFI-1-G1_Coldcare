@@ -9,7 +9,7 @@ import { OntimizeService, Expression, FilterExpressionUtils, OTableComponent, Ut
 })
 export class AlertsHomeComponent {
   @ViewChild("alertsTable") alertsTable: OTableComponent;
-  constructor(private ontimizeService: OntimizeService, private cd: ChangeDetectorRef) {
+  constructor(private ontimizeService: OntimizeService) {
     this.ontimizeService.configureService(
       this.ontimizeService.getDefaultServiceConfiguration('alertsWithCalculatedColumns')
     );
@@ -28,10 +28,11 @@ export class AlertsHomeComponent {
 
 
     const dataToSave = selectedRows.map(row => ({
+
       ALT_STATE: row.ALT_STATE = row.ALT_STATE === true ? false : true,
       ALT_ID: row.ALT_ID
     }));
-    console.log(dataToSave);
+    //  console.log(dataToSave);
 
     dataToSave.map(row => {
       //console.log(row.ALT_STATE);
@@ -47,7 +48,7 @@ export class AlertsHomeComponent {
           console.log(err)
         },
         complete() {
-          this.cd.detectChanges()
+
         }
       });
 
@@ -61,16 +62,22 @@ export class AlertsHomeComponent {
   createFilter(values: Array<{ attr; value }>): Expression {
     // Prepare simple expressions from the filter components values
     let filters: Array<Expression> = [];
+
     values.forEach(fil => {
       if (Util.isDefined(fil.value)) {
+
+        //  console.log("datos", fil.attr, fil.value);
+
         const attributeMapping = {
           lote: "lot_name",
-          contenedor: "cnt_name"
+          contenedor: "cnt_name",
+          estado: "alt_state"
         };
 
         const fieldName = attributeMapping[fil.attr];
         if (fieldName) {
-          filters.push(FilterExpressionUtils.buildExpressionLike(fieldName, fil.value));
+          const valueAsString = String(fil.value);
+          filters.push(FilterExpressionUtils.buildExpressionLike(fieldName, valueAsString));
         }
 
       }
