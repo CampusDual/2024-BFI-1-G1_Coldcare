@@ -193,5 +193,6 @@
   "TRP_STATUS_INIT": "Iniciado",
   "TRP_STATUS_END": "Finalizado",
   "BTN_INIT": "Iniciar",
-  "BTN_END": "Finalizar"
+  "BTN_END": "Finalizar",
+  "TRP_WAIT_USER": "Esperando transportista"
 }

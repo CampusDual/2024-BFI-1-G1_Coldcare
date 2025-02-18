@@ -1,2 +1,3 @@
 export const TRP_STATUS_INIT = "TRP_STATUS_INIT"
 export const TRP_STATUS_END = "TRP_STATUS_END"
+export const TRP_WAIT_USER = "TRP_WAIT_USER"

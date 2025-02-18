@@ -34,7 +34,8 @@
                 t.VHC_ID,
                 v.VHC_PLATE,
                 t.TRP_DATE,
-                t.TRP_STATE
+                t.TRP_STATE,
+                us.USR_NAME
             FROM transports t
             LEFT JOIN vehicles v ON t.VHC_ID = v.VHC_ID
             LEFT JOIN containers c ON t.CNT_ID = c.CNT_ID

@@ -1,14 +1,15 @@
 <o-table attr="transports" title="TRANSPORTS" show-title="yes" service="transports" entity="transports" keys="TRP_ID"
-  columns="TRP_ID;ORIGIN_NAME;DESTINATION_NAME;CNT_NAME;VHC_PLATE;TRP_DATE;USR_ID;TRP_STATE"
-  visible-columns="ORIGIN_NAME;DESTINATION_NAME;CNT_NAME;VHC_PLATE;TRP_DATE;USR_ID;USR_NAME;TRP_STATE;"
-  delete-button="no">
+  columns="TRP_ID;ORIGIN_NAME;DESTINATION_NAME;CNT_NAME;VHC_PLATE;TRP_DATE;USR_NAME;TRP_STATE"
+  visible-columns="ORIGIN_NAME;DESTINATION_NAME;CNT_NAME;VHC_PLATE;TRP_DATE;USR_NAME;TRP_STATE;" delete-button="false">
+
   <o-table-column attr="ORIGIN_NAME" title-align="center" content-align="center"></o-table-column>
   <o-table-column attr="DESTINATION_NAME" title-align="center" content-align="center"></o-table-column>
   <o-table-column attr="CNT_NAME" title="CONTAINERS" title-align="center" content-align="center"></o-table-column>
   <o-table-column attr="VHC_PLATE" title="VEHICLES" title-align="center" content-align="center"></o-table-column>
   <o-table-column attr="TRP_DATE" title="DATE" type="date" format="DD/MM/YYYY" title-align="center"
     content-align="center"></o-table-column>
-  <o-table-column attr="USR_ID" value-column="USR_NAME" title="USR_NAME" title-align="center"
-    content-align="center"></o-table-column>
+  <o-table-column attr="USR_NAME" title="USR_NAME" title-align="center" content-align="center">
+    <app-transport-column-renderer></app-transport-column-renderer>
+  </o-table-column>
   <o-table-column attr="TRP_STATE" title="TRP_STATE" title-align="center" content-align="center"></o-table-column>
 </o-table>
