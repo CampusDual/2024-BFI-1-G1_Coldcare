@@ -17,21 +17,19 @@
 
   <o-row>
     <o-column class="extend">
-      <o-table #containerLotOriginTable attr="clOriginTable" title="CL_ORIGIN" show-title="yes" service="transfers"
-        entity="transfersOrigin" keys="TRA_ID" parent-keys="CL_ID" columns="TRA_ID;CNT_ID;CL_ID;CNT_NAME"
-        visible-columns="CNT_NAME" delete-button="no" refresh-button="false" quick-filter="no"
-        insert-form-route="newOrigin/new" (click)="openContainerLotOriginDetail()">
+      <o-table attr="clOriginTable" title="CL_ORIGIN" show-title="yes" service="transfers" entity="transfersOrigin"
+        keys="TRA_ID" parent-keys="CL_ID" columns="TRA_ID;CNT_ID;CL_ID;CNT_NAME" visible-columns="CNT_NAME"
+        delete-button="no" refresh-button="false" quick-filter="no" insert-form-route="newOrigin/new"
+        (onClick)="openContainersLotsDetail($event)" detail-mode="none">
         <o-table-column attr="CNT_NAME" title="CNT_NAME"></o-table-column>
       </o-table>
     </o-column>
 
     <o-column class="extend">
-      <o-table #containerLotDestinyTable attr="clDestinyTable" title="CL_DESTINY" show-title="yes" service="transfers"
-        entity="transfersDestiny" keys="TRA_ID" parent-keys="CL_ID" columns="TRA_ID;CNT_ID;CL_ID;CNT_NAME"
-        visible-columns="CNT_NAME;CNT_ID;CL_ID" delete-button="no" refresh-button="false" quick-filter="no"
-        insert-form-route="newDestiny/new" (click)="openContainerLotDestinyDetail()" selection-mode="single">
-        <o-table-column attr="CNT_ID" title="CNT_ID"></o-table-column>
-        <o-table-column attr="CL_ID" title="CL_ID"></o-table-column>
+      <o-table attr="clDestinyTable" title="CL_DESTINY" show-title="yes" service="transfers" entity="transfersDestiny"
+        keys="TRA_ID" parent-keys="CL_ID" columns="TRA_ID;CNT_ID;CL_ID;CNT_NAME" visible-columns="CNT_NAME"
+        delete-button="no" refresh-button="false" quick-filter="no" insert-form-route="newDestiny/new"
+        (onClick)="openContainersLotsDetail($event)" detail-mode="none">
         <o-table-column attr="CNT_NAME" title="CNT_NAME"></o-table-column>
       </o-table>
     </o-column>
