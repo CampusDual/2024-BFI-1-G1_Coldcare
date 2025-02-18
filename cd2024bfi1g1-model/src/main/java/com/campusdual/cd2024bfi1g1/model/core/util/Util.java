@@ -1,15 +1,19 @@
 package com.campusdual.cd2024bfi1g1.model.core.util;
 
+import com.campusdual.cd2024bfi1g1.model.core.dao.UserDao;
 import com.ontimize.jee.common.db.SQLStatementBuilder.BasicOperator;
 import com.ontimize.jee.common.db.SQLStatementBuilder.BasicField;
 import com.ontimize.jee.common.db.SQLStatementBuilder.BasicExpression;
 import com.ontimize.jee.common.dto.EntityResult;
 import com.ontimize.jee.common.dto.EntityResultMapImpl;
 import com.ontimize.jee.common.services.user.UserInformation;
+import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Util {
@@ -173,4 +177,22 @@ public class Util {
         res.setMessage(msgError);
         return res;
     }
+
+
+    public static Integer getUserCompanyId(DefaultOntimizeDaoHelper daoHelper, UserDao userDao){
+        Integer userId = Util.getUserId();
+
+        Map<String, Object> filter = new HashMap<>();
+        filter.put(UserDao.USR_ID, userId);
+        List<String> columns = List.of(UserDao.CMP_ID);
+
+        EntityResult userEr = daoHelper.query(userDao, filter, columns);
+        if (userEr.isEmpty()) {
+            throw new RuntimeException("Unknown user");
+        }
+
+        Map<String, Object> user = userEr.getRecordValues(0);
+        return (Integer) user.get(UserDao.CMP_ID);
+    }
+
 }
