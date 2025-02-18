@@ -18,7 +18,7 @@ export class MainComponent implements OnInit {
       
       if(ress['data'][0]['ROL_NAME'] == "admin"){
         this.router.navigate(['main','admin','devices-without-users'],{});
-      } else if (ress['data'][0]['ROL_NAME'] == "transporters"){
+      } else if (ress['data'][0]['ROL_NAME'] == "transporter"){
         this.router.navigate(['main','transporters'],{});
       }
     }) 
