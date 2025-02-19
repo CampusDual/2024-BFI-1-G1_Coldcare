@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
-import { OComboComponent, ORealInputComponent } from 'ontimize-web-ngx';
+import { OComboComponent, ORealInputComponent} from 'ontimize-web-ngx';
+import { Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-lots-details',
@@ -7,6 +8,10 @@ import { OComboComponent, ORealInputComponent } from 'ontimize-web-ngx';
   styleUrls: ['./lots-details.component.css']
 })
 export class LotsDetailsComponent {
+
+  constructor(private router: Router){
+
+  }
 
   @ViewChild('productCombo', {static: false} ) productCombo!: OComboComponent;
   @ViewChild('minTempInput', { static: false }) minTempInput!: ORealInputComponent;
@@ -21,4 +26,10 @@ export class LotsDetailsComponent {
        }
     }
   }
+
+  public redirect(selected:any){
+    this.router.navigate(['main', 'containers', selected.row.CNT_ID, selected.row.CL_ID], { queryParams: { isdetail: true } });
+
+  }
+  
 }

@@ -4,6 +4,7 @@ import { OntimizeWebModule } from 'ontimize-web-ngx';
 import { FilterComponent } from './components/filters/filters.component';
 import { HomeToolbarComponent } from './components/home-toolbar/home-toolbar.component';
 import { DevicesColumnRendererComponent } from '../main/devices/devices-column-renderer/devices-column-renderer.component';
+import { InDateRangeBooleanRendererComponent } from './components/in-date-range-boolean-renderer/in-date-range-boolean-renderer.component';
 
 
 
@@ -14,13 +15,15 @@ import { DevicesColumnRendererComponent } from '../main/devices/devices-column-r
   declarations: [
     FilterComponent,
     HomeToolbarComponent,
-    DevicesColumnRendererComponent
+    DevicesColumnRendererComponent,
+    InDateRangeBooleanRendererComponent
   ],
   exports: [
     CommonModule,
     FilterComponent,
     HomeToolbarComponent,
-    DevicesColumnRendererComponent
+    DevicesColumnRendererComponent,
+    InDateRangeBooleanRendererComponent
   ]
 })
 export class SharedModule { }

@@ -4,6 +4,7 @@ import com.campusdual.cd2024bfi1g1.api.core.service.IContainersService;
 import com.campusdual.cd2024bfi1g1.model.core.dao.ContainersDao;
 import com.campusdual.cd2024bfi1g1.model.core.dao.DevicesDao;
 import com.campusdual.cd2024bfi1g1.model.core.dao.UserDao;
+import com.campusdual.cd2024bfi1g1.model.core.util.Util;
 import com.ontimize.jee.common.dto.EntityResult;
 import com.ontimize.jee.common.dto.EntityResultMapImpl;
 import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
@@ -61,7 +62,7 @@ public class ContainersService implements IContainersService {
     public EntityResult containersQuery(Map<String, Object> keyMap, List<String> attrList)
             throws OntimizeJEERuntimeException {
 
-        Integer cmpId = UserAndRoleService.getUserCompanyId(this.daoHelper, this.userDao);
+        Integer cmpId = Util.getUserCompanyId(this.daoHelper, this.userDao);
         keyMap.put(DevicesDao.CMP_ID, cmpId);
 
         return this.daoHelper.query(this.containersDao, keyMap, attrList);
@@ -70,7 +71,7 @@ public class ContainersService implements IContainersService {
     @Override
     public EntityResult containersInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException {
 
-        Integer cmpId = UserAndRoleService.getUserCompanyId(this.daoHelper, this.userDao);
+        Integer cmpId = Util.getUserCompanyId(this.daoHelper, this.userDao);
         attrMap.put(DevicesDao.CMP_ID, cmpId);
 
         if (changeContainerName(cmpId, attrMap)) {
@@ -85,7 +86,7 @@ public class ContainersService implements IContainersService {
     public EntityResult containersUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap)
             throws OntimizeJEERuntimeException {
 
-        Integer cmpId = UserAndRoleService.getUserCompanyId(this.daoHelper, this.userDao);
+        Integer cmpId = Util.getUserCompanyId(this.daoHelper, this.userDao);
         attrMap.put(DevicesDao.CMP_ID, cmpId);
 
         if (changeContainerName(cmpId, attrMap)) {

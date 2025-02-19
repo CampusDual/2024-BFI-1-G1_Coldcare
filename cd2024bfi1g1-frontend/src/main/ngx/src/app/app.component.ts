@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Injector } from '@angular/core';
 import { Router } from '@angular/router';
-import { AppearanceService } from 'ontimize-web-ngx';
+import { AppearanceService, OntimizeMatIconRegistry } from 'ontimize-web-ngx';
 
 @Component({
   selector: 'o-app',
@@ -8,9 +8,17 @@ import { AppearanceService } from 'ontimize-web-ngx';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  ontimizeMatIconRegistry: OntimizeMatIconRegistry;
 
-  constructor(private router: Router, protected appearanceService: AppearanceService) {
-    if(window['__ontimize'] !== undefined && window['__ontimize']['redirect'] !== undefined) {
+  ngOnInit() {
+    if (this.ontimizeMatIconRegistry.addOntimizeSvgIcon) {
+      this.ontimizeMatIconRegistry.addOntimizeSvgIcon('containerIcon', 'assets/icons/container.svg');
+    }
+  }
+
+  constructor(private router: Router, protected appearanceService: AppearanceService, protected injector: Injector) {
+    this.ontimizeMatIconRegistry = this.injector.get(OntimizeMatIconRegistry);
+    if (window['__ontimize'] !== undefined && window['__ontimize']['redirect'] !== undefined) {
       let redirectTo = window['__ontimize']['redirect'];
       window['__ontimize']['redirect'] = undefined;
       this.router.navigate([redirectTo]);

@@ -43,13 +43,19 @@
                 "input": "node_modules/ontimize-web-ngx-charts/assets",
                 "output": "/assets"
               },
+              {
+                "glob": "**/*",
+                "input": "node_modules/ontimize-web-ngx-map/images",
+                "output": "/assets"
+              },
               "src/manifest.webmanifest"
             ],
             "styles": [
               "node_modules/ontimize-web-ngx/ontimize.scss",
               "src/assets/css/app.scss",
               "src/styles.scss",
-              "node_modules/ontimize-web-ngx-charts/styles.scss"
+              "node_modules/ontimize-web-ngx-charts/styles.scss",
+              "node_modules/ontimize-web-ngx-map/styles.scss"
             ],
             "scripts": [],
             "vendorChunk": true,
@@ -260,6 +266,7 @@
           }
         }
       }
-    }},
+    }
+  },
   "defaultProject": "app"
 }

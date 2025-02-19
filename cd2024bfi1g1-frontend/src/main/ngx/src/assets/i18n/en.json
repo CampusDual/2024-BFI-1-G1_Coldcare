@@ -193,5 +193,20 @@
   "BTN_SAVED": "Saved",
   "VIEWED": "Viewed",
   "NOT_VIEWED": "Not viewed",
-  "VIEWED_AND_NOT_VIEWED": "All states"
+  "VIEWED_AND_NOT_VIEWED": "All states",
+  "CONTAINERS_HISTORY": "Containers history",
+  "CONSUMPTIONS": "Consumptions",
+  "JANUARY": "January",
+  "FEBRUARY": "February",
+  "MARCH": "March",
+  "APRIL": "April",
+  "MAY": "May",
+  "JUNE": "June",
+  "JULY": "July",
+  "AUGUST": "August",
+  "SEPTEMBER": "September",
+  "OCTOBER": "October",
+  "NOVEMBER": "November",
+  "DECEMBER": "December",
+  "MASTERS": "Masters"
 }
