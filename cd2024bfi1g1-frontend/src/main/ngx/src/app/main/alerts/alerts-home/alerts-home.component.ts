@@ -56,18 +56,23 @@ export class AlertsHomeComponent {
 
   }
 
-
-
-
   createFilter(values: Array<{ attr; value }>): Expression {
-    // Prepare simple expressions from the filter components values
+
     let filters: Array<Expression> = [];
 
     values.forEach(fil => {
+
+
+
+      if (fil.attr === "estado" && Util.isDefined(fil.value)) {
+        if (!fil.value === true) {
+          fil.value = false;
+        }
+
+      }
+
+
       if (Util.isDefined(fil.value)) {
-
-        //  console.log("datos", fil.attr, fil.value);
-
         const attributeMapping = {
           lote: "lot_name",
           contenedor: "cnt_name",
@@ -75,15 +80,15 @@ export class AlertsHomeComponent {
         };
 
         const fieldName = attributeMapping[fil.attr];
+
         if (fieldName) {
           const valueAsString = String(fil.value);
           filters.push(FilterExpressionUtils.buildExpressionLike(fieldName, valueAsString));
         }
-
       }
     });
 
-    // Build complex expression
+
     if (filters.length > 0) {
       return filters.reduce((exp1, exp2) =>
         FilterExpressionUtils.buildComplexExpression(
@@ -96,8 +101,4 @@ export class AlertsHomeComponent {
       return null;
     }
   }
-
-
-
-
 }

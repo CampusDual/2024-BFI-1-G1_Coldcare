@@ -15,15 +15,13 @@
 
             </div>
             <div fxLayoutAlign="end center" fxLayoutGap="8px">
-                <o-button attr="filter" [oFilterBuilderQuery]="filterBuilder" type="FLAT" color="primary"
-                    label="FILTER">
-                </o-button>
+
                 <o-button attr="clear" [oFilterBuilderClear]="filterBuilder" type="BASIC" label="CLEAR"
                     icon="clear"></o-button>
             </div>
         </div>
         <o-filter-builder #filterBuilder attr="thefilter" filters="lote;contenedor;estado" [target]="alertsTable"
-            query-on-change="no" query-on-change-delay="500" [expression-builder]="createFilter">
+            query-on-change="yes" query-on-change-delay="500" [expression-builder]="createFilter">
         </o-filter-builder>
 
         <o-table #alertsTable attr="alertsTable" service="alerts" entity="alertsWithCalculatedColumns" keys="ALT_ID"
