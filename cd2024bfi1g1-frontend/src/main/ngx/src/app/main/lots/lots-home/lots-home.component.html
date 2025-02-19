@@ -1,5 +1,5 @@
 <o-table attr="lotsTable" service="lots" entity="lotsProducts" keys="LOT_ID"
-    columns="PRO_ID;PRO_NAME;LOT_ID;MIN_TEMP;MAX_TEMP;LOT_NAME" visible-columns="LOT_NAME;PRO_NAME;MIN_TEMP;MAX_TEMP"
+    columns="PRO_ID;PRO_NAME;LOT_ID;MIN_TEMP;MAX_TEMP;LOT_NAME" visible-columns="LOT_NAME;PRO_NAME;MIN_TEMP;MAX_TEMP;has_alert"
     select-all-checkbox-visible="no" insert-button="yes" delete-button="no" refresh-button="yes" title="LOTS"
     show-title="yes">
     <!-- Columnas de la Tabla -->
@@ -7,4 +7,7 @@
     <o-table-column attr="PRO_NAME" title-align="center" content-align="center"></o-table-column>
     <o-table-column attr="MIN_TEMP" title-align="center" type="real" content-align="center"></o-table-column>
     <o-table-column attr="MAX_TEMP" title-align="center" type="real" content-align="center"></o-table-column>
+    <o-table-column attr="has_alert" title="HAS_ALERT" title-align="center" content-align="center">
+        <alert-boolean-renderer />
+    </o-table-column>
 </o-table>
