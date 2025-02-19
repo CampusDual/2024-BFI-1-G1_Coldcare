@@ -41,9 +41,6 @@
             </Sentence>
         </Query>
         <Query id="containers_with_alerts">
-            <AmbiguousColumns>
-                <AmbiguousColumn name="CNT_ID" prefix="c" />
-            </AmbiguousColumns>
             <Sentence>
                 <![CDATA[
                     SELECT
@@ -51,15 +48,10 @@
                         EXISTS (
                             SELECT 1
                             FROM containers_lots cl
-                            JOIN alerts a ON cl.cl_id = a.cl_id
-                            JOIN lots l ON cl.lot_id = l.lot_id
+                            INNER JOIN alerts a ON cl.cl_id = a.cl_id
                             WHERE
                                 cl.cnt_id = c.cnt_id
                                 AND CURRENT_DATE BETWEEN cl.cl_start_date AND COALESCE(cl.cl_end_date, CURRENT_DATE)
-                                AND (
-                                    a.alt_date_init <= COALESCE(cl.cl_end_date, CURRENT_DATE)
-                                    AND (a.alt_date_end IS NULL OR a.alt_date_end >= cl.cl_start_date)
-                                )
                         ) AS HAS_ALERT
                     FROM ${mainschema}.containers c
                     #WHERE#
