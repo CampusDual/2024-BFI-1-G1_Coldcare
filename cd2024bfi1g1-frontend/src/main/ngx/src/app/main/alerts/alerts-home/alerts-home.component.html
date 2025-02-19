@@ -6,7 +6,7 @@
             <div fxLayout="row" fxLayoutGap="15px" layout-padding>
                 <o-text-input attr="contenedor" label="CNT_NAME"></o-text-input>
                 <o-text-input attr="lote" label="LOT_NAME"></o-text-input>
-                <o-combo attr="estado" label="ALT_STATE" value-column="ALT_STATE" columns="ALT_STATE"
+                <o-combo attr="estado" label="ALT_STATES" value-column="ALT_STATE" columns="ALT_STATE"
                     visible-columns="ALT_STATE" null-selection="yes" searchable="yes" translate="yes"
                     [static-data]="[{ALT_STATE:true},{ALT_STATE:false}]" null-selection-label="VIEWED_AND_NOT_VIEWED">
                     <o-combo-renderer-boolean boolean-type="boolean" translate="yes" render-true-value="VIEWED"
