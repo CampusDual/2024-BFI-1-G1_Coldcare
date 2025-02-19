@@ -25,13 +25,9 @@ export class ContainersLotsMeasurementsComponent {
   }
 
   public openContainersLotsDetail(selected: any) {
-    this.redirect(selected.row);
-  }
-
-  private redirect(selected: any) {
-    if (selected && selected.CNT_ID && selected.CL_ID) {
-      this.router.navigate(['main', 'containers', selected.CNT_ID, selected.CL_ID], { queryParams: { isdetail: true } });
+    const row = selected.row;
+    if (row && row.CNT_ID && row.CL_ID) {
+      this.router.navigate(['main', 'containers', row.CNT_ID, row.CL_ID], { queryParams: { isdetail: true } });
     }
   }
-
 }
