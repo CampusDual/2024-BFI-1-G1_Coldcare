@@ -1,11 +1,11 @@
 <o-table attr="containers" title="CONTAINERS" service="containers" entity="containersWithAlerts" keys="CNT_ID"
   columns="CNT_ID;CNT_NAME;CNT_MOBILITY" visible-columns="has_alert;CNT_NAME;CNT_MOBILITY" delete-button="no"
   show-title="true">
-  <o-table-column attr="has_alert" title="ALERT">
+  <o-table-column attr="has_alert" title="HAS_ALERT" content-align="center" title-align="center">
     <alert-boolean-renderer />
   </o-table-column>
-  <o-table-column attr="CNT_NAME" title="IDENTIFIER"></o-table-column>
-  <o-table-column attr="CNT_MOBILITY" title="CNT_MOBILITY" content-align="center">
+  <o-table-column attr="CNT_NAME" title="IDENTIFIER" content-align="center" title-align="center"></o-table-column>
+  <o-table-column attr="CNT_MOBILITY" title="CNT_MOBILITY" content-align="center" title-align="center">
     <app-containers-home-boolean-render />
   </o-table-column>
 </o-table>
