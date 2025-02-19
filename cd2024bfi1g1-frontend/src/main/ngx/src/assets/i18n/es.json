@@ -190,6 +190,7 @@
   "ASSIGN_CMP": "Asignar empresa",
   "ALT_STATE": "Estado",
   "BTN_SAVED": "Guardado",
-  "true": "Vista",
-  "false": "No vistas"
+  "VIEWED": "Vistas",
+  "NOT_VIEWED": "No vistas",
+  "VIEWED_AND_NOT_VIEWED": "Todos los estados"
 }
