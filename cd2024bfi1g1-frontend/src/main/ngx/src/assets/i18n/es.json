@@ -196,5 +196,8 @@
   "BTN_INIT": "Iniciar",
   "BTN_END": "Finalizar",
   "TRP_WAIT_USER": "Esperando transportista",
-  "TRP_NAME": "Nombre del transportista"
+  "TRP_NAME": "Nombre del transportista",
+  "PENDING": "Pendiente",
+  "INITIATED": "Iniciado",
+  "FINISHED": "Finalizado"
 }

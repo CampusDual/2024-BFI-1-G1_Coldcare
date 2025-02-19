@@ -7,13 +7,14 @@
         <o-text-input attr="DESTINATION_NAME" read-only="yes"></o-text-input>
         <o-date-input attr="TRP_DATE" label="DELIVERY_DATE" read-only="yes"></o-date-input>
         <o-text-input attr="VHC_PLATE" read-only="yes"></o-text-input>
-        <o-text-input #stateInput attr="TRP_STATE" translate="yes"></o-text-input>
+        <o-combo attr="TRP_STATE_ID" label="TRP_STATE" parent-keys="TRP_ID" service="transports" entity="transports"
+          value-column="TRP_STATE_ID" columns="TRP_STATE_ID;TRP_STATE" visible-columns="TRP_STATE" searchable="no"
+          required="yes" read-only="yes" translate="yes"></o-combo>
 
         <o-button #init attr="BTN_INIT" type="RAISED" label="BTN_INIT" layout-padding color="accent"
-          (onClick)="setStatusInit()"></o-button>
-
+          (click)="setServiceInit()"></o-button>
         <o-button #end attr="BTN_END" type="RAISED" label="BTN_END" layout-padding color="warn"
-          (onClick)="setStatusEnd()"></o-button>
+          (click)="setServiceEnd()"></o-button>
 
       </div>
     </o-column>

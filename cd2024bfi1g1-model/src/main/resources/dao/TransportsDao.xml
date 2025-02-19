@@ -34,7 +34,8 @@
                 t.VHC_ID,
                 v.VHC_PLATE,
                 t.TRP_DATE,
-                t.TRP_STATE,
+                ts.TRP_STATE,
+                ts.TRP_STATE_ID,
                 us.USR_NAME
             FROM transports t
             LEFT JOIN vehicles v ON t.VHC_ID = v.VHC_ID
@@ -42,6 +43,7 @@
             LEFT JOIN locations lo ON t.TRP_ORIGIN = lo.LOC_ID
             LEFT JOIN locations ld ON t.TRP_DESTINATION = ld.LOC_ID
             LEFT JOIN usr_user  us ON t.USR_ID = us.USR_ID
+            LEFT JOIN transport_states ts ON t.trp_state_id = ts.trp_state_id
             #WHERE#
             #ORDER#
         ]]>
