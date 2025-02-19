@@ -16,6 +16,7 @@
             <AmbiguousColumns>
                 <AmbiguousColumn name="LOT_ID" prefix="cl"/>
                 <AmbiguousColumn name="CNT_ID" prefix="cl"/>
+                <AmbiguousColumn name="PRO_ID" prefix="p"/>
             </AmbiguousColumns>
             <Sentence>
                 <![CDATA[

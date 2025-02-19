@@ -28,6 +28,7 @@
             <AmbiguousColumns>
                 <AmbiguousColumn name="ALT_ID" prefix="a" />
                 <AmbiguousColumn name="CL_ID" prefix="a" />
+                <AmbiguousColumn name="PRO_ID" prefix="p" />
             </AmbiguousColumns>
             <Sentence>
                 <![CDATA[
@@ -55,6 +56,7 @@
                     INNER JOIN containers_lots cl ON a.cl_id = cl.cl_id
                     INNER JOIN containers c ON cl.cnt_id = c.cnt_id
                     INNER JOIN lots l ON cl.lot_id = l.lot_id
+                    INNER JOIN products p ON l.pro_id = p.pro_id
                     #WHERE#
                     #ORDER#
                 ]]>
