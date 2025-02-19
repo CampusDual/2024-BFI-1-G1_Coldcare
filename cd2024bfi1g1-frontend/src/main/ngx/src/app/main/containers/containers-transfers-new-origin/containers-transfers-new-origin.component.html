@@ -3,8 +3,8 @@
     <o-integer-input #inputOrigin attr="TRA_ORIGIN_CL" oHidden></o-integer-input>
     <o-table #tableOrigin attr="tableOrigin" title="AVAILABLE_CNT" show-title="yes" service="containersLots"
         entity="containersLotsTransfers" columns="CNT_NAME;CL_START_DATE;CL_END_DATE" keys="CL_ID"
-        visible-columns="CNT_NAME;CL_START_DATE;CL_END_DATE" parent-keys="CL_ID" delete-button="no" insert-button="no"
-        refresh-button="false" quick-filter="no" detail-mode="none" selection-mode="single"
+        visible-columns="SELECTED;CNT_NAME;CL_START_DATE;CL_END_DATE" parent-keys="CL_ID" delete-button="no"
+        insert-button="no" refresh-button="false" quick-filter="no" detail-mode="none" selection-mode="single"
         (onClick)="onRowClick($event)">
         <o-table-column attr="SELECTED" content-align="center">
             <app-containers-transfers-boolean-render />

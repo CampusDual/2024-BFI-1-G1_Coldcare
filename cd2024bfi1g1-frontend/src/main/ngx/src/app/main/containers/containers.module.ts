@@ -12,6 +12,7 @@ import { ContainersHomeBooleanRenderComponent } from './containers-home-boolean-
 import { ContainersTransfersNewOriginComponent } from './containers-transfers-new-origin/containers-transfers-new-origin.component';
 import { ContainersTransfersNewDestinyComponent } from './containers-transfers-new-destiny/containers-transfers-new-destiny.component';
 import { SharedModule } from "../../shared/shared.module";
+import { ContainersTransfersBooleanRenderComponent } from './containers-transfers-boolean-render/containers-transfers-boolean-render.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { SharedModule } from "../../shared/shared.module";
     ContainersLotsAssignmentsComponent,
     ContainersHomeBooleanRenderComponent,
     ContainersTransfersNewOriginComponent,
-    ContainersTransfersNewDestinyComponent
+    ContainersTransfersNewDestinyComponent,
+    ContainersTransfersBooleanRenderComponent
   ],
   imports: [
     CommonModule,

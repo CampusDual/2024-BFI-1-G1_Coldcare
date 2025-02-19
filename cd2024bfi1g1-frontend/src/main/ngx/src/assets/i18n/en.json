@@ -209,5 +209,6 @@
   "TRANSFER_NEW_DESTINY": "New destiny container",
   "ERROR_SAME_CONTAINER": "You cannot transfer to the same container",
   "AVAILABLE_CNT": "Select an available container",
-  "ERROR_TRANSFER_ALREADY_EXISTS": "Transfer already exists between those containers"
+  "ERROR_TRANSFER_ALREADY_EXISTS": "Transfer already exists between those containers",
+  "SELECTED": "Selected"
 }
