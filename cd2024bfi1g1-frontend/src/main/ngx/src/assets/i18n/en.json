@@ -194,5 +194,6 @@
   "TRP_STATUS_END": "Finished",
   "BTN_INIT": "Start",
   "BTN_END": "Finish",
-  "TRP_WAIT_USER": "Awaiting the carrier"
+  "TRP_WAIT_USER": "Awaiting the carrier",
+  "TRP_NAME": "Carrier name"
 }
