@@ -7,10 +7,12 @@
                 <o-text-input attr="contenedor" label="CNT_NAME"></o-text-input>
                 <o-text-input attr="lote" label="LOT_NAME"></o-text-input>
                 <o-combo attr="estado" label="ALT_STATES" value-column="ALT_STATE" columns="ALT_STATE"
-                    visible-columns="ALT_STATE" null-selection="yes" searchable="yes" translate="yes"
-                    [static-data]="[{ALT_STATE:true},{ALT_STATE:false}]" null-selection-label="VIEWED_AND_NOT_VIEWED">
-                    <o-combo-renderer-boolean boolean-type="boolean" translate="yes" render-true-value="VIEWED"
-                        render-false-value="NOT_VIEWED" render-></o-combo-renderer-boolean>
+                    visible-columns="ALT_STATE" null-selection="none" searchable=" yes" translate="yes"
+                    [static-data]="[{ALT_STATE:0},{ALT_STATE:1},{ALT_STATE:2}]">
+                    <o-combo-renderer-integer translate="yes" render-type-1="VIEWED" render-true-value="VIEWED"
+                        render-false-value="NOT_VIEWED"></o-combo-renderer-integer>
+                    <!--<o-combo-renderer-boolean boolean-type="boolean" translate="yes" render-true-value="VIEWED"
+                        render-false-value="NOT_VIEWED" render-></o-combo-renderer-boolean> -->
                 </o-combo>
 
             </div>
@@ -29,7 +31,7 @@
             visible-columns="ALT_STATE;ALT_DATE_INIT;CNT_NAME;LOT_NAME;ALT_DURATION;ALT_MIN_TEMP;ALT_MAX_TEMP;MIN_TEMP_DEV;MAX_TEMP_DEV;AVG_HUMIDITY"
             select-all-checkbox-visible="yes" insert-button="no" delete-button="no" refresh-button="yes"
             quick-filter="no" detail-mode="none" title="ALERTS" show-title="yes" sort-columns="ALT_DATE_INIT:DESC"
-            virtual-scroll="false" horizontal-scroll="true" quick-filter="yes" selection-mode="multiple">
+            virtual-scroll="false" horizontal-scroll="true" quick-filter="yes" selection-mode="none">
 
             <o-table-button label="BTN_SAVED" icon="check" (onClick)="selectionRow($event)"></o-table-button>
 

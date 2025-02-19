@@ -26,16 +26,13 @@ export class AlertsHomeComponent {
       return;
     }
 
-
     const dataToSave = selectedRows.map(row => ({
 
       ALT_STATE: row.ALT_STATE = row.ALT_STATE === true ? false : true,
       ALT_ID: row.ALT_ID
     }));
-    //  console.log(dataToSave);
 
     dataToSave.map(row => {
-      //console.log(row.ALT_STATE);
 
       const attrMap = { ALT_STATE: row.ALT_STATE };
       const keyMap = { ALT_ID: row.ALT_ID }
@@ -62,15 +59,26 @@ export class AlertsHomeComponent {
 
     values.forEach(fil => {
 
-
-
       if (fil.attr === "estado" && Util.isDefined(fil.value)) {
-        if (!fil.value === true) {
-          fil.value = false;
+
+        let estado = String(fil.value)
+
+        if (estado == "0") {
+          fil.value = false
         }
 
-      }
+        if (estado == "1") {
+          fil.value = true
+        }
 
+        if (estado == "2") {
+          fil.value = "true or false"
+        }
+
+        if (!fil.value === true && !(fil.value == " ")) {
+          fil.value = false;
+        }
+      }
 
       if (Util.isDefined(fil.value)) {
         const attributeMapping = {
@@ -82,8 +90,15 @@ export class AlertsHomeComponent {
         const fieldName = attributeMapping[fil.attr];
 
         if (fieldName) {
-          const valueAsString = String(fil.value);
-          filters.push(FilterExpressionUtils.buildExpressionLike(fieldName, valueAsString));
+
+          if (fil.value === "true or false") {
+            const filterTrue = FilterExpressionUtils.buildExpressionLike(fieldName, '%true%');
+            const filterFalse = FilterExpressionUtils.buildExpressionLike(fieldName, '%false%');
+            filters.push(FilterExpressionUtils.buildComplexExpression(filterTrue, filterFalse, FilterExpressionUtils.OP_OR));
+          } else {
+            const valueAsString = String(fil.value);
+            filters.push(FilterExpressionUtils.buildExpressionLike(fieldName, valueAsString));
+          }
         }
       }
     });
