@@ -1,10 +1,10 @@
-<o-table attr="transports" title="TRANSPORTS" show-title="yes" service="transports" entity="transports" keys="TRP_ID"
-  columns="TRP_ID;ORIGIN_NAME;DESTINATION_NAME;TRP_DATE;VHC_PLATE;TRP_STATE"
-  visible-columns="ORIGIN_NAME;DESTINATION_NAME;TRP_DATE;VHC_PLATE;TRP_STATE" delete-button="no" insert-button="no">
+<o-table attr="transports" title="TRANSPORTS" show-title="yes" service="transports" entity="transportsPerUser"
+  keys="TRP_ID" columns="TRP_ID;ORIGIN_NAME;DESTINATION_NAME;TRP_DATE;VHC_PLATE;TST_NAME"
+  visible-columns="ORIGIN_NAME;DESTINATION_NAME;TRP_DATE;VHC_PLATE;TST_NAME" delete-button="no" insert-button="no">
   <o-table-column attr="ORIGIN_NAME" title-align="center" content-align="center"></o-table-column>
   <o-table-column attr="DESTINATION_NAME" title-align="center" content-align="center"></o-table-column>
   <o-table-column attr="TRP_DATE" title="DATE" type="date" format="DD/MM/YYYY" title-align="center"
     content-align="center"></o-table-column>
   <o-table-column attr="VHC_PLATE" title="VEHICLES" title-align="center" content-align="center"></o-table-column>
-  <o-table-column attr="TRP_STATE" title-align="center" content-align="center"></o-table-column>
+  <o-table-column attr="TST_NAME" title-align="center" content-align="center"></o-table-column>
 </o-table>

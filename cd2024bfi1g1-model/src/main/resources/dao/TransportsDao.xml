@@ -34,8 +34,8 @@
                 t.VHC_ID,
                 v.VHC_PLATE,
                 t.TRP_DATE,
-                ts.TRP_STATE,
-                ts.TRP_STATE_ID,
+                ts.TST_NAME,
+                ts.TST_ID,
                 us.USR_NAME
             FROM transports t
             LEFT JOIN vehicles v ON t.VHC_ID = v.VHC_ID
@@ -43,7 +43,44 @@
             LEFT JOIN locations lo ON t.TRP_ORIGIN = lo.LOC_ID
             LEFT JOIN locations ld ON t.TRP_DESTINATION = ld.LOC_ID
             LEFT JOIN usr_user  us ON t.USR_ID = us.USR_ID
-            LEFT JOIN transport_states ts ON t.trp_state_id = ts.trp_state_id
+            LEFT JOIN transport_states ts ON t.TST_ID = ts.TST_ID
+            #WHERE#
+            #ORDER#
+        ]]>
+            </Sentence>
+        </Query>
+        <Query id="defaultPerUser">
+            <AmbiguousColumns>
+                <AmbiguousColumn name="CNT_ID" prefix="t" />
+                <AmbiguousColumn name="VHC_ID" prefix="t" />
+                <AmbiguousColumn name="CMP_ID" prefix="c" />
+                <AmbiguousColumn name="LOC_ID" prefix="lo" />
+                <AmbiguousColumn name="LOC_ID" prefix="ld" />
+                <AmbiguousColumn name="USR_ID" prefix="us" />
+            </AmbiguousColumns>
+            <Sentence>
+                <![CDATA[
+            SELECT
+                t.TRP_ID,
+                t.TRP_ORIGIN,
+                lo.LOC_NAME AS ORIGIN_NAME,
+                t.TRP_DESTINATION,
+                ld.LOC_NAME AS DESTINATION_NAME,
+                t.CNT_ID,
+                c.CNT_NAME,
+                t.VHC_ID,
+                v.VHC_PLATE,
+                t.TRP_DATE,
+                ts.TST_NAME,
+                ts.TST_ID,
+                us.USR_NAME
+            FROM transports t
+            LEFT JOIN vehicles v ON t.VHC_ID = v.VHC_ID
+            LEFT JOIN containers c ON t.CNT_ID = c.CNT_ID
+            LEFT JOIN locations lo ON t.TRP_ORIGIN = lo.LOC_ID
+            LEFT JOIN locations ld ON t.TRP_DESTINATION = ld.LOC_ID
+            LEFT JOIN usr_user  us ON t.USR_ID = us.USR_ID
+            LEFT JOIN transport_states ts ON t.TST_ID = ts.TST_ID
             #WHERE#
             #ORDER#
         ]]>

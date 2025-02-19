@@ -6,6 +6,7 @@ import com.campusdual.cd2024bfi1g1.model.core.dao.TransportsDao;
 import com.campusdual.cd2024bfi1g1.model.core.dao.UserDao;
 import com.campusdual.cd2024bfi1g1.model.core.dao.VehiclesDao;
 import com.ontimize.jee.common.dto.EntityResult;
+import com.ontimize.jee.common.dto.EntityResultMapImpl;
 import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
 import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import static com.campusdual.cd2024bfi1g1.model.core.util.Util.getUserId;
 
 @Service("TransportsService")
 @Lazy
@@ -81,6 +83,25 @@ public class TransportsService implements ITransportsService {
         keyMap.put(VehiclesDao.CMP_ID, cmpId);
 
         return this.daoHelper.query(this.transportsDao, keyMap, attrList, "plates");
+    }
+    @Override
+    public EntityResult transportsPerUserQuery(Map<String, Object> keyMap, List<String> attrList)
+            throws OntimizeJEERuntimeException {
+        Integer cmpId = UserAndRoleService.getUserCompanyId(this.daoHelper, this.userDao);
+        keyMap.put(VehiclesDao.CMP_ID, cmpId);
+
+        Integer userId = getUserId();
+
+        if (userId != null) {
+            keyMap.put(UserDao.USR_ID, userId);
+        } else {
+
+            EntityResult res = new EntityResultMapImpl();
+            res.setCode(EntityResult.OPERATION_WRONG);
+            res.setMessage("MEASUREMENTS_DATA_ERROR");
+            return res;
+        }
+        return this.daoHelper.query(this.transportsDao, keyMap, attrList, "defaultPerUser");
     }
 
 }

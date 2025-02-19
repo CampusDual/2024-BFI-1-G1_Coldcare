@@ -1,59 +1,72 @@
-import { Component, ViewChild, OnDestroy, OnInit } from '@angular/core';
-import { OButtonComponent, OTextInputComponent, OFormComponent, OTranslateService } from 'ontimize-web-ngx';
-import { Subscription } from 'rxjs';
+import { Component, Injector, ViewChild } from '@angular/core';
+import { OFormComponent, OntimizeService } from 'ontimize-web-ngx';
 import { TRP_STATUS_END, TRP_STATUS_INIT } from 'src/app/shared/constants';
+import { TransportService } from 'src/app/shared/services/transport.service';
 
 @Component({
   selector: 'app-transporters-details',
-  templateUrl: './transporters-details.component.html',
-  styleUrls: ['./transporters-details.component.css']
+  templateUrl: './transporters-details.component.html'
 })
-export class TransportersDetailsComponent implements OnInit, OnDestroy {
+export class TransportersDetailsComponent {
 
-  @ViewChild('init', { static: false }) init!: OButtonComponent;
-  @ViewChild('end', { static: false }) end!: OButtonComponent;
-  @ViewChild('stateInput', { static: false }) stateInput!: OTextInputComponent;
-  @ViewChild('form', { static: false }) form!: OFormComponent;
+  @ViewChild('form', { static: true }) form!: OFormComponent;
 
-  private currentState: string = '';
-  private languageChangeSubscription!: Subscription;
+  constructor(private transportService: TransportService, protected injector: Injector) {
+    this.service = this.injector.get(OntimizeService);
+  }
+  protected service: OntimizeService;
 
-  constructor(private translateService: OTranslateService) {}
 
   ngOnInit() {
-    this.languageChangeSubscription = this.translateService.onLanguageChanged.subscribe(() => {
-      this.updateTranslatedState();
-    });
+    this.configureService();
   }
 
+  protected configureService() {
+    // Configure the service using the configuration defined in the `app.services.config.ts` file
+    const conf = this.service.getDefaultServiceConfiguration('transports');
+    this.service.configureService(conf);
+  }
+
+
   setStatusInit() {
-    this.currentState = TRP_STATUS_INIT;
-    this.updateTransportState();
+    const trpId = this.form.getUrlParam('TRP_ID');
+    const data = {
+      TRP_STATE_ID: TRP_STATUS_INIT
+    };
+    const filter = {
+      TRP_ID: Number(trpId)
+    };
+
+    this.configureService();
+    this.service.update(filter, data, 'transports').subscribe(response => {
+      if (response.code === 0) {
+
+
+
+      } else {
+        alert('Impossible to query data!');
+      }
+    });
+
   }
 
   setStatusEnd() {
-    this.currentState = TRP_STATUS_END;
-    this.updateTransportState();
-  }
+    const trpId = this.form.getUrlParam('TRP_ID');
+    const data = {
+      TRP_STATE_ID: TRP_STATUS_END
+    };
+    const filter = {
+      TRP_ID: Number(trpId)
+    };
+    this.service.update(filter, data, 'transports').subscribe(response => {
+      if (response.code === 0) {
 
-  private updateTransportState() {
-    if (this.form) {
-      const translatedState = this.translateService.get(this.currentState);
-      this.stateInput.setValue(translatedState);
-      this.form.setFieldValue('TRP_STATE', translatedState);
-    }
-  }
 
-  private updateTranslatedState() {
-    if (this.currentState) {
-      this.updateTransportState();
-    }
-  }
 
-  ngOnDestroy() {
-    if (this.languageChangeSubscription) {
-      this.languageChangeSubscription.unsubscribe();
-    }
-  }
+      } else {
+        alert('Impossible to query data!');
+      }
+    });
 
+  }
 }

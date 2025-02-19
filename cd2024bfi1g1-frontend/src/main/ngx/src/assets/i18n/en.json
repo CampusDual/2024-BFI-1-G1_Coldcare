@@ -190,7 +190,7 @@
   "COMPANY_NEW": "New company",
   "ASSIGN_CMP": "Assign company",
   "VEHICLE_DUPLICATE_INSERT": "There is already a vehicle with this name",
-  "TRP_STATE": "State",
+  "TST_NAME": "State",
   "TRP_STATUS_INIT": "Started",
   "TRP_STATUS_END": "Finished",
   "BTN_INIT": "Start",
