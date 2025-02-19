@@ -1,7 +1,7 @@
 import { Component, Injector, ViewChild } from '@angular/core';
 import { OFormComponent, OntimizeService } from 'ontimize-web-ngx';
 import { TRP_STATUS_END, TRP_STATUS_INIT } from 'src/app/shared/constants';
-import { TransportService } from 'src/app/shared/services/transport.service';
+
 
 @Component({
   selector: 'app-transporters-details',
@@ -11,7 +11,7 @@ export class TransportersDetailsComponent {
 
   @ViewChild('form', { static: true }) form!: OFormComponent;
 
-  constructor(private transportService: TransportService, protected injector: Injector) {
+  constructor(protected injector: Injector) {
     this.service = this.injector.get(OntimizeService);
   }
   protected service: OntimizeService;
