@@ -3,7 +3,8 @@
     <o-column title="LOT_ASSIGNMENT">
         <div class="inline-fields">
             <o-combo attr="LOT_ID" label="CURRENT_LOT" service="lots" entity="lots" value-column="LOT_ID"
-                columns="LOT_ID;LOT_NAME" visible-columns="LOT_NAME" null-selection="no" required="yes"></o-combo>
+                columns="LOT_ID;LOT_NAME;PRO_ID;PRO_NAME" visible-columns="LOT_NAME;PRO_NAME" null-selection="no"
+                required="yes" separator=",  "></o-combo>
             <o-date-input attr="CL_START_DATE" required="yes"></o-date-input>
             <o-date-input attr="CL_END_DATE"></o-date-input>
         </div>
