@@ -153,6 +153,7 @@
   "AVG_HUMIDITY": "Humedad media",
   "DURATION": "Duración",
   "VEHICLES": "Vehículos",
+  "VEHICLE": "Vehículo",
   "PLATE": "Matrícula",
   "MEASUREMENTS_HISTORIC": "Histórico de medidas",
   "COMPANY_DELETE_ERROR": "No se puede borrar una compañia asignada",

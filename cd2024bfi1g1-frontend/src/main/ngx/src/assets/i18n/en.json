@@ -153,6 +153,7 @@
   "AVG_HUMIDITY": "Average Humidity",
   "DURATION": "Duration",
   "VEHICLES": "Vehicles",
+  "VEHICLE": "Vehicle",
   "PLATE": "Plate",
   "MEASUREMENTS_HISTORIC": "Measurements historic",
   "COMPANY_DELETE_ERROR": "Cannot delete an assigned company",
