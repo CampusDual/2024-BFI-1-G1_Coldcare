@@ -1,11 +1,18 @@
 <o-form attr="newOrigin" service="transfers" entity="transfersOrigin" keys="TRA_ID" show-header="true"
     after-insert-mode="close" confirm-exit="false">
-    <o-column title="TRANSFER_NEW_ORIGIN">
-        <div class="inline-fields">
-            <o-combo attr="TRA_ORIGIN_CL" label="CL_ORIGIN" service="containersLots" entity="containersLotsTransfers"
-                value-column="CL_ID" columns="CL_ID;CNT_NAME" visible-columns="CNT_NAME" null-selection="no"
-                searchable="no" required="true" parent-keys="CL_ID"></o-combo>
-            <o-integer-input attr="CL_ID" oHidden></o-integer-input>
-        </div>
-    </o-column>
+    <o-integer-input #inputOrigin attr="TRA_ORIGIN_CL" oHidden></o-integer-input>
+    <o-table #tableOrigin attr="tableOrigin" title="AVAILABLE_CNT" show-title="yes" service="containersLots"
+        entity="containersLotsTransfers" columns="CNT_NAME;CL_START_DATE;CL_END_DATE" keys="CL_ID"
+        visible-columns="CNT_NAME;CL_START_DATE;CL_END_DATE" parent-keys="CL_ID" delete-button="no" insert-button="no"
+        refresh-button="false" quick-filter="no" detail-mode="none" selection-mode="single"
+        (onClick)="onRowClick($event)">
+        <o-table-column attr="SELECTED" content-align="center">
+            <app-containers-transfers-boolean-render />
+        </o-table-column>>
+        <o-table-column attr="CNT_NAME" title="CNT_NAME" content-align="center" title-align="center"></o-table-column>
+        <o-table-column attr="CL_START_DATE" title="CL_START_DATE" type="date" content-align="center"
+            title-align="center"></o-table-column>
+        <o-table-column attr="CL_END_DATE" title="CL_END_DATE" type="date" content-align="center"
+            title-align="center"></o-table-column>
+    </o-table>
 </o-form>
