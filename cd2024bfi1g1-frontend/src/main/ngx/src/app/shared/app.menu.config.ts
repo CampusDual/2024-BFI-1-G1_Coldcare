@@ -6,6 +6,7 @@ export const MENU_CONFIG: MenuRootItem[] = [
   { id: 'lots', name: 'LOTS', svgIcon: 'ontimize:containerIcon', route: '/main/lots' },
   { id: 'transports', name: 'TRANSPORTS', icon: 'local_shipping', route: '/main/transports' },
   { id: 'alerts', name: 'ALERTS', icon: 'priority_high', route: '/main/alerts' },
+  { id: 'usage', name: 'CONSUMPTIONS', icon: 'payments', route: '/main/company-bills' },
   {
     id: 'masters', name: 'MASTERS', icon: 'key',
     items: [
