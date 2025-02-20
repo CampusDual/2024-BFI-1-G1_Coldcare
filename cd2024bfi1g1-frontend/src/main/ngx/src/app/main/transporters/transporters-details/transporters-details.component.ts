@@ -1,72 +1,74 @@
-import { Component, Injector, ViewChild } from '@angular/core';
-import { OFormComponent, OntimizeService } from 'ontimize-web-ngx';
-import { TRP_STATUS_END, TRP_STATUS_INIT } from 'src/app/shared/constants';
-
+import { Component, Injector, ViewChild, AfterViewInit } from '@angular/core';
+import { OFormComponent, OntimizeService, OButtonComponent, OComboComponent } from 'ontimize-web-ngx';
+import { TRP_STATUS_END, TRP_STATUS_INIT, TRP_STATUS_PENDING } from 'src/app/shared/constants';
 
 @Component({
   selector: 'app-transporters-details',
   templateUrl: './transporters-details.component.html'
 })
-export class TransportersDetailsComponent {
+export class TransportersDetailsComponent implements AfterViewInit {
 
   @ViewChild('form', { static: true }) form!: OFormComponent;
+  @ViewChild('combo', { static: false }) combo!: OComboComponent;
+  @ViewChild('init', { static: false }) initButton!: OButtonComponent;
+  @ViewChild('end', { static: false }) endButton!: OButtonComponent;
+
+  protected service: OntimizeService;
 
   constructor(protected injector: Injector) {
     this.service = this.injector.get(OntimizeService);
   }
-  protected service: OntimizeService;
-
 
   ngOnInit() {
     this.configureService();
   }
 
+  ngAfterViewInit() {
+    this.updateButtonState();
+    this.form.onDataLoaded.subscribe(() => this.updateButtonState());
+  }
+
   protected configureService() {
-    // Configure the service using the configuration defined in the `app.services.config.ts` file
     const conf = this.service.getDefaultServiceConfiguration('transports');
     this.service.configureService(conf);
   }
 
+  updateButtonState() {
+    const status = this.form.getFieldValue('TST_ID');
+
+    if (status === TRP_STATUS_PENDING) {
+      this.initButton.enabled = true;
+      this.endButton.enabled = false;
+    } else if (status === TRP_STATUS_INIT) {
+      this.initButton.enabled = false;
+      this.endButton.enabled = true;
+    } else if (status === TRP_STATUS_END) {
+      this.initButton.enabled = false;
+      this.endButton.enabled = false;
+    }
+  }
 
   setStatusInit() {
-    const trpId = this.form.getUrlParam('TRP_ID');
-    const data = {
-      TRP_STATE_ID: TRP_STATUS_INIT
-    };
-    const filter = {
-      TRP_ID: Number(trpId)
-    };
-
-    this.configureService();
-    this.service.update(filter, data, 'transports').subscribe(response => {
-      if (response.code === 0) {
-
-
-
-      } else {
-        alert('Impossible to query data!');
-      }
-    });
-
+    this.updateStatus(TRP_STATUS_INIT);
   }
 
   setStatusEnd() {
+    this.updateStatus(TRP_STATUS_END);
+  }
+
+  private updateStatus(status: number) {
     const trpId = this.form.getUrlParam('TRP_ID');
-    const data = {
-      TRP_STATE_ID: TRP_STATUS_END
-    };
-    const filter = {
-      TRP_ID: Number(trpId)
-    };
+    const data = { TST_ID: status };
+    const filter = { TRP_ID: Number(trpId) };
+
     this.service.update(filter, data, 'transports').subscribe(response => {
       if (response.code === 0) {
-
-
-
+        this.form.setFieldValue('TST_ID', status);
+        this.combo.refresh();
+        this.updateButtonState();
       } else {
-        alert('Impossible to query data!');
+        alert('Impossible to update data!');
       }
     });
-
   }
 }
