@@ -72,7 +72,10 @@ public class UserAndRoleService implements IUserAndRoleService {
 
 		return toRet;
 	}
-
+	@Override
+	public EntityResult searchQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
+		return this.daoHelper.query(this.userDao, keyMap, attrList, "search");
+	}
 	/*
 	 * (non-Javadoc)
 	 */
@@ -81,6 +84,12 @@ public class UserAndRoleService implements IUserAndRoleService {
 	public AdvancedEntityResult userPaginationQuery(Map<?, ?> keysValues, List<?> attributes, int recordNumber, int startIndex, List<?> orderBy)
 			throws OntimizeJEERuntimeException {
 		return this.daoHelper.paginationQuery(this.userDao, keysValues, attributes, recordNumber, startIndex, orderBy);
+	}
+	@Override
+	@Secured({ PermissionsProviderSecured.SECURED })
+	public AdvancedEntityResult searchPaginationQuery(Map<?, ?> keysValues, List<?> attributes, int recordNumber, int startIndex, List<?> orderBy)
+			throws OntimizeJEERuntimeException {
+		return this.daoHelper.paginationQuery(this.userDao, keysValues, attributes, recordNumber, startIndex, orderBy,"search");
 	}
 
 	/*

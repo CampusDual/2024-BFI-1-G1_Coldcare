@@ -307,4 +307,7 @@ public interface IUserAndRoleService {
      * @throws OntimizeJEERuntimeException if occurs
      */
 	EntityResult getClientPermissions() throws OntimizeJEERuntimeException;
-}
+	EntityResult searchQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
+	AdvancedEntityResult searchPaginationQuery(Map<?, ?> keysValues, List<?> attributes, int recordNumber, int startIndex, List<?> orderBy)throws OntimizeJEERuntimeException;
+
+	}

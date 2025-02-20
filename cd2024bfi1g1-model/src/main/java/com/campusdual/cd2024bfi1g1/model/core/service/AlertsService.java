@@ -29,10 +29,17 @@ public class AlertsService implements IAlertsService {
     }
 
     @Override
+    public EntityResult containersAlertsQuery(Map<String, Object> keyMap, List<String> attrList)
+            throws OntimizeJEERuntimeException {
+        return this.daoHelper.query(this.alertsDao, keyMap, attrList, "containersAlerts");
+    }
+
+    @Override
     public EntityResult alertsWithCalculatedColumnsQuery(Map<String, Object> keyMap, List<String> attrList)
             throws OntimizeJEERuntimeException {
         return this.daoHelper.query(this.alertsDao, keyMap, attrList, "alertsWithCalculatedColumns");
     }
+
 
     @Override
     public AdvancedEntityResult alertsPaginationQuery(Map<?, ?> keysValues, List<?> attributes, int pagesize, int offset, List<?> orderBy) throws OntimizeJEERuntimeException {
