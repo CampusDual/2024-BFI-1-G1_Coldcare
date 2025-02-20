@@ -21,5 +21,22 @@
                 ]]>
             </Sentence>
         </Query>
+        <Query id="plan_with_prices_query">
+            <AmbiguousColumns>
+                <AmbiguousColumn name="PLN_ID" prefix="p"/>
+            </AmbiguousColumns>
+            <Sentence>
+                <![CDATA[
+                    SELECT
+                        #COLUMNS#
+                    FROM
+                        ${mainschema}.plans p
+                    LEFT JOIN planprices r
+                        ON p.PLN_ID = r.PLN_ID
+                    #WHERE#
+                    #ORDER#
+                ]]>
+            </Sentence>
+        </Query>
     </Queries>
 </JdbcEntitySetup>

@@ -1,29 +1,24 @@
-<o-form attr="plansTable" parent-keys="PLN_ID" keys="PRC_ID;PLN_ID" keys-sql-types="INTEGER" include-parent-keys="yes"
-  query-on-init="true" service="pricing" entity="pricing" header-actions="R;U">
+<o-form attr="plansTable" parent-keys="PLN_ID" keys="PLN_ID" keys-sql-types="INTEGER" include-parent-keys="yes"
+  query-on-init="true" service="plan" entity="plan" header-actions="R;U">
 
   <o-column title="NAME" layout-align="start stretch" layout-padding>
     <div class="inline-fields">
       <o-text-input attr="PLN_NAME" label="PLN_NAME" required="yes"></o-text-input>
     </div>
   </o-column>
-  <o-column title="PRICES" layout-align="start stretch" layout-padding>
-    <div class="inline-fields">
-      <o-text-input attr="PRC_FPRC" label="PLN_FXDPRC" required="yes"></o-text-input>
-      <o-text-input attr="PRC_DPRC" label="PLN_DEVPRC" required="yes"></o-text-input>
-      <o-text-input attr="PRC_BPRC" label="PLN_BNDLEPRC" required="yes"></o-text-input>
-      <o-text-input attr="PRC_BREQ" label="PLN_BNDLEREQUEST" required="yes"></o-text-input>
-    </div>
-  </o-column>
-  <o-column title="DATES" layout-align="start stretch" layout-padding>
-    <div class="inline-fields">
-      <o-date-input #DATES attr="PRC_START" value-type="timestamp" label="PLN_START" read-only="no" required="yes"
-        format="DD/MM/YYYY" show-week-numbers="true" mode="desktop" translate="yes">
-      </o-date-input>
-      <o-date-input #DATES attr="PRC_END" value-type="timestamp" label="PLN_END" read-only="no" required="no"
-        format="DD/MM/YYYY" show-week-numbers="true" mode="desktop" translate="yes">
-      </o-date-input>
-    </div>
-  </o-column>
+
+  <o-table attr="pricesTable" title="PRICES" show-title="yes" service="pricing" entity="pricing"
+    include-parent-keys="yes" parent-keys="PLN_ID" query-on-init="true" keys="PLANPRICES_ID"
+    columns="PLANPRICES_ID;PLANPRICES_FIXEDPRICE;PLANPRICES_DEVPRICE;PLANPRICES_BUNDLEPRICE;PLANPRICES_BUNDLEREQUESTS;PLANPRICES_START;PLANPRICES_END;PLN_ID"
+    visible-columns="PLANPRICES_FIXEDPRICE;PLANPRICES_DEVPRICE;PLANPRICES_BUNDLEPRICE;PLANPRICES_BUNDLEREQUESTS;PLANPRICES_START;PLANPRICES_END"
+    insert-button="true" delete-button="false" refresh-button="false" searchable="false" detail-mode="none">
+    <o-table-column attr="PLANPRICES_FIXEDPRICE" title="PLANPRICES_FIXEDPRICE"></o-table-column>
+    <o-table-column attr="PLANPRICES_DEVPRICE" title="PLANPRICES_DEVPRICE"></o-table-column>
+    <o-table-column attr="PLANPRICES_BUNDLEPRICE" title="PLANPRICES_BUNDLEPRICE"></o-table-column>
+    <o-table-column attr="PLANPRICES_BUNDLEREQUESTS" title="PLANPRICES_BUNDLEREQUESTS"></o-table-column>
+    <o-table-column attr="PLANPRICES_START" title="PLANPRICES_START"></o-table-column>
+    <o-table-column attr="PLANPRICES_END" title="PLANPRICES_END"></o-table-column>
+  </o-table>
 
 
 </o-form>

@@ -40,11 +40,11 @@ public class PlanService implements IPlanService {
         EntityResult toRet = this.daoHelper.insert(this.planDao, plan);
         Map<String, Object> prices = new HashMap<String, Object>();
         prices.put(PricingDao.PLN_ID, toRet.get(PlanDao.PLN_ID));
-        prices.put(PricingDao.PRC_FPRC, attrMap.get(PricingDao.PRC_FPRC));
-        prices.put(PricingDao.PRC_DPRC, attrMap.get(PricingDao.PRC_DPRC));
-        prices.put(PricingDao.PRC_BPRC, attrMap.get(PricingDao.PRC_BPRC));
-        prices.put(PricingDao.PRC_BREQ, attrMap.get(PricingDao.PRC_BREQ));
-        prices.put(PricingDao.PRC_START, attrMap.get(PricingDao.PRC_START));
+        prices.put(PricingDao.PLANPRICES_FIXEDPRICE, attrMap.get(PricingDao.PLANPRICES_FIXEDPRICE));
+        prices.put(PricingDao.PLANPRICES_DEVPRICE, attrMap.get(PricingDao.PLANPRICES_DEVPRICE));
+        prices.put(PricingDao.PLANPRICES_BUNDLEPRICE, attrMap.get(PricingDao.PLANPRICES_BUNDLEPRICE));
+        prices.put(PricingDao.PLANPRICES_BUNDLEREQUESTS, attrMap.get(PricingDao.PLANPRICES_BUNDLEREQUESTS));
+        prices.put(PricingDao.PLANPRICES_START, attrMap.get(PricingDao.PLANPRICES_START));
         pricingService.pricingInsert(prices);
         return toRet;
     }

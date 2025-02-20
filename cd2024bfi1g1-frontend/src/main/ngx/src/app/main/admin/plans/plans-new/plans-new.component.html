@@ -1,22 +1,22 @@
 <o-form attr="plans_form_insert" service="plan" entity="plan" fxLayout="column" keys="PLN_ID" show-header="true"
   after-insert-mode="close" confirm-exit="false" header-actions="I;R;U">
-  <o-column title="NAME" layout-align="start stretch" layout-padding>
+  <o-column title="Plan" layout-align="start stretch" layout-padding>
     <div class="inline-fields">
       <o-text-input attr="PLN_NAME" label="PLN_NAME" required="yes"></o-text-input>
     </div>
   </o-column>
   <o-column title="PRICES" layout-align="start stretch" layout-padding>
     <div class="inline-fields">
-      <o-text-input attr="PRC_FPRC" label="PRC_FXDPRC" required="yes"></o-text-input>
-      <o-text-input attr="PRC_DPRC" label="PRC_DEVPRC" required="yes"></o-text-input>
-      <o-text-input attr="PRC_BPRC" label="PRC_BNDLEPRC" required="yes"></o-text-input>
-      <o-text-input attr="PRC_BREQ" label="PRC_BNDLEREQUEST" required="yes"></o-text-input>
+      <o-text-input attr="PLANPRICES_FIXEDPRICE" label="PLANPRICES_FIXEDPRICE" required="yes"></o-text-input>
+      <o-text-input attr="PLANPRICES_DEVPRICE" label="PLANPRICES_DEVPRICE" required="yes"></o-text-input>
+      <o-text-input attr="PLANPRICES_BUNDLEPRICE" label="PLANPRICES_BUNDLEPRICE" required="yes"></o-text-input>
+      <o-text-input attr="PLANPRICES_BUNDLEREQUESTS" label="PLANPRICES_BUNDLEREQUESTS" required="yes"></o-text-input>
     </div>
   </o-column>
   <o-column title="DATES" layout-align="start stretch" layout-padding>
     <div class="inline-fields">
-      <o-date-input #DATES attr="PRC_START" value-type="timestamp" label="PLN_START" read-only="no" required="yes"
-        format="DD/MM/YYYY" show-week-numbers="true" mode="desktop" translate="yes">
+      <o-date-input #DATES attr="PLANPRICES_START" value-type="timestamp" label="PLANPRICES_START" read-only="no"
+        required="yes" format="DD/MM/YYYY" show-week-numbers="true" mode="desktop" translate="yes">
       </o-date-input>
 
     </div>
