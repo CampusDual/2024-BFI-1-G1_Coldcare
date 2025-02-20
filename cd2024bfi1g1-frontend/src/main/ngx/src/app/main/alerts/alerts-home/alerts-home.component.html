@@ -25,6 +25,9 @@
             select-all-checkbox-visible="no" insert-button="no" delete-button="no" refresh-button="yes"
             quick-filter="no" detail-mode="none" title="ALERTS" show-title="yes" sort-columns="ALT_DATE_INIT:DESC"
             virtual-scroll="false" horizontal-scroll="true">
+            <o-table-column attr="ALT_DATE_END">
+                <app-alerts-is-current-render></app-alerts-is-current-render>
+            </o-table-column>
             <o-table-column attr="ALT_DATE_INIT" title="DATE" type="date" format="DD/MM/YYYY HH:mm:ss"></o-table-column>
             <o-table-column attr="CNT_NAME" title="CONTAINER"></o-table-column>
             <o-table-column attr="LOT_NAME" title="LOT"></o-table-column>
