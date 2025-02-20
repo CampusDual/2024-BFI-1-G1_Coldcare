@@ -36,24 +36,45 @@ public class ContainersLotsService implements IContainersLotsService {
     }
 
     @Override
-    public EntityResult containersLotsTransfersQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
+    public EntityResult containersLotsTransfersOriginQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
 
-        Map<String, Object> filter = new HashMap<>(keyMap);
-        Map<String, Object> clData = getContainerLotData((Integer) filter.get(ContainersLotsDao.CL_ID));
+        /*
+        Map<String, Object> transferData = new HashMap<>();
+        transferData.put(originField, attrMap.get(originField));
+        transferData.put(destinyField, attrMap.get(clDao.CL_ID));
 
-        BasicField fieldCntId = new BasicField(ContainersLotsDao.CNT_ID);
-        BasicField fieldLotId = new BasicField(ContainersLotsDao.LOT_ID);
+        List<String> attrList = Collections.singletonList(transfersDao.TRA_ID);
 
-        BasicExpression conditions = new BasicExpression(
-                new BasicExpression(fieldCntId, BasicOperator.NOT_EQUAL_OP, clData.get(ContainersLotsDao.CNT_ID)),
-                BasicOperator.AND_OP,
-                new BasicExpression(fieldLotId, BasicOperator.EQUAL_OP, clData.get(ContainersLotsDao.LOT_ID))
-        );
+        EntityResult existingTransfers = transfersQuery(transferData, attrList);
+        if (!existingTransfers.isEmpty()) {
+            return Util.controlErrors("ERROR_TRANSFER_ALREADY_EXISTS");
+        }
 
-        filter.put(SQLStatementBuilder.ExtendedSQLConditionValuesProcessor.EXPRESSION_KEY, conditions);
-        filter.remove(ContainersLotsDao.CL_ID);
+        si A -> B entonces !A -> B
+         */
 
-        return this.daoHelper.query(this.containersLotsDao, filter, attrList);
+        return containersLotsTransfersQuery(keyMap, attrList);
+    }
+
+    @Override
+    public EntityResult containersLotsTransfersDestinyQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
+
+        /*
+        Map<String, Object> transferData = new HashMap<>();
+        transferData.put(originField, attrMap.get(originField));
+        transferData.put(destinyField, attrMap.get(clDao.CL_ID));
+
+        List<String> attrList = Collections.singletonList(transfersDao.TRA_ID);
+
+        EntityResult existingTransfers = transfersQuery(transferData, attrList);
+        if (!existingTransfers.isEmpty()) {
+            return Util.controlErrors("ERROR_TRANSFER_ALREADY_EXISTS");
+        }
+
+        si B -> A entonces !B -> A
+         */
+
+        return containersLotsTransfersQuery(keyMap, attrList);
     }
 
     @Override
@@ -61,7 +82,7 @@ public class ContainersLotsService implements IContainersLotsService {
 
         try {
             if (filterStartAndEndDates(attrMap) &&
-                Util.validateStartAndEndDates((Date) attrMap.get(ContainersLotsDao.CL_START_DATE), (Date) attrMap.get(ContainersLotsDao.CL_END_DATE)))
+                    Util.validateStartAndEndDates((Date) attrMap.get(ContainersLotsDao.CL_START_DATE), (Date) attrMap.get(ContainersLotsDao.CL_END_DATE)))
                 return this.daoHelper.insert(this.containersLotsDao, attrMap);
             else {
                 return Util.controlErrors("ERROR_DATE_ALREADY_EXIST");
@@ -82,7 +103,7 @@ public class ContainersLotsService implements IContainersLotsService {
             valData.putAll(attrMap);
 
             if (filterStartAndEndDates(valData) &&
-                Util.validateStartAndEndDates((Date) valData.get(ContainersLotsDao.CL_START_DATE), (Date) valData.get(ContainersLotsDao.CL_END_DATE))) {
+                    Util.validateStartAndEndDates((Date) valData.get(ContainersLotsDao.CL_START_DATE), (Date) valData.get(ContainersLotsDao.CL_END_DATE))) {
                 return this.daoHelper.update(this.containersLotsDao, attrMap, keyMap);
             } else {
                 return Util.controlErrors("ERROR_DATE_ALREADY_EXIST");
@@ -149,6 +170,26 @@ public class ContainersLotsService implements IContainersLotsService {
         Map<String, Object> data = new HashMap<>(result.getRecordValues(0));
 
         return data;
+    }
+
+    private EntityResult containersLotsTransfersQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
+
+        Map<String, Object> filter = new HashMap<>(keyMap);
+        Map<String, Object> clData = getContainerLotData((Integer) filter.get(ContainersLotsDao.CL_ID));
+
+        BasicField fieldCntId = new BasicField(ContainersLotsDao.CNT_ID);
+        BasicField fieldLotId = new BasicField(ContainersLotsDao.LOT_ID);
+
+        BasicExpression conditions = new BasicExpression(
+                new BasicExpression(fieldCntId, BasicOperator.NOT_EQUAL_OP, clData.get(ContainersLotsDao.CNT_ID)),
+                BasicOperator.AND_OP,
+                new BasicExpression(fieldLotId, BasicOperator.EQUAL_OP, clData.get(ContainersLotsDao.LOT_ID))
+        );
+
+        filter.put(SQLStatementBuilder.ExtendedSQLConditionValuesProcessor.EXPRESSION_KEY, conditions);
+        filter.remove(ContainersLotsDao.CL_ID);
+
+        return this.daoHelper.query(this.containersLotsDao, filter, attrList);
     }
 
 }
