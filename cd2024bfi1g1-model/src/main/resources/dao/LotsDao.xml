@@ -13,12 +13,16 @@
     <GeneratedKey>lot_id</GeneratedKey>
     <Queries>
         <Query id="default">
+            <AmbiguousColumns>
+                <AmbiguousColumn name="PRO_ID" prefix="p"/>
+            </AmbiguousColumns>
             <Sentence>
                 <![CDATA[
                     SELECT
                         #COLUMNS#
                     FROM
-                        ${mainschema}.lots
+                        ${mainschema}.lots l
+                        JOIN products p ON l.pro_id = p.pro_id
                     #WHERE#
                     #ORDER#
                 ]]>
