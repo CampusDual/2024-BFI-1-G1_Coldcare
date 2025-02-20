@@ -1,5 +1,5 @@
 import { Component, ViewChild, ChangeDetectorRef } from '@angular/core';
-import { OntimizeService, Expression, FilterExpressionUtils, OTableComponent, Util } from 'ontimize-web-ngx';
+import { OntimizeService, Expression, FilterExpressionUtils, OTableComponent, Util, OTranslateService } from 'ontimize-web-ngx';
 
 
 @Component({
@@ -8,6 +8,19 @@ import { OntimizeService, Expression, FilterExpressionUtils, OTableComponent, Ut
   styleUrls: ['./alerts-home.component.css']
 })
 export class AlertsHomeComponent {
+
+  public integersArray = [{
+    ALT_STATE: "NOT_VIEWED",
+
+  }, {
+    ALT_STATE: "VIEWED",
+
+  }, {
+    ALT_STATE: "VIEWED_AND_NOT_VIEWED",
+
+  }];
+
+
   @ViewChild("alertsTable") alertsTable: OTableComponent;
   constructor(private ontimizeService: OntimizeService) {
     this.ontimizeService.configureService(
@@ -62,15 +75,16 @@ export class AlertsHomeComponent {
       if (fil.attr === "estado" && Util.isDefined(fil.value)) {
 
         let estado = String(fil.value)
-        if (estado == "0") {
+
+        if (estado == "NOT_VIEWED") {
           fil.value = false
         }
 
-        if (estado == "1") {
+        if (estado == "VIEWED") {
           fil.value = true
         }
 
-        if (estado == "2") {
+        if (estado == "VIEWED_AND_NOT_VIEWED") {
           fil.value = "true or false"
         }
 

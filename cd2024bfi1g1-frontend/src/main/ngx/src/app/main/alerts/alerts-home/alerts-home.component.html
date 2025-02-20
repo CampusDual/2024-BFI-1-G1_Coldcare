@@ -4,17 +4,16 @@
         <label layout-padding>{{"FILTER_ALERTS" | oTranslate}}</label>
         <div class="inline-fields">
             <div fxLayout="row" fxLayoutGap="15px" layout-padding>
-                <o-text-input attr="contenedor" label="CNT_NAME"></o-text-input>
-                <o-text-input attr="lote" label="LOT_NAME"></o-text-input>
+                <o-combo attr="contenedor" label="contenedor" service="alerts" entity="containersAlerts"
+                    value-column="CNT_ID" columns="CNT_ID;CNT_NAME" visible-columns="CNT_NAME" null-selection="no"
+                    searchable="yes" null-selection="yes"></o-combo>
+                <o-combo attr="lote" label="LOT_NAME" service="alerts" entity="containersAlerts" value-column="LOT_ID"
+                    columns="LOT_ID;LOT_NAME" visible-columns="LOT_NAME" null-selection="no" searchable="yes"
+                    null-selection="yes"></o-combo>
                 <o-combo attr="estado" label="ALT_STATES" value-column="ALT_STATE" columns="ALT_STATE"
                     visible-columns="ALT_STATE" null-selection="none" searchable=" yes" translate="yes"
-                    [static-data]="[{ALT_STATE:0},{ALT_STATE:1},{ALT_STATE:2}]">
-                    <o-combo-renderer-integer translate="yes" render-type-1="VIEWED" render-true-value="VIEWED"
-                        render-false-value="NOT_VIEWED"></o-combo-renderer-integer>
-                    <!--<o-combo-renderer-boolean boolean-type="boolean" translate="yes" render-true-value="VIEWED"
-                        render-false-value="NOT_VIEWED" render-></o-combo-renderer-boolean> -->
+                    [static-data]="integersArray">
                 </o-combo>
-
             </div>
             <div fxLayoutAlign="end center" fxLayoutGap="8px">
 
@@ -36,8 +35,8 @@
             <o-table-button label="BTN_SAVED" icon="check" (onClick)="selectionRow($event)"></o-table-button>
 
             <o-table-column attr="ALT_STATE" fxLayoutGap="1px" auto-commit="false">
-                <o-table-cell-renderer-boolean render-true-value="check_circle" render-false-value="highlight_off"
-                    render-type="icon" boolean-type="boolean-type" true-value="true" false-value="false">
+                <o-table-cell-renderer-boolean render-true-value="check" render-false-value="warning" render-type="icon"
+                    boolean-type="boolean-type" true-value="true" false-value="false">
 
                 </o-table-cell-renderer-boolean>
                 <o-table-cell-editor-boolean show-notification-on-edit="false" true-value="true" false-value="false"
@@ -46,9 +45,10 @@
             </o-table-column>
 
 
-            <o-table-column attr="ALT_DATE_INIT" title="DATE" type="date" format="DD/MM/YYYY HH:mm:ss"></o-table-column>
-            <o-table-column attr="CNT_NAME" title="CONTAINER"></o-table-column>
-            <o-table-column attr="LOT_NAME" title="LOT"></o-table-column>
+            <o-table-column attr="ALT_DATE_INIT" title="DATE" type="date" format="DD/MM/YYYY HH:mm:ss"
+                content-align="center"></o-table-column>
+            <o-table-column attr="CNT_NAME" title="CONTAINER" content-align="center"></o-table-column>
+            <o-table-column attr="LOT_NAME" title="LOT" content-align="center"></o-table-column>
             <o-table-column attr="ALT_DURATION" title="DURATION" content-align="center">
                 <app-alerts-duration-renderer></app-alerts-duration-renderer>
             </o-table-column>
