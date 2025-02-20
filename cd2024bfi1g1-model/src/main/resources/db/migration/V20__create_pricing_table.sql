@@ -7,22 +7,15 @@ CREATE TABLE public.planprices(
     planprices_start timestamp NOT NULL,
     planprices_end timestamp,
     pln_id integer NOT NULL,
-    CONSTRAINT prc_pk PRIMARY KEY (prc_id)
+    CONSTRAINT planprices_pk PRIMARY KEY (planprices_id)
 );
-ALTER table public.pricing ADD CONSTRAINT prices_plans_fk FOREIGN KEY (pln_id) REFERENCES public.plans(pln_id);
+ALTER table public.planprices ADD CONSTRAINT prices_plans_fk FOREIGN KEY (pln_id) REFERENCES public.plans(pln_id);
 
 INSERT INTO plans (pln_id, pln_name)
 VALUES(1,'BASIC');
 
-INSERT INTO public.pricing (prc_id,prc_fprc, prc_dprc, prc_bprc, prc_breq, prc_start, pln_id)
+INSERT INTO public.planprices (planprices_id,planprices_fixedprice, planprices_devprice, planprices_bundleprice, planprices_bundlerequests, planprices_start, pln_id)
 VALUES (1,4,5,20,1000,now(), 1);
-
-ALTER TABLE public.companies ADD pln_id INTEGER;
-ALTER table public.companies ADD CONSTRAINT companies_plans_fk FOREIGN KEY (pln_id) REFERENCES public.plans(pln_id);
-ALTER TABLE public.companies ALTER COLUMN pln_id SET DEFAULT 1;
-UPDATE companies
-SET pln_id = 1
-WHERE pln_id IS NULL;
 
 ALTER TABLE public.companies ADD pln_id INTEGER;
 ALTER table public.companies ADD CONSTRAINT companies_plans_fk FOREIGN KEY (pln_id) REFERENCES public.plans(pln_id);
