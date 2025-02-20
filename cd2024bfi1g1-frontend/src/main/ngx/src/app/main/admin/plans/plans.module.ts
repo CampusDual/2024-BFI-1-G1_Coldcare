@@ -6,13 +6,15 @@ import { PlansHomeComponent } from './plans-home/plans-home.component';
 import { PlansRoutingModule } from './plans-routing.module';
 import { PlansNewComponent } from './plans-new/plans-new.component';
 import { PlansDetailComponent } from './plans-detail/plans-detail.component';
+import { PlansPricesNewComponent } from './plans-prices-new/plans-prices-new.component';
 
 
 @NgModule({
   declarations: [
     PlansHomeComponent,
     PlansNewComponent,
-    PlansDetailComponent
+    PlansDetailComponent,
+    PlansPricesNewComponent
   ],
   imports: [
     CommonModule,

@@ -36,12 +36,33 @@ public class PricingService implements IPricingService {
 
     @Override
     public EntityResult pricingInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException {
-        return this.daoHelper.insert(this.pricingDao, attrMap);
+        EntityResult toRet =this.daoHelper.insert(this.pricingDao, attrMap);
+
+        Map<String, Object> date = new HashMap<String, Object>();
+        date.put(PricingDao.PLANPRICES_END, attrMap.get(PricingDao.PLANPRICES_START));
+
+        Map<String, Object> keyMap = new HashMap<String, Object>();
+        keyMap.put(PricingDao.PLANPRICES_ID,toRet.getRecordValues(0));
+        List<String> column = List.of(PricingDao.PLN_ID);
+        EntityResult planId = this.daoHelper.query(this.pricingDao, keyMap, column);
+
+        Map<String, Object> planIdMap = new HashMap<String, Object>();
+        planIdMap.put(PricingDao.PLN_ID, planId.getRecordValues(0));
+
+        List<String> filter = List.of(PricingDao.PLANPRICES_ID);
+        EntityResult priceId = this.daoHelper.query(this.pricingDao, planIdMap, filter, "last_prices");
+        if(priceId.isEmpty() || priceId.isWrong()) {
+            return toRet;
+        }
+        Map<String, Object> priceMap = new HashMap<String, Object>();
+        priceMap.put(PricingDao.PLANPRICES_ID, priceId.getRecordValues(0));
+        this.daoHelper.update(this.pricingDao,date,priceMap);
+
+        return toRet;
     }
 
     @Override
     public EntityResult pricingUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap) throws OntimizeJEERuntimeException {
-
         return this.daoHelper.update(this.pricingDao,attrMap,keyMap);
     }
 

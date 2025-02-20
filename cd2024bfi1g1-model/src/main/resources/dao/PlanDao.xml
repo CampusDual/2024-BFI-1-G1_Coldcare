@@ -33,7 +33,8 @@
                         ${mainschema}.plans p
                     LEFT JOIN planprices r
                         ON p.PLN_ID = r.PLN_ID
-                    #WHERE#
+                    WHERE r.PLANPRICES_START < NOW()
+                    AND (r.PLANPRICES_END > NOW() OR r.PLANPRICES_END IS NULL)
                     #ORDER#
                 ]]>
             </Sentence>

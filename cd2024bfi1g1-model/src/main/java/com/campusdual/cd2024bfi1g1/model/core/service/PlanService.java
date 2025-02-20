@@ -34,6 +34,11 @@ public class PlanService implements IPlanService {
     }
 
     @Override
+    public EntityResult planwithpricesQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
+        return this.daoHelper.query(this.planDao, keyMap, attrList, "plan_with_prices_query");
+    }
+
+    @Override
     public EntityResult planInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException {
         Map<String, Object> plan = new HashMap<String, Object>();
         plan.put(PlanDao.PLN_NAME, attrMap.get(PlanDao.PLN_NAME));

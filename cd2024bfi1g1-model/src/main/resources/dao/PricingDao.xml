@@ -27,5 +27,17 @@
                 ]]>
             </Sentence>
         </Query>
+        <Query id="last_prices">
+            <Sentence>
+                <![CDATA[
+                    SELECT
+                        #COLUMNS#
+                    FROM
+                        ${mainschema}.planprices r
+                    WHERE r.PLANPRICES_END IS NULL
+                    #ORDER#
+                ]]>
+            </Sentence>
+        </Query>
     </Queries>
 </JdbcEntitySetup>

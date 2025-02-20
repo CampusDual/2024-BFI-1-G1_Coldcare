@@ -1,0 +1,21 @@
+<o-form attr="pricesInsertTable" parent-keys="PLN_ID" keys="PLN_ID" keys-sql-types="INTEGER" include-parent-keys="yes"
+    query-on-init="true" service="pricing" entity="pricing" header-actions="R;U">
+
+    <o-column title="PRICES" layout-align="start stretch" layout-padding>
+        <div class="inline-fields">
+            <o-text-input attr="PLANPRICES_FIXEDPRICE" label="PLANPRICES_FIXEDPRICE" required="yes"></o-text-input>
+            <o-text-input attr="PLANPRICES_DEVPRICE" label="PLANPRICES_DEVPRICE" required="yes"></o-text-input>
+            <o-text-input attr="PLANPRICES_BUNDLEPRICE" label="PLANPRICES_BUNDLEPRICE" required="yes"></o-text-input>
+            <o-text-input attr="PLANPRICES_BUNDLEREQUESTS" label="PLANPRICES_BUNDLEREQUESTS"
+                required="yes"></o-text-input>
+        </div>
+    </o-column>
+    <o-column title="DATES" layout-align="start stretch" layout-padding>
+        <div class="inline-fields">
+            <o-date-input #DATES attr="PLANPRICES_START" value-type="timestamp" label="PLANPRICES_START" read-only="no"
+                required="yes" type="date" format="DD/MM/YYYY" show-week-numbers="true" mode="desktop" translate="yes">
+            </o-date-input>
+        </div>
+    </o-column>
+
+</o-form>
