@@ -219,22 +219,62 @@ tr.mat-mdc-row.mdc-data-table__row.cdk-row:nth-child(even) {
 /* Orientacion campos de texto rellenables*/
 .inline-fields {
   display: flex;
-  gap: 10px;
+  gap: 5px;
+
+  o-text-input {
+    flex: 1;
+    border: none;
+    background-color: transparent;
+    color: #333;
+    font-size: 14px;
+    line-height: 1.6;
+    padding: 0;
+
+    &[read-only] {
+      cursor: default;
+      background-color: transparent;
+      border: none;
+      box-shadow: none;
+
+      .mat-mdc-text-field-wrapper.mdc-text-field.mdc-text-field--filled,
+
+      &:hover,
+      &:focus {
+        outline: none;
+        border: none;
+        box-shadow: none;
+      }
+    }
+
+    &::placeholder {
+      color: #333;
+    }
+  }
+
+  o-date-input[read-only] {
+    background-color: transparent;
+    color: #333;
+    border: none;
+    font-size: 14px;
+    padding: 0;
+  }
 }
 
-.inline-fields input {
-  flex: 1;
+.inline-fields .mdc-line-ripple::before {
+  outline: none;
+  border: none;
+  box-shadow: none;
 }
 
 .inline-fields .mat-mdc-text-field-wrapper.mdc-text-field.mdc-text-field--filled {
   height: 50px;
-  padding: 0px 5px;
+  padding: 0px 7px;
   font-size: 14px;
   color: #333;
   background: transparent;
   line-height: 1.6;
 }
 
-.o-table .mat-mdc-table .mat-mdc-row.error-row .mat-mdc-cell.mat-column-ME_TEMP{
+.o-table .mat-mdc-table .mat-mdc-row.error-row .mat-mdc-cell.mat-column-ME_TEMP {
   color: red;
 }

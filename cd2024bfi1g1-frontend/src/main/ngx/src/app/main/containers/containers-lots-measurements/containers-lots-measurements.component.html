@@ -2,16 +2,18 @@
   entity="containersLots" show-header="yes" header-actions="R;U;D">
   <o-column title="CL_INFO">
     <div class="inline-fields">
-      <o-date-input attr="CL_START_DATE" required="yes"></o-date-input>
-      <o-date-input attr="CL_END_DATE"></o-date-input>
-    </div>
-    <br>
-    <div class="inline-fields">
       <o-text-input attr="CNT_NAME" read-only="yes"></o-text-input>
       <o-text-input attr="LOT_NAME" read-only="yes"></o-text-input>
+    </div>
+    <div class="inline-fields">
       <o-text-input attr="MIN_TEMP" read-only="yes"></o-text-input>
       <o-text-input attr="MAX_TEMP" read-only="yes"></o-text-input>
       <o-text-input attr="PRO_NAME" read-only="yes"></o-text-input>
+    </div>
+
+    <div class="inline-fields">
+      <o-date-input attr="CL_START_DATE" required="yes"></o-date-input>
+      <o-date-input attr="CL_END_DATE"></o-date-input>
     </div>
   </o-column>
 
