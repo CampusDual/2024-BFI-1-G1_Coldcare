@@ -62,7 +62,6 @@ export class AlertsHomeComponent {
       if (fil.attr === "estado" && Util.isDefined(fil.value)) {
 
         let estado = String(fil.value)
-
         if (estado == "0") {
           fil.value = false
         }
