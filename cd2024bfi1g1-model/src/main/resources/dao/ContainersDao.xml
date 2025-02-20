@@ -54,7 +54,7 @@
                             ) AS has_alert
                         FROM CONTAINERS c
                     )
-                    SELECT *
+                    SELECT #COLUMNS#
                     FROM cl
                     #WHERE#;
                 ]]>

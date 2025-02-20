@@ -1,13 +1,12 @@
 <o-table attr="lotsTable" service="lots" entity="lotsProducts" keys="LOT_ID"
-    columns="PRO_ID;PRO_NAME;LOT_ID;MIN_TEMP;MAX_TEMP;LOT_NAME" visible-columns="LOT_NAME;PRO_NAME;MIN_TEMP;MAX_TEMP;has_alert"
-    select-all-checkbox-visible="no" insert-button="yes" delete-button="no" refresh-button="yes" title="LOTS"
-    show-title="yes">
-    <!-- Columnas de la Tabla -->
+    columns="PRO_ID;PRO_NAME;LOT_ID;MIN_TEMP;MAX_TEMP;LOT_NAME;HAS_ALERT"
+    visible-columns="LOT_NAME;PRO_NAME;MIN_TEMP;MAX_TEMP;HAS_ALERT" select-all-checkbox-visible="no" insert-button="yes"
+    delete-button="no" refresh-button="yes" title="LOTS" show-title="yes">
     <o-table-column attr="LOT_NAME" title="IDENTIFIER" title-align="center" content-align="center"></o-table-column>
     <o-table-column attr="PRO_NAME" title-align="center" content-align="center"></o-table-column>
     <o-table-column attr="MIN_TEMP" title-align="center" type="real" content-align="center"></o-table-column>
     <o-table-column attr="MAX_TEMP" title-align="center" type="real" content-align="center"></o-table-column>
-    <o-table-column attr="has_alert" title="HAS_ALERT" title-align="center" content-align="center">
+    <o-table-column attr="HAS_ALERT" title="HAS_ALERT" title-align="center" content-align="center">
         <alert-boolean-renderer />
     </o-table-column>
 </o-table>

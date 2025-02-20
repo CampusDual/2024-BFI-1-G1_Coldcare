@@ -17,8 +17,8 @@
   <o-row>
     <o-table attr="containersInLot" title="CONTAINERS_HISTORY" show-title="yes" service="containersLots"
       entity="containersOfLot" keys="CL_ID" parent-keys="LOT_ID"
-      columns="CL_ID;CNT_NAME;CNT_ID;CL_START_DATE;CL_END_DATE"
-      visible-columns="CNT_NAME;CL_START_DATE;CL_END_DATE;ACTIVE;has_alert" delete-button="no" insert-button="false"
+      columns="CL_ID;CNT_NAME;CNT_ID;CL_START_DATE;CL_END_DATE;HAS_ALERT"
+      visible-columns="CNT_NAME;CL_START_DATE;CL_END_DATE;ACTIVE;HAS_ALERT" delete-button="no" insert-button="false"
       refresh-button="true" sort-columns="CL_END_DATE:DESC;CL_START_DATE:DESC" virtual-scroll="false"
       (onClick)="redirect($event)" detail-mode="none">
       <o-table-column attr="CNT_NAME" title="CNT_NAME" title-align="center" content-align="center"></o-table-column>
@@ -29,9 +29,9 @@
       <o-table-column attr="ACTIVE" title="ACTIVE" title-align="center" content-align="center">
         <in-date-range-boolean-renderer />
       </o-table-column>
-      <o-table-column attr="has_alert" title="HAS_ALERT" title-align="center" content-align="center">
+      <o-table-column attr="HAS_ALERT" title="HAS_ALERT" title-align="center" content-align="center">
         <alert-boolean-renderer />
-    </o-table-column>
+      </o-table-column>
     </o-table>
   </o-row>
 </o-form>
