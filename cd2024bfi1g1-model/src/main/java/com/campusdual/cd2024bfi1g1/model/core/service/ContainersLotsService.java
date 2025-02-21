@@ -3,6 +3,7 @@ package com.campusdual.cd2024bfi1g1.model.core.service;
 import com.campusdual.cd2024bfi1g1.api.core.service.IContainersLotsService;
 import com.campusdual.cd2024bfi1g1.model.core.dao.ContainersLotsDao;
 import com.campusdual.cd2024bfi1g1.model.core.dao.DevicesDao;
+import com.campusdual.cd2024bfi1g1.model.core.dao.TransfersDao;
 import com.campusdual.cd2024bfi1g1.model.core.dao.UserDao;
 import com.campusdual.cd2024bfi1g1.model.core.util.Util;
 import com.ontimize.jee.common.db.SQLStatementBuilder.BasicOperator;
@@ -29,6 +30,8 @@ public class ContainersLotsService implements IContainersLotsService {
     private DefaultOntimizeDaoHelper daoHelper;
     @Autowired
     private UserDao userDao;
+    @Autowired
+    private TransfersService transfersService;
 
     @Override
     public EntityResult containersLotsQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
@@ -36,45 +39,50 @@ public class ContainersLotsService implements IContainersLotsService {
     }
 
     @Override
-    public EntityResult containersLotsTransfersOriginQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
+    public EntityResult containersLotsTransfersQuery(Map<String, Object> keyMap, List<String> attrList)
+            throws OntimizeJEERuntimeException {
 
-        /*
-        Map<String, Object> transferData = new HashMap<>();
-        transferData.put(originField, attrMap.get(originField));
-        transferData.put(destinyField, attrMap.get(clDao.CL_ID));
+        Map<String, Object> filter = new HashMap<>(keyMap);
+        Map<String, Object> clData = getContainerLotData((Integer) filter.get(ContainersLotsDao.CL_ID));
 
-        List<String> attrList = Collections.singletonList(transfersDao.TRA_ID);
+        BasicField fieldCntId = new BasicField(ContainersLotsDao.CNT_ID);
+        BasicField fieldLotId = new BasicField(ContainersLotsDao.LOT_ID);
 
-        EntityResult existingTransfers = transfersQuery(transferData, attrList);
-        if (!existingTransfers.isEmpty()) {
-            return Util.controlErrors("ERROR_TRANSFER_ALREADY_EXISTS");
+        BasicExpression primaryFilter = new BasicExpression(
+                new BasicExpression(fieldCntId, BasicOperator.NOT_EQUAL_OP, clData.get(ContainersLotsDao.CNT_ID)),
+                BasicOperator.AND_OP,
+                new BasicExpression(fieldLotId, BasicOperator.EQUAL_OP, clData.get(ContainersLotsDao.LOT_ID))
+        );
+
+        List<String> originIdList = Collections.singletonList(TransfersDao.CL_ID_ORIGIN);
+        List<String> destinyIdList = Collections.singletonList(TransfersDao.CL_ID_DESTINY);
+        EntityResult entityResultOrigin = transfersService.transfersOriginQuery(keyMap, originIdList);
+        EntityResult entityResultOriginDestiny = transfersService.transfersDestinyQuery(keyMap, destinyIdList);
+
+        List<Integer> excludeOriginTable = extractClIds(entityResultOrigin, TransfersDao.CL_ID_ORIGIN);
+        List<Integer> excludeDestinyTable = extractClIds(entityResultOriginDestiny, TransfersDao.CL_ID_DESTINY);
+
+        BasicField fieldClId = new BasicField(ContainersLotsDao.CL_ID);
+
+        BasicExpression exclusionOrigin = new BasicExpression(fieldClId, BasicOperator.NOT_IN_OP, excludeOriginTable);
+        BasicExpression exclusionDestiny = new BasicExpression(fieldClId, BasicOperator.NOT_IN_OP, excludeDestinyTable);
+        BasicExpression exclusionFilter = new BasicExpression(exclusionOrigin, BasicOperator.AND_OP, exclusionDestiny);
+
+        BasicExpression conditions;
+        if (!excludeOriginTable.isEmpty() && !excludeDestinyTable.isEmpty()) {
+            conditions = new BasicExpression(primaryFilter, BasicOperator.AND_OP, exclusionFilter);
+        } else if (!excludeOriginTable.isEmpty()) {
+            conditions = new BasicExpression(primaryFilter, BasicOperator.AND_OP, exclusionOrigin);
+        } else if (!excludeDestinyTable.isEmpty()) {
+            conditions = new BasicExpression(primaryFilter, BasicOperator.AND_OP, exclusionDestiny);
+        } else {
+            conditions = primaryFilter;
         }
 
-        si A -> B entonces !A -> B
-         */
+        filter.put(SQLStatementBuilder.ExtendedSQLConditionValuesProcessor.EXPRESSION_KEY, conditions);
+        filter.remove(ContainersLotsDao.CL_ID);
 
-        return containersLotsTransfersQuery(keyMap, attrList);
-    }
-
-    @Override
-    public EntityResult containersLotsTransfersDestinyQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
-
-        /*
-        Map<String, Object> transferData = new HashMap<>();
-        transferData.put(originField, attrMap.get(originField));
-        transferData.put(destinyField, attrMap.get(clDao.CL_ID));
-
-        List<String> attrList = Collections.singletonList(transfersDao.TRA_ID);
-
-        EntityResult existingTransfers = transfersQuery(transferData, attrList);
-        if (!existingTransfers.isEmpty()) {
-            return Util.controlErrors("ERROR_TRANSFER_ALREADY_EXISTS");
-        }
-
-        si B -> A entonces !B -> A
-         */
-
-        return containersLotsTransfersQuery(keyMap, attrList);
+        return this.daoHelper.query(this.containersLotsDao, filter, attrList);
     }
 
     @Override
@@ -172,24 +180,15 @@ public class ContainersLotsService implements IContainersLotsService {
         return data;
     }
 
-    private EntityResult containersLotsTransfersQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
-
-        Map<String, Object> filter = new HashMap<>(keyMap);
-        Map<String, Object> clData = getContainerLotData((Integer) filter.get(ContainersLotsDao.CL_ID));
-
-        BasicField fieldCntId = new BasicField(ContainersLotsDao.CNT_ID);
-        BasicField fieldLotId = new BasicField(ContainersLotsDao.LOT_ID);
-
-        BasicExpression conditions = new BasicExpression(
-                new BasicExpression(fieldCntId, BasicOperator.NOT_EQUAL_OP, clData.get(ContainersLotsDao.CNT_ID)),
-                BasicOperator.AND_OP,
-                new BasicExpression(fieldLotId, BasicOperator.EQUAL_OP, clData.get(ContainersLotsDao.LOT_ID))
-        );
-
-        filter.put(SQLStatementBuilder.ExtendedSQLConditionValuesProcessor.EXPRESSION_KEY, conditions);
-        filter.remove(ContainersLotsDao.CL_ID);
-
-        return this.daoHelper.query(this.containersLotsDao, filter, attrList);
+    private List<Integer> extractClIds(EntityResult entityResult, String column) {
+        List<Integer> clIds = new ArrayList<>();
+        for (int i = 0; i < entityResult.calculateRecordNumber(); i++) {
+            Integer clId = (Integer) entityResult.getRecordValues(i).get(column);
+            if (clId != null) {
+                clIds.add(clId);
+            }
+        }
+        return clIds;
     }
 
 }
