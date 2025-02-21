@@ -1,0 +1,27 @@
+.pending {
+  display: inline-block;
+  animation: spin 7s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.initiated {
+  display: inline-block;
+  animation: moveTruck 3s linear infinite;
+}
+
+@keyframes moveTruck {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(20px);
+  }
+}
