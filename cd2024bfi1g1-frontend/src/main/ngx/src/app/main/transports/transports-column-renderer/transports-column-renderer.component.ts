@@ -2,11 +2,11 @@ import { Component, Injector, Input, TemplateRef, ViewChild } from '@angular/cor
 import { OBaseTableCellRenderer } from 'ontimize-web-ngx';
 
 @Component({
-  selector: 'app-transporters-column-renderer',
-  templateUrl: './transporters-column-renderer.component.html',
-  styleUrls: ['./transporters-column-renderer.component.css']
+  selector: 'app-transports-column-renderer',
+  templateUrl: './transports-column-renderer.component.html',
+  styleUrls: ['./transports-column-renderer.component.css']
 })
-export class TransportersColumnRendererComponent extends OBaseTableCellRenderer {
+export class TransportsColumnRendererComponent extends OBaseTableCellRenderer {
 
   @ViewChild('templateref', { read: TemplateRef }) public templateref: TemplateRef<any>;
   @Input() statusId!: number;
@@ -14,5 +14,5 @@ export class TransportersColumnRendererComponent extends OBaseTableCellRenderer 
   constructor(protected injector: Injector) {
     super(injector);
   }
-  
+
 }

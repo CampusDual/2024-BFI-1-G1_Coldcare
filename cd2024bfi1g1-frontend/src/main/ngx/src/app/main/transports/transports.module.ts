@@ -5,6 +5,7 @@ import { TransportsRoutingModule } from './transports-routing.module';
 import { TransportsHomeComponent } from './transports-home/transports-home.component';
 import { TransportsNewComponent } from './transports-new/transports-new.component';
 import { TransportsDetailsComponent } from './transports-details/transports-details.component';
+import { TransportsColumnRendererComponent } from './transports-column-renderer/transports-column-renderer.component';
 
 
 @NgModule({
@@ -12,6 +13,8 @@ import { TransportsDetailsComponent } from './transports-details/transports-deta
     TransportsHomeComponent,
     TransportsNewComponent,
     TransportsDetailsComponent,
+    TransportsColumnRendererComponent,
+    TransportsColumnRendererComponent
   ],
   imports: [
     CommonModule,
