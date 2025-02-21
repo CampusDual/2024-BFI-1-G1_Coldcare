@@ -10,5 +10,4 @@ export class ContainersHomeBooleanRenderComponent extends OBaseTableCellRenderer
 
   @ViewChild('templateref', { read: TemplateRef }) public templateref: TemplateRef<any>;
 
-
 }

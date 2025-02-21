@@ -189,7 +189,6 @@
   "COMPANY_NEW": "Nueva empresa",
   "ASSIGN_CMP": "Asignar empresa",
   "CONTAINERS_HISTORY": "Historial de contenedores",
-  "CONSUMPTIONS": "Consumos",
   "JANUARY": "Enero",
   "FEBRUARY": "Febrero",
   "MARCH": "Marzo",
@@ -202,5 +201,8 @@
   "OCTOBER": "Octubre",
   "NOVEMBER": "Noviembre",
   "DECEMBER": "Diciembre",
-  "MASTERS": "Maestros"
+  "MASTERS": "Maestros",
+  "HAS_ALERT": "Alerta",
+  "USAGE": "Consumos",
+  "DEV": "Dispositivo"
 }
