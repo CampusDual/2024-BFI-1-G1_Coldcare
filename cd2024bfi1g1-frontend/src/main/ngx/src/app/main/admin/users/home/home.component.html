@@ -11,13 +11,13 @@
           columns="CMP_ID;CMP_NAME" visible-columns="CMP_NAME" null-selection="yes" searchable="yes"></o-combo>
       </div>
       <div fxLayoutAlign="end center" fxLayoutGap="8px">
-        <o-button attr="filter" [oFilterBuilderQuery]="filterBuilder" type="FLAT" color="primary" label="FILTER">
-        </o-button>
+        <!--   <o-button attr="filter" [oFilterBuilderQuery]="filterBuilder" type="FLAT" color="primary" label="FILTER">
+        </o-button> -->
         <o-button attr="clear" [oFilterBuilderClear]="filterBuilder" type="BASIC" label="CLEAR" icon="clear"></o-button>
       </div>
     </div>
     <o-filter-builder #filterBuilder attr="thefilter" filters="login;company" [target]="usersTable"
-      query-on-change="none" query-on-change-delay="500" [expression-builder]="createFilter">
+      query-on-change="yes" query-on-change-delay="500" [expression-builder]="createFilter">
     </o-filter-builder>
 
     <o-table #usersTable attr="users" service="users" entity="user" keys="USR_ID" style="height: 1000px;"
