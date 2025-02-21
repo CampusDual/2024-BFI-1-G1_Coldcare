@@ -204,5 +204,6 @@
   "MASTERS": "Maestros",
   "HAS_ALERT": "Alerta",
   "USAGE": "Consumos",
-  "HAS_REPITED": "Contenedores asignados"
+  "HAS_REPITED": "Contenedores asignados",
+  "DEV": "Dispositivo"
 }

@@ -204,5 +204,6 @@
   "MASTERS": "Masters",
   "HAS_ALERT": "Alert",
   "USAGE": "Usage",
-  "HAS_REPITED": "Allocated containers"
+  "HAS_REPITED": "Allocated containers",
+  "DEV": "Device"
 }
