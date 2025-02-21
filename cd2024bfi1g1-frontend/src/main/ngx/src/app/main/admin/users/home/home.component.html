@@ -2,11 +2,10 @@
   <o-column title="FILTER_USERS">
     <div class="inline-fields">
       <div fxLayout="row" fxLayoutGap="15px" layout-padding>
-        <o-combo attr="name" label="USR_NAME" service="users" entity="search" value-column="USR_NAME"
-          columns="USR_ID;USR_NAME" visible-columns="USR_NAME" null-selection="yes" searchable="yes"></o-combo>
 
         <o-combo attr="login" label="USR_LOGIN" service="users" entity="search" value-column="USR_LOGIN"
-          columns="USR_ID;USR_LOGIN" visible-columns="USR_LOGIN" null-selection="yes" searchable="yes"></o-combo>
+          columns="USR_ID;USR_NAME;USR_LOGIN" visible-columns="USR_NAME;USR_LOGIN" null-selection="yes" searchable="yes"
+          separator=" - "></o-combo>
 
         <o-combo attr="company" label="CMP_NAME" service="companies" entity="companies" value-column="CMP_NAME"
           columns="CMP_ID;CMP_NAME" visible-columns="CMP_NAME" null-selection="yes" searchable="yes"></o-combo>
@@ -17,11 +16,11 @@
         <o-button attr="clear" [oFilterBuilderClear]="filterBuilder" type="BASIC" label="CLEAR" icon="clear"></o-button>
       </div>
     </div>
-    <o-filter-builder #filterBuilder attr="thefilter" filters="name;login;company" [target]="usersTable"
+    <o-filter-builder #filterBuilder attr="thefilter" filters="login;company" [target]="usersTable"
       query-on-change="none" query-on-change-delay="500" [expression-builder]="createFilter">
     </o-filter-builder>
 
-    <o-table #usersTable attr="users" service="users" entity="search" keys="USR_ID" style="height: 1000px;"
+    <o-table #usersTable attr="users" service="users" entity="user" keys="USR_ID" style="height: 1000px;"
       columns="USR_ID;USR_NAME;USR_LOGIN;CMP_ID;CMP_NAME" visible-columns="USR_NAME;USR_LOGIN;CMP_NAME"
       sort-columns="USR_NAME" query-rows="25" quick-filter="yes" row-height="medium" pageable="true" query-on-init="yes"
       query-on-bind="false" select-all-checkbox-visible="no" insert-button="yes" delete-button="no" refresh-button="yes"
@@ -30,5 +29,6 @@
       <o-table-columns-filter columns="USR_NAME;USR_LOGIN;CMP_NAME"></o-table-columns-filter>
     </o-table>
   </o-column>
+
 
 </o-form>
