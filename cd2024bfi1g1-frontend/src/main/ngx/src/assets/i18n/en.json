@@ -164,5 +164,6 @@
   "DATES": "Dates",
   "NAME": "Name",
   "PLAN_ASSIGN": "Assign a plan",
-  "START_DAY_EARLIER": "The start date must be earlier than the end date"
+  "START_DAY_EARLIER": "The start date must be earlier than the end date",
+  "PRICES_INSERT_ERROR": "Map to assign prices to not found"
 }

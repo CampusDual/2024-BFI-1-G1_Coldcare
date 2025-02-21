@@ -164,5 +164,6 @@
   "DATES": "Fechas",
   "NAME": "Nombre",
   "PLAN_ASSIGN": "Asignar plan",
-  "START_DAY_EARLIER": "La fecha de inicio debe ser anterior a la fecha de fin."
+  "START_DAY_EARLIER": "La fecha de inicio debe ser anterior a la fecha de fin.",
+  "PRICES_INSERT_ERROR": "No se ha encontrado un mapa al que asignar el precio"
 }
