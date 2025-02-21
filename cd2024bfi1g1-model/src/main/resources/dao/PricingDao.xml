@@ -33,8 +33,8 @@
                     SELECT
                         #COLUMNS#
                     FROM
-                        ${mainschema}.plan_prices r
-                    WHERE r.PP_END IS NULL
+                        ${mainschema}.plan_prices
+                    #WHERE# AND PP_END IS NULL
                     #ORDER#
                 ]]>
             </Sentence>
