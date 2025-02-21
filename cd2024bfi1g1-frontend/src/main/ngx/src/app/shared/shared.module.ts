@@ -4,6 +4,7 @@ import { OntimizeWebModule } from 'ontimize-web-ngx';
 import { FilterComponent } from './components/filters/filters.component';
 import { HomeToolbarComponent } from './components/home-toolbar/home-toolbar.component';
 import { DevicesColumnRendererComponent } from '../main/devices/devices-column-renderer/devices-column-renderer.component';
+import { IconStatusComponent } from './icon-status/icon-status.component';
 
 
 
@@ -14,7 +15,8 @@ import { DevicesColumnRendererComponent } from '../main/devices/devices-column-r
   declarations: [
     FilterComponent,
     HomeToolbarComponent,
-    DevicesColumnRendererComponent
+    DevicesColumnRendererComponent,
+    IconStatusComponent
   ],
   exports: [
     CommonModule,

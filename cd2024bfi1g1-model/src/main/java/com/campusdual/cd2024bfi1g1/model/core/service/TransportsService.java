@@ -1,22 +1,20 @@
 package com.campusdual.cd2024bfi1g1.model.core.service;
 
 import com.campusdual.cd2024bfi1g1.api.core.service.ITransportsService;
-import com.campusdual.cd2024bfi1g1.model.core.dao.DevicesDao;
-import com.campusdual.cd2024bfi1g1.model.core.dao.TransportsDao;
-import com.campusdual.cd2024bfi1g1.model.core.dao.UserDao;
-import com.campusdual.cd2024bfi1g1.model.core.dao.VehiclesDao;
+import com.campusdual.cd2024bfi1g1.model.core.dao.*;
 import com.campusdual.cd2024bfi1g1.model.core.util.Util;
+import com.ontimize.jee.common.db.SQLStatementBuilder;
 import com.ontimize.jee.common.dto.EntityResult;
 import com.ontimize.jee.common.dto.EntityResultMapImpl;
 import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
 import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
 import static com.campusdual.cd2024bfi1g1.model.core.util.Util.getUserId;
 
 @Service("TransportsService")
@@ -105,9 +103,29 @@ public class TransportsService implements ITransportsService {
         Integer userId = getUserId();
 
         if (userId != null) {
-            keyMap.put(UserDao.USR_ID,userId);
+
+            SQLStatementBuilder.BasicField transportUserField = new SQLStatementBuilder.BasicField(TransportsDao.USR_TRP_ID);
+            SQLStatementBuilder.BasicField vehicleUserField = new SQLStatementBuilder.BasicField(VehiclesDao.USR_ID);
+
+            // Expresión: transportUserField = userId
+            SQLStatementBuilder.BasicExpression userIsTransporter = new SQLStatementBuilder.BasicExpression(transportUserField, SQLStatementBuilder.BasicOperator.EQUAL_OP, userId);
+
+            // Expresión: vehicleUserField = userId
+            SQLStatementBuilder.BasicExpression userWasAssignedToVehicle = new SQLStatementBuilder.BasicExpression(vehicleUserField, SQLStatementBuilder.BasicOperator.EQUAL_OP, userId);
+
+            SQLStatementBuilder.BasicExpression transportUserNull = new SQLStatementBuilder.BasicExpression(transportUserField, SQLStatementBuilder.BasicOperator.NULL_OP, null);
+
+            // Expresión final: (transportUserField = userId) OR (vehicleUserField = userId)
+            SQLStatementBuilder.BasicExpression userWasAsgnToVhcAndTrUsrNull = new SQLStatementBuilder.BasicExpression(userWasAssignedToVehicle, SQLStatementBuilder.BasicOperator.AND_OP, transportUserNull);
+
+            SQLStatementBuilder.BasicExpression userHasAccess = new SQLStatementBuilder.BasicExpression(userIsTransporter, SQLStatementBuilder.BasicOperator.OR_OP, userWasAsgnToVhcAndTrUsrNull);
+
+
+
+            keyMap.put(SQLStatementBuilder.ExtendedSQLConditionValuesProcessor.EXPRESSION_KEY, userHasAccess);
         }
-        return this.daoHelper.query(this.transportsDao, keyMap, attrList, "defaultPerUser");
+
+        return this.daoHelper.query(this.transportsDao, keyMap, attrList, "defaultPerState");
     }
 
 }
