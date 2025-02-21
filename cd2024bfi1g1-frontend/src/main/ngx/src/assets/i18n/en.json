@@ -156,8 +156,8 @@
   "PLATE": "Plate",
   "MEASUREMENTS_HISTORIC": "Measurements historic",
   "COMPANY_DELETE_ERROR": "Cannot delete an assigned company",
-  "TRANSPORTS": "Transports",
-  "TRP_DATA": "Transport details",
+  "TRANSPORTS": "Shipments",
+  "TRP_DATA": "Shipment details",
   "TRP_ORIGIN": "Origin",
   "TRP_DESTINATION": "Destination",
   "TRP_DATE": "Delivery date",
@@ -195,7 +195,6 @@
   "NOT_VIEWED": "Not viewed",
   "VIEWED_AND_NOT_VIEWED": "All states",
   "CONTAINERS_HISTORY": "Containers history",
-  "CONSUMPTIONS": "Consumptions",
   "JANUARY": "January",
   "FEBRUARY": "February",
   "MARCH": "March",
@@ -208,5 +207,8 @@
   "OCTOBER": "October",
   "NOVEMBER": "November",
   "DECEMBER": "December",
-  "MASTERS": "Masters"
+  "MASTERS": "Masters",
+  "HAS_ALERT": "Alert",
+  "USAGE": "Usage",
+  "DEV": "Device"
 }
