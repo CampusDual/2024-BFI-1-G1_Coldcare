@@ -186,7 +186,6 @@
   "COMPANY_NEW": "Nueva empresa",
   "ASSIGN_CMP": "Asignar empresa",
   "CONTAINERS_HISTORY": "Historial de contenedores",
-  "CONSUMPTIONS": "Consumos",
   "JANUARY": "Enero",
   "FEBRUARY": "Febrero",
   "MARCH": "Marzo",
@@ -210,5 +209,8 @@
   "ERROR_SAME_CONTAINER": "No puedes transferir al mismo contenedor",
   "AVAILABLE_CNT": "Selecciona un contenedor disponible",
   "ERROR_TRANSFER_ALREADY_EXISTS": "Ya existe un trasvase entre esos contenedores",
-  "SELECTED": "Seleccionado"
+  "SELECTED": "Seleccionado",
+  "HAS_ALERT": "Alerta",
+  "USAGE": "Consumos",
+  "DEV": "Dispositivo"
 }

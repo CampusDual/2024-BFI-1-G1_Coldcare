@@ -83,6 +83,10 @@ public class ContainersLotsService implements IContainersLotsService {
         filter.remove(ContainersLotsDao.CL_ID);
 
         return this.daoHelper.query(this.containersLotsDao, filter, attrList);
+    } 
+
+    public EntityResult containersLotsWithAlertsQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
+        return this.daoHelper.query(this.containersLotsDao, keyMap, attrList, "cl_with_alerts");
     }
 
     @Override

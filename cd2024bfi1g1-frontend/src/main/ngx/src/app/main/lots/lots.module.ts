@@ -5,7 +5,7 @@ import { LotsRoutingModule } from './lots-routing.module';
 import { LotsHomeComponent } from './lots-home/lots-home.component';
 import { LotsNewComponent } from './lots-new/lots-new.component';
 import { LotsDetailsComponent } from './lots-details/lots-details.component';
-import { SharedModule } from 'src/app/shared/shared.module';
+import { SharedModule } from "../../shared/shared.module";
 
 
 

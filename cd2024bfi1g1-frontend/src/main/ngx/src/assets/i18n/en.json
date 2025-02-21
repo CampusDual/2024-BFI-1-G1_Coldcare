@@ -155,8 +155,8 @@
   "PLATE": "Plate",
   "MEASUREMENTS_HISTORIC": "Measurements historic",
   "COMPANY_DELETE_ERROR": "Cannot delete an assigned company",
-  "TRANSPORTS": "Transports",
-  "TRP_DATA": "Transport details",
+  "TRANSPORTS": "Shipments",
+  "TRP_DATA": "Shipment details",
   "TRP_ORIGIN": "Origin",
   "TRP_DESTINATION": "Destination",
   "TRP_DATE": "Delivery date",
@@ -186,7 +186,6 @@
   "COMPANY_NEW": "New company",
   "ASSIGN_CMP": "Assign company",
   "CONTAINERS_HISTORY": "Containers history",
-  "CONSUMPTIONS": "Consumptions",
   "JANUARY": "January",
   "FEBRUARY": "February",
   "MARCH": "March",
@@ -210,5 +209,8 @@
   "ERROR_SAME_CONTAINER": "You cannot transfer to the same container",
   "AVAILABLE_CNT": "Select an available container",
   "ERROR_TRANSFER_ALREADY_EXISTS": "Transfer already exists between those containers",
-  "SELECTED": "Selected"
+  "SELECTED": "Selected",
+  "HAS_ALERT": "Alert",
+  "USAGE": "Usage",
+  "DEV": "Device"
 }

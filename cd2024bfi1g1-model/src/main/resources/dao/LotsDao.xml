@@ -70,7 +70,6 @@
                 ]]>
             </Sentence>
         </Query>
-
         <Query id="get_max_temp_lot_Id">
             <Sentence>
                 <![CDATA[
@@ -80,22 +79,31 @@
                 ]]>
             </Sentence>
         </Query>
-
         <Query id="lotsProducts">
+            <AmbiguousColumns>
+                <AmbiguousColumn name="PRO_ID" prefix="t" />
+            </AmbiguousColumns>
             <Sentence>
                 <![CDATA[
                     WITH t AS (
-                        SELECT p.PRO_ID, p.PRO_NAME, l.MIN_TEMP, l.MAX_TEMP, l.LOT_ID, l.LOT_NAME, l.CMP_ID
+                        SELECT
+                            l.*,
+                            EXISTS (
+                                SELECT 1
+                                FROM alerts a
+                                JOIN containers_lots cl ON cl.lot_id = l.lot_id
+                                WHERE cl.cl_id = a.cl_id
+                            ) AS has_alert
                         FROM
-                        lots l JOIN products p ON p.pro_id = l.pro_id
-                        )
+                            lots l
+                    )
                     SELECT #COLUMNS#
                     FROM t
+                    JOIN products p ON p.pro_id = t.pro_id
                     #WHERE#
                     #ORDER#
                 ]]>
             </Sentence>
         </Query>
-
     </Queries>
 </JdbcEntitySetup>
