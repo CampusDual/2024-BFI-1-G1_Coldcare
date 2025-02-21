@@ -5,6 +5,7 @@ import com.campusdual.cd2024bfi1g1.model.core.dao.DevicesDao;
 import com.campusdual.cd2024bfi1g1.model.core.dao.TransportsDao;
 import com.campusdual.cd2024bfi1g1.model.core.dao.UserDao;
 import com.campusdual.cd2024bfi1g1.model.core.dao.VehiclesDao;
+import com.campusdual.cd2024bfi1g1.model.core.util.Util;
 import com.ontimize.jee.common.dto.EntityResult;
 import com.ontimize.jee.common.dto.EntityResultMapImpl;
 import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import static com.campusdual.cd2024bfi1g1.model.core.util.Util.getUserId;
@@ -55,6 +57,16 @@ public class TransportsService implements ITransportsService {
         Integer cmpId = UserAndRoleService.getUserCompanyId(this.daoHelper, this.userDao);
         attrMap.put(TransportsDao.CMP_ID, cmpId);
 
+        if (attrMap.containsKey(TransportsDao.TST_ID)) {
+            Object tstIdValue = attrMap.get(TransportsDao.TST_ID);
+
+            if (tstIdValue instanceof Number && ((Number) tstIdValue).intValue() == 2) {
+                Integer userId = Util.getUserId();
+                attrMap.put(TransportsDao.USR_ID, userId);
+
+            }
+        }
+
         return this.daoHelper.update(this.transportsDao, attrMap, keyMap);
     }
 
@@ -93,13 +105,7 @@ public class TransportsService implements ITransportsService {
         Integer userId = getUserId();
 
         if (userId != null) {
-            keyMap.put(UserDao.USR_ID, userId);
-        } else {
-
-            EntityResult res = new EntityResultMapImpl();
-            res.setCode(EntityResult.OPERATION_WRONG);
-            res.setMessage("MEASUREMENTS_DATA_ERROR");
-            return res;
+            keyMap.put(UserDao.USR_ID,userId);
         }
         return this.daoHelper.query(this.transportsDao, keyMap, attrList, "defaultPerUser");
     }
