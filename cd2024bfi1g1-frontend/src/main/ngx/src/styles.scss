@@ -223,6 +223,7 @@ tr.mat-mdc-row.mdc-data-table__row.cdk-row:nth-child(even) {
 
   o-text-input {
     flex: 1;
+    flex-grow: 0;
     border: none;
     background-color: transparent;
     color: #333;
@@ -235,10 +236,11 @@ tr.mat-mdc-row.mdc-data-table__row.cdk-row:nth-child(even) {
       background-color: transparent;
       border: none;
       box-shadow: none;
-
+    
       .mat-mdc-text-field-wrapper.mdc-text-field.mdc-text-field--filled,
 
       &:hover,
+      &::selection,
       &:focus {
         outline: none;
         border: none;
