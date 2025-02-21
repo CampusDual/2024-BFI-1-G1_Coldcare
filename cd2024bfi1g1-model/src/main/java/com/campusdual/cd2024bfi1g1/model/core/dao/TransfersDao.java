@@ -14,7 +14,7 @@ import java.util.List;
 
 public class TransfersDao extends OntimizeJdbcDaoSupport {
     public static final String TRA_ID = "TRA_ID";
-    public static final String TRA_ORIGIN_CL = "TRA_ORIGIN_CL";
-    public static final String TRA_DESTINY_CL = "TRA_DESTINY_CL";
-    public static final List<String> COLUMNS = Arrays.asList(TRA_ID,TRA_ORIGIN_CL,TRA_DESTINY_CL);
+    public static final String CL_ID_ORIGIN = "CL_ID_ORIGIN";
+    public static final String CL_ID_DESTINY = "CL_ID_DESTINY";
+    public static final List<String> COLUMNS = Arrays.asList(TRA_ID,CL_ID_ORIGIN,CL_ID_DESTINY);
 }

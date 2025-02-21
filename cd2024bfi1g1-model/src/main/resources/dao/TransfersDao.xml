@@ -30,7 +30,7 @@
                 <![CDATA[
                     SELECT #COLUMNS#
                     FROM TRANSFERS t
-                        JOIN CONTAINERS_LOTS cl ON t.TRA_ORIGIN_CL = cl.CL_ID
+                        JOIN CONTAINERS_LOTS cl ON t.CL_ID_ORIGIN = cl.CL_ID
                         JOIN CONTAINERS c ON cl.CNT_ID = c.CNT_ID
                     #WHERE#
                     #ORDER#
@@ -45,7 +45,7 @@
                 <![CDATA[
                     SELECT #COLUMNS#
                     FROM TRANSFERS t
-                        JOIN CONTAINERS_LOTS cl ON t.TRA_DESTINY_CL = cl.CL_ID
+                        JOIN CONTAINERS_LOTS cl ON t.CL_ID_DESTINY = cl.CL_ID
                         JOIN CONTAINERS c ON cl.CNT_ID = c.CNT_ID
                     #WHERE#
                     #ORDER#

@@ -37,7 +37,7 @@ public class TransfersService implements ITransfersService {
             throws OntimizeJEERuntimeException {
 
         Map<String, Object> filterByDestiny = new HashMap<>();
-        filterByDestiny.put(transfersDao.TRA_DESTINY_CL, keyMap.get(clDao.CL_ID));
+        filterByDestiny.put(TransfersDao.CL_ID_DESTINY, keyMap.get(ContainersLotsDao.CL_ID));
 
         return this.daoHelper.query(this.transfersDao, filterByDestiny, attrList, "origin");
     }
@@ -47,19 +47,19 @@ public class TransfersService implements ITransfersService {
             throws OntimizeJEERuntimeException {
 
         Map<String, Object> filterByOrigin = new HashMap<>();
-        filterByOrigin.put(transfersDao.TRA_ORIGIN_CL, keyMap.get(clDao.CL_ID));
+        filterByOrigin.put(TransfersDao.CL_ID_ORIGIN, keyMap.get(ContainersLotsDao.CL_ID));
 
         return this.daoHelper.query(this.transfersDao, filterByOrigin, attrList, "destiny");
     }
 
     @Override
     public EntityResult transfersOriginInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException {
-        return transfersInsert(attrMap, transfersDao.TRA_ORIGIN_CL, transfersDao.TRA_DESTINY_CL);
+        return transfersInsert(attrMap, TransfersDao.CL_ID_ORIGIN, TransfersDao.CL_ID_DESTINY);
     }
 
     @Override
     public EntityResult transfersDestinyInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException {
-        return transfersInsert(attrMap, transfersDao.TRA_DESTINY_CL, transfersDao.TRA_ORIGIN_CL);
+        return transfersInsert(attrMap, TransfersDao.CL_ID_DESTINY, TransfersDao.CL_ID_ORIGIN);
     }
 
     @Override
@@ -78,16 +78,16 @@ public class TransfersService implements ITransfersService {
 
         Map<String, Object> transferData = new HashMap<>();
         transferData.put(originField, attrMap.get(originField));
-        transferData.put(destinyField, attrMap.get(clDao.CL_ID));
+        transferData.put(destinyField, attrMap.get(ContainersLotsDao.CL_ID));
 
-        List<String> attrList = Collections.singletonList(transfersDao.TRA_ID);
+        List<String> attrList = Collections.singletonList(TransfersDao.TRA_ID);
 
         EntityResult existingTransfers = transfersQuery(transferData, attrList);
         if (!existingTransfers.isEmpty()) {
             return Util.controlErrors("ERROR_TRANSFER_ALREADY_EXISTS");
         }
 
-        if (Objects.equals(attrMap.get(originField), attrMap.get(clDao.CL_ID))) {
+        if (Objects.equals(attrMap.get(originField), attrMap.get(ContainersLotsDao.CL_ID))) {
             return Util.controlErrors("ERROR_SAME_CONTAINER");
         }
 

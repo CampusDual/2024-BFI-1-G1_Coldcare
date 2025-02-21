@@ -1,6 +1,6 @@
 <o-form attr="newDestiny" service="transfers" entity="transfersDestiny" keys="TRA_ID" show-header="true"
     after-insert-mode="close" confirm-exit="false">
-    <o-integer-input #inputDestiny attr="TRA_DESTINY_CL" oHidden></o-integer-input>
+    <o-integer-input #inputDestiny attr="CL_ID_DESTINY" oHidden></o-integer-input>
     <o-table attr="tableDestiny" title="AVAILABLE_CNT" show-title="yes" service="containersLots"
         entity="containersLotsTransfersDestiny" columns="CNT_NAME;CL_START_DATE;CL_END_DATE;CL_ID" keys="CL_ID"
         visible-columns="CNT_NAME;CL_START_DATE;CL_END_DATE" parent-keys="CL_ID" delete-button="no" insert-button="no"
