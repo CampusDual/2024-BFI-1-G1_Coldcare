@@ -23,10 +23,11 @@
 <o-table #measurementsTable attr="measurementsTable" service="measurements" entity="measurements" keys="ME_ID"
   columns="ME_ID;ME_DATE;ME_TEMP;ME_HUMIDITY;DEV_NAME" visible-columns="DEV_NAME;ME_DATE;ME_TEMP;ME_HUMIDITY"
   query-rows="20" select-all-checkbox-visible="no" insert-button="no" delete-button="no" refresh-button="yes"
-  quick-filter="no" pageable="true" detail-mode="none" title="MEASUREMENTS" show-title="yes">
+  quick-filter="no" pageable="true" detail-mode="none" title="MEASUREMENTS" show-title="yes"
+  sort-columns="ME_DATE:DESC">
   <!-- Columnas de la Tabla -->
   <o-table-column attr="ME_DATE" title="DATE" type="date" format="DD/MM/YYYY HH:mm:ss"></o-table-column>
-  <o-table-column attr="ME_TEMP" title="TEMPERATURE"></o-table-column>
-  <o-table-column attr="ME_HUMIDITY" title="HUMIDITY"></o-table-column>
+  <o-table-column attr="ME_TEMP" title="TEMPERATURE" type="real" content-align="center"></o-table-column>
+  <o-table-column attr="ME_HUMIDITY" title="HUMIDITY" type="real" content-align="center"></o-table-column>
   <o-table-column attr="DEV_NAME" title="IDENTIFIER"></o-table-column>
 </o-table>

@@ -431,19 +431,4 @@ public class UserAndRoleService implements IUserAndRoleService {
 		}
 	}
 
-	public static Integer getUserCompanyId(DefaultOntimizeDaoHelper daoHelper, UserDao userDao){
-		Integer userId = Util.getUserId();
-
-		Map<String, Object> filter = new HashMap<>();
-		filter.put(UserDao.USR_ID, userId);
-		List<String> columns = List.of("CMP_ID");
-
-		EntityResult userEr = daoHelper.query(userDao, filter, columns);
-		if (userEr.isEmpty()) {
-			throw new RuntimeException("Unknown user");
-		}
-
-		Map<String, Object> user = userEr.getRecordValues(0);
-		return (Integer) user.get("CMP_ID");
-	}
 }

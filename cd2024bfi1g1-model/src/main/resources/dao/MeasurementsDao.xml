@@ -15,33 +15,17 @@
         <Query id="default">
             <AmbiguousColumns>
                 <AmbiguousColumn name="DEV_ID" prefix="m"/>
-                <AmbiguousColumn name="CNT_ID" prefix="m" />
-                <AmbiguousColumn name="LOT_ID" prefix="m" />
+                <AmbiguousColumn name="CL_ID" prefix="m" />
             </AmbiguousColumns>
             <Sentence>
                 <![CDATA[
                     SELECT
                         #COLUMNS#
-                    FROM measurements m
-                    LEFT JOIN devices d ON m.DEV_ID = d.DEV_ID
-                    LEFT JOIN containers c ON c.CNT_ID = m.CNT_ID
-                    LEFT JOIN lots l ON l.LOT_ID = m.LOT_ID
+                    FROM MEASUREMENTS m
+                    LEFT JOIN DEVICES d ON m.DEV_ID = d.DEV_ID
+                    LEFT JOIN CONTAINERS_LOTS cl ON cl.CL_ID = m.CL_ID
                     #WHERE#
                     #ORDER#
-                ]]>
-            </Sentence>
-        </Query>
-        <Query id="container_lot">
-            <AmbiguousColumns>
-                <AmbiguousColumn name="CNT_ID" prefix="c" />
-            </AmbiguousColumns>
-            <Sentence>
-                <![CDATA[
-                    SELECT #COLUMNS#
-                    FROM devices d
-                    LEFT JOIN containers c ON d.cnt_id = c.cnt_id
-                    #WHERE#
-
                 ]]>
             </Sentence>
         </Query>

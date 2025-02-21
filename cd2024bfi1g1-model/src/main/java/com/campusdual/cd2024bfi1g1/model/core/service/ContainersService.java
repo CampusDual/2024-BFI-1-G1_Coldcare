@@ -8,13 +8,9 @@ import com.campusdual.cd2024bfi1g1.model.core.util.Util;
 import com.ontimize.jee.common.dto.EntityResult;
 import com.ontimize.jee.common.dto.EntityResultMapImpl;
 import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
-import com.ontimize.jee.common.services.user.UserInformation;
 import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -49,16 +45,15 @@ public class ContainersService implements IContainersService {
         }
         String trimmedContainerName = newContainerName.trim();
 
-
-            List<String> existingContainerNames = new ArrayList<>();
-            for (int i = 0; i < existingContainers.calculateRecordNumber(); i++) {
-                existingContainerNames.add((String) existingContainers.getRecordValues(i).get(ContainersDao.CNT_NAME));
+        List<String> existingContainerNames = new ArrayList<>();
+        for (int i = 0; i < existingContainers.calculateRecordNumber(); i++) {
+            existingContainerNames.add((String) existingContainers.getRecordValues(i).get(ContainersDao.CNT_NAME));
+        }
+        for (Object containerName : existingContainerNames) {
+            if (trimmedContainerName.equals(containerName)) {
+                return true;
             }
-            for (Object containerName : existingContainerNames) {
-                if (trimmedContainerName.equals(containerName)) {
-                    return true;
-                }
-            }
+        }
 
         return false;
     }
@@ -67,19 +62,28 @@ public class ContainersService implements IContainersService {
     public EntityResult containersQuery(Map<String, Object> keyMap, List<String> attrList)
             throws OntimizeJEERuntimeException {
 
-        Integer cmpId = UserAndRoleService.getUserCompanyId(this.daoHelper, this.userDao);
+        Integer cmpId = Util.getUserCompanyId(this.daoHelper, this.userDao);
         keyMap.put(DevicesDao.CMP_ID, cmpId);
 
         return this.daoHelper.query(this.containersDao, keyMap, attrList);
     }
 
     @Override
+    public EntityResult containersWithAlertsQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
+
+        Integer cmpId = Util.getUserCompanyId(this.daoHelper, this.userDao);
+        keyMap.put(DevicesDao.CMP_ID, cmpId);
+
+        return this.daoHelper.query(this.containersDao, keyMap, attrList, "containers_with_alerts");
+    }
+
+    @Override
     public EntityResult containersInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException {
 
-        Integer cmpId = UserAndRoleService.getUserCompanyId(this.daoHelper, this.userDao);
+        Integer cmpId = Util.getUserCompanyId(this.daoHelper, this.userDao);
         attrMap.put(DevicesDao.CMP_ID, cmpId);
 
-        if(changeContainerName(cmpId,attrMap)){
+        if (changeContainerName(cmpId, attrMap)) {
             return new EntityResultMapImpl(EntityResult.OPERATION_WRONG, EntityResult.NODATA_RESULT,
                     "Ya existe un contenedor con ese nombre");
         }
@@ -91,10 +95,10 @@ public class ContainersService implements IContainersService {
     public EntityResult containersUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap)
             throws OntimizeJEERuntimeException {
 
-        Integer cmpId = UserAndRoleService.getUserCompanyId(this.daoHelper, this.userDao);
+        Integer cmpId = Util.getUserCompanyId(this.daoHelper, this.userDao);
         attrMap.put(DevicesDao.CMP_ID, cmpId);
 
-        if(changeContainerName(cmpId,attrMap)){
+        if (changeContainerName(cmpId, attrMap)) {
             return new EntityResultMapImpl(EntityResult.OPERATION_WRONG, EntityResult.NODATA_RESULT,
                     "Ya existe un contenedor con ese nombre");
         }
@@ -105,7 +109,7 @@ public class ContainersService implements IContainersService {
                 res.setCode(EntityResult.OPERATION_WRONG);
                 res.setMessage("CONTAINER_MOBILITY_ERROR");
                 return res;
-            }else{
+            } else {
                 return this.daoHelper.update(this.containersDao, attrMap, keyMap);
             }
         }

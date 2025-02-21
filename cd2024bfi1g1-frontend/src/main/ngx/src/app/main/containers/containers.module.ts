@@ -7,7 +7,9 @@ import { ContainersHomeComponent } from './containers-home/containers-home.compo
 import { ContainersNewComponent } from './containers-new/containers-new.component';
 import { ContainersDetailsComponent } from './containers-details/containers-details.component';
 import { ContainersLotsMeasurementsComponent } from './containers-lots-measurements/containers-lots-measurements.component';
-import { ContainersBooleanRendererComponent } from './containers-boolean-renderer/containers-boolean-renderer.component';
+import { ContainersLotsAssignmentsComponent } from './containers-lots-assignments/containers-lots-assignments.component';
+import { ContainersHomeBooleanRenderComponent } from './containers-home-boolean-render/containers-home-boolean-render.component';
+import { SharedModule } from "../../shared/shared.module";
 
 @NgModule({
   declarations: [
@@ -15,12 +17,14 @@ import { ContainersBooleanRendererComponent } from './containers-boolean-rendere
     ContainersNewComponent,
     ContainersDetailsComponent,
     ContainersLotsMeasurementsComponent,
-    ContainersBooleanRendererComponent,
+    ContainersLotsAssignmentsComponent,
+    ContainersHomeBooleanRenderComponent
   ],
   imports: [
     CommonModule,
     OntimizeWebModule,
-    ContainersRoutingModule
+    ContainersRoutingModule,
+    SharedModule
   ]
 })
 export class ContainersModule { }

@@ -49,5 +49,28 @@
                 ]]>
             </Sentence>
         </Query>
+        <Query id="container_lot">
+            <AmbiguousColumns>
+                <AmbiguousColumn name="CNT_ID" prefix="cl" />
+            </AmbiguousColumns>
+            <Sentence>
+                <![CDATA[
+                    WITH cl AS (
+                        SELECT *
+                        FROM containers_lots cl
+                        WHERE
+                            cl.cl_start_date  <= now()
+                            AND (cl_end_date is null OR cl_end_date >= now())
+                    )
+                    SELECT
+                        #COLUMNS#
+                    FROM
+                        DEVICES d
+                    LEFT JOIN cl
+                        ON d.CNT_ID = cl.CNT_ID
+                    #WHERE#
+                ]]>
+            </Sentence>
+        </Query>
     </Queries>
 </JdbcEntitySetup>
