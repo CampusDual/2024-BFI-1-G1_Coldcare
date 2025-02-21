@@ -13,14 +13,14 @@ import java.util.List;
 @ConfigurationFile(configurationFile = "dao/PricingDao.xml", configurationFilePlaceholder = "dao/placeholders.properties")
 
 public class PricingDao extends OntimizeJdbcDaoSupport {
-    public static final String PLANPRICES_ID = "PLANPRICES_ID";
-    public static final String PLANPRICES_FIXEDPRICE = "PLANPRICES_FIXEDPRICE";
-    public static final String PLANPRICES_DEVPRICE="PLANPRICES_DEVPRICE";
-    public static final String PLANPRICES_BUNDLEPRICE="PLANPRICES_BUNDLEPRICE";
-    public static final String PLANPRICES_BUNDLEREQUESTS="PLANPRICES_BUNDLEREQUESTS";
-    public static final String PLANPRICES_START="PLANPRICES_START";
-    public static final String PLANPRICES_END="PLANPRICES_END";
+    public static final String PP_ID = "PP_ID";
+    public static final String PP_FIXED_PRICE = "PP_FIXED_PRICE";
+    public static final String PP_DEV_PRICE="PP_DEV_PRICE";
+    public static final String PP_BUNDLE_PRICE="PP_BUNDLE_PRICE";
+    public static final String PP_BUNDLE_REQUESTS="PP_BUNDLE_REQUESTS";
+    public static final String PP_START="PP_START";
+    public static final String PP_END="PP_END";
     public static final String PLN_ID="PLN_ID";
-    public static final List<String> COLUMNS = Arrays.asList(PLANPRICES_ID,PLANPRICES_FIXEDPRICE,PLANPRICES_DEVPRICE,PLANPRICES_BUNDLEPRICE,
-            PLANPRICES_BUNDLEREQUESTS,PLANPRICES_START,PLANPRICES_END, PLN_ID);
+    public static final List<String> COLUMNS = Arrays.asList(PP_ID,PP_FIXED_PRICE,PP_DEV_PRICE,PP_BUNDLE_PRICE,
+            PP_BUNDLE_REQUESTS,PP_START,PP_END, PLN_ID);
 }

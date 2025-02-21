@@ -61,7 +61,7 @@ public class BillsService implements IBillsService {
         Map<String, Object> conditions = new HashMap<>();
         conditions.put(
                 SQLStatementBuilder.ExtendedSQLConditionValuesProcessor.EXPRESSION_KEY,
-                Util.isDateInCurrentRange(PricingDao.PLANPRICES_START, PricingDao.PLANPRICES_END)
+                Util.isDateInCurrentRange(PricingDao.PP_START, PricingDao.PP_END)
         );
         conditions.put(BillsDao.CMP_ID,cmpId);
 
@@ -71,10 +71,10 @@ public class BillsService implements IBillsService {
 
         Map<String, Object> data = new HashMap<>(result.getRecordValues(0));
 
-        float fixedPrice = Float.parseFloat(data.get(PricingDao.PLANPRICES_FIXEDPRICE).toString());
-        float devicePrice = Float.parseFloat(data.get(PricingDao.PLANPRICES_DEVPRICE).toString());
-        float packagePrice = Float.parseFloat(data.get(PricingDao.PLANPRICES_BUNDLEPRICE).toString());
-        int packageNumberPetitions = Integer.parseInt(data.get(PricingDao.PLANPRICES_BUNDLEREQUESTS).toString());
+        float fixedPrice = Float.parseFloat(data.get(PricingDao.PP_FIXED_PRICE).toString());
+        float devicePrice = Float.parseFloat(data.get(PricingDao.PP_DEV_PRICE).toString());
+        float packagePrice = Float.parseFloat(data.get(PricingDao.PP_BUNDLE_PRICE).toString());
+        int packageNumberPetitions = Integer.parseInt(data.get(PricingDao.PP_BUNDLE_REQUESTS).toString());
 
         float totalExpense = fixedPrice + (devicePrice * nActiveDevices) + (float) Math.ceil((double) nPetitions / packageNumberPetitions) * packagePrice;
         return Math.round(totalExpense * 100.0f) / 100.0f;

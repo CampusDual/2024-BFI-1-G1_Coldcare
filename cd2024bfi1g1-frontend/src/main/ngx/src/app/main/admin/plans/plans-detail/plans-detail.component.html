@@ -8,18 +8,16 @@
   </o-column>
 
   <o-table attr="pricesTable" title="PRICES" show-title="yes" service="pricing" entity="pricing"
-    include-parent-keys="yes" parent-keys="PLN_ID" query-on-init="true" keys="PLANPRICES_ID"
-    columns="PLANPRICES_ID;PLANPRICES_FIXEDPRICE;PLANPRICES_DEVPRICE;PLANPRICES_BUNDLEPRICE;PLANPRICES_BUNDLEREQUESTS;PLANPRICES_START;PLANPRICES_END;PLN_ID"
-    visible-columns="PLANPRICES_FIXEDPRICE;PLANPRICES_DEVPRICE;PLANPRICES_BUNDLEPRICE;PLANPRICES_BUNDLEREQUESTS;PLANPRICES_START;PLANPRICES_END"
+    include-parent-keys="yes" parent-keys="PLN_ID" query-on-init="true" keys="PP_ID"
+    columns="PP_ID;PP_FIXED_PRICE;PP_DEV_PRICE;PP_BUNDLE_PRICE;PP_BUNDLE_REQUESTS;PP_START;PP_END;PLN_ID"
+    visible-columns="PP_FIXED_PRICE;PP_DEV_PRICE;PP_BUNDLE_PRICE;PP_BUNDLE_REQUESTS;PP_START;PP_END"
     insert-button="true" delete-button="false" refresh-button="false" searchable="false" detail-mode="none">
-    <o-table-column attr="PLANPRICES_FIXEDPRICE" title="PLANPRICES_FIXEDPRICE"></o-table-column>
-    <o-table-column attr="PLANPRICES_DEVPRICE" title="PLANPRICES_DEVPRICE"></o-table-column>
-    <o-table-column attr="PLANPRICES_BUNDLEPRICE" title="PLANPRICES_BUNDLEPRICE"></o-table-column>
-    <o-table-column attr="PLANPRICES_BUNDLEREQUESTS" title="PLANPRICES_BUNDLEREQUESTS"></o-table-column>
-    <o-table-column attr="PLANPRICES_START" title="PLANPRICES_START" type="date"
-      format="DD/MM/YYYY HH:mm:ss"></o-table-column>
-    <o-table-column attr="PLANPRICES_END" title="PLANPRICES_END" type="date"
-      format="DD/MM/YYYY HH:mm:ss"></o-table-column>
+    <o-table-column attr="PP_FIXED_PRICE" title="PP_FIXED_PRICE"></o-table-column>
+    <o-table-column attr="PP_DEV_PRICE" title="PP_DEV_PRICE"></o-table-column>
+    <o-table-column attr="PP_BUNDLE_PRICE" title="PP_BUNDLE_PRICE"></o-table-column>
+    <o-table-column attr="PP_BUNDLE_REQUESTS" title="PP_BUNDLE_REQUESTS"></o-table-column>
+    <o-table-column attr="PP_START" title="PP_START" type="date" format="DD/MM/YYYY HH:mm:ss"></o-table-column>
+    <o-table-column attr="PP_END" title="PP_END" type="date" format="DD/MM/YYYY HH:mm:ss"></o-table-column>
   </o-table>
 
 

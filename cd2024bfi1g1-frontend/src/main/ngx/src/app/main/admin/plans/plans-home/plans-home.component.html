@@ -1,10 +1,8 @@
 <o-table attr="plans" title="PLANS" service="plan" entity="planwithprices" keys="PLN_ID" detail-mode="click"
-  columns="PLN_ID;PLN_NAME;PLANPRICES_ID;PLANPRICES_FIXEDPRICE;PLANPRICES_DEVPRICE;PLANPRICES_BUNDLEPRICE;PLANPRICES_BUNDLEREQUESTS;PLANPRICES_START;PLANPRICES_END;PLN_ID"
-  visible-columns="PLN_NAME;PLANPRICES_FIXEDPRICE;PLANPRICES_DEVPRICE;PLANPRICES_BUNDLEPRICE;PLANPRICES_BUNDLEREQUESTS;PLANPRICES_START;PLANPRICES_END"
-  type="date" format="DD/MM/YYYY" delete-button="no" show-title="true">
+  columns="PLN_ID;PLN_NAME;PP_ID;PP_FIXED_PRICE;PP_DEV_PRICE;PP_BUNDLE_PRICE;PP_BUNDLE_REQUESTS;PP_START;PP_END;PLN_ID"
+  visible-columns="PLN_NAME;PP_FIXED_PRICE;PP_DEV_PRICE;PP_BUNDLE_PRICE;PP_BUNDLE_REQUESTS;PP_START;PP_END" type="date"
+  format="DD/MM/YYYY" delete-button="no" show-title="true">
 
-  <o-table-column attr="PLANPRICES_START" title="PLANPRICES_START" type="date"
-    format="DD/MM/YYYY HH:mm:ss"></o-table-column>
-  <o-table-column attr="PLANPRICES_END" title="PLANPRICES_END" type="date"
-    format="DD/MM/YYYY HH:mm:ss"></o-table-column>
+  <o-table-column attr="PP_START" title="PP_START" type="date" format="DD/MM/YYYY HH:mm:ss"></o-table-column>
+  <o-table-column attr="PP_END" title="PP_END" type="date" format="DD/MM/YYYY HH:mm:ss"></o-table-column>
 </o-table>

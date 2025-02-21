@@ -31,10 +31,10 @@
                         #COLUMNS#
                     FROM
                         ${mainschema}.plans p
-                    LEFT JOIN planprices r
+                    LEFT JOIN plan_prices r
                         ON p.PLN_ID = r.PLN_ID
-                    WHERE r.PLANPRICES_START < NOW()
-                    AND (r.PLANPRICES_END > NOW() OR r.PLANPRICES_END IS NULL)
+                    WHERE r.PP_START < NOW()
+                    AND (r.PP_END > NOW() OR r.PP_END IS NULL)
                     #ORDER#
                 ]]>
             </Sentence>
