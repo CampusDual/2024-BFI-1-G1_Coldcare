@@ -40,5 +40,25 @@
                 ]]>
             </Sentence>
         </Query>
+        <Query id="containers_with_alerts">
+            <Sentence>
+                <![CDATA[
+                    WITH cl AS (
+                        SELECT
+                            c.*,
+                            EXISTS (
+                                SELECT 1
+                                FROM containers_lots_current_view clv
+                                INNER JOIN alerts a ON clv.cl_id = a.cl_id
+                                WHERE clv.cnt_id = c.cnt_id and clv.cl_is_current
+                            ) AS has_alert
+                        FROM CONTAINERS c
+                    )
+                    SELECT #COLUMNS#
+                    FROM cl
+                    #WHERE#;
+                ]]>
+            </Sentence>
+        </Query>
     </Queries>
 </JdbcEntitySetup>

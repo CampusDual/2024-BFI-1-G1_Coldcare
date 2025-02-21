@@ -40,4 +40,12 @@ export class AlertsHomeComponent {
     }
   }
 
+  getRowClass(row: any): string {
+    if (!row.hasOwnProperty('ALT_DATE_END')) {
+      return 'row-highlight'; // Se aplica la clase si no tiene ALT_DATE_END o si es null
+    }
+    return ''; // No se aplica clase si ALT_DATE_END tiene un valor
+  }
+  
+
 }
