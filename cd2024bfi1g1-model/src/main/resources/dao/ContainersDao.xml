@@ -40,5 +40,40 @@
                 ]]>
             </Sentence>
         </Query>
+        <Query id="containers_with_measurements">
+            <AmbiguousColumns>
+                <AmbiguousColumn name="CNT_ID" prefix="c" />
+            </AmbiguousColumns>
+            <Sentence>
+                <![CDATA[
+                    WITH t AS (
+                        select
+                            cl.cnt_id,
+                            ROUND(avg(me_temp)::numeric, 2) AS avg_temp,
+                            ROUND(avg(me_humidity)::numeric, 2) AS avg_humidity,
+                            ROUND(max(me_temp)::numeric, 2) AS max_temp_dev,
+                            ROUND(min(me_temp)::numeric, 2) AS min_temp_dev,
+                            ROUND(max(me_humidity)::numeric, 2) AS max_humidity_dev,
+                            ROUND(min(me_humidity)::numeric, 2) AS min_humidity_dev,
+                            COUNT(DISTINCT a.alt_id) AS alt_count
+                        FROM
+                            measurements m
+                        LEFT JOIN containers_lots cl ON m.cl_id = cl.cl_id
+                        LEFT JOIN alerts a ON a.cl_id = m.cl_id
+                        WHERE
+                            cl.cl_start_date <= now()
+                            AND (cl_end_date is null OR cl_end_date >= now())
+                        GROUP BY
+                            cl.cnt_id
+                    )
+                    SELECT
+                        #COLUMNS#
+                    FROM
+                        containers c
+                    LEFT JOIN t ON c.cnt_id = t.cnt_id
+                    #WHERE#
+                ]]>
+            </Sentence>
+        </Query>
     </Queries>
 </JdbcEntitySetup>

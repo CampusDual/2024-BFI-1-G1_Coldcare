@@ -149,8 +149,8 @@
   "LOC_DATA": "Detalles de la localización",
   "LOCATION": "Localización",
   "FILTER_ALERTS": "Filtro de alertas",
-  "AVG_TEMP": "Temperatura media",
-  "AVG_HUMIDITY": "Humedad media",
+  "AVG_TEMP": "Temperatura Media (ºC)",
+  "AVG_HUMIDITY": "Humedad Media (%)",
   "DURATION": "Duración",
   "VEHICLES": "Vehículos",
   "PLATE": "Matrícula",
@@ -183,8 +183,8 @@
   "PRO_NEW": "Nuevo producto",
   "PRODUCTS": "Productos",
   "PRO_NAME": "Producto",
-  "PRO_MAX_TEMP": "Máxima temperatura (ºC)",
-  "PRO_MIN_TEMP": "Mínima temperatura (ºC)",
+  "PRO_MAX_TEMP": "Temperatura Máxima (ºC)",
+  "PRO_MIN_TEMP": "Temperatura Mínima (ºC)",
   "PRO_DETAIL": "Detalles del producto",
   "COMPANY_NEW": "Nueva empresa",
   "ASSIGN_CMP": "Asignar empresa",
@@ -202,5 +202,7 @@
   "OCTOBER": "Octubre",
   "NOVEMBER": "Noviembre",
   "DECEMBER": "Diciembre",
-  "MASTERS": "Maestros"
+  "MASTERS": "Maestros",
+  "MAX_HUMIDITY_DEV": "Humedad Mínima (%)",
+  "MIN_HUMIDITY_DEV": "Humedad Máxima (%)"
 }

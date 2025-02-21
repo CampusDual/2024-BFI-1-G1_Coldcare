@@ -1,16 +1,36 @@
 <o-form attr="containers_form_update" include-parent-keys="yes" parent-keys="CNT_ID" keys-sql-types="INTEGER"
-  service="containers" entity="containers" columns="CNT_NAME" visible-columns="CNT_NAME" keys="CNT_ID" fxLayout="column"
-  show-header="yes" header-actions="R;U" #oForm after-update-mode="detail" class="standalone-form-container">
-  <o-row attr="row1" layout-align="start stretch">
-    <o-column title="CONTAINER_DATA" layout-align="start stretch" fxFlex="60" layout-padding>
-      <div fxLayout="row" fxLayoutAlign="start center" class="gap">
-        <o-text-input attr="CNT_NAME" class="margin-right-24" fxFlex.lg="30" fxFlex.xl="30" fxFlex="50"
-          layout-margin-right></o-text-input>
+  service="containers" entity="containersWithMeasurements" columns="CNT_NAME" visible-columns="CNT_NAME" keys="CNT_ID"
+  fxLayout="column" show-header="yes" header-actions="R;U" #oForm after-update-mode="detail"
+  class="standalone-form-container">
+  <o-row attr="row1">
+    <o-column title="CONTAINER_DATA">
+      <div class="inline-fields">
+        <o-text-input attr="CNT_NAME"></o-text-input>
         <o-slide-toggle attr="CNT_MOBILITY" label="CURRENT_MOBILITY" read-only="no"></o-slide-toggle>
-
       </div>
     </o-column>
   </o-row>
+  <div>
+    <o-row class="row2">
+      <o-column>
+        <div class="inline-fields">
+          <o-text-input attr="AVG_TEMP" read-only="true"></o-text-input>
+          <o-text-input attr="MAX_TEMP_DEV" label="PRO_MAX_TEMP" read-only="true"></o-text-input>
+          <o-text-input attr="MIN_TEMP_DEV" label="PRO_MIN_TEMP" read-only="true"></o-text-input>
+          <o-text-input attr="AVG_HUMIDITY" read-only="true"></o-text-input>
+          <o-text-input attr="MAX_HUMIDITY_DEV" read-only="true"></o-text-input>
+          <o-text-input attr="MIN_HUMIDITY_DEV" read-only="true"></o-text-input>
+        </div>
+      </o-column>
+    </o-row>
+    <o-row class="row2">
+      <o-column>
+        <div class="inline-fields">
+          <o-text-input attr="ALT_COUNT" label="ALERTS" read-only="true"></o-text-input>
+        </div>
+      </o-column>
+    </o-row>
+  </div>
 
   <o-row>
     <o-column class="extend">
