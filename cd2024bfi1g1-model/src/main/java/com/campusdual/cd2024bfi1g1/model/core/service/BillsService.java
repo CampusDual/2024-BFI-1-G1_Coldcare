@@ -2,6 +2,8 @@ package com.campusdual.cd2024bfi1g1.model.core.service;
 
 import com.campusdual.cd2024bfi1g1.api.core.service.IBillsService;
 import com.campusdual.cd2024bfi1g1.model.core.dao.BillsDao;
+import com.campusdual.cd2024bfi1g1.model.core.dao.UserDao;
+import com.campusdual.cd2024bfi1g1.model.core.util.Util;
 import com.ontimize.jee.common.db.AdvancedEntityResult;
 import com.ontimize.jee.common.dto.EntityResult;
 import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
@@ -22,6 +24,8 @@ public class BillsService implements IBillsService {
     private BillsDao billsDao;
     @Autowired
     private DefaultOntimizeDaoHelper daoHelper;
+    @Autowired
+    private UserDao userDao;
 
     @Override
     public EntityResult billsQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
@@ -35,6 +39,16 @@ public class BillsService implements IBillsService {
 
     @Override
     public AdvancedEntityResult billsPaginationQuery(Map<?, ?> keysValues, List<?> attributes, int pagesize, int offset, List<?> orderBy) throws OntimizeJEERuntimeException {
+
+    Integer cmpId = Util.getUserCompanyId(this.daoHelper, this.userDao);
+
+    if (cmpId != null){
+        HashMap<String, Object> conditions = new HashMap<String, Object>();
+        conditions.put(BillsDao.CMP_ID,cmpId);
+        return this.daoHelper.paginationQuery(this.billsDao, conditions, attributes, pagesize, offset, orderBy);
+    }
+
+
         return this.daoHelper.paginationQuery(this.billsDao, keysValues, attributes, pagesize, offset, orderBy);
     }
 

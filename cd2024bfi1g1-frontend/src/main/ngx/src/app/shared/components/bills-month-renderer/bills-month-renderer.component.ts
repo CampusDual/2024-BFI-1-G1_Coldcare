@@ -2,7 +2,7 @@ import { Component, Injector, TemplateRef, ViewChild } from '@angular/core';
 import { OBaseTableCellRenderer, OTranslateService } from 'ontimize-web-ngx';
 
 @Component({
-  selector: 'app-bills-month-renderer',
+  selector: 'bills-month-renderer',
   templateUrl: './bills-month-renderer.component.html',
   styleUrls: ['./bills-month-renderer.component.css']
 })
