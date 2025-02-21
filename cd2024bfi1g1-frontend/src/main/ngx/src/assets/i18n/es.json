@@ -203,5 +203,6 @@
   "DECEMBER": "Diciembre",
   "MASTERS": "Maestros",
   "HAS_ALERT": "Alerta",
-  "USAGE": "Consumos"
+  "USAGE": "Consumos",
+  "HAS_REPITED": "Contenedores asignados"
 }
