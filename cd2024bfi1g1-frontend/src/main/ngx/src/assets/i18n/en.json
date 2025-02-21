@@ -203,5 +203,6 @@
   "DECEMBER": "December",
   "MASTERS": "Masters",
   "HAS_ALERT": "Alert",
-  "USAGE": "Usage"
+  "USAGE": "Usage",
+  "DEV": "Device"
 }
