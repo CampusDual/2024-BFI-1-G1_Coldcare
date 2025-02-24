@@ -7,6 +7,7 @@ export const MENU_CONFIG: MenuRootItem[] = [
   { id: 'transports', name: 'TRANSPORTS', icon: 'local_shipping', route: '/main/transports' },
   { id: 'usage', name: 'USAGE', icon: 'payments', route: '/main/company-bills' },
   { id: 'alerts', name: 'ALERTS', icon: 'priority_high', route: '/main/alerts' },
+  { id: 'transporters', name: 'TRANSPORTS', icon: 'local_shipping', route: '/main/transporters' },
   {
     id: 'masters', name: 'MASTERS', icon: 'key',
     items: [

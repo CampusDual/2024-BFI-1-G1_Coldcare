@@ -6,6 +6,7 @@ import java.util.Map;
 
 public interface IVehiclesService {
     EntityResult vehiclesQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
+    EntityResult userTransporterQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
     EntityResult vehiclesInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException;
     EntityResult vehiclesUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap) throws OntimizeJEERuntimeException;
     EntityResult vehiclesDelete(Map<String, Object> keyMap) throws OntimizeJEERuntimeException;

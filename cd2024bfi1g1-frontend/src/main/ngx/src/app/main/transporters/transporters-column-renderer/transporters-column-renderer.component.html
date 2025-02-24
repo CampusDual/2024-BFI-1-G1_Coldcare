@@ -1,0 +1,11 @@
+<ng-template let-cellvalue="cellvalue" #templateref>
+  <ng-container *ngIf="cellvalue === 'PENDING'">
+    <mat-icon class="pending">hourglass_empty</mat-icon>
+  </ng-container>
+  <ng-container *ngIf="cellvalue === 'INITIATED'">
+    <mat-icon class="initiated">local_shipping</mat-icon>
+  </ng-container>
+  <ng-container *ngIf="cellvalue === 'FINISHED'">
+    <mat-icon class="finished" style="color: green">check_circle</mat-icon>
+  </ng-container>
+</ng-template>
