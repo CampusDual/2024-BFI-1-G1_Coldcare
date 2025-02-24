@@ -1,1 +1,34 @@
-<p>bills-details works!</p>
+<o-form #form attr="costTable" service="bills" entity="bills" include-parent-keys="yes" parent-keys="BIL_ID"
+    keys="BIL_ID" keys-sql-types="INTEGER" columns="BIL_ID" layout-direction="row" show-header="true"
+    detect-changes-on-blur="no" fxFill undo-button="yes" stay-in-record-after-insert="true">
+
+    <o-column title="TRP_DATA" layout-align="start stretch" layout-padding>
+        <div class="inline-fields">
+            <div class="inline-fields">
+                <o-text-input attr="BIL_YEAR" fxFlex.xl="17"></o-text-input>
+                <o-real-input attr="BIL_MONTH" fxFlex.xl="17" clear-button="yes"></o-real-input>
+                <o-real-input attr="BIL_EXPENSE" fxFlex.xl="17" clear-button="yes"></o-real-input>
+                <o-text-input attr="BIL_DEVICES" fxFlex.xl="17"></o-text-input>
+                <o-real-input attr="BIL_MEASUREMENTS" fxFlex.xl="17" clear-button="yes"></o-real-input>
+                <o-real-input attr="PP_FIXED_PRICE" fxFlex.xl="17" clear-button="yes"></o-real-input>
+                <o-text-input attr="PP_DEV_PRICE" fxFlex.xl="17"></o-text-input>
+                <o-real-input attr="PP_BUNDLE_REQUESTS" fxFlex.xl="17" clear-button="yes"></o-real-input>
+                <o-real-input attr="CMP_NAME" fxFlex.xl="17" clear-button="yes"></o-real-input>
+            </div>
+        </div>
+
+        <o-table attr="costTable" service="devices" entity="devices" keys="DEV_ID"
+            columns="DEV_ID;DEV_NAME;CMP_ID;CMP_NAME" visible-columns="DEV_ID,DEV_NAME;CMP_NAME" query-rows="20"
+            select-all-checkbox-visible="no" insert-button="yes" delete-button="no" refresh-button="yes"
+            quick-filter="no" pageable="true" title="PRODUCTS" show-title="yes">
+            <!-- Columnas de la Tabla -->
+            <o-table-column attr="DEV_NAME" title="IDENTIFIER" title-align="center"
+                content-align="center"></o-table-column>
+
+            <o-table-column attr="CMP_NAME" title="IDENTIFIER" title-align="center"
+                content-align="center"></o-table-column>
+
+        </o-table>
+    </o-column>
+
+</o-form>
