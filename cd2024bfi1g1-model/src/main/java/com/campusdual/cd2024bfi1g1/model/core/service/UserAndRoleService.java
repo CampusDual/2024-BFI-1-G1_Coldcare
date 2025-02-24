@@ -72,7 +72,10 @@ public class UserAndRoleService implements IUserAndRoleService {
 
 		return toRet;
 	}
-
+	@Override
+	public EntityResult searchQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
+		return this.daoHelper.query(this.userDao, keyMap, attrList, "search");
+	}
 	/*
 	 * (non-Javadoc)
 	 */
@@ -82,6 +85,7 @@ public class UserAndRoleService implements IUserAndRoleService {
 			throws OntimizeJEERuntimeException {
 		return this.daoHelper.paginationQuery(this.userDao, keysValues, attributes, recordNumber, startIndex, orderBy);
 	}
+
 
 	/*
 	 * (non-Javadoc)

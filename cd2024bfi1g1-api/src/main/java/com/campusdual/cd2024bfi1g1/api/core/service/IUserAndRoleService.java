@@ -39,7 +39,7 @@ public interface IUserAndRoleService {
 	 * @throws OntimizeJEERuntimeException
 	 *             the ontimize jee exception
 	 */
-	AdvancedEntityResult userPaginationQuery(Map<?, ?> keysValues, List<?> attributes, int recordNumber, int startIndex, List<?> orderBy);
+	AdvancedEntityResult userPaginationQuery(Map<?, ?> keysValues, List<?> attributes, int recordNumber, int startIndex, List<?> orderBy)throws OntimizeJEERuntimeException;
 
 	/**
 	 * Users update.
@@ -309,4 +309,6 @@ public interface IUserAndRoleService {
      */
 	EntityResult getClientPermissions() throws OntimizeJEERuntimeException;
 	EntityResult UserWithRoleQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
+	EntityResult searchQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
 }
+	
