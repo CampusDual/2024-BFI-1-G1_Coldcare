@@ -25,6 +25,24 @@
                 ]]>
 			</Sentence>
 		</Query>
+		<Query id="userRole">
+			<AmbiguousColumns>
+				<AmbiguousColumn name="CMP_ID" prefix="u" />
+				<AmbiguousColumn name="USR_ID" prefix="u" />
+				<AmbiguousColumn name="ROL_ID" prefix="r" />
+			</AmbiguousColumns>
+			<Sentence>
+                <![CDATA[
+                    SELECT
+                        #COLUMNS#
+                    FROM ${mainschema}.usr_user u
+                        INNER JOIN ${mainschema}.usr_user_role ur ON (u.usr_id = ur.usr_id)
+                        INNER JOIN ${mainschema}.usr_role r ON ur.rol_id = r.rol_id
+                    #WHERE#
+                    #ORDER#
+                ]]>
+			</Sentence>
+		</Query>
 		<Query id="fullRolesWithUser">
 			<AmbiguousColumns>
 				<AmbiguousColumn name="usr_id" prefix="fulljoin" />
