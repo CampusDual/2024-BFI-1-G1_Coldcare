@@ -213,11 +213,6 @@ tr.mat-mdc-row.mdc-data-table__row.cdk-row:nth-child(even) {
     color: #aaa;
     font-style: italic;
   }
-
-  // Estilos para el texto seleccionado en los campos de solo lectura
-  input::selection {
-    background: transparent;
-  }
 }
 
 // Estilos específicos para campos de solo lectura dentro de .inline-fields
@@ -244,15 +239,15 @@ tr.mat-mdc-row.mdc-data-table__row.cdk-row:nth-child(even) {
         border: none;
         box-shadow: none;
 
-        .label,
-        .label:focus,
-        .mat-label::selection {
+        // color del label superior
+        [id^="mat-mdc-form-field-label"] {
           color: #333;
         }
       }
 
-      input::selection {
-        background: transparent;
+      // quita el sombreado al hacer focus o hover
+      .mat-mdc-form-field-focus-overlay {
+        background-color: transparent;
       }
     }
 
