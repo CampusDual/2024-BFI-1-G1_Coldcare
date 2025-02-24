@@ -4,14 +4,14 @@
         <label layout-padding>{{"FILTER_ALERTS" | oTranslate}}</label>
         <div class="inline-fields">
             <div fxLayout="row" fxLayoutGap="15px" layout-padding>
-                <o-combo attr="contenedor" label="contenedor" service="alerts" entity="containersAlerts"
+                <o-combo attr="contenedor" label="CONTAINER" service="alerts" entity="containersAlerts"
                     value-column="CNT_ID" columns="CNT_ID;CNT_NAME" visible-columns="CNT_NAME" null-selection="no"
                     searchable="yes" null-selection="yes"></o-combo>
                 <o-combo attr="lote" label="LOT_NAME" service="alerts" entity="containersAlerts" value-column="LOT_ID"
                     columns="LOT_ID;LOT_NAME" visible-columns="LOT_NAME" null-selection="no" searchable="yes"
                     null-selection="yes"></o-combo>
                 <o-combo attr="estado" label="ALT_STATES" value-column="ALT_STATE" columns="ALT_STATE"
-                    visible-columns="ALT_STATE" null-selection="none" searchable=" yes" translate="yes"
+                    visible-columns="ALT_STATE" null-selection="yes" searchable=" yes" translate="yes"
                     [static-data]="integersArray">
                 </o-combo>
             </div>

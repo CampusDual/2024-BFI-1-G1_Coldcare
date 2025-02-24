@@ -101,7 +101,8 @@ export class AlertsHomeComponent {
         };
 
         const fieldName = attributeMapping[fil.attr];
-
+        console.log(fil.value)
+        console.log("attr", fil.attr)
         if (fieldName) {
 
           if (fil.value === "true or false") {
