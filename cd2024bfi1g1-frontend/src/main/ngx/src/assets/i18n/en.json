@@ -204,5 +204,7 @@
   "MASTERS": "Masters",
   "HAS_ALERT": "Alert",
   "USAGE": "Usage",
-  "DEV": "Device"
+  "DEV": "Device",
+  "LAST_TEMP": "Last Temperature (ºC)",
+  "LAST_HUMIDITY": "Last Humidity (%)"
 }
