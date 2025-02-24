@@ -41,6 +41,12 @@ export const SERVICE_CONFIG: Object = {
   'transports': {
     'path': '/transports'
   },
+  'plan': {
+    'path': '/plan'
+  },
+  'pricing': {
+    'path': '/pricing'
+  },
   'transportsCoordinates': {
     'path': '/transportsCoordinates'
   }
