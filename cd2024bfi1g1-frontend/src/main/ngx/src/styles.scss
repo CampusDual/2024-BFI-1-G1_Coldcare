@@ -223,6 +223,7 @@ tr.mat-mdc-row.mdc-data-table__row.cdk-row:nth-child(even) {
 .inline-fields {
   display: flex;
   gap: 10px;
+  flex-wrap: wrap;
 }
 
 .inline-fields input {
