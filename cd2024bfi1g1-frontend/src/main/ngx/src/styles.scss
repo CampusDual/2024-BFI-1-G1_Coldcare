@@ -220,6 +220,7 @@ tr.mat-mdc-row.mdc-data-table__row.cdk-row:nth-child(even) {
 .inline-fields {
   display: flex;
   gap: 10px;
+  flex-wrap: wrap;
 }
 
 .inline-fields input {
@@ -235,6 +236,6 @@ tr.mat-mdc-row.mdc-data-table__row.cdk-row:nth-child(even) {
   line-height: 1.6;
 }
 
-.o-table .mat-mdc-table .mat-mdc-row.error-row .mat-mdc-cell.mat-column-ME_TEMP{
+.o-table .mat-mdc-table .mat-mdc-row.error-row .mat-mdc-cell.mat-column-ME_TEMP {
   color: red;
 }
