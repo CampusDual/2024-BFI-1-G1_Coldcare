@@ -248,6 +248,6 @@
   "FINISHED": "Finalizado",
   "user": "Usuario",
   "transporter": "Transportista",
-  "ASSIGNED_TO": "Asignado a (Nº de contenedores"
+  "HAS_REPITED": "Asignado a (Nº de contenedores)"
 
 }

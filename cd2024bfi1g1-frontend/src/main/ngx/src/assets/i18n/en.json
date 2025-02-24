@@ -248,5 +248,5 @@
   "FINISHED": "Finished",
   "user": "User",
   "transporter": "Transporter",
-  "ASSIGNED_TO": "Assigned to (number of containers)"
+  "HAS_REPITED": "Assigned to (number of containers)"
 }
