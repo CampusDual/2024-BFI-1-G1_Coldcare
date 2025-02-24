@@ -16,6 +16,7 @@
             <AmbiguousColumns>
                 <AmbiguousColumn name="DEV_ID" prefix="m"/>
                 <AmbiguousColumn name="CL_ID" prefix="m" />
+                <AmbiguousColumn name="LOT_ID" prefix="l" />
             </AmbiguousColumns>
             <Sentence>
                 <![CDATA[
@@ -24,6 +25,7 @@
                     FROM MEASUREMENTS m
                     LEFT JOIN DEVICES d ON m.DEV_ID = d.DEV_ID
                     LEFT JOIN CONTAINERS_LOTS cl ON cl.CL_ID = m.CL_ID
+                    LEFT JOIN LOTS l ON cl.LOT_ID = l.LOT_ID
                     #WHERE#
                     #ORDER#
                 ]]>
