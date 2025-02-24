@@ -6,10 +6,11 @@ import { BillsRoutingModule } from "./bills-routing-module";
 import { BillsHomeComponent } from "./bills-home/bills-home.component";
 import { BillsMonthRendererComponent } from '../../../shared/components/bills-month-renderer/bills-month-renderer.component';
 import { SharedModule } from "src/app/shared/shared.module";
+import { BillsDetailsComponent } from './bills-details/bills-details.component';
 
 
 @NgModule({
-    declarations: [BillsHomeComponent],
+    declarations: [BillsHomeComponent, BillsDetailsComponent],
     imports: [
         CommonModule,
         OntimizeWebModule,
