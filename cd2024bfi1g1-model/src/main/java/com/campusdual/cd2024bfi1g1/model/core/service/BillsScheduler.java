@@ -12,7 +12,7 @@ public class BillsScheduler {
     @Autowired
     private BillsService billsService;
 
-    //@Scheduled(cron = "*/50 * * * * *") //cada 50 segundos
+    //@Scheduled(cron = "*/10 * * * * *") //cada 50 segundos
     @Scheduled(cron = "0 0 */2 * * *") //cada 2 horas
     public void createOrUpdateBills() {
 
