@@ -152,6 +152,7 @@
   "AVG_HUMIDITY": "Humedad media",
   "DURATION": "Duración",
   "VEHICLES": "Vehículos",
+  "VEHICLE": "Vehículo",
   "PLATE": "Matrícula",
   "MEASUREMENTS_HISTORIC": "Histórico de medidas",
   "COMPANY_DELETE_ERROR": "No se puede borrar una compañia asignada",
@@ -233,5 +234,18 @@
   "SELECTED": "Seleccionado",
   "HAS_ALERT": "Alerta",
   "USAGE": "Consumos",
-  "DEV": "Dispositivo"
+  "DEV": "Dispositivo",
+  "VEHICLE_DUPLICATE_INSERT": "Ya existe un vehiculo con ese nombre",
+  "TST_NAME": "Estado",
+  "TRP_STATUS_INIT": "Iniciado",
+  "TRP_STATUS_END": "Finalizado",
+  "BTN_INIT": "Iniciar",
+  "BTN_END": "Finalizar",
+  "TRP_WAIT_USER": "Esperando transportista",
+  "TRP_NAME": "Nombre del transportista",
+  "PENDING": "Pendiente",
+  "INITIATED": "Iniciado",
+  "FINISHED": "Finalizado",
+  "user": "Usuario",
+  "transporter": "Transportista"
 }

@@ -6,10 +6,11 @@ import { HomeUsersComponent } from './home/home.component';
 import { DetailUsersComponent } from './detail/detail.component';
 import { SharedModule } from '../../../shared/shared.module';
 import { OntimizeWebModule } from 'ontimize-web-ngx';
+import { NewUsersComponent } from './new/new.component';
 
 
 @NgModule({
-  declarations: [HomeUsersComponent, DetailUsersComponent],
+  declarations: [HomeUsersComponent, DetailUsersComponent, NewUsersComponent],
   imports: [
     CommonModule,
     SharedModule,
