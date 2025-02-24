@@ -5,6 +5,8 @@ import { FilterComponent } from './components/filters/filters.component';
 import { HomeToolbarComponent } from './components/home-toolbar/home-toolbar.component';
 import { DevicesColumnRendererComponent } from '../main/devices/devices-column-renderer/devices-column-renderer.component';
 import { InDateRangeBooleanRendererComponent } from './components/in-date-range-boolean-renderer/in-date-range-boolean-renderer.component';
+import { BillsMonthRendererComponent } from './components/bills-month-renderer/bills-month-renderer.component';
+import { AlertBooleanRendererComponent } from './components/alert-boolean-renderer/alert-boolean-renderer.component';
 
 
 
@@ -16,14 +18,18 @@ import { InDateRangeBooleanRendererComponent } from './components/in-date-range-
     FilterComponent,
     HomeToolbarComponent,
     DevicesColumnRendererComponent,
-    InDateRangeBooleanRendererComponent
+    InDateRangeBooleanRendererComponent,
+    BillsMonthRendererComponent,
+    AlertBooleanRendererComponent
   ],
   exports: [
     CommonModule,
     FilterComponent,
     HomeToolbarComponent,
     DevicesColumnRendererComponent,
-    InDateRangeBooleanRendererComponent
+    InDateRangeBooleanRendererComponent,
+    BillsMonthRendererComponent,
+    AlertBooleanRendererComponent
   ]
 })
 export class SharedModule { }
