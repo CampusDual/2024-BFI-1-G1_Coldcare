@@ -21,5 +21,5 @@ export const MENU_CONFIG: MenuRootItem[] = [
   { id: 'plans', name: 'PLANS', icon: 'paid', route: '/main/admin/plans' },
   { id: 'consumptions', name: 'USAGE', icon: 'payments', route: '/main/admin/bills' },
   { id: 'users', name: 'USERS', route: '/main/admin/users', icon: 'person' },
-  { id: 'logout', name: 'LOGOUT', route: '/login', icon: 'power_settings_new', confirm: 'yes' },
+  { id: 'logout', name: 'LOGOUT', route: '/login', icon: 'power_settings_new', confirm: 'yes' }
 ];
