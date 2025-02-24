@@ -191,6 +191,8 @@ tr.mat-mdc-row.mdc-data-table__row.cdk-row:nth-child(even) {
 }
 
 /* Campos rellenables */
+
+// Estilos generales para los campos de texto
 .mat-mdc-text-field-wrapper.mdc-text-field.mdc-text-field--filled {
   display: inline-block;
   width: 100%;
@@ -198,25 +200,27 @@ tr.mat-mdc-row.mdc-data-table__row.cdk-row:nth-child(even) {
   position: relative;
   background-color: $primary-color;
   border: 2px solid #ddd;
-  // border-radius: 8px;
+  border-radius: 3px;
   transition: border-color 0.3s, box-shadow 0.3s;
+
+  &:hover,
+  &.mdc-text-field--focused {
+    border-color: $accent-color;
+    box-shadow: none;
+  }
+
+  input::placeholder {
+    color: #aaa;
+    font-style: italic;
+  }
+
+  // Estilos para el texto seleccionado en los campos de solo lectura
+  input::selection {
+    background: transparent;
+  }
 }
 
-.mat-mdc-text-field-wrapper.mdc-text-field.mdc-text-field--filled:hover {
-  border-color: $accent-color;
-}
-
-.mat-mdc-text-field-wrapper.mdc-text-field.mdc-text-field--filled.mdc-text-field--focused {
-  border-color: $accent-color;
-}
-
-.mat-mdc-text-field-wrapper.mdc-text-field.mdc-text-field--filled input::placeholder {
-  color: #aaa;
-  /* Color del texto de marcador */
-  font-style: italic;
-}
-
-/* Orientacion campos de texto rellenables*/
+// Estilos específicos para campos de solo lectura dentro de .inline-fields
 .inline-fields {
   display: flex;
   gap: 5px;
@@ -224,7 +228,6 @@ tr.mat-mdc-row.mdc-data-table__row.cdk-row:nth-child(even) {
   o-text-input {
     flex: 1;
     flex-grow: 0;
-    border: none;
     background-color: transparent;
     color: #333;
     font-size: 14px;
@@ -233,18 +236,23 @@ tr.mat-mdc-row.mdc-data-table__row.cdk-row:nth-child(even) {
 
     &[read-only] {
       cursor: default;
-      background-color: transparent;
       border: none;
       box-shadow: none;
-    
-      .mat-mdc-text-field-wrapper.mdc-text-field.mdc-text-field--filled,
 
-      &:hover,
-      &::selection,
-      &:focus {
+      .mat-mdc-text-field-wrapper.mdc-text-field.mdc-text-field--filled {
         outline: none;
         border: none;
         box-shadow: none;
+
+        .label,
+        .label:focus,
+        .mat-label::selection {
+          color: #333;
+        }
+      }
+
+      input::selection {
+        background: transparent;
       }
     }
 
@@ -254,27 +262,26 @@ tr.mat-mdc-row.mdc-data-table__row.cdk-row:nth-child(even) {
   }
 
   o-date-input[read-only] {
-    background-color: transparent;
     color: #333;
-    border: none;
     font-size: 14px;
     padding: 0;
   }
-}
 
-.inline-fields .mdc-line-ripple::before {
-  outline: none;
-  border: none;
-  box-shadow: none;
-}
+  .mdc-line-ripple::before,
+  .mdc-line-ripple::after {
+    outline: none;
+    border: none;
+    box-shadow: none;
+  }
 
-.inline-fields .mat-mdc-text-field-wrapper.mdc-text-field.mdc-text-field--filled {
-  height: 50px;
-  padding: 0px 7px;
-  font-size: 14px;
-  color: #333;
-  background: transparent;
-  line-height: 1.6;
+  .mat-mdc-text-field-wrapper.mdc-text-field.mdc-text-field--filled {
+    height: 50px;
+    padding: 0px 7px;
+    font-size: 14px;
+    color: #333;
+    background: transparent;
+    line-height: 1.6;
+  }
 }
 
 .o-table .mat-mdc-table .mat-mdc-row.error-row .mat-mdc-cell.mat-column-ME_TEMP {
