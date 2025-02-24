@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<JdbcEntitySetup xmlns="http://www.ontimize.com/schema/jdbc"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.ontimize.com/schema/jdbc http://www.ontimize.com/schema/jdbc/ontimize-jdbc-dao.xsd" catalog="" schema="${mainschema}" table="plans" datasource="mainDataSource" sqlhandler="dbSQLStatementHandler">
+    <DeleteKeys>
+        <Column>PLN_ID</Column>
+    </DeleteKeys>
+    <UpdateKeys>
+        <Column>PLN_ID</Column>
+    </UpdateKeys>
+    <GeneratedKey>pln_id</GeneratedKey>
+    <Queries>
+        <Query id="default">
+            <Sentence>
+                <![CDATA[
+                    SELECT
+                        #COLUMNS#
+                    FROM
+                        ${mainschema}.plans p
+                    #WHERE#
+                    #ORDER#
+                ]]>
+            </Sentence>
+        </Query>
+        <Query id="plan_with_prices_query">
+            <AmbiguousColumns>
+                <AmbiguousColumn name="PLN_ID" prefix="p"/>
+            </AmbiguousColumns>
+            <Sentence>
+                <![CDATA[
+                    SELECT
+                        #COLUMNS#
+                    FROM
+                        ${mainschema}.plans p
+                    LEFT JOIN plan_prices r
+                        ON p.PLN_ID = r.PLN_ID
+                    WHERE r.PP_START < NOW()
+                    AND (r.PP_END > NOW() OR r.PP_END IS NULL)
+                    #ORDER#
+                ]]>
+            </Sentence>
+        </Query>
+    </Queries>
+</JdbcEntitySetup>

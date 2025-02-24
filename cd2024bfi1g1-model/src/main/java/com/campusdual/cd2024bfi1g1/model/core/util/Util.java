@@ -36,7 +36,7 @@ public class Util {
     }
 
     /**
-     * Creates a {@code BasicExpression} to check if a date range stored in the database
+     * Creates a {@code BasicExpression} to check if today falls within a date range stored in the database.
      * falls within today.
      *
      * <p>The date is considered valid if:

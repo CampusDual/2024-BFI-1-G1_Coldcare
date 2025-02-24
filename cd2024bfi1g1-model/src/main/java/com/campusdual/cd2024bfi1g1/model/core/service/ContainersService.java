@@ -69,6 +69,14 @@ public class ContainersService implements IContainersService {
     }
 
     @Override
+    public EntityResult containersWithAlertsQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
+
+        Integer cmpId = Util.getUserCompanyId(this.daoHelper, this.userDao);
+        keyMap.put(DevicesDao.CMP_ID, cmpId);
+
+        return this.daoHelper.query(this.containersDao, keyMap, attrList, "containers_with_alerts");
+    }
+     @Override
     public EntityResult containersWithMeasurementsQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
         Integer cmpId = Util.getUserCompanyId(this.daoHelper, this.userDao);
         keyMap.put(DevicesDao.CMP_ID, cmpId);

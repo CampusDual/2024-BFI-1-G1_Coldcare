@@ -29,6 +29,20 @@
                 ]]>
 			</Sentence>
 		</Query>
+		<Query id="search">
+
+			<Sentence>
+				<![CDATA[
+                    SELECT
+                        #COLUMNS#
+                    FROM
+                        ${mainschema}.usr_user
+
+                    #WHERE#
+                    #ORDER#
+                ]]>
+			</Sentence>
+		</Query>
 		<Query id="login">
 			<Sentence>
                 <![CDATA[

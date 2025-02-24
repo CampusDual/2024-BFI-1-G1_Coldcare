@@ -70,7 +70,6 @@
                 ]]>
             </Sentence>
         </Query>
-
         <Query id="get_max_temp_lot_Id">
             <Sentence>
                 <![CDATA[
@@ -80,22 +79,40 @@
                 ]]>
             </Sentence>
         </Query>
-
         <Query id="lotsProducts">
+            <AmbiguousColumns>
+                <AmbiguousColumn name="PRO_ID" prefix="l" />
+                <AmbiguousColumn name="LOT_ID" prefix="l" />
+                <AmbiguousColumn name="MIN_TEMP" prefix="l" />
+                <AmbiguousColumn name="MAX_TEMP" prefix="l" />
+                <AmbiguousColumn name="LOT_NAME" prefix="l" />
+                <AmbiguousColumn name="CMP_ID" prefix="l" />
+            </AmbiguousColumns>
             <Sentence>
                 <![CDATA[
                     WITH t AS (
-                        SELECT p.PRO_ID, p.PRO_NAME, l.MIN_TEMP, l.MAX_TEMP, l.LOT_ID, l.LOT_NAME, l.CMP_ID
-                        FROM
-                        lots l JOIN products p ON p.pro_id = l.pro_id
-                        )
+                        SELECT
+                            l.*,
+                            EXISTS (
+                                SELECT 1
+                                FROM alerts a
+                                JOIN containers_lots cl ON cl.lot_id = l.lot_id
+                                WHERE cl.cl_id = a.cl_id
+                            ) AS has_alert,
+                            COUNT(cl.lot_id) AS has_repited
+                        FROM lots l
+                        LEFT JOIN containers_lots cl ON cl.lot_id = l.lot_id
+                        WHERE cl.cl_start_date <= now()
+                            AND (cl.cl_end_date IS NULL OR cl.cl_end_date >= now())
+                        GROUP BY l.lot_id, l.pro_id, l.cmp_id
+                    )
                     SELECT #COLUMNS#
-                    FROM t
+                    FROM lots l
+                    LEFT JOIN t ON t.lot_id = l.lot_id
+                    LEFT JOIN products p ON p.pro_id = l.pro_id
                     #WHERE#
-                    #ORDER#
                 ]]>
             </Sentence>
         </Query>
-
     </Queries>
 </JdbcEntitySetup>

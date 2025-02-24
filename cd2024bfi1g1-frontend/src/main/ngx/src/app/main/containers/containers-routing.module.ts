@@ -6,13 +6,17 @@ import { ContainersHomeComponent } from './containers-home/containers-home.compo
 import { ContainersNewComponent } from './containers-new/containers-new.component';
 import { ContainersLotsMeasurementsComponent } from './containers-lots-measurements/containers-lots-measurements.component';
 import { ContainersLotsAssignmentsComponent } from './containers-lots-assignments/containers-lots-assignments.component';
+import { ContainersTransfersNewOriginComponent } from './containers-transfers-new-origin/containers-transfers-new-origin.component';
+import { ContainersTransfersNewDestinyComponent } from './containers-transfers-new-destiny/containers-transfers-new-destiny.component';
 
 export const CONTAINERS_MODULE_DECLARATIONS = [
   ContainersDetailsComponent,
   ContainersHomeComponent,
   ContainersNewComponent,
   ContainersLotsMeasurementsComponent,
-  ContainersLotsAssignmentsComponent
+  ContainersLotsAssignmentsComponent,
+  ContainersTransfersNewOriginComponent,
+  ContainersTransfersNewDestinyComponent
 ]
 
 const routes: Routes = [
@@ -21,6 +25,8 @@ const routes: Routes = [
   { path: ':CNT_ID', component: ContainersDetailsComponent },
   { path: ':CNT_ID/new', component: ContainersLotsAssignmentsComponent },
   { path: ':CNT_ID/:CL_ID', component: ContainersLotsMeasurementsComponent },
+  { path: ':CNT_ID/:CL_ID/newOrigin/new', component: ContainersTransfersNewOriginComponent },
+  { path: ':CNT_ID/:CL_ID/newDestiny/new', component: ContainersTransfersNewDestinyComponent }
 ];
 
 @NgModule({
