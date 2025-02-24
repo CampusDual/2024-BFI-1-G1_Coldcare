@@ -247,5 +247,6 @@
   "INITIATED": "Iniciado",
   "FINISHED": "Finalizado",
   "user": "Usuario",
-  "transporter": "Transportista"
+  "transporter": "Transportista",
+  "USER_UPDATE_ERROR": "Error al actualizar los datos de usuarios"
 }
