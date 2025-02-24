@@ -216,5 +216,7 @@
   "TRP_NAME": "Nombre del transportista",
   "PENDING": "Pendiente",
   "INITIATED": "Iniciado",
-  "FINISHED": "Finalizado"
+  "FINISHED": "Finalizado",
+  "user": "Usuario",
+  "transporter": "Transportista"
 }

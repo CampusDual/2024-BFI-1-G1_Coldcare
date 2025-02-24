@@ -28,7 +28,7 @@
 
 .finished {
   display: inline-block;
-  animation: pulse 1.5s ease-in-out infinite;
+  animation: pulse 2s ease-in-out infinite;
 }
 
 @keyframes pulse {
@@ -36,7 +36,7 @@
     transform: scale(1);
   }
   50% {
-    transform: scale(1.3);
+    transform: scale(1.2);
   }
   100% {
     transform: scale(1);

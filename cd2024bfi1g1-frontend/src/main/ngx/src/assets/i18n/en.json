@@ -216,5 +216,7 @@
   "TRP_NAME": "Carrier name",
   "PENDING": "Pending",
   "INITIATED": "Initiated",
-  "FINISHED": "Finished"
+  "FINISHED": "Finished",
+  "user": "User",
+  "transporter": "Transporter"
 }
