@@ -1,4 +1,4 @@
-ALTER TABLE public.vehicles ADD usr_id int NOT NULL;
+ALTER TABLE public.vehicles ADD usr_id int;
 ALTER TABLE public.vehicles ADD CONSTRAINT vehicles_users_fk FOREIGN KEY (usr_id) REFERENCES public.usr_user(usr_id);
 
 CREATE TABLE public.transport_states (

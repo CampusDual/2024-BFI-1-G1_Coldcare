@@ -23,7 +23,7 @@
                         #COLUMNS#
                     FROM
                         ${mainschema}.vehicles v
-                    JOIN usr_user u ON v.usr_id = u.usr_id
+                    LEFT JOIN usr_user u ON v.usr_id = u.usr_id
                     #WHERE#
                     #ORDER#
                 ]]>
