@@ -1,11 +1,13 @@
 package com.campusdual.cd2024bfi1g1.model.core.service;
 
 import com.campusdual.cd2024bfi1g1.api.core.service.IContainersLotsService;
+import com.campusdual.cd2024bfi1g1.model.core.dao.ContainersDao;
 import com.campusdual.cd2024bfi1g1.model.core.dao.ContainersLotsDao;
+import com.campusdual.cd2024bfi1g1.model.core.dao.DevicesDao;
+import com.campusdual.cd2024bfi1g1.model.core.dao.UserDao;
 import com.campusdual.cd2024bfi1g1.model.core.util.Util;
 import com.ontimize.jee.common.db.SQLStatementBuilder;
 import com.ontimize.jee.common.dto.EntityResult;
-import com.ontimize.jee.common.dto.EntityResultMapImpl;
 import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
 import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +25,18 @@ public class ContainersLotsService implements IContainersLotsService {
     private ContainersLotsDao containersLotsDao;
     @Autowired
     private DefaultOntimizeDaoHelper daoHelper;
+    @Autowired
+    private UserDao userDao;
 
 
     @Override
     public EntityResult containersLotsQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
         return this.daoHelper.query(this.containersLotsDao, keyMap, attrList);
+    }
+
+    @Override
+    public EntityResult containersLotsWithAlertsQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
+        return this.daoHelper.query(this.containersLotsDao, keyMap, attrList, "cl_with_alerts");
     }
 
     @Override
@@ -73,6 +82,15 @@ public class ContainersLotsService implements IContainersLotsService {
         } catch (DataIntegrityViolationException e) {
             return Util.controlErrors("ERROR_CL_DELETE");
         }
+    }
+
+    @Override
+    public EntityResult containersOfLotQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
+
+        Integer cmpId = Util.getUserCompanyId(this.daoHelper, this.userDao);
+        keyMap.put(DevicesDao.CMP_ID, cmpId);
+
+        return this.daoHelper.query(this.containersLotsDao, keyMap, attrList, "containers_of_lot");
     }
 
     private boolean filterStartAndEndDates(Map<String, Object> attrMap) {

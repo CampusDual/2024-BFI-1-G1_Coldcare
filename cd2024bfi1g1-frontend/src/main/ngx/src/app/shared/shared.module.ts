@@ -4,6 +4,9 @@ import { OntimizeWebModule } from 'ontimize-web-ngx';
 import { FilterComponent } from './components/filters/filters.component';
 import { HomeToolbarComponent } from './components/home-toolbar/home-toolbar.component';
 import { DevicesColumnRendererComponent } from '../main/devices/devices-column-renderer/devices-column-renderer.component';
+import { InDateRangeBooleanRendererComponent } from './components/in-date-range-boolean-renderer/in-date-range-boolean-renderer.component';
+import { BillsMonthRendererComponent } from './components/bills-month-renderer/bills-month-renderer.component';
+import { AlertBooleanRendererComponent } from './components/alert-boolean-renderer/alert-boolean-renderer.component';
 
 
 
@@ -15,13 +18,18 @@ import { DevicesColumnRendererComponent } from '../main/devices/devices-column-r
     FilterComponent,
     HomeToolbarComponent,
     DevicesColumnRendererComponent,
-
+    InDateRangeBooleanRendererComponent,
+    BillsMonthRendererComponent,
+    AlertBooleanRendererComponent
   ],
   exports: [
     CommonModule,
     FilterComponent,
     HomeToolbarComponent,
-    DevicesColumnRendererComponent
+    DevicesColumnRendererComponent,
+    InDateRangeBooleanRendererComponent,
+    BillsMonthRendererComponent,
+    AlertBooleanRendererComponent
   ]
 })
 export class SharedModule { }

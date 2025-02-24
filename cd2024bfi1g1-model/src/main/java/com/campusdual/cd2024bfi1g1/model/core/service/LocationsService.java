@@ -3,6 +3,7 @@ package com.campusdual.cd2024bfi1g1.model.core.service;
 import com.campusdual.cd2024bfi1g1.api.core.service.ILocationsService;
 import com.campusdual.cd2024bfi1g1.model.core.dao.LocationsDao;
 import com.campusdual.cd2024bfi1g1.model.core.dao.UserDao;
+import com.campusdual.cd2024bfi1g1.model.core.util.Util;
 import com.ontimize.jee.common.dto.EntityResult;
 import com.ontimize.jee.common.dto.EntityResultMapImpl;
 import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
@@ -32,7 +33,7 @@ public class LocationsService implements ILocationsService {
 
         Map<String, Object> valuesToQuery = new HashMap<>(keyMap);
 
-        Integer cmpId = UserAndRoleService.getUserCompanyId(this.daoHelper, this.userDao);
+        Integer cmpId = Util.getUserCompanyId(this.daoHelper, this.userDao);
         valuesToQuery.put(LocationsDao.CMP_ID, cmpId);
 
         return this.daoHelper.query(this.locationsDao, valuesToQuery, attrList);
@@ -44,7 +45,7 @@ public class LocationsService implements ILocationsService {
 
         Map<String, Object> valuesToInsert = new HashMap<>(attrMap);
 
-        Integer cmpId = UserAndRoleService.getUserCompanyId(this.daoHelper, this.userDao);
+        Integer cmpId = Util.getUserCompanyId(this.daoHelper, this.userDao);
         valuesToInsert.put(LocationsDao.CMP_ID, cmpId);
 
         return this.daoHelper.insert(this.locationsDao, valuesToInsert);

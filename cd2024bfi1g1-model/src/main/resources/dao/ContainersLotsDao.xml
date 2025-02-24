@@ -16,6 +16,7 @@
             <AmbiguousColumns>
                 <AmbiguousColumn name="LOT_ID" prefix="cl"/>
                 <AmbiguousColumn name="CNT_ID" prefix="cl"/>
+                <AmbiguousColumn name="PRO_ID" prefix="p"/>
             </AmbiguousColumns>
             <Sentence>
                 <![CDATA[
@@ -50,6 +51,60 @@
                     FROM CONTAINERS_LOTS cl
                     INNER JOIN MEASUREMENTS m ON cl.CL_ID = m.CL_ID
                     #WHERE#
+                ]]>
+            </Sentence>
+        </Query>
+        <Query id="containers_of_lot">
+            <AmbiguousColumns>
+                <AmbiguousColumn name="CNT_ID" prefix="cl"/>
+            </AmbiguousColumns>
+            <Sentence>
+                <![CDATA[
+                    WITH cl AS (
+                        SELECT
+                            cl.*,
+                            EXISTS (
+                                SELECT 1
+                                FROM alerts a
+                                WHERE a.cl_id = cl.cl_id
+                            ) AS has_alert
+                        FROM
+                            containers_lots cl
+                    )
+                    SELECT #COLUMNS#
+                    FROM cl
+                    INNER JOIN containers c ON cl.cnt_id = c.cnt_id
+                    #WHERE#
+                    #ORDER#
+                ]]>
+            </Sentence>
+        </Query>
+        <Query id="cl_with_alerts">
+            <AmbiguousColumns>
+                <AmbiguousColumn name="LOT_ID" prefix="cl"/>
+                <AmbiguousColumn name="CNT_ID" prefix="cl"/>
+                <AmbiguousColumn name="PRO_ID" prefix="p"/>
+            </AmbiguousColumns>
+            <Sentence>
+                <![CDATA[
+                    WITH cl AS (
+                        SELECT
+                            cl.*,
+                            EXISTS (
+                                SELECT 1
+                                FROM alerts a
+                                WHERE a.cl_id = cl.cl_id
+                            ) AS has_alert
+                        FROM
+                            containers_lots cl
+                    )
+                    SELECT #COLUMNS#
+                    FROM cl
+                    INNER JOIN LOTS l ON cl.lot_id = l.lot_id
+                    INNER JOIN CONTAINERS c ON c.CNT_ID = cl.CNT_ID
+                    INNER JOIN PRODUCTS p ON l.pro_id = p.pro_id
+                    #WHERE#
+                    #ORDER#
                 ]]>
             </Sentence>
         </Query>

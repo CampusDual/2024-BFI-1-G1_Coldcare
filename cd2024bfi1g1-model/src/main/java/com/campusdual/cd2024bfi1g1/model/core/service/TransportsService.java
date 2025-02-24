@@ -1,16 +1,17 @@
 package com.campusdual.cd2024bfi1g1.model.core.service;
 
 import com.campusdual.cd2024bfi1g1.api.core.service.ITransportsService;
-import com.campusdual.cd2024bfi1g1.model.core.dao.*;
 import com.campusdual.cd2024bfi1g1.model.core.util.Util;
 import com.ontimize.jee.common.db.SQLStatementBuilder;
+import com.campusdual.cd2024bfi1g1.model.core.dao.DevicesDao;
+import com.campusdual.cd2024bfi1g1.model.core.dao.TransportsDao;
+import com.campusdual.cd2024bfi1g1.model.core.dao.UserDao;
+import com.campusdual.cd2024bfi1g1.model.core.dao.VehiclesDao;
 import com.ontimize.jee.common.dto.EntityResult;
-import com.ontimize.jee.common.dto.EntityResultMapImpl;
 import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
 import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -33,7 +34,7 @@ public class TransportsService implements ITransportsService {
     public EntityResult transportsQuery(Map<String, Object> keyMap, List<String> attrList)
             throws OntimizeJEERuntimeException {
 
-        Integer cmpId = UserAndRoleService.getUserCompanyId(this.daoHelper, this.userDao);
+        Integer cmpId = Util.getUserCompanyId(this.daoHelper, this.userDao);
         keyMap.put(TransportsDao.CMP_ID, cmpId);
 
         return this.daoHelper.query(this.transportsDao, keyMap, attrList);
@@ -42,8 +43,8 @@ public class TransportsService implements ITransportsService {
     @Override
     public EntityResult transportsInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException {
 
-        Integer cmpId = UserAndRoleService.getUserCompanyId(this.daoHelper, this.userDao);
-        attrMap.put(TransportsDao.CMP_ID, cmpId);
+        Integer cmpId = Util.getUserCompanyId(this.daoHelper, this.userDao);
+        attrMap.put(DevicesDao.CMP_ID, cmpId);
 
         return this.daoHelper.insert(this.transportsDao, attrMap);
     }
@@ -52,9 +53,9 @@ public class TransportsService implements ITransportsService {
     public EntityResult transportsUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap)
             throws OntimizeJEERuntimeException {
 
-        Integer cmpId = UserAndRoleService.getUserCompanyId(this.daoHelper, this.userDao);
-        attrMap.put(TransportsDao.CMP_ID, cmpId);
-
+        Integer cmpId = Util.getUserCompanyId(this.daoHelper, this.userDao);
+        attrMap.put(DevicesDao.CMP_ID, cmpId);
+        
         if (attrMap.containsKey(TransportsDao.TST_ID)) {
             Object tstIdValue = attrMap.get(TransportsDao.TST_ID);
 
@@ -75,21 +76,21 @@ public class TransportsService implements ITransportsService {
     @Override
     public EntityResult transportsMovilityQuery(Map<String, Object> keyMap, List<String> attrList)
             throws OntimizeJEERuntimeException {
-        Integer cmpId = UserAndRoleService.getUserCompanyId(this.daoHelper, this.userDao);
+        Integer cmpId = Util.getUserCompanyId(this.daoHelper, this.userDao);
         keyMap.put(TransportsDao.CMP_ID, cmpId);
         return this.daoHelper.query(this.transportsDao, keyMap, attrList, "movility");
     }
     @Override
     public EntityResult transportsLocationQuery(Map<String, Object> keyMap, List<String> attrList)
             throws OntimizeJEERuntimeException {
-        Integer cmpId = UserAndRoleService.getUserCompanyId(this.daoHelper, this.userDao);
+        Integer cmpId = Util.getUserCompanyId(this.daoHelper, this.userDao);
         keyMap.put(TransportsDao.CMP_ID, cmpId);
         return this.daoHelper.query(this.transportsDao, keyMap, attrList, "locations");
     }
     @Override
     public EntityResult transportsPlateQuery(Map<String, Object> keyMap, List<String> attrList)
             throws OntimizeJEERuntimeException {
-        Integer cmpId = UserAndRoleService.getUserCompanyId(this.daoHelper, this.userDao);
+        Integer cmpId = Util.getUserCompanyId(this.daoHelper, this.userDao);
         keyMap.put(VehiclesDao.CMP_ID, cmpId);
 
         return this.daoHelper.query(this.transportsDao, keyMap, attrList, "plates");

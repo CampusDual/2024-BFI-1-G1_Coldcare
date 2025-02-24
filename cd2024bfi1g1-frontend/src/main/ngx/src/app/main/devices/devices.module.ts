@@ -11,16 +11,17 @@ import { DevicesBooleanRendererComponent } from './devices-boolean-renderer/devi
 @NgModule({
   declarations: [
     DevicesDetailComponent,
-    DevicesHomeComponent, 
+    DevicesHomeComponent,
     DevicesBooleanRendererComponent
   ],
-    
+
   imports: [
     SharedModule,
     CommonModule,
     OntimizeWebModule,
     DevicesRoutingModule,
-    OChartModule
+    OChartModule,
+    SharedModule
   ]
 })
 export class DevicesModule { }

@@ -6,6 +6,8 @@ import { TransportsHomeComponent } from './transports-home/transports-home.compo
 import { TransportsNewComponent } from './transports-new/transports-new.component';
 import { TransportsDetailsComponent } from './transports-details/transports-details.component';
 import { TransportsColumnRendererComponent } from './transports-column-renderer/transports-column-renderer.component';
+import { TransportsMapComponent } from './transports-map/transports-map.component';
+import { OMapModule } from 'ontimize-web-ngx-map';
 
 
 @NgModule({
@@ -14,12 +16,14 @@ import { TransportsColumnRendererComponent } from './transports-column-renderer/
     TransportsNewComponent,
     TransportsDetailsComponent,
     TransportsColumnRendererComponent,
-    TransportsColumnRendererComponent
+    TransportsColumnRendererComponent,
+    TransportsMapComponent
   ],
   imports: [
     CommonModule,
     OntimizeWebModule,
-    TransportsRoutingModule
+    TransportsRoutingModule,
+    OMapModule
   ]
 })
 export class TransportsModule { }

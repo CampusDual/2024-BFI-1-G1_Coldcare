@@ -4,12 +4,17 @@ import { OntimizeWebModule } from "ontimize-web-ngx";
 
 import { BillsRoutingModule } from "./bills-routing-module";
 import { BillsHomeComponent } from "./bills-home/bills-home.component";
+import { BillsMonthRendererComponent } from '../../../shared/components/bills-month-renderer/bills-month-renderer.component';
+import { SharedModule } from "src/app/shared/shared.module";
 
 
 @NgModule({
     declarations: [BillsHomeComponent],
-    imports: [CommonModule, OntimizeWebModule,
-
-        BillsRoutingModule],
+    imports: [
+        CommonModule,
+        OntimizeWebModule,
+        BillsRoutingModule,
+        SharedModule
+    ],
 })
 export class BillsModule { } 
