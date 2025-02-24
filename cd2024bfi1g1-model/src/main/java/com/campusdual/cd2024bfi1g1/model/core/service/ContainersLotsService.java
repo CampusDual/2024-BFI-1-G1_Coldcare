@@ -1,11 +1,14 @@
 package com.campusdual.cd2024bfi1g1.model.core.service;
 
 import com.campusdual.cd2024bfi1g1.api.core.service.IContainersLotsService;
-import com.campusdual.cd2024bfi1g1.model.core.dao.ContainersDao;
 import com.campusdual.cd2024bfi1g1.model.core.dao.ContainersLotsDao;
 import com.campusdual.cd2024bfi1g1.model.core.dao.DevicesDao;
+import com.campusdual.cd2024bfi1g1.model.core.dao.TransfersDao;
 import com.campusdual.cd2024bfi1g1.model.core.dao.UserDao;
 import com.campusdual.cd2024bfi1g1.model.core.util.Util;
+import com.ontimize.jee.common.db.SQLStatementBuilder.BasicOperator;
+import com.ontimize.jee.common.db.SQLStatementBuilder.BasicField;
+import com.ontimize.jee.common.db.SQLStatementBuilder.BasicExpression;
 import com.ontimize.jee.common.db.SQLStatementBuilder;
 import com.ontimize.jee.common.dto.EntityResult;
 import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
@@ -27,7 +30,8 @@ public class ContainersLotsService implements IContainersLotsService {
     private DefaultOntimizeDaoHelper daoHelper;
     @Autowired
     private UserDao userDao;
-
+    @Autowired
+    private TransfersService transfersService;
 
     @Override
     public EntityResult containersLotsQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
@@ -35,6 +39,52 @@ public class ContainersLotsService implements IContainersLotsService {
     }
 
     @Override
+    public EntityResult containersLotsTransfersQuery(Map<String, Object> keyMap, List<String> attrList)
+            throws OntimizeJEERuntimeException {
+
+        Map<String, Object> filter = new HashMap<>(keyMap);
+        Map<String, Object> clData = getContainerLotData((Integer) filter.get(ContainersLotsDao.CL_ID));
+
+        BasicField fieldCntId = new BasicField(ContainersLotsDao.CNT_ID);
+        BasicField fieldLotId = new BasicField(ContainersLotsDao.LOT_ID);
+
+        BasicExpression primaryFilter = new BasicExpression(
+                new BasicExpression(fieldCntId, BasicOperator.NOT_EQUAL_OP, clData.get(ContainersLotsDao.CNT_ID)),
+                BasicOperator.AND_OP,
+                new BasicExpression(fieldLotId, BasicOperator.EQUAL_OP, clData.get(ContainersLotsDao.LOT_ID))
+        );
+
+        List<String> originIdList = Collections.singletonList(TransfersDao.CL_ID_ORIGIN);
+        List<String> destinyIdList = Collections.singletonList(TransfersDao.CL_ID_DESTINY);
+        EntityResult entityResultOrigin = transfersService.transfersOriginQuery(keyMap, originIdList);
+        EntityResult entityResultOriginDestiny = transfersService.transfersDestinyQuery(keyMap, destinyIdList);
+
+        List<Integer> excludeOriginTable = extractClIds(entityResultOrigin, TransfersDao.CL_ID_ORIGIN);
+        List<Integer> excludeDestinyTable = extractClIds(entityResultOriginDestiny, TransfersDao.CL_ID_DESTINY);
+
+        BasicField fieldClId = new BasicField(ContainersLotsDao.CL_ID);
+
+        BasicExpression exclusionOrigin = new BasicExpression(fieldClId, BasicOperator.NOT_IN_OP, excludeOriginTable);
+        BasicExpression exclusionDestiny = new BasicExpression(fieldClId, BasicOperator.NOT_IN_OP, excludeDestinyTable);
+        BasicExpression exclusionFilter = new BasicExpression(exclusionOrigin, BasicOperator.AND_OP, exclusionDestiny);
+
+        BasicExpression conditions;
+        if (!excludeOriginTable.isEmpty() && !excludeDestinyTable.isEmpty()) {
+            conditions = new BasicExpression(primaryFilter, BasicOperator.AND_OP, exclusionFilter);
+        } else if (!excludeOriginTable.isEmpty()) {
+            conditions = new BasicExpression(primaryFilter, BasicOperator.AND_OP, exclusionOrigin);
+        } else if (!excludeDestinyTable.isEmpty()) {
+            conditions = new BasicExpression(primaryFilter, BasicOperator.AND_OP, exclusionDestiny);
+        } else {
+            conditions = primaryFilter;
+        }
+
+        filter.put(SQLStatementBuilder.ExtendedSQLConditionValuesProcessor.EXPRESSION_KEY, conditions);
+        filter.remove(ContainersLotsDao.CL_ID);
+
+        return this.daoHelper.query(this.containersLotsDao, filter, attrList);
+    } 
+
     public EntityResult containersLotsWithAlertsQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
         return this.daoHelper.query(this.containersLotsDao, keyMap, attrList, "cl_with_alerts");
     }
@@ -44,7 +94,7 @@ public class ContainersLotsService implements IContainersLotsService {
 
         try {
             if (filterStartAndEndDates(attrMap) &&
-                Util.validateStartAndEndDates((Date) attrMap.get(ContainersLotsDao.CL_START_DATE), (Date) attrMap.get(ContainersLotsDao.CL_END_DATE)))
+                    Util.validateStartAndEndDates((Date) attrMap.get(ContainersLotsDao.CL_START_DATE), (Date) attrMap.get(ContainersLotsDao.CL_END_DATE)))
                 return this.daoHelper.insert(this.containersLotsDao, attrMap);
             else {
                 return Util.controlErrors("ERROR_DATE_ALREADY_EXIST");
@@ -65,7 +115,7 @@ public class ContainersLotsService implements IContainersLotsService {
             valData.putAll(attrMap);
 
             if (filterStartAndEndDates(valData) &&
-                Util.validateStartAndEndDates((Date) valData.get(ContainersLotsDao.CL_START_DATE), (Date) valData.get(ContainersLotsDao.CL_END_DATE))) {
+                    Util.validateStartAndEndDates((Date) valData.get(ContainersLotsDao.CL_START_DATE), (Date) valData.get(ContainersLotsDao.CL_END_DATE))) {
                 return this.daoHelper.update(this.containersLotsDao, attrMap, keyMap);
             } else {
                 return Util.controlErrors("ERROR_DATE_ALREADY_EXIST");
@@ -132,6 +182,17 @@ public class ContainersLotsService implements IContainersLotsService {
         Map<String, Object> data = new HashMap<>(result.getRecordValues(0));
 
         return data;
+    }
+
+    private List<Integer> extractClIds(EntityResult entityResult, String column) {
+        List<Integer> clIds = new ArrayList<>();
+        for (int i = 0; i < entityResult.calculateRecordNumber(); i++) {
+            Integer clId = (Integer) entityResult.getRecordValues(i).get(column);
+            if (clId != null) {
+                clIds.add(clId);
+            }
+        }
+        return clIds;
     }
 
 }

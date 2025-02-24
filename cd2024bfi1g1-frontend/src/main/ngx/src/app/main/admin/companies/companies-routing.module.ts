@@ -5,9 +5,9 @@ import { CompaniesNewComponent } from './companies-new/companies-new.component';
 import { CompaniesDetailsComponent } from './companies-details/companies-details.component';
 
 const routes: Routes = [
-  { path: '', component: CompaniesHomeComponent },  
-  { path: 'new', component: CompaniesNewComponent },  
-  { path: ':CMP_ID', component: CompaniesDetailsComponent },  
+  { path: '', component: CompaniesHomeComponent },
+  { path: 'new', component: CompaniesNewComponent },
+  { path: ':CMP_ID', component: CompaniesDetailsComponent },
 ];
 
 @NgModule({

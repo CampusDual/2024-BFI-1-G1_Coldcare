@@ -2,9 +2,11 @@ package com.campusdual.cd2024bfi1g1.model.core.service;
 
 import com.campusdual.cd2024bfi1g1.api.core.service.IBillsService;
 import com.campusdual.cd2024bfi1g1.model.core.dao.BillsDao;
+import com.campusdual.cd2024bfi1g1.model.core.dao.PricingDao;
 import com.campusdual.cd2024bfi1g1.model.core.dao.UserDao;
 import com.campusdual.cd2024bfi1g1.model.core.util.Util;
 import com.ontimize.jee.common.db.AdvancedEntityResult;
+import com.ontimize.jee.common.db.SQLStatementBuilder;
 import com.ontimize.jee.common.dto.EntityResult;
 import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
 import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
@@ -67,12 +69,27 @@ public class BillsService implements IBillsService {
         return this.daoHelper.delete(this.billsDao, keyMap);
     }
 
-    public float calculateBillExpense(int nActiveDevices, int nPetitions) {
+    public float calculateBillExpense(int nActiveDevices, int nPetitions, int cmpId) {
 
-        float price = 3.4f;
-        float devicePrice = 1.5f;
-        float price1000 = 10.2f;
-        float totalExpense = price + (devicePrice * nActiveDevices) + (float) Math.ceil(nPetitions / 1000.0) * price1000;
+        Map<String, Object> conditions = new HashMap<>();
+        conditions.put(
+                SQLStatementBuilder.ExtendedSQLConditionValuesProcessor.EXPRESSION_KEY,
+                Util.isDateInCurrentRange(PricingDao.PP_START, PricingDao.PP_END)
+        );
+        conditions.put(BillsDao.CMP_ID,cmpId);
+
+        List<String> columns =  PricingDao.COLUMNS;
+
+        EntityResult result = this.daoHelper.query(this.billsDao,conditions, columns,"getPricingData");
+
+        Map<String, Object> data = new HashMap<>(result.getRecordValues(0));
+
+        float fixedPrice = Float.parseFloat(data.get(PricingDao.PP_FIXED_PRICE).toString());
+        float devicePrice = Float.parseFloat(data.get(PricingDao.PP_DEV_PRICE).toString());
+        float packagePrice = Float.parseFloat(data.get(PricingDao.PP_BUNDLE_PRICE).toString());
+        int packageNumberPetitions = Integer.parseInt(data.get(PricingDao.PP_BUNDLE_REQUESTS).toString());
+
+        float totalExpense = fixedPrice + (devicePrice * nActiveDevices) + (float) Math.ceil((double) nPetitions / packageNumberPetitions) * packagePrice;
         return Math.round(totalExpense * 100.0f) / 100.0f;
     }
 
@@ -96,7 +113,7 @@ public class BillsService implements IBillsService {
 
                 int nActiveDevices = ((Number) row.get("DEVICE_COUNT")).intValue();
                 int nPetitions = ((Number) row.get("MEASUREMENT_COUNT")).intValue();
-                float totalExpense = this.calculateBillExpense(nActiveDevices, nPetitions);
+                float totalExpense = this.calculateBillExpense(nActiveDevices, nPetitions, cmp_id);
 
                 if (resultData.calculateRecordNumber() > 0) {
                     Map<String, Object> updateData = new HashMap<>();
