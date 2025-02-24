@@ -48,13 +48,13 @@
         </Query>
         <Query id="getPricingData">
             <AmbiguousColumns>
-                <AmbiguousColumn name="PLN_ID" prefix="pr"/>
+                <AmbiguousColumn name="PLN_ID" prefix="pp"/>
             </AmbiguousColumns>
             <Sentence>
                 <![CDATA[
                     SELECT #COLUMNS#
-                    FROM PRICING pr
-                    INNER JOIN COMPANIES c ON c.PLN_ID = pr.PLN_ID
+                    FROM PLAN_PRICES pp
+                    INNER JOIN COMPANIES c ON c.PLN_ID = pp.PLN_ID
                     #WHERE#
                     #ORDER#
                 ]]>
