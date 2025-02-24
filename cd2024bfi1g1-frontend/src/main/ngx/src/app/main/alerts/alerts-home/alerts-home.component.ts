@@ -95,15 +95,15 @@ export class AlertsHomeComponent {
 
       if (Util.isDefined(fil.value)) {
         const attributeMapping = {
-          lote: "lot_name",
           contenedor: "cnt_name",
+          lote: "lot_name",
           estado: "alt_state"
         };
 
         const fieldName = attributeMapping[fil.attr];
-        console.log(fil.value)
-        console.log("attr", fil.attr)
+
         if (fieldName) {
+
 
           if (fil.value === "true or false") {
             const filterTrue = FilterExpressionUtils.buildExpressionLike(fieldName, '%true%');
