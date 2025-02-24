@@ -20,6 +20,7 @@ public class AlertsDao extends OntimizeJdbcDaoSupport {
     public static final String ALT_MAX_TEMP = "ALT_MAX_TEMP";
     public static final String CL_ID = "CL_ID";
     public static final String DEV_ID = "DEV_ID";
+    public static final String ALT_STATE = "ALT_STATE";
 
-    public static final List<String> COLUMNS = Arrays.asList(ALT_ID, ALT_DATE_INIT, ALT_DATE_END, ALT_MIN_TEMP, ALT_MAX_TEMP, CL_ID, DEV_ID);
+    public static final List<String> COLUMNS = Arrays.asList(ALT_ID, ALT_DATE_INIT, ALT_DATE_END, ALT_MIN_TEMP, ALT_MAX_TEMP, CL_ID, DEV_ID,ALT_STATE);
 }

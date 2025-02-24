@@ -9,7 +9,10 @@ import { ContainersDetailsComponent } from './containers-details/containers-deta
 import { ContainersLotsMeasurementsComponent } from './containers-lots-measurements/containers-lots-measurements.component';
 import { ContainersLotsAssignmentsComponent } from './containers-lots-assignments/containers-lots-assignments.component';
 import { ContainersHomeBooleanRenderComponent } from './containers-home-boolean-render/containers-home-boolean-render.component';
+import { ContainersTransfersNewOriginComponent } from './containers-transfers-new-origin/containers-transfers-new-origin.component';
+import { ContainersTransfersNewDestinyComponent } from './containers-transfers-new-destiny/containers-transfers-new-destiny.component';
 import { SharedModule } from "../../shared/shared.module";
+import { ContainersTransfersBooleanRenderComponent } from './containers-transfers-boolean-render/containers-transfers-boolean-render.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +21,10 @@ import { SharedModule } from "../../shared/shared.module";
     ContainersDetailsComponent,
     ContainersLotsMeasurementsComponent,
     ContainersLotsAssignmentsComponent,
-    ContainersHomeBooleanRenderComponent
+    ContainersHomeBooleanRenderComponent,
+    ContainersTransfersNewOriginComponent,
+    ContainersTransfersNewDestinyComponent,
+    ContainersTransfersBooleanRenderComponent
   ],
   imports: [
     CommonModule,

@@ -7,7 +7,8 @@ const routes: Routes = [
   { path: 'devices-without-users', loadChildren: () => import('./devices-without-users/devices-without-users.module').then(m => m.DevicesWithoutUsersModule) },
   { path: 'medidas', loadChildren: () => import('./medidas/medidas.module').then(m => m.MedidasModule), },
   { path: 'companies', loadChildren: () => import('./companies/companies.module').then(m => m.CompaniesModule) },
-  { path: 'bills', loadChildren: () => import('./bills/bills.module').then(m => m.BillsModule) }
+  { path: 'bills', loadChildren: () => import('./bills/bills.module').then(m => m.BillsModule) },
+  { path: 'plans', loadChildren: () => import('./plans/plans.module').then(m => m.PlansModule) }
 ];
 
 @NgModule({
