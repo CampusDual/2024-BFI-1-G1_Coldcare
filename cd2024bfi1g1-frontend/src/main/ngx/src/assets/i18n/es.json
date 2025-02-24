@@ -233,5 +233,6 @@
   "SELECTED": "Seleccionado",
   "HAS_ALERT": "Alerta",
   "USAGE": "Consumos",
-  "DEV": "Dispositivo"
+  "DEV": "Dispositivo",
+  "ORIGIN_DESTINATION_ERROR": "El origen y destino no pueden ser iguales"
 }

@@ -7,6 +7,7 @@ import com.campusdual.cd2024bfi1g1.model.core.dao.UserDao;
 import com.campusdual.cd2024bfi1g1.model.core.dao.VehiclesDao;
 import com.campusdual.cd2024bfi1g1.model.core.util.Util;
 import com.ontimize.jee.common.dto.EntityResult;
+import com.ontimize.jee.common.dto.EntityResultMapImpl;
 import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
 import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,17 @@ public class TransportsService implements ITransportsService {
 
         Integer cmpId = Util.getUserCompanyId(this.daoHelper, this.userDao);
         attrMap.put(DevicesDao.CMP_ID, cmpId);
+
+        Object origin = attrMap.get("TRP_ORIGIN");
+        Object destination = attrMap.get("TRP_DESTINATION");
+
+        if(origin != null && destination != null && origin.equals(destination)) {
+            EntityResult res = new EntityResultMapImpl();
+            res.setCode(EntityResult.OPERATION_WRONG);
+            res.setMessage("ORIGIN_DESTINATION_ERROR");
+            return res;
+
+        }
 
         return this.daoHelper.insert(this.transportsDao, attrMap);
     }

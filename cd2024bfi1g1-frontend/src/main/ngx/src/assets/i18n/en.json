@@ -233,5 +233,6 @@
   "SELECTED": "Selected",
   "HAS_ALERT": "Alert",
   "USAGE": "Usage",
-  "DEV": "Device"
+  "DEV": "Device",
+  "ORIGIN_DESTINATION_ERROR": "Origin and destination cannot be the same"
 }
