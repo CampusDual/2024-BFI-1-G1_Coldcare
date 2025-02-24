@@ -10,7 +10,10 @@ import { BillsDetailsComponent } from './bills-details/bills-details.component';
 
 
 @NgModule({
-    declarations: [BillsHomeComponent, BillsDetailsComponent],
+    declarations: [
+        BillsHomeComponent,
+        BillsDetailsComponent
+    ],
     imports: [
         CommonModule,
         OntimizeWebModule,
