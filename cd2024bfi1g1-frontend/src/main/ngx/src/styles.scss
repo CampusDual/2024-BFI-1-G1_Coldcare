@@ -135,11 +135,14 @@ tr.mat-mdc-row.mdc-data-table__row.cdk-row:nth-child(even) {
 
 /* Contenedor del título */
 .o-data-toolbar {
-  padding-top: 10px !important;
-  padding: 35px !important;
   display: flex;
   align-items: center;
   justify-content: center;
+  box-sizing: initial !important;
+}
+
+.o-table-toolbar {
+  margin: 0 0 10px !important;
 }
 
 /* Botones */

@@ -101,7 +101,6 @@ export class AlertsHomeComponent {
         };
 
         const fieldName = attributeMapping[fil.attr];
-
         if (fieldName) {
 
 
