@@ -103,6 +103,7 @@ public interface IUserAndRoleService {
 	 *             the exception
 	 */
 	EntityResult roleQuery(Map<?, ?> keysValues, List<?> attributes) throws OntimizeJEERuntimeException;
+	EntityResult roleWithoutAdminQuery(Map<?, ?> keysValues, List<?> attributes) throws OntimizeJEERuntimeException;
 
 	EntityResult myRoleQuery(Map<?, ?> keysValues, List<?> attributes) throws OntimizeJEERuntimeException;
 
@@ -308,4 +309,5 @@ public interface IUserAndRoleService {
      */
 	EntityResult getClientPermissions() throws OntimizeJEERuntimeException;
 	EntityResult searchQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
-	}
+}
+	

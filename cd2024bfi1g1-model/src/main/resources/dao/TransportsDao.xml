@@ -19,6 +19,7 @@
                 <AmbiguousColumn name="CMP_ID" prefix="c" />
                 <AmbiguousColumn name="LOC_ID" prefix="lo" />
                 <AmbiguousColumn name="LOC_ID" prefix="ld" />
+                <AmbiguousColumn name="USR_ID" prefix="us" />
             </AmbiguousColumns>
             <Sentence>
                 <![CDATA[
@@ -32,15 +33,55 @@
                 c.CNT_NAME,
                 t.VHC_ID,
                 v.VHC_PLATE,
-                t.TRP_DATE
+                t.TRP_DATE,
+                ts.TST_NAME,
+                ts.TST_ID,
+                us.USR_NAME
             FROM transports t
             LEFT JOIN vehicles v ON t.VHC_ID = v.VHC_ID
             LEFT JOIN containers c ON t.CNT_ID = c.CNT_ID
             LEFT JOIN locations lo ON t.TRP_ORIGIN = lo.LOC_ID
             LEFT JOIN locations ld ON t.TRP_DESTINATION = ld.LOC_ID
+            LEFT JOIN usr_user  us ON t.USR_ID = us.USR_ID
+            LEFT JOIN transport_states ts ON t.TST_ID = ts.TST_ID
             #WHERE#
             #ORDER#
         ]]>
+            </Sentence>
+        </Query>
+        <Query id="defaultPerState">
+            <AmbiguousColumns>
+                <AmbiguousColumn name="CNT_ID" prefix="t" />
+                <AmbiguousColumn name="VHC_ID" prefix="t" />
+                <AmbiguousColumn name="CMP_ID" prefix="c" />
+                <AmbiguousColumn name="LOC_ID" prefix="o" />
+                <AmbiguousColumn name="LOC_ID" prefix="d" />
+                <AmbiguousColumn name="USR_ID" prefix="us" />
+            </AmbiguousColumns>
+            <Sentence>
+                <![CDATA[
+                    with origin as (
+                        select loc_id as TRP_ORIGIN, loc_name as ORIGIN_NAME
+                        from locations l
+                    ), destination as (
+                        select loc_id as TRP_DESTINATION, loc_name as DESTINATION_NAME
+                        from locations l
+                    ), user_data AS (
+                        SELECT USR_ID as USR_TRP_ID, USR_NAME as USR_TRP_NAME
+                        FROM usr_user
+                    )
+                    select *
+                    FROM transports t
+                    LEFT JOIN vehicles v ON t.VHC_ID = v.VHC_ID
+                    LEFT JOIN containers c ON t.CNT_ID = c.CNT_ID
+                    LEFT JOIN origin o ON t.TRP_ORIGIN = o.TRP_ORIGIN
+                    LEFT JOIN destination d ON t.TRP_DESTINATION = d.TRP_DESTINATION
+                    LEFT JOIN usr_user  us ON v.USR_ID = us.USR_ID
+                    LEFT JOIN user_data us_t ON t.USR_ID = us_t.USR_TRP_ID
+                    LEFT JOIN transport_states ts ON t.TST_ID = ts.TST_ID
+                    #WHERE#
+                    #ORDER#
+                ]]>
             </Sentence>
         </Query>
         <Query id="movility">
