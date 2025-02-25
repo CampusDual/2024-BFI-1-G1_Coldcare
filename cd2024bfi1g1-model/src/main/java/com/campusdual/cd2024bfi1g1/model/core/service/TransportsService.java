@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -45,8 +46,8 @@ public class TransportsService implements ITransportsService {
         Integer cmpId = Util.getUserCompanyId(this.daoHelper, this.userDao);
         attrMap.put(DevicesDao.CMP_ID, cmpId);
 
-        Object origin = attrMap.get("TRP_ORIGIN");
-        Object destination = attrMap.get("TRP_DESTINATION");
+        Object origin = attrMap.get(TransportsDao.TRP_ORIGIN);
+        Object destination = attrMap.get(TransportsDao.TRP_DESTINATION);
 
         if(origin != null && destination != null && origin.equals(destination)) {
             EntityResult res = new EntityResultMapImpl();
@@ -65,6 +66,35 @@ public class TransportsService implements ITransportsService {
 
         Integer cmpId = Util.getUserCompanyId(this.daoHelper, this.userDao);
         attrMap.put(DevicesDao.CMP_ID, cmpId);
+
+        Object origin = attrMap.get(TransportsDao.TRP_ORIGIN);
+        Object destination = attrMap.get(TransportsDao.TRP_DESTINATION);
+
+        if (origin == null || destination == null) {
+            List<String> columns = new ArrayList<>();
+            if(origin == null) {
+                columns.add(TransportsDao.TRP_ORIGIN);
+            }
+            if(destination == null) {
+                columns.add(TransportsDao.TRP_DESTINATION);
+            }
+            EntityResult result = this.daoHelper.query(this.transportsDao, keyMap, columns);
+            Map<String, Object> currentData = result.getRecordValues(0);
+            if(origin == null) {
+                origin = currentData.get(TransportsDao.TRP_ORIGIN);
+            }
+            if(destination == null) {
+                destination = currentData.get(TransportsDao.TRP_DESTINATION);
+            }
+        }
+
+        if(destination != null && origin.equals(destination)) {
+            EntityResult res = new EntityResultMapImpl();
+            res.setCode(EntityResult.OPERATION_WRONG);
+            res.setMessage("ORIGIN_DESTINATION_ERROR");
+            return res;
+
+        }
 
         return this.daoHelper.update(this.transportsDao, attrMap, keyMap);
     }
