@@ -16,5 +16,6 @@ public class VehiclesDao extends OntimizeJdbcDaoSupport {
     public static final String VHC_ID = "VHC_ID";
     public static final String VHC_PLATE = "VHC_PLATE";
     public static final String CMP_ID = "CMP_ID";
-    public static final List<String> COLUMNS = Arrays.asList(VHC_ID, VHC_PLATE, CMP_ID);
+    public static final String USR_ID = "USR_ID";
+    public static final List<String> COLUMNS = Arrays.asList(VHC_ID, VHC_PLATE, CMP_ID, USR_ID);
 }

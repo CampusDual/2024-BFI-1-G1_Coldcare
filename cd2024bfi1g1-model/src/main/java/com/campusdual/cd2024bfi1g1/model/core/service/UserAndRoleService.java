@@ -72,7 +72,10 @@ public class UserAndRoleService implements IUserAndRoleService {
 
 		return toRet;
 	}
-
+	@Override
+	public EntityResult searchQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
+		return this.daoHelper.query(this.userDao, keyMap, attrList, "search");
+	}
 	/*
 	 * (non-Javadoc)
 	 */
@@ -82,6 +85,7 @@ public class UserAndRoleService implements IUserAndRoleService {
 			throws OntimizeJEERuntimeException {
 		return this.daoHelper.paginationQuery(this.userDao, keysValues, attributes, recordNumber, startIndex, orderBy);
 	}
+
 
 	/*
 	 * (non-Javadoc)
@@ -121,11 +125,12 @@ public class UserAndRoleService implements IUserAndRoleService {
 		EntityResult userInsertResult = this.daoHelper.insert(this.userDao, this.encryptPassword(keysValues));
 
 		if (!userInsertResult.isEmpty()) {
-			Object userId = userInsertResult.get("USR_ID");
+			Integer userId = (Integer) userInsertResult.get(UserDao.USR_ID);
+			Integer rolId = (Integer) keysValues.get(RoleDao.ROL_ID);
 
 			Map<String, Object> roleKeysValues = new HashMap<>();
 			roleKeysValues.put(UserRoleDao.USR_ID, userId);
-			roleKeysValues.put(UserRoleDao.ROL_ID, 2);
+			roleKeysValues.put(UserRoleDao.ROL_ID, rolId);
 
 			return this.daoHelper.insert(this.userRolesDao, roleKeysValues);
 
@@ -138,6 +143,11 @@ public class UserAndRoleService implements IUserAndRoleService {
 	@Secured({ PermissionsProviderSecured.SECURED })
 	public EntityResult roleQuery(final Map<?, ?> keysValues, final List<?> attributes) throws OntimizeJEERuntimeException {
 		return this.daoHelper.query(this.roleDao, keysValues, attributes);
+	}
+
+	@Override
+	public EntityResult roleWithoutAdminQuery(Map<?, ?> keysValues, List<?> attributes) throws OntimizeJEERuntimeException {
+		return this.daoHelper.query(this.roleDao, keysValues, attributes, "asignRole");
 	}
 
 	@Override
@@ -418,6 +428,12 @@ public class UserAndRoleService implements IUserAndRoleService {
 		}
 	}
 
+	@Override
+	public EntityResult UserWithRoleQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
+		return this.daoHelper.query(this.userRolesDao, keyMap, attrList, "userRole");
+	}
+
+
 	protected boolean checkPasswords(final String storedPassword, final String password) throws OntimizeJEERuntimeException {
 		if (this.passwordEncrypter == null) {
 			return (password != null && storedPassword.equals(password));
@@ -430,5 +446,24 @@ public class UserAndRoleService implements IUserAndRoleService {
 			}
 		}
 	}
+
+	public static Integer getUserCompanyId(DefaultOntimizeDaoHelper daoHelper, UserDao userDao){
+		Integer userId = Util.getUserId();
+
+		Map<String, Object> filter = new HashMap<>();
+		filter.put(UserDao.USR_ID, userId);
+		List<String> columns = List.of(UserDao.CMP_ID);
+
+		EntityResult userEr = daoHelper.query(userDao, filter, columns);
+		if (userEr.isEmpty()) {
+			throw new RuntimeException("Unknown user");
+		}
+
+		Map<String, Object> user = userEr.getRecordValues(0);
+		return (Integer) user.get(UserDao.CMP_ID);
+	}
+
+
+
 
 }

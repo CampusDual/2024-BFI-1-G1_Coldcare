@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <JdbcEntitySetup xmlns="http://www.ontimize.com/schema/jdbc"
-                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                 xsi:schemaLocation="http://www.ontimize.com/schema/jdbc http://www.ontimize.com/schema/jdbc/ontimize-jdbc-dao.xsd"
-                 catalog="" schema="${mainschema}" table="containers" datasource="mainDataSource"
-                 sqlhandler="dbSQLStatementHandler">
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.ontimize.com/schema/jdbc http://www.ontimize.com/schema/jdbc/ontimize-jdbc-dao.xsd" catalog="" schema="${mainschema}" table="containers" datasource="mainDataSource" sqlhandler="dbSQLStatementHandler">
     <DeleteKeys>
         <Column>CNT_ID</Column>
     </DeleteKeys>
@@ -85,6 +82,41 @@
                     LEFT JOIN current_lot cur_lot ON cl.cnt_id = cur_lot.cnt_id
                     LEFT JOIN latest_measurements lm ON cl.cnt_id = lm.cnt_id
                     #WHERE#;
+                ]]>
+            </Sentence>
+        </Query>
+        <Query id="containers_with_measurements">
+            <AmbiguousColumns>
+                <AmbiguousColumn name="CNT_ID" prefix="c" />
+            </AmbiguousColumns>
+            <Sentence>
+                <![CDATA[
+                    WITH t AS (
+                        select
+                            cl.cnt_id,
+                            ROUND(avg(me_temp)::numeric, 2) AS avg_temp,
+                            ROUND(avg(me_humidity)::numeric, 2) AS avg_humidity,
+                            ROUND(max(me_temp)::numeric, 2) AS max_temp_dev,
+                            ROUND(min(me_temp)::numeric, 2) AS min_temp_dev,
+                            ROUND(max(me_humidity)::numeric, 2) AS max_humidity_dev,
+                            ROUND(min(me_humidity)::numeric, 2) AS min_humidity_dev,
+                            COUNT(DISTINCT a.alt_id) AS alt_count
+                        FROM
+                            measurements m
+                        LEFT JOIN containers_lots cl ON m.cl_id = cl.cl_id
+                        LEFT JOIN alerts a ON a.cl_id = m.cl_id
+                        WHERE
+                            cl.cl_start_date <= now()
+                            AND (cl_end_date is null OR cl_end_date >= now())
+                        GROUP BY
+                            cl.cnt_id
+                    )
+                    SELECT
+                        #COLUMNS#
+                    FROM
+                        containers c
+                    LEFT JOIN t ON c.cnt_id = t.cnt_id
+                    #WHERE#
                 ]]>
             </Sentence>
         </Query>
