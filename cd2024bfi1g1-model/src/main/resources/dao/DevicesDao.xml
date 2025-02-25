@@ -72,5 +72,35 @@
                 ]]>
             </Sentence>
         </Query>
+        <Query id="devicesWithMeasurementCount">
+            <AmbiguousColumns>
+                <AmbiguousColumn name="CMP_ID" prefix="d"/>
+                <AmbiguousColumn name="DEV_ID" prefix="d"/>
+            </AmbiguousColumns>
+            <Sentence>
+                <![CDATA[
+                    WITH measurement_counts AS (
+                        SELECT
+                            d.dev_id,
+                            COUNT(m.me_id) AS me_count
+                        FROM devices d
+                        JOIN measurements m ON d.dev_id = m.dev_id
+                        GROUP BY d.dev_id
+                    )
+                    SELECT
+                        #COLUMNS#
+                    FROM
+                        devices d
+                    JOIN measurement_counts mc
+                        ON d.DEV_ID = mc.DEV_ID
+                    JOIN containers c2
+                        ON c2.cnt_id = d.cnt_id
+                    JOIN companies c
+                        ON d.cmp_id = c.cmp_id
+                    #WHERE#
+                    #ORDER#
+                ]]>
+            </Sentence>
+        </Query>
     </Queries>
 </JdbcEntitySetup>

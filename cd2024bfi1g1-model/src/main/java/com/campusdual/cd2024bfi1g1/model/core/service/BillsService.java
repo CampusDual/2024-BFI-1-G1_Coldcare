@@ -35,6 +35,11 @@ public class BillsService implements IBillsService {
     }
 
     @Override
+    public EntityResult billsWithPlanQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
+        return this.daoHelper.query(this.billsDao, keyMap, attrList, "getPlanDetails");
+    }
+
+    @Override
     public EntityResult billsDataQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
         return this.daoHelper.query(this.billsDao, keyMap, attrList, "monthlyData");
     }

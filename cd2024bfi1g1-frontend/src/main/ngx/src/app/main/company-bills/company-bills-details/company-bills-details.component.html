@@ -1,5 +1,6 @@
-<o-form attr="costTable" service="bills" entity="bills" include-parent-keys="yes" parent-keys="BIL_ID" keys="BIL_ID"
-    keys-sql-types="INTEGER" columns="BIL_ID" show-header="true" detect-changes-on-blur="no" header-actions="R;U">
+<o-form attr="costTable" service="bills" entity="billsWithPlan" include-parent-keys="yes" parent-keys="BIL_ID"
+    keys="BIL_ID" keys-sql-types="INTEGER" columns="BIL_ID" show-header="true" detect-changes-on-blur="no"
+    header-actions="R;U">
     <o-row attr="row1" layout-align="start stretch">
         <o-column title="USAGE_DETAIL" layout-align="start stretch">
             <div class="inline-fields">
@@ -20,10 +21,12 @@
             </div>
         </o-column>
     </o-row>
-    <o-table attr="costTable" service="devices" entity="devices" keys="DEV_ID" columns="DEV_ID;DEV_NAME;CMP_ID;CMP_NAME"
-        visible-columns="DEV_ID,DEV_NAME;CMP_NAME" query-rows="20" select-all-checkbox-visible="no" insert-button="no"
-        delete-button="no" refresh-button="no" detail-mode="none" pageable="true" title="PRODUCTS" show-title="yes">
+    <o-table attr="costTable" service="devices" entity="devicesWithMeasurementCount" keys="DEV_ID"
+        columns="DEV_ID;DEV_NAME;CMP_ID;CNT_NAME;ME_COUNT" visible-columns="DEV_NAME;CNT_NAME;ME_COUNT" query-rows="20"
+        select-all-checkbox-visible="no" insert-button="no" delete-button="no" refresh-button="no" detail-mode="none"
+        title="DEVICES" show-title="yes">
         <o-table-column attr="DEV_NAME" title="IDENTIFIER" title-align="center" content-align="center"></o-table-column>
-        <o-table-column attr="CMP_NAME" title="IDENTIFIER" title-align="center" content-align="center"></o-table-column>
+        <o-table-column attr="CNT_NAME" title-align="center" content-align="center"></o-table-column>
+        <o-table-column attr="ME_COUNT" title-align="center" content-align="center"></o-table-column>
     </o-table>
 </o-form>
