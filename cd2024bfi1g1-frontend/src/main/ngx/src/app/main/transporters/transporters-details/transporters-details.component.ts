@@ -1,4 +1,4 @@
-import { Component, Injector, ViewChild, AfterViewInit, OnInit } from '@angular/core';
+import { Component, Injector, ViewChild, AfterViewInit } from '@angular/core';
 import { OFormComponent, OntimizeService, OButtonComponent, OComboComponent } from 'ontimize-web-ngx';
 import { TRP_STATUS_END, TRP_STATUS_INIT, TRP_STATUS_PENDING } from 'src/app/shared/constants';
 
@@ -6,7 +6,7 @@ import { TRP_STATUS_END, TRP_STATUS_INIT, TRP_STATUS_PENDING } from 'src/app/sha
   selector: 'app-transporters-details',
   templateUrl: './transporters-details.component.html'
 })
-export class TransportersDetailsComponent implements AfterViewInit, OnInit {
+export class TransportersDetailsComponent implements AfterViewInit {
 
   ubicacion: string = 'Esperando ubicación...';
   private ubicacionInterval: any;
@@ -22,37 +22,12 @@ export class TransportersDetailsComponent implements AfterViewInit, OnInit {
     this.service = this.injector.get(OntimizeService);
   }
 
-  ngOnInit() {
-    this.configureService();
-  }
 
-  obtenerUbicacion(): void {
-    if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const lat = position.coords.latitude;
-          const lon = position.coords.longitude;
 
-          this.ubicacion = `Latitud: ${lat} <br> Longitud: ${lon}`;
-          console.log(this.ubicacion);
-        },
-        (error) => {
-          this.ubicacion = `Error al obtener la ubicación: ${error.message}`;
-        }
-      );
-    } else {
-      this.ubicacion = "La geolocalización no está soportada en este navegador.";
-    }
-  }
 
   ngAfterViewInit() {
     this.updateButtonState();
     this.form.onDataLoaded.subscribe(() => this.updateButtonState());
-  }
-
-  protected configureService() {
-    const conf = this.service.getDefaultServiceConfiguration('transports');
-    this.service.configureService(conf);
   }
 
   updateButtonState() {
@@ -72,18 +47,20 @@ export class TransportersDetailsComponent implements AfterViewInit, OnInit {
 
   setStatusInit() {
     this.updateStatus(TRP_STATUS_INIT);
-    this.obtenerUbicacion();
-    this.updateGeolocation()
+    this.insertGeolocation()
 
     this.ubicacionInterval = setInterval(() => {
-      this.obtenerUbicacion();
-      this.updateGeolocation()
+      this.insertGeolocation()
     }, 5000);
   }
 
   setStatusEnd() {
     this.updateStatus(TRP_STATUS_END);
+    console.log("Hola");
+
     if (this.ubicacionInterval) {
+      console.log("adios");
+
       clearInterval(this.ubicacionInterval);
     }
   }
@@ -93,6 +70,9 @@ export class TransportersDetailsComponent implements AfterViewInit, OnInit {
     const data = { TST_ID: status };
     const filter = { TRP_ID: Number(trpId) };
 
+    const conf = this.service.getDefaultServiceConfiguration('transports');
+    this.service.configureService(conf);
+
     this.service.update(filter, data, 'transports').subscribe(response => {
       if (response.code === 0) {
         this.form.setFieldValue('TST_ID', status);
@@ -104,19 +84,31 @@ export class TransportersDetailsComponent implements AfterViewInit, OnInit {
     });
   }
 
-  private updateGeolocation() {
-    const trpId = this.form.getUrlParam('TRP_ID');
-    const data = { TST_ID: status };
-    const filter = { TRP_ID: Number(trpId) };
+  private insertGeolocation() {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const lat = position.coords.latitude;
+          const lon = position.coords.longitude;
 
-    this.service.update(filter, data, 'transports').subscribe(response => {
-      if (response.code === 0) {
-        this.form.setFieldValue('TST_ID', status);
-        this.combo.refresh();
-        this.updateButtonState();
-      } else {
-        alert('Impossible to update data!');
-      }
-    });
+          const trpId = this.form.getUrlParam('TRP_ID');
+          const data = { TRP_ID: Number(trpId), TC_LATITUDE: lat, TC_LONGITUDE: lon };
+
+          const conf = this.service.getDefaultServiceConfiguration('transportsCoordinates');
+          this.service.configureService(conf);
+
+          this.service.insert(data, 'transportsCoordinates').subscribe(response => {
+            if (response.code !== 0) {
+              console.error('Error inserting geolocation:', response);
+            }
+          });
+        },
+        (error) => {
+          console.error('Error getting location:', error.message);
+        }
+      );
+    } else {
+      console.error('Geolocation is not supported by this browser.');
+    }
   }
 }
