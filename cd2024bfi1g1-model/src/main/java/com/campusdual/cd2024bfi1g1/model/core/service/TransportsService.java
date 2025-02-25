@@ -8,12 +8,16 @@ import com.campusdual.cd2024bfi1g1.model.core.dao.TransportsDao;
 import com.campusdual.cd2024bfi1g1.model.core.dao.UserDao;
 import com.campusdual.cd2024bfi1g1.model.core.dao.VehiclesDao;
 import com.ontimize.jee.common.dto.EntityResult;
+import com.ontimize.jee.common.dto.EntityResultMapImpl;
 import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
 import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.*;
 
 import static com.campusdual.cd2024bfi1g1.model.core.util.Util.getUserId;
@@ -46,6 +50,17 @@ public class TransportsService implements ITransportsService {
         Integer cmpId = Util.getUserCompanyId(this.daoHelper, this.userDao);
         attrMap.put(DevicesDao.CMP_ID, cmpId);
 
+        Object origin = attrMap.get(TransportsDao.TRP_ORIGIN);
+        Object destination = attrMap.get(TransportsDao.TRP_DESTINATION);
+
+        if(origin != null && destination != null && origin.equals(destination)) {
+            EntityResult res = new EntityResultMapImpl();
+            res.setCode(EntityResult.OPERATION_WRONG);
+            res.setMessage("ORIGIN_DESTINATION_ERROR");
+            return res;
+
+        }
+
         return this.daoHelper.insert(this.transportsDao, attrMap);
     }
 
@@ -64,6 +79,35 @@ public class TransportsService implements ITransportsService {
                 attrMap.put(TransportsDao.USR_ID, userId);
 
             }
+        }
+
+        Object origin = attrMap.get(TransportsDao.TRP_ORIGIN);
+        Object destination = attrMap.get(TransportsDao.TRP_DESTINATION);
+
+        if (origin == null || destination == null) {
+            List<String> columns = new ArrayList<>();
+            if(origin == null) {
+                columns.add(TransportsDao.TRP_ORIGIN);
+            }
+            if(destination == null) {
+                columns.add(TransportsDao.TRP_DESTINATION);
+            }
+            EntityResult result = this.daoHelper.query(this.transportsDao, keyMap, columns);
+            Map<String, Object> currentData = result.getRecordValues(0);
+            if(origin == null) {
+                origin = currentData.get(TransportsDao.TRP_ORIGIN);
+            }
+            if(destination == null) {
+                destination = currentData.get(TransportsDao.TRP_DESTINATION);
+            }
+        }
+
+        if(destination != null && origin.equals(destination)) {
+            EntityResult res = new EntityResultMapImpl();
+            res.setCode(EntityResult.OPERATION_WRONG);
+            res.setMessage("ORIGIN_DESTINATION_ERROR");
+            return res;
+
         }
 
         return this.daoHelper.update(this.transportsDao, attrMap, keyMap);
