@@ -1,13 +1,13 @@
-<o-form show-header="no" query-on-init="no" fxFill>
+<o-form show-header="no" query-on-init="no" fxFill confirm-exit="no">
 
     <o-column>
         <label layout-padding>{{"FILTER_ALERTS" | oTranslate}}</label>
         <div class="inline-fields">
             <div fxLayout="row" fxLayoutGap="15px" layout-padding>
                 <o-combo attr="contenedor" label="CONTAINER" service="alerts" entity="containersAlerts"
-                    value-column="CNT_ID" columns="CNT_ID;CNT_NAME" visible-columns="CNT_NAME" null-selection="no"
+                    value-column="CNT_NAME" columns="CNT_ID;CNT_NAME" visible-columns="CNT_NAME" null-selection="no"
                     searchable="yes" null-selection="yes"></o-combo>
-                <o-combo attr="lote" label="LOT_NAME" service="alerts" entity="containersAlerts" value-column="LOT_ID"
+                <o-combo attr="lote" label="LOT_NAME" service="alerts" entity="containersAlerts" value-column="LOT_NAME"
                     columns="LOT_ID;LOT_NAME" visible-columns="LOT_NAME" null-selection="no" searchable="yes"
                     null-selection="yes"></o-combo>
                 <o-combo attr="estado" label="ALT_STATES" value-column="ALT_STATE" columns="ALT_STATE"
@@ -64,4 +64,4 @@
         </o-table>
     </o-column>
 
-</o-form>
+</o-form><!--automatic-registering="false" automatic-binding="false"-->
