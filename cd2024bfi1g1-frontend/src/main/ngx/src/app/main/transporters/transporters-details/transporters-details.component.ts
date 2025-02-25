@@ -1,4 +1,4 @@
-import { Component, Injector, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, Injector, ViewChild, AfterViewInit, OnInit } from '@angular/core';
 import { OFormComponent, OntimizeService, OButtonComponent, OComboComponent } from 'ontimize-web-ngx';
 import { TRP_STATUS_END, TRP_STATUS_INIT, TRP_STATUS_PENDING } from 'src/app/shared/constants';
 
@@ -6,7 +6,10 @@ import { TRP_STATUS_END, TRP_STATUS_INIT, TRP_STATUS_PENDING } from 'src/app/sha
   selector: 'app-transporters-details',
   templateUrl: './transporters-details.component.html'
 })
-export class TransportersDetailsComponent implements AfterViewInit {
+export class TransportersDetailsComponent implements AfterViewInit, OnInit {
+
+  ubicacion: string = 'Esperando ubicación...';
+  private ubicacionInterval: any;
 
   @ViewChild('form', { static: true }) form!: OFormComponent;
   @ViewChild('combo', { static: false }) combo!: OComboComponent;
@@ -21,6 +24,25 @@ export class TransportersDetailsComponent implements AfterViewInit {
 
   ngOnInit() {
     this.configureService();
+  }
+
+  obtenerUbicacion(): void {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const lat = position.coords.latitude;
+          const lon = position.coords.longitude;
+
+          this.ubicacion = `Latitud: ${lat} <br> Longitud: ${lon}`;
+          console.log(this.ubicacion);
+        },
+        (error) => {
+          this.ubicacion = `Error al obtener la ubicación: ${error.message}`;
+        }
+      );
+    } else {
+      this.ubicacion = "La geolocalización no está soportada en este navegador.";
+    }
   }
 
   ngAfterViewInit() {
@@ -50,13 +72,39 @@ export class TransportersDetailsComponent implements AfterViewInit {
 
   setStatusInit() {
     this.updateStatus(TRP_STATUS_INIT);
+    this.obtenerUbicacion();
+    this.updateGeolocation()
+
+    this.ubicacionInterval = setInterval(() => {
+      this.obtenerUbicacion();
+      this.updateGeolocation()
+    }, 5000);
   }
 
   setStatusEnd() {
     this.updateStatus(TRP_STATUS_END);
+    if (this.ubicacionInterval) {
+      clearInterval(this.ubicacionInterval);
+    }
   }
 
   private updateStatus(status: number) {
+    const trpId = this.form.getUrlParam('TRP_ID');
+    const data = { TST_ID: status };
+    const filter = { TRP_ID: Number(trpId) };
+
+    this.service.update(filter, data, 'transports').subscribe(response => {
+      if (response.code === 0) {
+        this.form.setFieldValue('TST_ID', status);
+        this.combo.refresh();
+        this.updateButtonState();
+      } else {
+        alert('Impossible to update data!');
+      }
+    });
+  }
+
+  private updateGeolocation() {
     const trpId = this.form.getUrlParam('TRP_ID');
     const data = { TST_ID: status };
     const filter = { TRP_ID: Number(trpId) };
