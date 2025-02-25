@@ -1,6 +1,5 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { OFormComponent } from 'ontimize-web-ngx';
 
 @Component({
   selector: 'app-containers-details',
@@ -9,8 +8,6 @@ import { OFormComponent } from 'ontimize-web-ngx';
 })
 
 export class ContainersDetailsComponent {
-
-  @ViewChild("formCNT") formCNT: OFormComponent;
 
   constructor(
     private router: Router
@@ -21,9 +18,5 @@ export class ContainersDetailsComponent {
     if (row && row.CL_ID) {
       this.router.navigate(['main', 'containers-lots', row.CL_ID], { queryParams: { isdetail: true } });
     }
-  }
-
-  public newCL() {
-    this.router.navigate(['main', 'containers-lots', 'new'], { queryParams: { CNT_ID: this.formCNT.getKeysValues().CNT_ID } });
   }
 }

@@ -7,13 +7,15 @@ import { ContainersNewComponent } from './containers-new/containers-new.componen
 import { ContainersDetailsComponent } from './containers-details/containers-details.component';
 import { SharedModule } from "../../shared/shared.module";
 import { ContainersHomeBooleanRendererComponent } from './containers-home-boolean-renderer/containers-home-boolean-renderer.component';
+import { ContainersLotsNewComponent } from './containers-lots-new/containers-lots-new.component';
 
 @NgModule({
   declarations: [
     ContainersHomeComponent,
     ContainersNewComponent,
     ContainersDetailsComponent,
-    ContainersHomeBooleanRendererComponent
+    ContainersHomeBooleanRendererComponent,
+    ContainersLotsNewComponent
   ],
   imports: [
     CommonModule,
