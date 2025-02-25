@@ -94,8 +94,23 @@ public class UserAndRoleService implements IUserAndRoleService {
 	@Secured({ PermissionsProviderSecured.SECURED })
 	@Transactional(rollbackFor = Throwable.class)
 	public EntityResult userUpdate(final Map<?, ?> attributesValues, final Map<?, ?> keysValues) throws OntimizeJEERuntimeException {
+		EntityResult uroUpdateRes = null;
 		try {
-			return this.daoHelper.update(this.userDao, this.encryptPassword(attributesValues), keysValues);
+			if (attributesValues.containsKey(UserRoleDao.ROL_ID)) {
+				uroUpdateRes = this.daoHelper.update(this.userRolesDao, this.encryptPassword(attributesValues), keysValues);
+				attributesValues.remove(UserRoleDao.ROL_ID);
+			}
+			if (!attributesValues.isEmpty()) {
+				return this.daoHelper.update(this.userDao, this.encryptPassword(attributesValues), keysValues);
+			}else if(uroUpdateRes != null) {
+				return uroUpdateRes;
+			}else{
+				EntityResult res = new EntityResultMapImpl();
+				res.setCode(EntityResult.OPERATION_WRONG);
+				res.setMessage("USER_UPDATE_ERROR");
+				return res;
+			}
+
 		} finally {
 			this.invalidateSecurityManager();
 		}
@@ -428,10 +443,6 @@ public class UserAndRoleService implements IUserAndRoleService {
 		}
 	}
 
-	@Override
-	public EntityResult UserWithRoleQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
-		return this.daoHelper.query(this.userRolesDao, keyMap, attrList, "userRole");
-	}
 
 
 	protected boolean checkPasswords(final String storedPassword, final String password) throws OntimizeJEERuntimeException {

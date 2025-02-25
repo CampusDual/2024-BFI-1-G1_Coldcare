@@ -6,10 +6,10 @@
 	catalog="" schema="${mainschema}" table="usr_user_role"
 	datasource="mainDataSource" sqlhandler="dbSQLStatementHandler">
 	<DeleteKeys>
-		<Column>uro_id</Column>
+		<Column>URO_ID</Column>
 	</DeleteKeys>
 	<UpdateKeys>
-		<Column>uro_id</Column>
+		<Column>URO_ID</Column>
 	</UpdateKeys>
 	<GeneratedKey>uro_id</GeneratedKey>
 	<Queries>
