@@ -227,5 +227,7 @@
   "SELECTED": "Selected",
   "HAS_ALERT": "Alert",
   "USAGE": "Usage",
-  "DEV": "Device"
+  "DEV": "Device",
+  "USAGE_DETAIL": "Usage details",
+  "PLANS_DETAIL": "Plans details"
 }

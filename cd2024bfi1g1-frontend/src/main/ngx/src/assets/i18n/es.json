@@ -227,5 +227,7 @@
   "SELECTED": "Seleccionado",
   "HAS_ALERT": "Alerta",
   "USAGE": "Consumos",
-  "DEV": "Dispositivo"
+  "DEV": "Dispositivo",
+  "USAGE_DETAIL": "Detalles del consumo",
+  "PLANS_DETAIL": "Detalles del plan"
 }
