@@ -4,29 +4,30 @@
     <o-row attr="row1" layout-align="start stretch">
         <o-column title="USAGE_DETAIL" layout-align="start stretch">
             <div class="inline-fields">
-                <o-text-input attr="BIL_YEAR"></o-text-input>
-                <o-real-input attr="BIL_MONTH" clear-button="yes"></o-real-input>
-                <o-text-input attr="BIL_DEVICES"></o-text-input>
-                <o-real-input attr="BIL_EXPENSE" clear-button="yes"></o-real-input>
-                <o-real-input attr="BIL_MEASUREMENTS" clear-button="yes"></o-real-input>
+                <o-text-input attr="BIL_YEAR" read-only="true"></o-text-input>
+                <o-text-input attr="BIL_MONTH" read-only="true">
+
+                </o-text-input>
+                <o-text-input attr="BIL_DEVICES" read-only="true"></o-text-input>
+                <o-real-input attr="BIL_EXPENSE" read-only="true"></o-real-input>
+                <o-real-input attr="BIL_MEASUREMENTS" read-only="true"></o-real-input>
             </div>
         </o-column>
     </o-row>
     <o-row attr="row2" layout-align="start stretch">
         <o-column title="PLANS_DETAIL" layout-align="start stretch">
             <div class="inline-fields">
-                <o-real-input attr="PP_FIXED_PRICE" clear-button="yes"></o-real-input>
-                <o-text-input attr="PP_DEV_PRICE"></o-text-input>
-                <o-real-input attr="PP_BUNDLE_REQUESTS" clear-button="yes"></o-real-input>
+                <o-real-input attr="PP_FIXED_PRICE" read-only="true"></o-real-input>
+                <o-text-input attr="PP_DEV_PRICE" read-only="true"></o-text-input>
+                <o-real-input attr="PP_BUNDLE_REQUESTS" read-only="true"></o-real-input>
             </div>
         </o-column>
     </o-row>
-    <o-table attr="costTable" service="devices" entity="devicesWithMeasurementCount" keys="DEV_ID"
-        columns="DEV_ID;DEV_NAME;CMP_ID;CNT_NAME;ME_COUNT" visible-columns="DEV_NAME;CNT_NAME;ME_COUNT" query-rows="20"
+    <o-table attr="costTable" service="devices" entity="devicesWithMeasurementCount" keys="DEV_ID" parent-keys="BIL_ID"
+        columns="DEV_ID;DEV_NAME;CMP_ID;ME_COUNT" visible-columns="DEV_NAME;ME_COUNT" query-rows="20"
         select-all-checkbox-visible="no" insert-button="no" delete-button="no" refresh-button="no" detail-mode="none"
         title="DEVICES" show-title="yes">
         <o-table-column attr="DEV_NAME" title="DEV" title-align="center" content-align="center"></o-table-column>
-        <o-table-column attr="CNT_NAME" title="CONTAINER" title-align="center" content-align="center"></o-table-column>
         <o-table-column attr="ME_COUNT" title="MEASUREMENTS" title-align="center"
             content-align="center"></o-table-column>
     </o-table>
