@@ -38,21 +38,49 @@
             </Sentence>
         </Query>
         <Query id="containers_with_alerts">
+        <AmbiguousColumns>
+                <AmbiguousColumn name="CNT_ID" prefix="cl" />
+            </AmbiguousColumns>
             <Sentence>
                 <![CDATA[
                     WITH cl AS (
-                        SELECT
-                            c.*,
-                            EXISTS (
-                                SELECT 1
-                                FROM containers_lots_current_view clv
-                                INNER JOIN alerts a ON clv.cl_id = a.cl_id
-                                WHERE clv.cnt_id = c.cnt_id and clv.cl_is_current
-                            ) AS has_alert
-                        FROM CONTAINERS c
+                    SELECT
+                        c.*,
+                        EXISTS (
+                            SELECT 1
+                            FROM containers_lots_current_view clv
+                            INNER JOIN alerts a ON clv.cl_id = a.cl_id 
+                            WHERE clv.cnt_id = c.cnt_id AND clv.cl_is_current
+                        ) AS has_alert
+                    FROM CONTAINERS c
+                    ),
+                    current_lot AS (
+                        SELECT 
+                            clv.cnt_id,
+                            l.lot_name, 
+                            p.pro_name
+                        FROM containers_lots_current_view clv
+                        INNER JOIN lots l ON clv.lot_id = l.lot_id
+                        INNER JOIN products p ON l.pro_id = p.pro_id
+                        WHERE clv.cl_is_current
+                    ), 
+                    latest_measurements AS (
+                        SELECT 
+                            cl.cnt_id, 
+                            m.me_temp, 
+                            m.me_humidity
+                        FROM measurements m
+                        INNER JOIN containers_lots cl ON m.cl_id = cl.cl_id  -- Relacionamos measurements con containers_lots
+                        INNER JOIN (
+                            SELECT cl_id, MAX(me_date) AS last_date
+                            FROM measurements
+                            GROUP BY cl_id
+                        ) latest ON m.cl_id = latest.cl_id WHERE m.me_date = latest.last_date
                     )
                     SELECT #COLUMNS#
                     FROM cl
+                    LEFT JOIN current_lot cur_lot ON cl.cnt_id = cur_lot.cnt_id
+                    LEFT JOIN latest_measurements lm ON cl.cnt_id = lm.cnt_id
                     #WHERE#;
                 ]]>
             </Sentence>

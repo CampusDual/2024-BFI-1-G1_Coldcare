@@ -237,6 +237,8 @@
   "HAS_ALERT": "Alert",
   "USAGE": "Usage",
   "DEV": "Device",
+  "LAST_TEMP": "Last Temperature (ºC)",
+  "LAST_HUMIDITY": "Last Humidity (%)",
   "VEHICLE_DUPLICATE_INSERT": "There is already a vehicle with this name",
   "TST_NAME": "State",
   "TRP_STATUS_INIT": "Started",
