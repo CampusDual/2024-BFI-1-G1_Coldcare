@@ -4,7 +4,7 @@
         <o-column title="USAGE_DETAIL" layout-align="start stretch">
             <div class="inline-fields">
                 <o-text-input attr="BIL_YEAR" read-only="true"></o-text-input>
-                <o-text-input attr="BIL_MONTH" read-only="true" #bil_month></o-text-input>
+                <o-text-input attr="BIL_MONTH" read-only="true" #bil_month hidden></o-text-input>
                 <o-text-input attr="BIL_MONTH_TEXT" label="BIL_MONTH" automatic-binding="false"
                     automatic-registering="false" read-only="true"
                     [data]="bil_month.getValue() | monthRenderer | oTranslate"></o-text-input>
