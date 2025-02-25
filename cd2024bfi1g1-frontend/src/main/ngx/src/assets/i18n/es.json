@@ -252,5 +252,6 @@
   "FINISHED": "Finalizado",
   "user": "Usuario",
   "transporter": "Transportista",
+  "USER_UPDATE_ERROR": "Error al actualizar los datos de usuarios",
   "HAS_REPITED": "Asignado a (Nº de contenedores)"
 }

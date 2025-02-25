@@ -252,5 +252,6 @@
   "FINISHED": "Finished",
   "user": "User",
   "transporter": "Transporter",
+  "USER_UPDATE_ERROR": "Error updating the user table",
   "HAS_REPITED": "Assigned to (number of containers)"
 }

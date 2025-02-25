@@ -1,7 +1,6 @@
-<o-form #form attr="users_form_edit" service="users" entity="UserWithRole" header-actions="R;U"
-  include-parent-keys="yes" parent-keys="USR_ID" keys="USR_ID" keys-sql-types="INTEGER" columns="USR_ID"
-  layout-direction="row" show-header="true" detect-changes-on-blur="no" fxFill undo-button="yes"
-  stay-in-record-after-insert="true">
+<o-form #form attr="users_form_edit" service="users" entity="user" header-actions="R;U" include-parent-keys="yes"
+  parent-keys="USR_ID" keys="USR_ID;URO_ID" keys-sql-types="INTEGER" columns="USR_ID" layout-direction="row"
+  show-header="true" detect-changes-on-blur="no" fxFill undo-button="yes" stay-in-record-after-insert="true">
 
   <div fxLayout="row" fxLayoutGap="30px" fxFill>
 
@@ -22,10 +21,11 @@
           <o-column title="company-data-section" appearance="no" layout-gap="15px" layout-align="start stretch">
             <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="15px">
               <o-combo attr="CMP_ID" service="companies" entity="companies" value-column="CMP_ID"
-                columns="CMP_ID;CMP_NAME" visible-columns="CMP_NAME" null-selection="yes" searchable="no"></o-combo>
+                columns="CMP_ID;CMP_NAME" visible-columns="CMP_NAME" null-selection="no" searchable="no"></o-combo>
               <o-combo attr="ROL_ID" service="users" entity="roleWithoutAdmin" value-column="ROL_ID"
                 columns="ROL_ID;ROL_NAME" visible-columns="ROL_NAME" null-selection="no" searchable="no" required="yes"
                 translate="yes"></o-combo>
+              <o-text-input attr="URO_ID" hidden="yes" fxFlex></o-text-input>
             </div>
           </o-column>
         </div>
