@@ -201,7 +201,7 @@
   "PRO_DETAIL": "Product details",
   "COMPANY_NEW": "New company",
   "ASSIGN_CMP": "Assign company",
-  "ALT_STATE":"Handled",
+  "ALT_STATE": "Handled",
   "ALT_STATES": "States",
   "BTN_SAVED": "Save",
   "VIEWED": "Viewed",
@@ -253,7 +253,7 @@
   "INITIATED": "Initiated",
   "FINISHED": "Finished",
   "user": "User",
-  "transporter": "Transporter",
+  "transporter": "Carrier",
   "USER_UPDATE_ERROR": "Error updating the user table",
   "HAS_REPITED": "Assigned to (number of containers)"
 }
