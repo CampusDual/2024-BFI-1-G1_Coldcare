@@ -14,7 +14,7 @@
 
 .initiated {
   display: inline-block;
-  animation: moveTruck 3s linear infinite;
+  animation: moveTruck 3s linear;
 }
 
 @keyframes moveTruck {
