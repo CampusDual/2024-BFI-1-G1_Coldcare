@@ -7,6 +7,7 @@
                 required="yes" separator=" - "></o-combo>
             <o-date-input attr="CL_START_DATE" required="yes"></o-date-input>
             <o-date-input attr="CL_END_DATE"></o-date-input>
+            <o-integer-input #inputCNT (onValueChange)="setValue()" attr="CNT_ID" oHidden></o-integer-input>
         </div>
     </o-column>
 </o-form>

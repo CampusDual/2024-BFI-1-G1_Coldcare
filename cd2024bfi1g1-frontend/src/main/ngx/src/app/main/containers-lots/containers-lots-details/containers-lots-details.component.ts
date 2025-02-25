@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-containers-lots-measurements',
-  templateUrl: './containers-lots-measurements.component.html',
-  styleUrls: ['./containers-lots-measurements.component.css']
+  selector: 'app-containers-lots-details',
+  templateUrl: './containers-lots-details.component.html',
+  styleUrls: ['./containers-lots-details.component.css']
 })
-export class ContainersLotsMeasurementsComponent {
+export class ContainersLotsDetailsComponent {
 
   constructor(
     private router: Router
@@ -26,8 +26,8 @@ export class ContainersLotsMeasurementsComponent {
 
   public openContainersLotsDetail(selected: any) {
     const row = selected.row;
-    if (row && row.CNT_ID && row.CL_ID) {
-      this.router.navigate(['main', 'containers', row.CNT_ID, row.CL_ID], { queryParams: { isdetail: true } });
+    if (row && row.CL_ID) {
+      this.router.navigate(['main', 'containers-lots', row.CL_ID], { queryParams: { isdetail: true } });
     }
   }
 }

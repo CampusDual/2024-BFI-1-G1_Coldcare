@@ -1,13 +1,12 @@
-<o-form attr="containers_form_update" include-parent-keys="yes" parent-keys="CNT_ID" keys-sql-types="INTEGER"
+<o-form #formCNT attr="containers_form_update" include-parent-keys="yes" parent-keys="CNT_ID" keys-sql-types="INTEGER"
   service="containers" entity="containers" columns="CNT_NAME" visible-columns="CNT_NAME" keys="CNT_ID" fxLayout="column"
   show-header="yes" header-actions="R;U" #oForm after-update-mode="detail" class="standalone-form-container">
   <o-row attr="row1" layout-align="start stretch">
     <o-column title="CONTAINER_DATA" layout-align="start stretch" fxFlex="60" layout-padding>
-      <div fxLayout="row" fxLayoutAlign="start center" class="gap">
+      <div class="inline-fields">
         <o-text-input attr="CNT_NAME" class="margin-right-24" fxFlex.lg="30" fxFlex.xl="30" fxFlex="50"
           layout-margin-right></o-text-input>
         <o-slide-toggle attr="CNT_MOBILITY" label="CURRENT_MOBILITY" read-only="no"></o-slide-toggle>
-
       </div>
     </o-column>
   </o-row>
@@ -18,7 +17,11 @@
         entity="containersLotsWithAlerts" keys="CL_ID" parent-keys="CNT_ID"
         columns="CL_ID;LOT_NAME;CL_START_DATE;CL_END_DATE;PRO_ID;PRO_NAME;HAS_ALERT"
         visible-columns="LOT_NAME;PRO_NAME;CL_START_DATE;CL_END_DATE;ACTIVE;HAS_ALERT" delete-button="no"
-        refresh-button="false">
+        refresh-button="false" (onClick)="openContainersLots($event)" detail-mode="none" insert-button="no">
+        <o-table-button attr="add" label="TABLE.BUTTONS.ADD" svg-icon="ontimize:add"
+          class="o-table-button-add o-table-button text ng-star-inserted" ng-reflect-oattr="add"
+          ng-reflect-olabel="TABLE.BUTTONS.ADD" ng-reflect-svg-icon="ontimize:add" ng-reflect-enabled="true"
+          (onClick)="newCL()"></o-table-button>
         <o-table-column attr="LOT_NAME" title="LOT"></o-table-column>
         <o-table-column attr="CL_START_DATE" title="CL_START_DATE" type="date" format="DD/MM/YYYY"></o-table-column>
         <o-table-column attr="CL_END_DATE" title="CL_END_DATE" type="date" format="DD/MM/YYYY"></o-table-column>

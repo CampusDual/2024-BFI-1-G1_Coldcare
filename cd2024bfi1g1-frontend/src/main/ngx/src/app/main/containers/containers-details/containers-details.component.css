@@ -4,8 +4,8 @@
     gap: 30px;
 }
 
-.tabla-columnas > div {
-   
+.tabla-columnas>div {
+
     max-width: 100%;
 }
 
@@ -23,7 +23,6 @@ p {
     margin: 0;
 }
 
-.extend{
-    flex:1;
+.extend {
+    flex: 1;
 }
-

@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { OComboComponent, ORealInputComponent} from 'ontimize-web-ngx';
-import { Route, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-lots-details',
@@ -27,9 +27,10 @@ export class LotsDetailsComponent {
     }
   }
 
-  public redirect(selected:any){
-    this.router.navigate(['main', 'containers', selected.row.CNT_ID, selected.row.CL_ID], { queryParams: { isdetail: true } });
-
+public openContainersLots(selected: any) {
+  const row = selected.row;
+    if (row  && row.CL_ID) {
+      this.router.navigate(['main', 'containers-lots', row.CL_ID], { queryParams: { isdetail: true } });
+    }
   }
-  
 }
