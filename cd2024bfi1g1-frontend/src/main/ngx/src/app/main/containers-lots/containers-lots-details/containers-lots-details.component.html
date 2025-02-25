@@ -47,7 +47,8 @@
     </o-row>
 
     <o-table attr="containerLotMeasurements" title="MEASUREMENTS" show-title="yes" service="measurements"
-        entity="measurements" keys="ME_ID" parent-keys="CL_ID" columns="ME_ID;ME_DATE;ME_TEMP;ME_HUMIDITY;DEV_NAME"
+        entity="measurements" keys="ME_ID" parent-keys="CL_ID"
+        columns="ME_ID;ME_DATE;ME_TEMP;ME_HUMIDITY;DEV_NAME;MIN_TEMP;MAX_TEMP"
         visible-columns="ME_DATE;ME_TEMP;ME_HUMIDITY;DEV_NAME" query-rows="20" select-all-checkbox-visible="no"
         insert-button="no" delete-button="no" refresh-button="yes" quick-filter="no" pageable="true" virtual-scroll="no"
         [row-class]="rowClass">

@@ -21,6 +21,9 @@ public class TransportsDao extends OntimizeJdbcDaoSupport {
     public static final String CMP_ID = "CMP_ID";
     public static final String VHC_ID = "VHC_ID";
     public static final String TRP_DATE = "TRP_DATE";
+    public static final String USR_ID = "USR_ID";
+    public static final String TST_ID = "TST_ID";
+    public static final String USR_TRP_ID = "USR_TRP_ID";
 
-    public static final List<String> COLUMNS = Arrays.asList(TRP_ID, TRP_ORIGIN, TRP_DESTINATION, CNT_ID, CMP_ID, VHC_ID, TRP_DATE);
+    public static final List<String> COLUMNS = Arrays.asList(TRP_ID, TRP_ORIGIN, TRP_DESTINATION, CNT_ID, CMP_ID, VHC_ID, TRP_DATE, USR_ID, TST_ID, USR_TRP_ID);
 }

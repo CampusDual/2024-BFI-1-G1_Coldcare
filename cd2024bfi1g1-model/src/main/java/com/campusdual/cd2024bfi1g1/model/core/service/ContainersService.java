@@ -76,6 +76,18 @@ public class ContainersService implements IContainersService {
 
         return this.daoHelper.query(this.containersDao, keyMap, attrList, "containers_with_alerts");
     }
+     @Override
+    public EntityResult containersWithMeasurementsQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
+        Integer cmpId = Util.getUserCompanyId(this.daoHelper, this.userDao);
+        keyMap.put(DevicesDao.CMP_ID, cmpId);
+
+        return this.daoHelper.query(this.containersDao, keyMap, attrList, "containers_with_measurements");
+    }
+
+    @Override
+    public EntityResult containersWithMeasurementsUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap) throws OntimizeJEERuntimeException {
+        return containersUpdate(attrMap, keyMap);
+    }
 
     @Override
     public EntityResult containersInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException {
@@ -85,7 +97,7 @@ public class ContainersService implements IContainersService {
 
         if (changeContainerName(cmpId, attrMap)) {
             return new EntityResultMapImpl(EntityResult.OPERATION_WRONG, EntityResult.NODATA_RESULT,
-                    "Ya existe un contenedor con ese nombre");
+                    "ERROR_EXISTING_CONTAINER");
         }
 
         return this.daoHelper.insert(this.containersDao, attrMap);
@@ -100,11 +112,11 @@ public class ContainersService implements IContainersService {
 
         if (changeContainerName(cmpId, attrMap)) {
             return new EntityResultMapImpl(EntityResult.OPERATION_WRONG, EntityResult.NODATA_RESULT,
-                    "Ya existe un contenedor con ese nombre");
+                    "ERROR_EXISTING_CONTAINER");
         }
 
-        if (attrMap.containsKey("CNT_MOBILITY")) {
-            if (isContainerAssigned(keyMap.get("CNT_ID"))) {
+        if (attrMap.containsKey(ContainersDao.CNT_MOBILITY)) {
+            if (isContainerAssigned(keyMap.get(ContainersDao.CNT_ID))) {
                 EntityResult res = new EntityResultMapImpl();
                 res.setCode(EntityResult.OPERATION_WRONG);
                 res.setMessage("CONTAINER_MOBILITY_ERROR");
@@ -124,10 +136,10 @@ public class ContainersService implements IContainersService {
 
     public boolean isContainerAssigned(Object cntId) {
         Map<String, Object> keyMap = new HashMap<>();
-        keyMap.put("CNT_ID", cntId);
+        keyMap.put(ContainersDao.CNT_ID, cntId);
 
         List<String> attrList = new ArrayList<>();
-        attrList.add("CNT_ID");
+        attrList.add(ContainersDao.CNT_ID);
 
         EntityResult result = this.daoHelper.query(this.containersDao, keyMap, attrList, "check_cnt_id");
 

@@ -26,3 +26,11 @@ p {
 .extend {
     flex: 1;
 }
+
+o-text-input {
+    margin-right: 24;
+}
+
+.row2 {
+    padding: 15px;
+}

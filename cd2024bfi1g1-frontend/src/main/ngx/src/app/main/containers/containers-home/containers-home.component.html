@@ -1,11 +1,24 @@
 <o-table attr="containers" title="CONTAINERS" service="containers" entity="containersWithAlerts" keys="CNT_ID"
-  columns="CNT_ID;CNT_NAME;CNT_MOBILITY;HAS_ALERT" visible-columns="CNT_NAME;CNT_MOBILITY;HAS_ALERT" delete-button="no"
+  columns="CNT_ID;CNT_NAME;CNT_MOBILITY;HAS_ALERT;ME_TEMP;ME_HUMIDITY;LOT_NAME;PRO_NAME"
+  visible-columns="CNT_NAME;CNT_MOBILITY;HAS_ALERT;ME_TEMP;ME_HUMIDITY;LOT_NAME;PRO_NAME" delete-button="no"
   show-title="true">
+
   <o-table-column attr="CNT_NAME" title="IDENTIFIER" content-align="center" title-align="center"></o-table-column>
+
   <o-table-column attr="CNT_MOBILITY" title="CNT_MOBILITY" content-align="center" title-align="center">
-    <app-containers-home-boolean-render />
+    <app-containers-home-boolean-renderer />
   </o-table-column>
+
   <o-table-column attr="HAS_ALERT" title="HAS_ALERT" content-align="center" title-align="center">
     <alert-boolean-renderer />
   </o-table-column>
+
+  <o-table-column attr="ME_TEMP" title="LAST_TEMP" content-align="center" title-align="center"></o-table-column>
+
+  <o-table-column attr="ME_HUMIDITY" title="LAST_HUMIDITY" content-align="center" title-align="center"></o-table-column>
+
+  <o-table-column attr="LOT_NAME" title="CURRENT_LOT" content-align="center" title-align="center"></o-table-column>
+
+  <o-table-column attr="PRO_NAME" title="PRO_NAME" content-align="center" title-align="center"></o-table-column>
+
 </o-table>

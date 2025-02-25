@@ -6,12 +6,14 @@ import { ContainersHomeComponent } from './containers-home/containers-home.compo
 import { ContainersNewComponent } from './containers-new/containers-new.component';
 import { ContainersDetailsComponent } from './containers-details/containers-details.component';
 import { SharedModule } from "../../shared/shared.module";
+import { ContainersHomeBooleanRendererComponent } from './containers-home-boolean-renderer/containers-home-boolean-renderer.component';
 
 @NgModule({
   declarations: [
     ContainersHomeComponent,
     ContainersNewComponent,
-    ContainersDetailsComponent
+    ContainersDetailsComponent,
+    ContainersHomeBooleanRendererComponent
   ],
   imports: [
     CommonModule,

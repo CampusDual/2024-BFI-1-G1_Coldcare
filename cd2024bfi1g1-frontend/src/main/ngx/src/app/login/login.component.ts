@@ -55,6 +55,7 @@ export class LoginComponent implements OnInit {
     if (this.authService.isLoggedIn()) {
       this.router.navigate([this.redirect]);
     } else {
+      localStorage.removeItem('visited');
       this.authService.clearSessionData();
     }
   }
