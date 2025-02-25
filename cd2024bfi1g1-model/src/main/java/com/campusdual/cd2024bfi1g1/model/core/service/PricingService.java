@@ -39,14 +39,22 @@ public class PricingService implements IPricingService {
     @Override
     public EntityResult pricingInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException {
         try {
-            List<String> column = List.of(PricingDao.PP_ID);
+            List<String> column = List.of(PricingDao.PP_ID, PricingDao.PP_START);
             Map<String, Object> plnId = new HashMap<>();
             plnId.put(PricingDao.PLN_ID, attrMap.get(PricingDao.PLN_ID));
             EntityResult priceId = this.daoHelper.query(this.pricingDao, plnId, column, "last_prices");
+            Date now = new Date();
+            Date startDate = (Date) attrMap.get(PricingDao.PP_START);
             if(!priceId.isEmpty() && !priceId.isWrong()) {
                 Map<String, Object> date = new HashMap<String, Object>();
                 date.put(PricingDao.PP_END, attrMap.get(PricingDao.PP_START));
-                this.daoHelper.update(this.pricingDao,date,priceId.getRecordValues(0));
+                if (startDate.after(now) && startDate.after((Date) priceId.getRecordValues(0).get(PricingDao.PP_START))) {
+                    this.daoHelper.update(this.pricingDao,date,priceId.getRecordValues(0));
+                } else {
+                    throw new DataIntegrityViolationException("DATES_INSERT_ERROR") ;
+                }
+
+
             }
             return this.daoHelper.insert(this.pricingDao, attrMap);
         } catch (DataIntegrityViolationException e) {

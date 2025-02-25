@@ -14,4 +14,6 @@ public interface IAlertsService {
     EntityResult alertsInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException;
     EntityResult alertsUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap) throws OntimizeJEERuntimeException;
     EntityResult alertsDelete(Map<String, Object> keyMap) throws OntimizeJEERuntimeException;
+    EntityResult  alertsWithCalculatedColumnsUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap) throws OntimizeJEERuntimeException;
+    EntityResult containersAlertsQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
 }
