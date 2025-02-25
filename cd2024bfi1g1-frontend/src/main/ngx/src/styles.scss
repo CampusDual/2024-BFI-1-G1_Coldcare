@@ -219,47 +219,54 @@ tr.mat-mdc-row.mdc-data-table__row.cdk-row:nth-child(even) {
 .inline-fields {
   display: flex;
   gap: 5px;
+}
 
-  o-text-input {
-    flex: 1;
-    flex-grow: 0;
+o-combo-search {
+  .mat-mdc-form-field-focus-overlay {
     background-color: transparent;
-    color: #333;
-    font-size: 14px;
-    line-height: 1.6;
-    padding: 0;
+  }
+}
 
-    &[read-only] {
-      cursor: default;
+o-text-input,
+o-date-input,
+o-daterange-input,
+o-integer-input,
+o-real-input,
+o-combo,
+o-combo-search {
+  flex: 1;
+  flex-grow: 0;
+  background-color: transparent;
+  color: #333;
+  font-size: 14px;
+  line-height: 1.6;
+  padding: 0;
+
+  &[read-only="yes"],
+  &[read-only="true"] {
+    cursor: default;
+    border: none;
+    box-shadow: none;
+
+    .mat-mdc-text-field-wrapper.mdc-text-field.mdc-text-field--filled {
+      outline: none;
       border: none;
       box-shadow: none;
 
-      .mat-mdc-text-field-wrapper.mdc-text-field.mdc-text-field--filled {
-        outline: none;
-        border: none;
-        box-shadow: none;
-
-        // color del label superior
-        [id^="mat-mdc-form-field-label"] {
-          color: #333;
-        }
-      }
-
-      // quita el sombreado al hacer focus o hover
-      .mat-mdc-form-field-focus-overlay {
-        background-color: transparent;
+      // color del label superior
+      [id^="mat-mdc-form-field-label"] {
+        color: #333;
       }
     }
 
-    &::placeholder {
-      color: #333;
+    // quita el sombreado al hacer focus o hover
+    .mat-mdc-form-field-focus-overlay {
+      background-color: transparent;
     }
   }
 
-  o-date-input[read-only] {
+  &::placeholder {
     color: #333;
-    font-size: 14px;
-    padding: 0;
   }
 
   .mdc-line-ripple::before,
@@ -268,15 +275,21 @@ tr.mat-mdc-row.mdc-data-table__row.cdk-row:nth-child(even) {
     border: none;
     box-shadow: none;
   }
+}
 
-  .mat-mdc-text-field-wrapper.mdc-text-field.mdc-text-field--filled {
-    height: 50px;
-    padding: 0px 7px;
-    font-size: 14px;
-    color: #333;
-    background: transparent;
-    line-height: 1.6;
-  }
+o-date-input[read-only] {
+  color: #333;
+  font-size: 14px;
+  padding: 0;
+}
+
+.mat-mdc-text-field-wrapper.mdc-text-field.mdc-text-field--filled {
+  height: 50px;
+  padding: 0px 7px;
+  font-size: 14px;
+  color: #333;
+  background: transparent;
+  line-height: 1.6;
 }
 
 .o-table .mat-mdc-table .mat-mdc-row.error-row .mat-mdc-cell.mat-column-ME_TEMP {
