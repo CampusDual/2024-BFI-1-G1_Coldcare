@@ -21,7 +21,7 @@
           <o-column title="company-data-section" appearance="no" layout-gap="15px" layout-align="start stretch">
             <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="15px">
               <o-combo attr="CMP_ID" service="companies" entity="companies" value-column="CMP_ID"
-                columns="CMP_ID;CMP_NAME" visible-columns="CMP_NAME" null-selection="yes" searchable="no"></o-combo>
+                columns="CMP_ID;CMP_NAME" visible-columns="CMP_NAME" null-selection="no" searchable="no"></o-combo>
               <o-combo attr="ROL_ID" service="users" entity="roleWithoutAdmin" value-column="ROL_ID"
                 columns="ROL_ID;ROL_NAME" visible-columns="ROL_NAME" null-selection="no" searchable="no" required="yes"
                 translate="yes"></o-combo>
