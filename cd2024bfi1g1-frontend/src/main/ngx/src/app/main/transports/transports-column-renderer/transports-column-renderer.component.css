@@ -14,31 +14,33 @@
 
 .initiated {
   display: inline-block;
-  animation: moveTruck 3s linear infinite;
+  animation: moveTruck 3s linear;
 }
 
 @keyframes moveTruck {
   0% {
-    transform: translateX(-10px);
+    transform: translateX(-20px);
+    clip-path: inset(0 0 0 90%); 
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  30% {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+  }
+  80% {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
   }
   100% {
-    transform: translateX(10px);
+    transform: translateX(0px);
+    opacity: 1;
   }
 }
 
 .finished {
   display: inline-block;
   animation: pulse 2s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.2);
-  }
-  100% {
-    transform: scale(1);
-  }
 }
