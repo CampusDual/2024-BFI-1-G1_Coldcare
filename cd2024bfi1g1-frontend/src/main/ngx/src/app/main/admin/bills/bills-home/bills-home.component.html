@@ -2,7 +2,7 @@
     columns="BIL_ID;BIL_YEAR;BIL_MONTH;BIL_EXPENSE;BIL_DEVICES;BIL_MEASUREMENTS;CMP_ID;CMP_NAME"
     visible-columns="BIL_YEAR;BIL_MONTH;BIL_EXPENSE;BIL_DEVICES;BIL_MEASUREMENTS;CMP_NAME" title="USAGE" query-rows="20"
     select-all-checkbox-visible="no" insert-button="no" delete-button="no" refresh-button="yes" quick-filter="no"
-    pageable="true" detail-mode="none" show-title="yes" sort-columns="BIL_YEAR:DESC;BIL_MONTH:DESC">
+    pageable="true" detail-mode="click" show-title="yes" sort-columns="BIL_YEAR:DESC;BIL_MONTH:DESC">
     <o-table-column attr="BIL_YEAR" title-align="center" content-align="center"></o-table-column>
     <o-table-column attr="BIL_MONTH" title-align="center" content-align="center">
         <bills-month-renderer></bills-month-renderer>

@@ -6,7 +6,7 @@ import { CompaniesHomeComponent } from './companies-home/companies-home.componen
 import { CompaniesRoutingModule } from './companies-routing.module';
 import { CompaniesNewComponent } from './companies-new/companies-new.component';
 import { CompaniesDetailsComponent } from './companies-details/companies-details.component';
-
+import { SharedModule } from "src/app/shared/shared.module";
 
 @NgModule({
   declarations: [
@@ -17,7 +17,8 @@ import { CompaniesDetailsComponent } from './companies-details/companies-details
   imports: [
     CommonModule,
     OntimizeWebModule,
-    CompaniesRoutingModule
+    CompaniesRoutingModule,
+    SharedModule
   ]
 })
 export class CompaniesModule { }
