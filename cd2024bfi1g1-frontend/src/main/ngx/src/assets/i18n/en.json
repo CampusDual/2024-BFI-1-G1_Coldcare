@@ -137,7 +137,7 @@
   "LOC_NAME": "Location Name",
   "LOCATIONS": "Locations",
   "BILLS": "Bills",
-  "BIL_EXPENSE": "Total expense (€)",
+  "BIL_EXPENSE": "Total amount (€)",
   "BIL_DEVICES": "Total devices",
   "BIL_MEASUREMENTS": "Total measurements",
   "BIL_YEAR": "Bill year",
