@@ -1,0 +1,53 @@
+.pending {
+  display: inline-block;
+  animation: spin 7s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.initiated {
+  display: inline-block;
+  animation: moveTruck 3s linear;
+}
+
+@keyframes moveTruck {
+  0% {
+    transform: translateX(-20px);
+    clip-path: inset(0 0 0 90%); 
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  30% {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+  }
+  80% {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(0px);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

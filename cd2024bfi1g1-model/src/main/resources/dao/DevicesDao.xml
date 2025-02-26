@@ -80,23 +80,21 @@
             <Sentence>
                 <![CDATA[
                     WITH measurement_counts AS (
-                        SELECT
+                        select
+                            d.cmp_id,
                             d.dev_id,
+                            b.bil_year,
+                            b.bil_month,
+                            b.bil_id,
                             COUNT(m.me_id) AS me_count
                         FROM devices d
                         JOIN measurements m ON d.dev_id = m.dev_id
-                        GROUP BY d.dev_id
+                        JOIN bills b ON d.cmp_id = b.cmp_id and b.bil_year = EXTRACT(YEAR FROM m.me_date) and b.bil_month = extract(month from m.me_date)
+                        GROUP BY d.dev_id, b.bil_id
                     )
-                    SELECT
-                        #COLUMNS#
-                    FROM
-                        devices d
-                    JOIN measurement_counts mc
-                        ON d.DEV_ID = mc.DEV_ID
-                    JOIN containers c2
-                        ON c2.cnt_id = d.cnt_id
-                    JOIN companies c
-                        ON d.cmp_id = c.cmp_id
+                    SELECT #COLUMNS#
+                    FROM devices d
+                    LEFT JOIN measurement_counts mc ON d.dev_id = mc.dev_id
                     #WHERE#
                     #ORDER#
                 ]]>

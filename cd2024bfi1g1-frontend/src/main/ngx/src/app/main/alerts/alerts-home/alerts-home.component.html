@@ -1,34 +1,54 @@
-<o-form show-header="no" query-on-init="no" fxFill>
+<o-form show-header="no" query-on-init="no" fxFill confirm-exit="no">
 
     <o-column>
         <label layout-padding>{{"FILTER_ALERTS" | oTranslate}}</label>
         <div class="inline-fields">
             <div fxLayout="row" fxLayoutGap="15px" layout-padding>
-                <o-text-input attr="contenedor" label="CNT_NAME"></o-text-input>
-                <o-text-input attr="lote" label="LOT_NAME"></o-text-input>
+                <o-combo attr="contenedor" label="CONTAINER" service="alerts" entity="containersAlerts"
+                    value-column="CNT_NAME" columns="CNT_ID;CNT_NAME" visible-columns="CNT_NAME" null-selection="no"
+                    searchable="yes" null-selection="yes"></o-combo>
+                <o-combo attr="lote" label="LOT_NAME" service="alerts" entity="containersAlerts" value-column="LOT_NAME"
+                    columns="LOT_ID;LOT_NAME" visible-columns="LOT_NAME" null-selection="no" searchable="yes"
+                    null-selection="yes"></o-combo>
+                <o-combo attr="estado" label="ALT_STATES" value-column="ALT_STATE" columns="ALT_STATE"
+                    visible-columns="ALT_STATE" null-selection="yes" searchable=" yes" translate="yes"
+                    [static-data]="integersArray">
+                </o-combo>
             </div>
             <div fxLayoutAlign="end center" fxLayoutGap="8px">
-                <o-button attr="filter" [oFilterBuilderQuery]="filterBuilder" type="FLAT" color="primary"
-                    label="FILTER">
-                </o-button>
+
                 <o-button attr="clear" [oFilterBuilderClear]="filterBuilder" type="BASIC" label="CLEAR"
                     icon="clear"></o-button>
             </div>
         </div>
-        <o-filter-builder #filterBuilder attr="thefilter" filters="lote;contenedor" [target]="alertsTable"
-            query-on-change="no" query-on-change-delay="500" [expression-builder]="createFilter">
+        <o-filter-builder #filterBuilder attr="thefilter" filters="lote;contenedor;estado" [target]="alertsTable"
+            query-on-change="yes" query-on-change-delay="500" [expression-builder]="createFilter">
         </o-filter-builder>
 
         <o-table #alertsTable attr="alertsTable" service="alerts" entity="alertsWithCalculatedColumns" keys="ALT_ID"
-            columns="ALT_ID;ALT_DATE_INIT;ALT_DATE_END;CNT_NAME;LOT_NAME;AVG_TEMP;AVG_HUMIDITY;MAX_TEMP_DEV;MAX_HUMIDITY_DEV;MIN_TEMP_DEV;MIN_HUMIDITY_DEV;ALT_MIN_TEMP;ALT_MAX_TEMP;PRO_ID;PRO_NAME;DEV_NAME"
-            visible-columns="ALT_DATE_INIT;DEV_NAME;CNT_NAME;LOT_NAME;PRO_NAME;ALT_DURATION;ALT_MIN_TEMP;ALT_MAX_TEMP;MIN_TEMP_DEV;MAX_TEMP_DEV;AVG_HUMIDITY"
-            select-all-checkbox-visible="no" insert-button="no" delete-button="no" refresh-button="yes"
+            columns="ALT_ID;ALT_DATE_INIT;ALT_DATE_END;CNT_NAME;LOT_NAME;AVG_TEMP;AVG_HUMIDITY;MAX_TEMP_DEV;MAX_HUMIDITY_DEV;MIN_TEMP_DEV;MIN_HUMIDITY_DEV;ALT_MIN_TEMP;ALT_MAX_TEMP;PRO_ID;PRO_NAME;ALT_STATE"
+            visible-columns="ALT_STATE;ALT_DATE_INIT;CNT_NAME;LOT_NAME;PRO_NAME;ALT_DURATION;ALT_MIN_TEMP;ALT_MAX_TEMP;MIN_TEMP_DEV;MAX_TEMP_DEV;AVG_HUMIDITY"
+            select-all-checkbox-visible="yes" insert-button="no" delete-button="no" refresh-button="yes"
             quick-filter="no" detail-mode="none" title="ALERTS" show-title="yes" sort-columns="ALT_DATE_INIT:DESC"
-            virtual-scroll="false" horizontal-scroll="true" [row-class]="getRowClass">
-            <o-table-column attr="ALT_DATE_INIT" title="DATE" type="date" format="DD/MM/YYYY HH:mm:ss"></o-table-column>
-            <o-table-column attr="DEV_NAME" title="DEV"></o-table-column>
-            <o-table-column attr="CNT_NAME" title="CONTAINER"></o-table-column>
-            <o-table-column attr="LOT_NAME" title="LOT"></o-table-column>
+            virtual-scroll="false" horizontal-scroll="true" quick-filter="yes" selection-mode="none">
+
+            <o-table-button label="BTN_SAVED" icon="check" (onClick)="selectionRow($event)"></o-table-button>
+
+            <o-table-column attr="ALT_STATE" fxLayoutGap="1px" auto-commit="false">
+                <o-table-cell-renderer-boolean render-true-value="check" render-false-value="warning" render-type="icon"
+                    boolean-type="boolean-type" true-value="true" false-value="false">
+
+                </o-table-cell-renderer-boolean>
+                <o-table-cell-editor-boolean show-notification-on-edit="false" true-value="true" false-value="false"
+                    boolean-type="boolean-type">
+                </o-table-cell-editor-boolean>
+            </o-table-column>
+
+
+            <o-table-column attr="ALT_DATE_INIT" title="DATE" type="date" format="DD/MM/YYYY HH:mm:ss"
+                content-align="center"></o-table-column>
+            <o-table-column attr="CNT_NAME" title="CONTAINER" content-align="center"></o-table-column>
+            <o-table-column attr="LOT_NAME" title="LOT" content-align="center"></o-table-column>
             <o-table-column attr="ALT_DURATION" title="DURATION" content-align="center">
                 <app-alerts-duration-renderer></app-alerts-duration-renderer>
             </o-table-column>
@@ -44,4 +64,4 @@
         </o-table>
     </o-column>
 
-</o-form>
+</o-form><!--automatic-registering="false" automatic-binding="false"-->

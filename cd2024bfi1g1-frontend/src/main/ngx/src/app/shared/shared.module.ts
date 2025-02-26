@@ -7,6 +7,7 @@ import { DevicesColumnRendererComponent } from '../main/devices/devices-column-r
 import { InDateRangeBooleanRendererComponent } from './components/in-date-range-boolean-renderer/in-date-range-boolean-renderer.component';
 import { BillsMonthRendererComponent } from './components/bills-month-renderer/bills-month-renderer.component';
 import { AlertBooleanRendererComponent } from './components/alert-boolean-renderer/alert-boolean-renderer.component';
+import { MonthRendererPipe } from './components/pipes/month-renderer.pipe';
 
 
 
@@ -20,7 +21,8 @@ import { AlertBooleanRendererComponent } from './components/alert-boolean-render
     DevicesColumnRendererComponent,
     InDateRangeBooleanRendererComponent,
     BillsMonthRendererComponent,
-    AlertBooleanRendererComponent
+    AlertBooleanRendererComponent,
+    MonthRendererPipe
   ],
   exports: [
     CommonModule,
@@ -29,7 +31,8 @@ import { AlertBooleanRendererComponent } from './components/alert-boolean-render
     DevicesColumnRendererComponent,
     InDateRangeBooleanRendererComponent,
     BillsMonthRendererComponent,
-    AlertBooleanRendererComponent
+    AlertBooleanRendererComponent,
+    MonthRendererPipe
   ]
 })
 export class SharedModule { }
