@@ -26,3 +26,7 @@ p {
     flex: 1;
     width: 50%;
 }
+
+#tablaMedidasContainer {
+    display: none !important;
+  }
