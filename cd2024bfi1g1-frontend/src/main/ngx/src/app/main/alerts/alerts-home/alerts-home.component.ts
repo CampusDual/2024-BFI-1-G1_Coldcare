@@ -30,6 +30,25 @@ export class AlertsHomeComponent {
 
   }
 
+  private timeoutId: any;
+
+  ngAfterViewInit(): void {
+    this.timeoutId = setTimeout(() => {
+      this.updateAlertCount();
+    }, 1000);
+    console.log(this.timeoutId);
+
+  }
+
+  updateAlertCount() {
+    const rowCount = this.alertsTable ? this.alertsTable.getDataArray().length : 0;
+    document.title = rowCount > 0 ? `(${rowCount}) Alertas ` : "ColdCare";
+  }
+
+  onDataChange() {
+    this.updateAlertCount();
+  }
+
   selectionRow(event) {
 
     const selectedRows = this.alertsTable.getSelectedItems();
@@ -63,6 +82,7 @@ export class AlertsHomeComponent {
       });
 
     })
+    this.updateAlertCount();
 
   }
 

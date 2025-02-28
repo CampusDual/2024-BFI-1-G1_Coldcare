@@ -30,7 +30,8 @@
             visible-columns="ALT_STATE;ALT_DATE_INIT;DEV_NAME;CNT_NAME;LOT_NAME;PRO_NAME;ALT_DURATION;ALT_MIN_TEMP;ALT_MAX_TEMP;MIN_TEMP_DEV;MAX_TEMP_DEV;AVG_HUMIDITY"
             select-all-checkbox-visible="yes" insert-button="no" delete-button="no" refresh-button="yes"
             quick-filter="no" detail-mode="none" title="ALERTS" show-title="yes" sort-columns="ALT_DATE_INIT:DESC"
-            virtual-scroll="false" horizontal-scroll="true" quick-filter="yes" selection-mode="none" [row-class]="getRowClass" >
+            virtual-scroll="false" horizontal-scroll="true" quick-filter="yes" selection-mode="none"
+            [row-class]="getRowClass">
 
             <o-table-button label="BTN_SAVED" icon="check" (onClick)="selectionRow($event)"></o-table-button>
 
