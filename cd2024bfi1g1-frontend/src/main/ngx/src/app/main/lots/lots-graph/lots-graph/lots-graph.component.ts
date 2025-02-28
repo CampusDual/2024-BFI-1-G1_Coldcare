@@ -1,5 +1,8 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import cytoscape from 'cytoscape';
+import dagre from 'cytoscape-dagre';
+
+cytoscape.use(dagre);
 
 @Component({
   selector: 'app-lots-graph',
@@ -15,17 +18,15 @@ export class LotsGraphComponent implements AfterViewInit {
       container: this.graphContainer.nativeElement,
 
       elements: [
-        { data: { id: 'A', label: 'Nodo A' } },
-        { data: { id: 'B', label: 'Nodo B' } },
-        { data: { id: 'C', label: 'Nodo C' } },
-        { data: { id: 'D', label: 'Nodo D' } },
-        { data: { id: 'E', label: 'Nodo E' } },
+        { data: { id: 'C1', label: 'C1' } },
+        { data: { id: 'C2', label: 'C2' } },
+        { data: { id: 'C3', label: 'C3' } },
+        { data: { id: 'C4', label: 'C4' } },
 
-        { data: { id: 'AB', source: 'A', target: 'B' } },
-        { data: { id: 'AC', source: 'A', target: 'C' } },
-        { data: { id: 'AD', source: 'A', target: 'D' } },
-        { data: { id: 'AE', source: 'A', target: 'E' } },
-        { data: { id: 'BC', source: 'B', target: 'C' } }
+        { data: { id: 'C1_C2', source: 'C1', target: 'C2' } },
+        { data: { id: 'C1_C3', source: 'C1', target: 'C3' } },
+        { data: { id: 'C2_C4', source: 'C2', target: 'C4' } },
+        { data: { id: 'C3_C4', source: 'C3', target: 'C4' } }
       ],
 
       style: [
@@ -34,9 +35,13 @@ export class LotsGraphComponent implements AfterViewInit {
       ],
 
       layout: {
-        name: 'breadthfirst',
-        fit: true
-      }
+        name: 'dagre',
+        rankDir: 'LR', // 'LR' = Left to Right (Izquierda a Derecha)
+        align: 'UL', // Alinea en la parte superior izquierda
+        nodeSep: 50,  // Separación horizontal
+        edgeSep: 10,  // Separación entre aristas
+        rankSep: 100  // Separación vertical entre niveles
+      } as any
     });
   }
 
