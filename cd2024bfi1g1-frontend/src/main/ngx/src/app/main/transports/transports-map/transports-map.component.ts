@@ -16,10 +16,7 @@ export class TransportsMapComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     if (this.oMap) {
-      console.log('Referencia a oMap:', this.oMap);
       this.cargarCoordenadas();
-    } else {
-      console.error('oMap es undefined en ngAfterViewInit');
     }
   }
 
@@ -49,7 +46,6 @@ export class TransportsMapComponent implements AfterViewInit {
       }
 
     } catch (error) {
-      console.error('Error al cargar coordenadas:', error);
     }
   }
 
