@@ -21,66 +21,67 @@ export class LotsGraphComponent {
   }
 
   transformDataToGraph(data: any[]) {
+    // Ordenar los contenedores por fecha de inicio (CL_START_DATE)
     const sortedData = [...data].sort((a, b) => a.CL_START_DATE - b.CL_START_DATE);
 
     const nodes = new Map<string, any>();
     const edges: any[] = [];
-
-    // Mapa para rastrear el último nodo creado para cada contenedor
-    const lastNodeForContainer = new Map<string, string>();
+    const graph = new Map<string, string[]>(); // Para rastrear las conexiones existentes
 
     sortedData.forEach((entry, index) => {
       const containerId = entry.CNT_ID.toString();
       const containerName = entry.CNT_NAME;
       const hasAlert = entry.HAS_ALERT === true || entry.HAS_ALERT === "true" ? "true" : "false";
 
-      // Crear un identificador único para cada aparición del contenedor
-      const uniqueNodeId = `${containerId}_${index}`;
-
       // Agregar nodo si no existe
-      if (!nodes.has(uniqueNodeId)) {
-        nodes.set(uniqueNodeId, { data: { id: uniqueNodeId, label: containerName, hasAlert: hasAlert } });
+      if (!nodes.has(containerId)) {
+        nodes.set(containerId, { data: { id: containerId, label: containerName, hasAlert: hasAlert } });
+        graph.set(containerId, []); // Inicializar la lista de conexiones para este nodo
       }
 
-      // Conectar este contenedor con el último nodo del mismo contenedor (si existe)
-      if (lastNodeForContainer.has(containerId)) {
-        const lastNodeId = lastNodeForContainer.get(containerId)!;
-
-        // Solo conectar si es un trasvase dentro del mismo contenedor
-        if (entry.CNT_ID === sortedData[index - 1].CNT_ID) {
-          edges.push({
-            data: {
-              id: `${lastNodeId}_${uniqueNodeId}`,
-              source: lastNodeId,
-              target: uniqueNodeId
-            }
-          });
-        }
-      }
-
-      // Actualizar el último nodo creado para este contenedor
-      lastNodeForContainer.set(containerId, uniqueNodeId);
-
-      // Conectar este contenedor con los anteriores si tienen una fecha de inicio anterior
-      for (let i = 0; i < index; i++) {
+      // Conectar este contenedor con los contenedores anteriores que cumplan la condición de fecha
+      for (let i = index - 1; i >= 0; i--) {
         const prevContainer = sortedData[i];
         const prevContainerId = prevContainer.CNT_ID.toString();
 
-        // Solo conectar si no es el mismo contenedor y la fecha de fin es menor o igual a la fecha de inicio
-        if (prevContainerId !== containerId && prevContainer.CL_END_DATE <= entry.CL_START_DATE) {
-          const prevLastNodeId = lastNodeForContainer.get(prevContainerId)!;
-          edges.push({
-            data: {
-              id: `${prevLastNodeId}_${uniqueNodeId}`,
-              source: prevLastNodeId,
-              target: uniqueNodeId
-            }
-          });
+        if (prevContainer.CL_END_DATE <= entry.CL_START_DATE) {
+          // Verificar si ya existe una ruta indirecta entre prevContainerId y containerId
+          if (!this.hasIndirectPath(graph, prevContainerId, containerId)) {
+            edges.push({
+              data: {
+                id: `${prevContainerId}_${containerId}`,
+                source: prevContainerId,
+                target: containerId
+              }
+            });
+            graph.get(prevContainerId)?.push(containerId); // Registrar la conexión en el grafo
+          }
+          break; // Solo conectamos con el contenedor anterior más reciente que cumpla la condición
         }
       }
     });
 
     return [...nodes.values(), ...edges];
+  }
+
+  // Función para verificar si ya existe una ruta indirecta entre dos nodos
+  hasIndirectPath(graph: Map<string, string[]>, start: string, end: string): boolean {
+    const visited = new Set<string>();
+    const queue: string[] = [start];
+
+    while (queue.length > 0) {
+      const current = queue.shift()!;
+      if (current === end) {
+        return true; // Existe una ruta indirecta
+      }
+      if (!visited.has(current)) {
+        visited.add(current);
+        const neighbors = graph.get(current) || [];
+        queue.push(...neighbors);
+      }
+    }
+
+    return false; // No existe una ruta indirecta
   }
 
   renderGraph(elements: any[]) {
