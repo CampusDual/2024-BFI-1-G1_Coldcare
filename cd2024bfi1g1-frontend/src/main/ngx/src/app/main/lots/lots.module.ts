@@ -6,6 +6,7 @@ import { LotsHomeComponent } from './lots-home/lots-home.component';
 import { LotsNewComponent } from './lots-new/lots-new.component';
 import { LotsDetailsComponent } from './lots-details/lots-details.component';
 import { SharedModule } from "../../shared/shared.module";
+import { LotsGraphComponent } from './lots-graph/lots-graph/lots-graph.component';
 
 
 
@@ -13,7 +14,8 @@ import { SharedModule } from "../../shared/shared.module";
   declarations: [
     LotsHomeComponent,
     LotsNewComponent,
-    LotsDetailsComponent
+    LotsDetailsComponent,
+    LotsGraphComponent
   ],
   imports: [
     CommonModule,
