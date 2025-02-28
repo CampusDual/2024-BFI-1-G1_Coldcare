@@ -21,6 +21,15 @@ export class ContainersLotsDetailsComponent {
   chartParametersTemp: LineChartConfiguration;
   chartParametersHum: LineChartConfiguration;
 
+  tempField: string = "";
+  humidityField: string = "";
+
+  // Paleta de colores para dispositivos
+  deviceColors = [
+    '#1464A5', '#FF5733', '#FFC300', '#28A745', '#6F42C1',
+    '#E74C3C', '#8E44AD', '#F39C12', '#C0392B', '#3498DB'
+  ];
+
   colorSchemeTemp = {
     domain: ['#1464A5']
   };
@@ -29,8 +38,8 @@ export class ContainersLotsDetailsComponent {
     domain: ['#31a514']
   };
 
-  tempField: string = "";
-  humidityField: string = "";
+  // Mapa de colores asignados a dispositivos
+  deviceColorMap: { [key: string]: string } = {};
 
   formatDate(d: number): string {
     const date = new Date(d);
@@ -38,30 +47,29 @@ export class ContainersLotsDetailsComponent {
   }
 
   constructor(
-      private translator: OTranslateService,
-      private router: Router
-    ) {
-      //Temperatura
-      this.chartParametersTemp = new LineChartConfiguration();
-      this.chartParametersTemp.isArea = [true];
-      this.chartParametersTemp.interactive = true;
-      this.chartParametersTemp.useInteractiveGuideline = false;
-      this.chartParametersTemp.xAxis = "ME_DATE";
-      this.chartParametersTemp.xDataType = this.formatDate;
-      this.chartParametersTemp['showTooltip'] = true;
-  
-      //Humedad
-      this.chartParametersHum = new LineChartConfiguration();
-      this.chartParametersHum.isArea = [true];
-      this.chartParametersHum.interactive = false;
-      this.chartParametersHum.useInteractiveGuideline = false;
-      this.chartParametersHum.xAxis = "ME_DATE";
-      this.chartParametersHum.xDataType = this.formatDate;
-      this.chartParametersHum['showTooltip'] = true;
-    }
+    private translator: OTranslateService,
+    private router: Router
+  ) {
+    // Configuración del gráfico de temperatura
+    this.chartParametersTemp = new LineChartConfiguration();
+    this.chartParametersTemp.isArea = [true];
+    this.chartParametersTemp.interactive = true;
+    this.chartParametersTemp.useInteractiveGuideline = false;
+    this.chartParametersTemp.xAxis = "ME_DATE";
+    this.chartParametersTemp.xDataType = this.formatDate;
+    this.chartParametersTemp['showTooltip'] = true;
+
+    // Configuración del gráfico de humedad
+    this.chartParametersHum = new LineChartConfiguration();
+    this.chartParametersHum.isArea = [true];
+    this.chartParametersHum.interactive = false;
+    this.chartParametersHum.useInteractiveGuideline = false;
+    this.chartParametersHum.xAxis = "ME_DATE";
+    this.chartParametersHum.xDataType = this.formatDate;
+    this.chartParametersHum['showTooltip'] = true;
+  }
 
   public rowClass = (rowData: any, rowIndex: number): string | string[] => {
-
     const temp = rowData.ME_TEMP;
     const minTemp = rowData.MIN_TEMP;
     const maxTemp = rowData.MAX_TEMP;
@@ -79,60 +87,83 @@ export class ContainersLotsDetailsComponent {
     }
   }
 
-  //Carga datos graficas
-   createFilter(values: Array<{ attr, value }>): Expression {
-  
-      let filters: Array<Expression> = [];
-      values.forEach(fil => {
-        if (fil.value) {
-          if (fil.attr === 'DEV_ID') {
-            filters.push(FilterExpressionUtils.buildExpressionEquals('DEV_ID', fil.value));
-          }
-          if (fil.attr === 'ME_DATE') {
-            filters.push(FilterExpressionUtils.buildExpressionMoreEqual('ME_DATE', fil.value.startDate));
-          }
-          if (fil.attr === 'ME_DATE') {
-            filters.push(FilterExpressionUtils.buildExpressionLessEqual('ME_DATE', fil.value.endDate));
-          }
+  // Carga datos gráficas
+  createFilter(values: Array<{ attr, value }>): Expression {
+    let filters: Array<Expression> = [];
+    values.forEach(fil => {
+      if (fil.value) {
+        if (fil.attr === 'DEV_ID') {
+          filters.push(FilterExpressionUtils.buildExpressionEquals('DEV_ID', fil.value));
         }
-      });
-  
-      if (filters.length > 0) {
-        return filters.reduce((exp1, exp2) => FilterExpressionUtils.buildComplexExpression(exp1, exp2, FilterExpressionUtils.OP_AND));
-      } else {
-        return null;
+        if (fil.attr === 'ME_DATE') {
+          filters.push(FilterExpressionUtils.buildExpressionMoreEqual('ME_DATE', fil.value.startDate));
+        }
+        if (fil.attr === 'ME_DATE') {
+          filters.push(FilterExpressionUtils.buildExpressionLessEqual('ME_DATE', fil.value.endDate));
+        }
       }
+    });
+
+    if (filters.length > 0) {
+      return filters.reduce((exp1, exp2) => FilterExpressionUtils.buildComplexExpression(exp1, exp2, FilterExpressionUtils.OP_AND));
+    } else {
+      return null;
     }
-  
-    /*
-    Para modificar como se muestra la fecha del tooltip cuando ponemos el raton encima de uno de los puntos, habria que 
-    modificar la linea 101 donde se carga la fecha en la variable "data" para modificar el formato de fecha que se le pasa:
-      "ME_DATE": (new Date(row.ME_DATE)).toISOString(),
-    El problema es que rompe por completo la representacion de los datos, es decir, no se representan los saltos temporales.
-    Por lo tanto de momento no se modifica hasta que el cliente decida lo contrario. Una vez arreglado eliminar este comentario 
-    */
-  
-    //LLenar tablas
-    fillChart(ev: any) {
-      this.tempField = this.translator.get('TEMPERATURE');
-      this.humidityField = this.translator.get('HUMIDITY');
-      this.chartParametersTemp.yAxis = [this.tempField];
-      this.chartParametersHum.yAxis = [this.humidityField];
-      const data = ev.map((row) => {
-        return {
-          [this.tempField]: row.ME_TEMP,
-          "ME_DATE": row.ME_DATE,
-          [this.humidityField]: row.ME_HUMIDITY
-        }
+  }
+
+  fillChart(ev: any) {
+    this.tempField = this.translator.get('TEMPERATURE');
+    this.humidityField = this.translator.get('HUMIDITY');
+
+    this.chartParametersTemp.yAxis = [this.tempField];
+    this.chartParametersHum.yAxis = [this.humidityField];
+
+    const devicesData = {};
+    const uniqueDevices = new Set();
+
+    ev.forEach(row => {
+      const devId = String(row.DEV_ID);
+      uniqueDevices.add(devId);
+
+      if (!devicesData[devId]) {
+        devicesData[devId] = [];
+      }
+
+      devicesData[devId].push({
+        name: `Dispositivo ${devId}`,
+        [this.tempField]: row.ME_TEMP,
+        [this.humidityField]: row.ME_HUMIDITY,
+        "ME_DATE": row.ME_DATE,
       });
-  
-      this.dataArrayTemp = DataAdapterUtils.createDataAdapter(
-        this.chartParametersTemp
-      ).adaptResult(data);
-  
-      this.dataArrayHum = DataAdapterUtils.createDataAdapter(
-        this.chartParametersHum
-      ).adaptResult(data);
-    }
+    });
+
+    let colorIndex = 0;
+    uniqueDevices.forEach(devId => {
+      const devIdStr = String(devId);
+      if (!this.deviceColorMap[devIdStr]) {
+        this.deviceColorMap[devIdStr] = this.deviceColors[colorIndex % this.deviceColors.length];
+        colorIndex++;
+      }
+    });
+
+    this.dataArrayTemp = Object.keys(devicesData).map(devId => ({
+      name: `Dispositivo ${devId}`,
+      series: devicesData[devId].map(point => ({
+        name: point.ME_DATE, 
+        value: point[this.tempField] 
+      }))
+    }));
+
+    this.dataArrayHum = Object.keys(devicesData).map(devId => ({
+      name: `Dispositivo ${devId}`,
+      series: devicesData[devId].map(point => ({
+        name: point.ME_DATE, 
+        value: point[this.humidityField] 
+      }))
+    }));
+
+    this.colorSchemeTemp = { domain: Object.values(this.deviceColorMap) };
+    this.colorSchemeHum = { domain: Object.values(this.deviceColorMap) };
+  }
 
 }
