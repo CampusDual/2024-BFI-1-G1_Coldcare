@@ -122,15 +122,15 @@ export class ContainersLotsDetailsComponent {
     const uniqueDevices = new Set();
 
     ev.forEach(row => {
-      const devId = String(row.DEV_ID);
-      uniqueDevices.add(devId);
+      const devId = row.DEV_NAME;
+      uniqueDevices.add(row.DEV_NAME);
 
       if (!devicesData[devId]) {
         devicesData[devId] = [];
       }
 
       devicesData[devId].push({
-        name: `Dispositivo ${devId}`,
+        name: row.DEV_NAME,
         [this.tempField]: row.ME_TEMP,
         [this.humidityField]: row.ME_HUMIDITY,
         "ME_DATE": row.ME_DATE,
@@ -147,7 +147,7 @@ export class ContainersLotsDetailsComponent {
     });
 
     this.dataArrayTemp = Object.keys(devicesData).map(devId => ({
-      name: `Dispositivo ${devId}`,
+      name: devId,
       series: devicesData[devId].map(point => ({
         name: point.ME_DATE, 
         value: point[this.tempField] 
@@ -155,7 +155,7 @@ export class ContainersLotsDetailsComponent {
     }));
 
     this.dataArrayHum = Object.keys(devicesData).map(devId => ({
-      name: `Dispositivo ${devId}`,
+      name: devId,
       series: devicesData[devId].map(point => ({
         name: point.ME_DATE, 
         value: point[this.humidityField] 
