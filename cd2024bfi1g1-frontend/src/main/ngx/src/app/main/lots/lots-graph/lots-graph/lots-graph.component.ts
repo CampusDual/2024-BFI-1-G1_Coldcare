@@ -21,32 +21,59 @@ export class LotsGraphComponent {
   }
 
   transformDataToGraph(data: any[]) {
-    // Ordenar los contenedores por fecha de inicio (CL_START_DATE)
     const sortedData = [...data].sort((a, b) => a.CL_START_DATE - b.CL_START_DATE);
 
     const nodes = new Map<string, any>();
     const edges: any[] = [];
+
+    // Mapa para rastrear el último nodo creado para cada contenedor
+    const lastNodeForContainer = new Map<string, string>();
 
     sortedData.forEach((entry, index) => {
       const containerId = entry.CNT_ID.toString();
       const containerName = entry.CNT_NAME;
       const hasAlert = entry.HAS_ALERT === true || entry.HAS_ALERT === "true" ? "true" : "false";
 
+      // Crear un identificador único para cada aparición del contenedor
+      const uniqueNodeId = `${containerId}_${index}`;
+
       // Agregar nodo si no existe
-      if (!nodes.has(containerId)) {
-        nodes.set(containerId, { data: { id: containerId, label: containerName, hasAlert: hasAlert } });
+      if (!nodes.has(uniqueNodeId)) {
+        nodes.set(uniqueNodeId, { data: { id: uniqueNodeId, label: containerName, hasAlert: hasAlert } });
       }
+
+      // Conectar este contenedor con el último nodo del mismo contenedor (si existe)
+      if (lastNodeForContainer.has(containerId)) {
+        const lastNodeId = lastNodeForContainer.get(containerId)!;
+
+        // Solo conectar si es un trasvase dentro del mismo contenedor
+        if (entry.CNT_ID === sortedData[index - 1].CNT_ID) {
+          edges.push({
+            data: {
+              id: `${lastNodeId}_${uniqueNodeId}`,
+              source: lastNodeId,
+              target: uniqueNodeId
+            }
+          });
+        }
+      }
+
+      // Actualizar el último nodo creado para este contenedor
+      lastNodeForContainer.set(containerId, uniqueNodeId);
 
       // Conectar este contenedor con los anteriores si tienen una fecha de inicio anterior
       for (let i = 0; i < index; i++) {
         const prevContainer = sortedData[i];
+        const prevContainerId = prevContainer.CNT_ID.toString();
 
-        if (prevContainer.CL_END_DATE <= entry.CL_START_DATE) {
+        // Solo conectar si no es el mismo contenedor y la fecha de fin es menor o igual a la fecha de inicio
+        if (prevContainerId !== containerId && prevContainer.CL_END_DATE <= entry.CL_START_DATE) {
+          const prevLastNodeId = lastNodeForContainer.get(prevContainerId)!;
           edges.push({
             data: {
-              id: `${prevContainer.CNT_ID}_${containerId}`,
-              source: prevContainer.CNT_ID.toString(),
-              target: containerId
+              id: `${prevLastNodeId}_${uniqueNodeId}`,
+              source: prevLastNodeId,
+              target: uniqueNodeId
             }
           });
         }
@@ -66,7 +93,7 @@ export class LotsGraphComponent {
         {
           selector: 'node[hasAlert = "true"]',
           style: {
-            'background-color': 'red' // Color rojo para nodos con HAS_ALERT true
+            'background-color': 'red'
           }
         },
       ],
