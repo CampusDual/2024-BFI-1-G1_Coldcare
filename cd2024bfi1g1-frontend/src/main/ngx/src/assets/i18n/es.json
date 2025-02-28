@@ -259,5 +259,6 @@
   "transporter": "Transportista",
   "USER_UPDATE_ERROR": "Error al actualizar los datos de usuarios",
   "HAS_REPITED": "Asignado a (Nº de contenedores)",
-  "ERROR_EXISTING_CONTAINER": "Ya existe un contenedor con ese nombre"
+  "ERROR_EXISTING_CONTAINER": "Ya existe un contenedor con ese nombre",
+  "USR_EMAIL": "Correo"
 }
