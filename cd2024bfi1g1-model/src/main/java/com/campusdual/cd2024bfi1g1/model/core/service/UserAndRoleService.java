@@ -167,8 +167,12 @@ public class UserAndRoleService implements IUserAndRoleService {
         EntityResult userInsertResult = this.daoHelper.insert(this.userDao, updatedKeysValues);
 
         if (!userInsertResult.isEmpty()) {
-            //String email = keysValues.get(UserDao.EMAIL).toString();
-            sendEmail("torresrdriguezoscar@gmail.com", "", password);
+            sendEmail(
+                    keysValues.get(UserDao.EMAIL).toString(),
+                    "Bienvenido a ColdCare",
+                    "Usuario: " + keysValues.get(UserDao.LOGIN).toString() + "\n" +
+                        "Contraseña: " + password + "\n" +
+                        "URL: " + "https://cd2024bfi1g1-dev.dev.campusdual.com/app/login?session-expired=false");
             Integer userId = (Integer) userInsertResult.get(UserDao.USR_ID);
             Integer rolId = (Integer) keysValues.get(RoleDao.ROL_ID);
 

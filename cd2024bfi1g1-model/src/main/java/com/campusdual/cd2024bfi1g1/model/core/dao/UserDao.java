@@ -16,8 +16,8 @@ import com.ontimize.jee.server.dao.jdbc.OntimizeJdbcDaoSupport;
 public class UserDao extends OntimizeJdbcDaoSupport {
 
 	public static final String USR_ID        = "USR_ID";
-	public static final String LOGIN         = "usr_login";
-	public static final String EMAIL         = "usr_email";
+	public static final String LOGIN         = "USR_LOGIN";
+	public static final String EMAIL         = "USR_EMAIL";
 	public static final String PASSWORD      = "USR_PASSWORD";
 	public static final String NAME          = "usr_name";
 	public static final String SURNAME       = "usr_surname";
