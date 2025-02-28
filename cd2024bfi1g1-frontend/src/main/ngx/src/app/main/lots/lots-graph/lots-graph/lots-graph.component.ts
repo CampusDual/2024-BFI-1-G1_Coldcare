@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, SimpleChanges, ViewChild } from '@angular/core';
 import cytoscape from 'cytoscape';
 import dagre from 'cytoscape-dagre';
 
@@ -9,39 +9,64 @@ cytoscape.use(dagre);
   templateUrl: './lots-graph.component.html',
   styleUrls: ['./lots-graph.component.css']
 })
-export class LotsGraphComponent implements AfterViewInit {
+export class LotsGraphComponent {
 
-  @ViewChild('cy') graphContainer!: ElementRef;
+  @ViewChild('cy', { static: true }) graphContainer!: ElementRef;
+  @Input() graphData: any[] = [];
 
-  ngAfterViewInit() {
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['graphData'] && this.graphData.length > 0) {
+      this.renderGraph(this.transformDataToGraph(this.graphData));
+    }
+  }
+
+  transformDataToGraph(data: any[]) {
+    // Ordenar los contenedores por fecha de inicio (CL_START_DATE)
+    const sortedData = [...data].sort((a, b) => a.CL_START_DATE - b.CL_START_DATE);
+
+    const nodes = new Map<string, any>();
+    const edges: any[] = [];
+
+    sortedData.forEach((entry, index) => {
+      const containerId = entry.CNT_ID.toString();
+      const containerName = entry.CNT_NAME;
+
+      // Agregar nodo si no existe
+      if (!nodes.has(containerId)) {
+        nodes.set(containerId, { data: { id: containerId, label: containerName } });
+      }
+
+      // Conectar este contenedor con los anteriores si tienen una fecha de inicio anterior
+      for (let i = 0; i < index; i++) {
+        const prevContainer = sortedData[i];
+
+        if (prevContainer.CL_END_DATE <= entry.CL_START_DATE) {
+          edges.push({
+            data: {
+              id: `${prevContainer.CNT_ID}_${containerId}`,
+              source: prevContainer.CNT_ID.toString(),
+              target: containerId
+            }
+          });
+        }
+      }
+    });
+
+    return [...nodes.values(), ...edges];
+  }
+
+  renderGraph(elements: any[]) {
     cytoscape({
       container: this.graphContainer.nativeElement,
-
-      elements: [
-        { data: { id: 'C1', label: 'C1' } },
-        { data: { id: 'C2', label: 'C2' } },
-        { data: { id: 'C3', label: 'C3' } },
-        { data: { id: 'C4', label: 'C4' } },
-
-        { data: { id: 'C1_C2', source: 'C1', target: 'C2' } },
-        { data: { id: 'C1_C3', source: 'C1', target: 'C3' } },
-        { data: { id: 'C2_C4', source: 'C2', target: 'C4' } },
-        { data: { id: 'C3_C4', source: 'C3', target: 'C4' } }
-      ],
-
+      elements,
       style: [
         { selector: 'node', style: { 'background-color': '#007bff', 'label': 'data(label)', 'color': 'black', 'text-valign': 'center', 'text-halign': 'center' } },
         { selector: 'edge', style: { 'width': 2, 'line-color': '#666', 'target-arrow-shape': 'triangle', 'curve-style': 'bezier' } }
       ],
-
       layout: {
         name: 'dagre',
-        rankDir: 'LR', // 'LR' = Left to Right (Izquierda a Derecha)
-        align: 'UL', // Alinea en la parte superior izquierda
-        nodeSep: 50,  // Separación horizontal
-        edgeSep: 10,  // Separación entre aristas
-        rankSep: 100  // Separación vertical entre niveles
-      } as any
+        ...({ rankDir: 'LR', nodeSep: 50, edgeSep: 10, rankSep: 100 } as any)
+      }
     });
   }
 
