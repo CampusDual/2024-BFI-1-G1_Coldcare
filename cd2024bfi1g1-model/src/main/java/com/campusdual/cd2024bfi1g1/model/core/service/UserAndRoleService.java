@@ -488,7 +488,7 @@ public class UserAndRoleService implements IUserAndRoleService {
 
 
 	private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+";
-	private static final int PASSWORD_LENGTH = 12; // Longitud deseada para la contraseña
+	private static final int PASSWORD_LENGTH = 12;
 
 	public static String generateRandomPassword() {
 		SecureRandom random = new SecureRandom();
