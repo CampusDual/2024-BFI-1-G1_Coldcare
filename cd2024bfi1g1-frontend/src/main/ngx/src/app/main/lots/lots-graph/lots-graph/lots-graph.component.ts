@@ -30,10 +30,11 @@ export class LotsGraphComponent {
     sortedData.forEach((entry, index) => {
       const containerId = entry.CNT_ID.toString();
       const containerName = entry.CNT_NAME;
+      const hasAlert = entry.HAS_ALERT === true || entry.HAS_ALERT === "true" ? "true" : "false";
 
       // Agregar nodo si no existe
       if (!nodes.has(containerId)) {
-        nodes.set(containerId, { data: { id: containerId, label: containerName } });
+        nodes.set(containerId, { data: { id: containerId, label: containerName, hasAlert: hasAlert } });
       }
 
       // Conectar este contenedor con los anteriores si tienen una fecha de inicio anterior
@@ -61,7 +62,13 @@ export class LotsGraphComponent {
       elements,
       style: [
         { selector: 'node', style: { 'background-color': '#007bff', 'label': 'data(label)', 'color': 'black', 'text-valign': 'center', 'text-halign': 'center' } },
-        { selector: 'edge', style: { 'width': 2, 'line-color': '#666', 'target-arrow-shape': 'triangle', 'curve-style': 'bezier' } }
+        { selector: 'edge', style: { 'width': 2, 'line-color': '#666', 'target-arrow-shape': 'triangle', 'curve-style': 'bezier' } },
+        {
+          selector: 'node[hasAlert = "true"]',
+          style: {
+            'background-color': 'red' // Color rojo para nodos con HAS_ALERT true
+          }
+        },
       ],
       layout: {
         name: 'dagre',
