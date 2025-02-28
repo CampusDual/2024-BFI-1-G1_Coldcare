@@ -24,6 +24,7 @@ import com.ontimize.jee.common.util.remote.BytesBlock;
 import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
 import com.ontimize.jee.server.security.SecurityTools;
 import com.ontimize.jee.server.security.encrypt.IPasswordEncryptHelper;
+import java.security.SecureRandom;
 
 @Lazy
 @Service("UserAndRoleService")
@@ -136,8 +137,19 @@ public class UserAndRoleService implements IUserAndRoleService {
 	@Override
 	@Secured({ PermissionsProviderSecured.SECURED })
 	@Transactional(rollbackFor = Throwable.class)
-	public EntityResult userInsert(final Map<?, ?> keysValues) throws OntimizeJEERuntimeException {
-		EntityResult userInsertResult = this.daoHelper.insert(this.userDao, this.encryptPassword(keysValues));
+	public EntityResult userInsert(final Map<?,?> keysValues) throws OntimizeJEERuntimeException {
+
+
+		String password = generateRandomPassword();
+
+		Map<String, Object> updatedKeysValues = new HashMap<>();
+
+		for (Map.Entry<?, ?> entry : keysValues.entrySet()) {
+			updatedKeysValues.put((String) entry.getKey(), entry.getValue());
+		}
+   		updatedKeysValues.put(UserDao.PASSWORD, password);
+	 	updatedKeysValues.put(UserDao.PASSWORD, encryptPassword(password));
+		EntityResult userInsertResult = this.daoHelper.insert(this.userDao, updatedKeysValues);
 
 		if (!userInsertResult.isEmpty()) {
 			Integer userId = (Integer) userInsertResult.get(UserDao.USR_ID);
@@ -147,7 +159,7 @@ public class UserAndRoleService implements IUserAndRoleService {
 			roleKeysValues.put(UserRoleDao.USR_ID, userId);
 			roleKeysValues.put(UserRoleDao.ROL_ID, rolId);
 
-			return this.daoHelper.insert(this.userRolesDao, roleKeysValues);
+ 			return this.daoHelper.insert(this.userRolesDao, roleKeysValues);
 
 		} else {
 			throw new OntimizeJEERuntimeException("No se pudo insertar el usuario.");
@@ -475,6 +487,19 @@ public class UserAndRoleService implements IUserAndRoleService {
 	}
 
 
+	private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+";
+	private static final int PASSWORD_LENGTH = 12; // Longitud deseada para la contraseña
 
+	public static String generateRandomPassword() {
+		SecureRandom random = new SecureRandom();
+		StringBuilder password = new StringBuilder(PASSWORD_LENGTH);
+
+		for (int i = 0; i < PASSWORD_LENGTH; i++) {
+			int index = random.nextInt(CHARACTERS.length());
+			password.append(CHARACTERS.charAt(index));
+		}
+
+		return password.toString();
+	}
 
 }
