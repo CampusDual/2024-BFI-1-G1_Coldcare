@@ -1,7 +1,6 @@
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { OMapComponent } from 'ontimize-web-ngx-map';
 import * as L from 'leaflet';
-import 'leaflet-routing-machine';
 
 @Component({
   selector: 'app-transports-map',
@@ -13,7 +12,7 @@ export class TransportsMapComponent implements AfterViewInit {
   @ViewChild('oMapRouting', { static: false }) oMap!: OMapComponent;
   
   dataArrayCoordinates: any[] = [];
-  routingControl: L.Routing.Control | null = null; // Controlador de la ruta
+  polyline: L.Polyline | null = null;
 
   ngAfterViewInit() {
     if (this.oMap) {
@@ -28,34 +27,25 @@ export class TransportsMapComponent implements AfterViewInit {
     try {
       const map = this.oMap.getLMap();
 
-      if (this.routingControl) {
-        map.removeControl(this.routingControl);
+      if (this.polyline) {
+        map.removeLayer(this.polyline);
       }
 
-      const waypoints: L.Routing.Waypoint[] = [];
+      const latLngs: L.LatLng[] = [];
+
       this.dataArrayCoordinates.forEach(punto => {
         const latLng = L.latLng(punto["TC_LATITUDE"], punto["TC_LONGITUDE"]);
-        waypoints.push(L.routing.waypoint(latLng));
+        latLngs.push(latLng);
 
-        L.marker(latLng).addTo(map);
       });
 
-      if (waypoints.length > 1) {
-        this.routingControl = L.Routing.control({
-          waypoints: waypoints,
-          routeWhileDragging: false, 
-          draggableWaypoints: false, 
-          addWaypoints: false, 
-          createMarker: () => null, 
-          lineOptions: { 
-            styles: [{ color: 'blue', weight: 4 }],
-            interactive: false
-          },
-          router: L.routing.osrmv1({ serviceUrl: 'https://router.project-osrm.org/route/v1' })
-        }).addTo(map);
+      if (latLngs.length > 1) {
 
-        const itineraryContainer = document.querySelector('.leaflet-routing-container');
-        if (itineraryContainer) itineraryContainer.remove();
+        this.polyline = L.polyline(latLngs, {
+          color: 'blue', 
+          weight: 4,     
+          opacity: 0.7  
+        }).addTo(map);
       }
 
     } catch (error) {
