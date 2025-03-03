@@ -218,9 +218,10 @@ tr.mat-mdc-row.mdc-data-table__row.cdk-row:nth-child(even) {
   }
 }
 
-// Estilos específicos para campos de solo lectura dentro de .inline-fields
+// Estilos específicos para campos dentro de .inline-fields
 .inline-fields {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
   gap: 5px;
   padding: 10px;
 }
@@ -245,11 +246,11 @@ o-text-input,
 o-date-input,
 o-daterange-input,
 o-integer-input,
+o-password-input,
 o-real-input,
 o-combo,
 o-combo-search {
   flex: 1;
-  flex-grow: 0;
   background-color: transparent;
   color: #333;
   font-size: 14px;

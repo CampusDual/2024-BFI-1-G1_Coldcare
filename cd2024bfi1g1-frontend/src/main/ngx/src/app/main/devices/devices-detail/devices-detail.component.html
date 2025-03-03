@@ -16,16 +16,12 @@
 
   <o-column title="MEASUREMENTS_HISTORIC" layout-align="start stretch" layout-padding>
     <div class="inline-fields">
-      <div fxLayout="column" layout-padding>
-        <o-daterange-input #DATES attr="ME_DATE" label="{{ 'DATE_RANGE_INPUT' | oTranslate }}" read-only="no"
-          required="no" format="DD/MM/YYYY" show-week-numbers="true" mode="desktop" automatic-binding="false"
-          translate="yes">
-        </o-daterange-input>
-      </div>
-      <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="8px">
-        <o-button attr="clear" (onClick)="DATES.clearValue()" type="RAISED" label="{{ 'CLEAR' | oTranslate }}"
-          class="filter-button"></o-button>
-      </div>
+      <o-daterange-input #DATES attr="ME_DATE" label="{{ 'DATE_RANGE_INPUT' | oTranslate }}" read-only="no"
+        required="no" format="DD/MM/YYYY" show-week-numbers="true" mode="desktop" automatic-binding="false"
+        translate="yes">
+      </o-daterange-input>
+      <o-button attr="clear" (onClick)="DATES.clearValue()" type="RAISED" label="{{ 'CLEAR' | oTranslate }}"
+        class="filter-button"></o-button>
     </div>
 
     <!-- Filtro para ambas graficas -->

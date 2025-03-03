@@ -6,3 +6,8 @@ o-table {
 o-daterange-input {
   width: 270px
 }
+
+o-button {
+  max-width: 40%;
+  align-content: center;
+}

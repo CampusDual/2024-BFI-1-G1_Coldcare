@@ -6,3 +6,8 @@
 .form-row {
   height: 89vh;
 }
+
+o-button {
+  max-width: 40%;
+  align-content: center;
+}

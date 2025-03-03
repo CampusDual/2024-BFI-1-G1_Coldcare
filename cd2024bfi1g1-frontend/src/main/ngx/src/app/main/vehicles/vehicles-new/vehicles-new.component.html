@@ -1,7 +1,7 @@
 <o-form attr="vehicles_form_insert" service="vehicles" entity="vehicles" fxLayout="column" keys="VHC_ID"
     show-header="true" after-insert-mode="close" confirm-exit="false">
     <o-row attr="row1" layout-align="start stretch" class="form-row">
-        <o-column title="VEHICLE_NEW" layout-align="start stretch">
+        <o-column title="VEHICLE_NEW" layout-align="start stretch" class="column-extend">
             <div class="inline-fields">
                 <o-text-input attr="VHC_PLATE"></o-text-input>
                 <o-combo attr="USR_ID" service="vehicles" entity="userTransporter" value-column="USR_ID"

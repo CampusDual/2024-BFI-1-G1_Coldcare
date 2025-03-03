@@ -259,5 +259,6 @@
   "transporter": "Carrier",
   "USER_UPDATE_ERROR": "Error updating the user table",
   "HAS_REPITED": "Assigned to (number of containers)",
-  "ERROR_EXISTING_CONTAINER": "There is already a container with that name"
+  "ERROR_EXISTING_CONTAINER": "There is already a container with that name",
+  "FILTER_MEASUREMENTS": "Measurements filter"
 }
