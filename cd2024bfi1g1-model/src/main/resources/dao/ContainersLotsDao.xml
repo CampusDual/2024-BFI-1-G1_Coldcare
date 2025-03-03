@@ -57,10 +57,11 @@
         <Query id="containers_of_lot">
             <AmbiguousColumns>
                 <AmbiguousColumn name="CNT_ID" prefix="cl"/>
-                <AmbiguousColumn name="CL_ID_DESTINY" prefix="t_destiny"/>
-                <AmbiguousColumn name="CL_ID_ORIGIN" prefix="t_origin"/>
-                <AmbiguousColumn name="CNT_NAME_ORIGIN" prefix="t_destiny"/>
-                <AmbiguousColumn name="CNT_NAME_DESTINY" prefix="t_origin"/>
+                <AmbiguousColumn name="CL_ID_DESTINY" prefix="t_origin"/>
+                <AmbiguousColumn name="CL_ID_ORIGIN" prefix="t_destiny"/>
+                <AmbiguousColumn name="CNT_ORIGIN_NAME" prefix="t_destiny"/>
+                <AmbiguousColumn name="CNT_DESTINY_NAME" prefix="t_origin"/>
+                <AmbiguousColumn name="TRA_ID" prefix="t_origin"/>
             </AmbiguousColumns>
             <Sentence>
                 <![CDATA[
@@ -77,10 +78,11 @@
                     ),
                     transfers_with_names AS (
                         SELECT
+                            t.tra_id,
                             t.cl_id_origin,
                             t.cl_id_destiny,
-                            origin.cnt_name AS cnt_name_origin,
-                            destiny.cnt_name AS cnt_name_destiny
+                            origin.cnt_name AS cnt_origin_name,
+                            destiny.cnt_name AS cnt_destiny_name
                         FROM
                             transfers t
                         LEFT JOIN
