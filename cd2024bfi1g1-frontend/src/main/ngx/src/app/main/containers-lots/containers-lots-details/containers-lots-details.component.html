@@ -4,19 +4,19 @@
         <div class="inline-fields">
             <o-text-input attr="CNT_NAME" read-only="yes"></o-text-input>
             <o-text-input attr="LOT_NAME" read-only="yes"></o-text-input>
-        </div>
-        <div class="inline-fields">
             <o-text-input attr="PRO_NAME" read-only="yes"></o-text-input>
             <o-text-input attr="MIN_TEMP" read-only="yes"></o-text-input>
             <o-text-input attr="MAX_TEMP" read-only="yes"></o-text-input>
         </div>
     </o-column>
-    <o-column title="CL_EDIT_DATE_RANGE">
-        <div class="inline-fields">
-            <o-date-input attr="CL_START_DATE" required="yes"></o-date-input>
-            <o-date-input attr="CL_END_DATE"></o-date-input>
-        </div>
-    </o-column>
+    <o-row>
+        <o-column title="CL_EDIT_DATE_RANGE">
+            <div class="inline-fields">
+                <o-date-input attr="CL_START_DATE" required="yes"></o-date-input>
+                <o-date-input attr="CL_END_DATE" class="containers-lots-dates-2"></o-date-input>
+            </div>
+        </o-column>
+    </o-row>
 
     <o-row>
         <o-column class="extend">
@@ -45,17 +45,21 @@
             </o-table>
         </o-column>
     </o-row>
-
-    <o-table attr="containerLotMeasurements" title="MEASUREMENTS" show-title="yes" service="measurements"
-        entity="measurements" keys="ME_ID" parent-keys="CL_ID"
-        columns="ME_ID;ME_DATE;ME_TEMP;ME_HUMIDITY;DEV_NAME;MIN_TEMP;MAX_TEMP"
-        visible-columns="ME_DATE;ME_TEMP;ME_HUMIDITY;DEV_NAME" query-rows="20" select-all-checkbox-visible="no"
-        insert-button="no" delete-button="no" refresh-button="yes" quick-filter="no" pageable="true" virtual-scroll="no"
-        [row-class]="rowClass">
-        <o-table-column attr="ME_DATE" title="DATE" type="date" format="DD/MM/YYYY HH:mm:ss"></o-table-column>
-        <o-table-column attr="ME_TEMP" title-align="center" content-align="center" title="TEMPERATURE"></o-table-column>
-        <o-table-column attr="ME_HUMIDITY" title-align="center" content-align="center"
-            title="HUMIDITY"></o-table-column>
-        <o-table-column attr="DEV_NAME" title-align="center" content-align="center"></o-table-column>
-    </o-table>
+    <o-row>
+        <o-column class="extend">
+            <o-table attr="containerLotMeasurements" title="MEASUREMENTS" show-title="yes" service="measurements"
+                entity="measurements" keys="ME_ID" parent-keys="CL_ID"
+                columns="ME_ID;ME_DATE;ME_TEMP;ME_HUMIDITY;DEV_NAME;MIN_TEMP;MAX_TEMP"
+                visible-columns="ME_DATE;ME_TEMP;ME_HUMIDITY;DEV_NAME" query-rows="20" select-all-checkbox-visible="no"
+                insert-button="no" delete-button="no" refresh-button="yes" quick-filter="no" pageable="true"
+                virtual-scroll="no" [row-class]="rowClass">
+                <o-table-column attr="ME_DATE" title="DATE" type="date" format="DD/MM/YYYY HH:mm:ss"></o-table-column>
+                <o-table-column attr="ME_TEMP" title-align="center" content-align="center"
+                    title="TEMPERATURE"></o-table-column>
+                <o-table-column attr="ME_HUMIDITY" title-align="center" content-align="center"
+                    title="HUMIDITY"></o-table-column>
+                <o-table-column attr="DEV_NAME" title-align="center" content-align="center"></o-table-column>
+            </o-table>
+        </o-column>
+    </o-row>
 </o-form>

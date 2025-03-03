@@ -222,7 +222,17 @@ tr.mat-mdc-row.mdc-data-table__row.cdk-row:nth-child(even) {
 .inline-fields {
   display: flex;
   gap: 5px;
-  flex-wrap: wrap;
+  padding: 10px;
+}
+
+.form-row {
+    padding: 10px;
+    height: 79vh;
+}
+
+.column-extend {
+  flex: 1;
+  width: 100%;
 }
 
 o-combo-search {

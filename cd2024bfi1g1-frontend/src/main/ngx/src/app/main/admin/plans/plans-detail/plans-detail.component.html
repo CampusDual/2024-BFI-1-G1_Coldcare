@@ -1,25 +1,26 @@
 <o-form attr="plansTable" parent-keys="PLN_ID" keys="PLN_ID" keys-sql-types="INTEGER" include-parent-keys="yes"
   query-on-init="true" service="plan" entity="plan" header-actions="R;U">
+  <o-row class="form-row">
+    <o-column class="column-extend">
+      <o-column title="PLANS_DETAIL" layout-align="start stretch" layout-padding>
+        <div class="inline-fields">
+          <o-text-input attr="PLN_NAME" label="PLN_NAME" required="yes"></o-text-input>
+        </div>
+      </o-column>
 
-  <o-column title="NAME" layout-align="start stretch" layout-padding>
-    <div class="inline-fields">
-      <o-text-input attr="PLN_NAME" label="PLN_NAME" required="yes"></o-text-input>
-    </div>
-  </o-column>
-
-  <o-table attr="pricesTable" title="PRICES" show-title="yes" service="pricing" entity="pricing"
-    include-parent-keys="yes" parent-keys="PLN_ID" query-on-init="true" keys="PP_ID"
-    columns="PP_ID;PP_FIXED_PRICE;PP_DEV_PRICE;PP_BUNDLE_PRICE;PP_BUNDLE_REQUESTS;PP_START;PP_END;PLN_ID"
-    visible-columns="PP_FIXED_PRICE;PP_DEV_PRICE;PP_BUNDLE_PRICE;PP_BUNDLE_REQUESTS;PP_START;PP_END"
-    insert-button="true" delete-button="false" refresh-button="false" searchable="false" detail-mode="none"
-    virtual-scroll="false">
-    <o-table-column attr="PP_FIXED_PRICE" title="PP_FIXED_PRICE"></o-table-column>
-    <o-table-column attr="PP_DEV_PRICE" title="PP_DEV_PRICE"></o-table-column>
-    <o-table-column attr="PP_BUNDLE_PRICE" title="PP_BUNDLE_PRICE"></o-table-column>
-    <o-table-column attr="PP_BUNDLE_REQUESTS" title="PP_BUNDLE_REQUESTS"></o-table-column>
-    <o-table-column attr="PP_START" title="PP_START" type="date" format="DD/MM/YYYY HH:mm:ss"></o-table-column>
-    <o-table-column attr="PP_END" title="PP_END" type="date" format="DD/MM/YYYY HH:mm:ss"></o-table-column>
-  </o-table>
-
-
+      <o-table attr="pricesTable" title="PRICES" show-title="yes" service="pricing" entity="pricing"
+        include-parent-keys="yes" parent-keys="PLN_ID" query-on-init="true" keys="PP_ID"
+        columns="PP_ID;PP_FIXED_PRICE;PP_DEV_PRICE;PP_BUNDLE_PRICE;PP_BUNDLE_REQUESTS;PP_START;PP_END;PLN_ID"
+        visible-columns="PP_FIXED_PRICE;PP_DEV_PRICE;PP_BUNDLE_PRICE;PP_BUNDLE_REQUESTS;PP_START;PP_END"
+        insert-button="true" delete-button="false" refresh-button="false" searchable="false" detail-mode="none"
+        virtual-scroll="false">
+        <o-table-column attr="PP_FIXED_PRICE" title="PP_FIXED_PRICE"></o-table-column>
+        <o-table-column attr="PP_DEV_PRICE" title="PP_DEV_PRICE"></o-table-column>
+        <o-table-column attr="PP_BUNDLE_PRICE" title="PP_BUNDLE_PRICE"></o-table-column>
+        <o-table-column attr="PP_BUNDLE_REQUESTS" title="PP_BUNDLE_REQUESTS"></o-table-column>
+        <o-table-column attr="PP_START" title="PP_START" type="date" format="DD/MM/YYYY HH:mm:ss"></o-table-column>
+        <o-table-column attr="PP_END" title="PP_END" type="date" format="DD/MM/YYYY HH:mm:ss"></o-table-column>
+      </o-table>
+    </o-column>
+  </o-row>
 </o-form>

@@ -1,24 +1,33 @@
 <o-form attr="plans_form_insert" service="plan" entity="plan" fxLayout="column" keys="PLN_ID" show-header="true"
   after-insert-mode="close" confirm-exit="false" header-actions="I;R;U">
-  <o-column title="Plan" layout-align="start stretch" layout-padding>
-    <div class="inline-fields">
-      <o-text-input attr="PLN_NAME" label="PLN_NAME" required="yes"></o-text-input>
-    </div>
-  </o-column>
-  <o-column title="PRICES" layout-align="start stretch" layout-padding>
-    <div class="inline-fields">
-      <o-text-input attr="PP_FIXED_PRICE" label="PP_FIXED_PRICE" required="yes"></o-text-input>
-      <o-text-input attr="PP_DEV_PRICE" label="PP_DEV_PRICE" required="yes"></o-text-input>
-      <o-text-input attr="PP_BUNDLE_PRICE" label="PP_BUNDLE_PRICE" required="yes"></o-text-input>
-      <o-text-input attr="PP_BUNDLE_REQUESTS" label="PP_BUNDLE_REQUESTS" required="yes"></o-text-input>
-    </div>
-  </o-column>
-  <o-column title="DATES" layout-align="start stretch" layout-padding>
-    <div class="inline-fields">
-      <o-date-input #DATES attr="PP_START" value-type="timestamp" label="PP_START" read-only="no" required="yes"
-        format="DD/MM/YYYY" show-week-numbers="true" mode="desktop" translate="yes">
-      </o-date-input>
-
-    </div>
-  </o-column>
+  <o-row class="form-row">
+    <o-column class="column-extend">
+      <o-row>
+        <o-column title="Plan" layout-align="start stretch" layout-padding>
+          <div class="inline-fields">
+            <o-text-input attr="PLN_NAME" label="PLN_NAME" required="yes"></o-text-input>
+          </div>
+        </o-column>
+      </o-row>
+      <o-row>
+        <o-column title="PRICES" layout-align="start stretch" layout-padding>
+          <div class="inline-fields">
+            <o-text-input attr="PP_FIXED_PRICE" label="PP_FIXED_PRICE" required="yes"></o-text-input>
+            <o-text-input attr="PP_DEV_PRICE" label="PP_DEV_PRICE" required="yes"></o-text-input>
+            <o-text-input attr="PP_BUNDLE_PRICE" label="PP_BUNDLE_PRICE" required="yes"></o-text-input>
+            <o-text-input attr="PP_BUNDLE_REQUESTS" label="PP_BUNDLE_REQUESTS" required="yes"></o-text-input>
+          </div>
+        </o-column>
+      </o-row>
+      <o-row>
+        <o-column title="DATES" layout-align="start stretch" layout-padding>
+          <div class="inline-fields">
+            <o-date-input #DATES attr="PP_START" value-type="timestamp" label="PP_START" read-only="no" required="yes"
+              format="DD/MM/YYYY" show-week-numbers="true" mode="desktop" translate="yes">
+            </o-date-input>
+          </div>
+        </o-column>
+      </o-row>
+    </o-column>
+  </o-row>
 </o-form>

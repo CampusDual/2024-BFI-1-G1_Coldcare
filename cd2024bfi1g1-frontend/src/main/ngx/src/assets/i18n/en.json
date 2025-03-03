@@ -239,7 +239,7 @@
   "USAGE": "Usage",
   "DEV": "Device",
   "USAGE_DETAIL": "Usage details",
-  "PLANS_DETAIL": "Plans details",
+  "PLANS_DETAIL": "Plan details",
   "ORIGIN_DESTINATION_ERROR": "Origin and destination cannot be the same",
   "DATES_INSERT_ERROR": "Given date must be later than today or the start date of the last pricing",
   "LAST_TEMP": "Last Temperature (ºC)",

@@ -1,37 +1,41 @@
 <o-form attr="lotsDetail" parent-keys="LOT_ID" keys="LOT_ID" keys-sql-types="INTEGER" service="lots" entity="lots"
   header-actions="R;U">
-  <o-row attr="row1" layout-align="start stretch">
-    <o-column title="LOT_DETAIL" layout-align="start stretch" layout-padding>
-      <div class="inline-fields">
-        <o-text-input #lotName attr="LOT_NAME" required="yes"></o-text-input>
-        <o-combo #productCombo attr="PRO_ID" label="Producto" service="products" entity="products" value-column="PRO_ID"
-          columns="PRO_ID;PRO_NAME;PRO_MIN_TEMP;PRO_MAX_TEMP" visible-columns="PRO_NAME" null-selection="no"
-          searchable="no" required="true"></o-combo>
-        <o-real-input #minTempInput attr="MIN_TEMP" clear-button="yes"></o-real-input>
-        <o-real-input #maxTempInput attr="MAX_TEMP" clear-button="yes"></o-real-input>
-        <o-button attr="LOT_IMPORT" type="RAISED" label="LOT_IMPORT" layout-padding color="primary"
-          (onClick)="importTemperature()"></o-button>
-      </div>
+  <o-row class="form-row">
+    <o-column class="column-extend">
+      <o-row attr="row1" layout-align="start stretch">
+        <o-column title="LOT_DETAIL" layout-align="start stretch" layout-padding>
+          <div class="inline-fields">
+            <o-text-input #lotName attr="LOT_NAME" required="yes"></o-text-input>
+            <o-combo #productCombo attr="PRO_ID" label="Producto" service="products" entity="products"
+              value-column="PRO_ID" columns="PRO_ID;PRO_NAME;PRO_MIN_TEMP;PRO_MAX_TEMP" visible-columns="PRO_NAME"
+              null-selection="no" searchable="no" required="true"></o-combo>
+            <o-real-input #minTempInput attr="MIN_TEMP" clear-button="yes"></o-real-input>
+            <o-real-input #maxTempInput attr="MAX_TEMP" clear-button="yes"></o-real-input>
+            <o-button attr="LOT_IMPORT" type="RAISED" label="LOT_IMPORT" layout-padding color="primary"
+              (onClick)="importTemperature()"></o-button>
+          </div>
+        </o-column>
+      </o-row>
+      <o-row>
+        <o-table attr="containersInLot" title="CONTAINERS_HISTORY" show-title="yes" service="containersLots"
+          entity="containersOfLot" keys="CL_ID" parent-keys="LOT_ID"
+          columns="CL_ID;CNT_NAME;CNT_ID;CL_START_DATE;CL_END_DATE;HAS_ALERT"
+          visible-columns="CNT_NAME;CL_START_DATE;CL_END_DATE;ACTIVE;HAS_ALERT" delete-button="no" insert-button="false"
+          refresh-button="true" sort-columns="CL_END_DATE:DESC;CL_START_DATE:DESC" virtual-scroll="false"
+          (onClick)="openContainersLots($event)" detail-mode="none">
+          <o-table-column attr="CNT_NAME" title="CNT_NAME" title-align="center" content-align="center"></o-table-column>
+          <o-table-column attr="CL_START_DATE" title="CL_START_DATE" type="date" format="DD/MM/YYYY"
+            title-align="center" content-align="center"></o-table-column>
+          <o-table-column attr="CL_END_DATE" title="CL_END_DATE" type="date" format="DD/MM/YYYY" title-align="center"
+            content-align="center"></o-table-column>
+          <o-table-column attr="ACTIVE" title="ACTIVE" title-align="center" content-align="center">
+            <in-date-range-boolean-renderer />
+          </o-table-column>
+          <o-table-column attr="HAS_ALERT" title="HAS_ALERT" title-align="center" content-align="center">
+            <alert-boolean-renderer />
+          </o-table-column>
+        </o-table>
+      </o-row>
     </o-column>
-  </o-row>
-  <o-row>
-    <o-table attr="containersInLot" title="CONTAINERS_HISTORY" show-title="yes" service="containersLots"
-      entity="containersOfLot" keys="CL_ID" parent-keys="LOT_ID"
-      columns="CL_ID;CNT_NAME;CNT_ID;CL_START_DATE;CL_END_DATE;HAS_ALERT"
-      visible-columns="CNT_NAME;CL_START_DATE;CL_END_DATE;ACTIVE;HAS_ALERT" delete-button="no" insert-button="false"
-      refresh-button="true" sort-columns="CL_END_DATE:DESC;CL_START_DATE:DESC" virtual-scroll="false"
-      (onClick)="openContainersLots($event)" detail-mode="none">
-      <o-table-column attr="CNT_NAME" title="CNT_NAME" title-align="center" content-align="center"></o-table-column>
-      <o-table-column attr="CL_START_DATE" title="CL_START_DATE" type="date" format="DD/MM/YYYY" title-align="center"
-        content-align="center"></o-table-column>
-      <o-table-column attr="CL_END_DATE" title="CL_END_DATE" type="date" format="DD/MM/YYYY" title-align="center"
-        content-align="center"></o-table-column>
-      <o-table-column attr="ACTIVE" title="ACTIVE" title-align="center" content-align="center">
-        <in-date-range-boolean-renderer />
-      </o-table-column>
-      <o-table-column attr="HAS_ALERT" title="HAS_ALERT" title-align="center" content-align="center">
-        <alert-boolean-renderer />
-      </o-table-column>
-    </o-table>
   </o-row>
 </o-form>

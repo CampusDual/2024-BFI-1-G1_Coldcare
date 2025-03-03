@@ -27,10 +27,14 @@ p {
     flex: 1;
 }
 
-o-text-input {
-    margin-right: 24;
+o-slide-toggle {
+    margin-left: 30px;
 }
 
-.row2 {
-    padding: 15px;
+.form-row {
+    padding: 0px;
+}
+
+.standalone-form-container .inner-form {
+    padding: 0px;
 }
