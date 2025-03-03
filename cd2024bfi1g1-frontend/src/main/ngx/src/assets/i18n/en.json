@@ -261,5 +261,9 @@
   "HAS_REPITED": "Assigned to (number of containers)",
   "ERROR_EXISTING_CONTAINER": "There is already a container with that name",
   "USR_EMAIL": "Email",
-  "EMAIL_ERROR": "Error sending Email"
+  "EMAIL_ERROR": "Error sending Email",
+  "ALERTS_DETAIL": "Alert detail",
+  "ALT_DATE_INIT": "Start date",
+  "ALT_DATE_END": "End date",
+  "ALT_DURATION": "Duration"
 }

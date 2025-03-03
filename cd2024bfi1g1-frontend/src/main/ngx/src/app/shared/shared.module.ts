@@ -8,7 +8,8 @@ import { InDateRangeBooleanRendererComponent } from './components/in-date-range-
 import { BillsMonthRendererComponent } from './components/bills-month-renderer/bills-month-renderer.component';
 import { AlertBooleanRendererComponent } from './components/alert-boolean-renderer/alert-boolean-renderer.component';
 import { MonthRendererPipe } from './components/pipes/month-renderer.pipe';
-
+import { DateRendererPipe } from './components/pipes/date-renderer.pipe';
+import { DatePipe } from '@angular/common';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { MonthRendererPipe } from './components/pipes/month-renderer.pipe';
     InDateRangeBooleanRendererComponent,
     BillsMonthRendererComponent,
     AlertBooleanRendererComponent,
-    MonthRendererPipe
+    MonthRendererPipe,
+    DateRendererPipe
   ],
   exports: [
     CommonModule,
@@ -32,7 +34,11 @@ import { MonthRendererPipe } from './components/pipes/month-renderer.pipe';
     InDateRangeBooleanRendererComponent,
     BillsMonthRendererComponent,
     AlertBooleanRendererComponent,
-    MonthRendererPipe
-  ]
+    MonthRendererPipe,
+    DateRendererPipe
+  ],
+  providers: [
+    DatePipe
+  ],
 })
 export class SharedModule { }

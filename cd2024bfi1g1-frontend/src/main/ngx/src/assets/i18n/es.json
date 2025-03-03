@@ -261,5 +261,9 @@
   "HAS_REPITED": "Asignado a (Nº de contenedores)",
   "ERROR_EXISTING_CONTAINER": "Ya existe un contenedor con ese nombre",
   "USR_EMAIL": "Correo",
-  "EMAIL_ERROR": "Error al enviar el Email"
+  "EMAIL_ERROR": "Error al enviar el Email",
+  "ALERTS_DETAIL": "Detalle de alerta",
+  "ALT_DATE_INIT": "Fecha inicio",
+  "ALT_DATE_END": "Fecha fin",
+  "ALT_DURATION": "Duración"
 }
