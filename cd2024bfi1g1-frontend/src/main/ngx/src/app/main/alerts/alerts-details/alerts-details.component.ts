@@ -9,39 +9,6 @@ import { LineChartConfiguration, OChartComponent } from 'ontimize-web-ngx-charts
   styleUrls: ['./alerts-details.component.css']
 })
 export class AlertsDetailsComponent implements OnInit {
-  ngOnInit(): void {
-
-
-  }
-  getCellData(startDate, endDate): string {
-    let totalSeconds: number;
-
-    if (!startDate) {
-      return 'Fecha de inicio no disponible';
-    }
-
-    if (!endDate) {
-      const now = new Date();
-      totalSeconds = Math.floor((now.getTime() - new Date(startDate).getTime()) / 1000);
-    } else {
-      totalSeconds = Math.floor((new Date(endDate).getTime() - new Date(startDate).getTime()) / 1000);
-    }
-
-    const days = Math.floor(totalSeconds / (24 * 3600));
-    const hours = Math.floor((totalSeconds % (24 * 3600)) / 3600);
-    const minutes = Math.floor((totalSeconds % 3600) / 60);
-    const secs = totalSeconds % 60;
-
-    const formattedTime = `${String(hours).padStart(2, '0')}h ${String(minutes).padStart(2, '0')}m ${String(secs).padStart(2, '0')}s`;
-
-    if (days > 0) {
-      return `${days}d ${formattedTime}`;
-    }
-    return formattedTime;
-  }
-
-
-
 
   @ViewChild('measurementsTemperatureTable', { static: false }) measurementsTemperatureTable: OTableComponent;
   @ViewChild('measurementsHumidityTable', { static: false }) measurementsHumidityTable: OTableComponent;
@@ -116,6 +83,7 @@ export class AlertsDetailsComponent implements OnInit {
 
 
   fillChart(ev: any) {
+
     this.tempField = this.translator.get('TEMPERATURE');
     this.humidityField = this.translator.get('HUMIDITY');
 
@@ -170,35 +138,33 @@ export class AlertsDetailsComponent implements OnInit {
     this.colorSchemeHum = { domain: Object.values(this.deviceColorMap) };
   }
 
+  ngOnInit(): void { }
 
+  getCellData(startDate, endDate): string {
+    let totalSeconds: number;
+
+    if (!startDate) {
+      return 'Fecha de inicio no disponible';
+    }
+
+    if (!endDate) {
+      const now = new Date();
+      totalSeconds = Math.floor((now.getTime() - new Date(startDate).getTime()) / 1000);
+    } else {
+      totalSeconds = Math.floor((new Date(endDate).getTime() - new Date(startDate).getTime()) / 1000);
+    }
+
+    const days = Math.floor(totalSeconds / (24 * 3600));
+    const hours = Math.floor((totalSeconds % (24 * 3600)) / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const secs = totalSeconds % 60;
+
+    const formattedTime = `${String(hours).padStart(2, '0')}h ${String(minutes).padStart(2, '0')}m ${String(secs).padStart(2, '0')}s`;
+
+    if (days > 0) {
+      return `${days}d ${formattedTime}`;
+    }
+    return formattedTime;
+  }
 
 }
-
-
-
-/*
-implements OnInit
-  constructor() { }
- 
-  ngOnInit(): void {
- 
-    this.getAttrValues();
-  } 
-  getAttrValues(): void {
- 
-    const elements = document.querySelectorAll('[attr]');
- 
-    elements.forEach((element) => {
-      const attrValue = element.getAttribute('attr');
- 
-      const targetDiv = document.getElementById(attrValue);
- 
-      if (targetDiv) {
- 
-        targetDiv.textContent = `Valor del atributo: ${attrValue}`;
-      }
-    });
-  }
-    
-  
-  */

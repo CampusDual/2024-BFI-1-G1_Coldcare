@@ -44,7 +44,16 @@
         </o-column>
     </o-row>
     <o-row>
+        <div id="tablaMedidasContainer">
+            <o-table #measurementsTable attr="tablaMedidas" service="measurements" entity="measurements"
+                parent-keys="ALT_ID" columns="DEV_ID;DEV_NAME;ME_DATE;ME_TEMP;ME_HUMIDITY"
+                (onDataLoaded)="fillChart($event)">
+                <o-table-column attr="ME_DATE" type="date"></o-table-column>
+                <o-table-column attr="ME_TEMP" type="real"></o-table-column>
+                <o-table-column attr="ME_HUMIDITY" type="real"></o-table-column>
 
+            </o-table>
+        </div>
 
         <o-chart #lineChartBasic type="line" [chart-parameters]="chartParametersTemp"
             x-label="{{ 'TIME' | oTranslate }}" y-label="{{ 'TEMPERATURE' | oTranslate }}" [color]="colorSchemeTemp"
