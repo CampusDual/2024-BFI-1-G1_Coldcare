@@ -21,7 +21,6 @@ export class LotsGraphComponent {
   }
 
   transformDataToGraph(data: any[]) {
-    // Ordenar los contenedores por fecha de inicio (CL_START_DATE)
     const sortedData = [...data].sort((a, b) => a.CL_START_DATE - b.CL_START_DATE);
 
     const nodes = new Map<string, any>();
@@ -56,7 +55,7 @@ export class LotsGraphComponent {
             });
             graph.get(prevContainerId)?.push(containerId); // Registrar la conexión en el grafo
           }
-          break; // Solo conectamos con el contenedor anterior más reciente que cumpla la condición
+          // break; // Solo conectamos con el contenedor anterior más reciente que cumpla la condición
         }
       }
     });
@@ -65,13 +64,13 @@ export class LotsGraphComponent {
   }
 
   // Función para verificar si ya existe una ruta indirecta entre dos nodos
-  hasIndirectPath(graph: Map<string, string[]>, start: string, end: string): boolean {
+  hasIndirectPath(graph: Map<string, string[]>, source: string, target: string): boolean {
     const visited = new Set<string>();
-    const queue: string[] = [start];
+    const queue: string[] = [source];
 
     while (queue.length > 0) {
       const current = queue.shift()!;
-      if (current === end) {
+      if (current === target) {
         return true; // Existe una ruta indirecta
       }
       if (!visited.has(current)) {
