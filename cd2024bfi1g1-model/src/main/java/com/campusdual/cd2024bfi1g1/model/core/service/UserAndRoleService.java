@@ -208,7 +208,7 @@ public class UserAndRoleService implements IUserAndRoleService {
                 + "    <table style=\"width: 100%; max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);\">"
                 + "        <tr>"
                 + "            <td style=\"text-align: center; padding-bottom: 20px;\">"
-                + "                <h2 style=\"color: #4CAF50;\">¡Bienvenido a ColdCare!</h2>"
+                + "                <h2 style=\"color: #1384c7;\">¡Bienvenido a ColdCare!</h2>"
                 + "            </td>"
                 + "        </tr>"
                 + "        <tr>"
