@@ -35,7 +35,7 @@ public class ContainersLotsService implements IContainersLotsService {
 
     @Override
     public EntityResult containersLotsQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
-        return this.daoHelper.query(this.containersLotsDao, keyMap, attrList);
+        return this.daoHelper.query(this.containersLotsDao, keyMap, attrList,"container_lot_with_alert_data");
     }
 
     @Override
