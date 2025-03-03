@@ -259,5 +259,10 @@
   "transporter": "Transportista",
   "USER_UPDATE_ERROR": "Error al actualizar los datos de usuarios",
   "HAS_REPITED": "Asignado a (Nº de contenedores)",
-  "ERROR_EXISTING_CONTAINER": "Ya existe un contenedor con ese nombre"
+  "ERROR_EXISTING_CONTAINER": "Ya existe un contenedor con ese nombre",
+  "TOTAL_TIME" :"Tiempo total de alertas",
+  "AVERAGE_TIME" :"Tiempo medio de alertas",
+  "MAX_TIME" :"Tiempo maximo de alerta",
+  "ACTIVE_ALERTS" :"Alertas activas",
+  "ALERTS_DATA": "Información de alertas"
 }
