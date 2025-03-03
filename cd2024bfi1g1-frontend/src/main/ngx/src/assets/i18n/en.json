@@ -113,7 +113,6 @@
   "DEVICES": "Devices",
   "HUMIDITY": "Humidity (%)",
   "IDENTIFIER": "Name",
-  "MEASUREMENTS": "Measurements",
   "TEMPERATURE": "Temperature (ºC)",
   "DEV_PERSISTENCE": "Persistence interval (minutes)",
   "EDIT_CONTAINER": "Edit container",
@@ -237,7 +236,6 @@
   "SELECTED": "Selected",
   "HAS_ALERT": "Alert",
   "USAGE": "Usage",
-  "DEV": "Device",
   "USAGE_DETAIL": "Usage details",
   "PLANS_DETAIL": "Plans details",
   "ORIGIN_DESTINATION_ERROR": "Origin and destination cannot be the same",
@@ -259,5 +257,13 @@
   "transporter": "Carrier",
   "USER_UPDATE_ERROR": "Error updating the user table",
   "HAS_REPITED": "Assigned to (number of containers)",
-  "ERROR_EXISTING_CONTAINER": "There is already a container with that name"
+  "ERROR_EXISTING_CONTAINER": "There is already a container with that name",
+  "CONCEPT": "Concept",
+  "COST": "Cost",
+  "AMOUNT": "Amount",
+  "SUBTOTAL": "Subtotal",
+  "FIXED": "Fixed",
+  "DEV": "Device",
+  "MEASUREMENTS": "Measurements",
+  "TOTAL": "TOTAL"
 }
