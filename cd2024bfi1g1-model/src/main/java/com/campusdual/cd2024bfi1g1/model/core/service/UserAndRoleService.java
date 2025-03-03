@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -27,6 +28,8 @@ import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
 import com.ontimize.jee.server.security.SecurityTools;
 import com.ontimize.jee.server.security.encrypt.IPasswordEncryptHelper;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import java.security.SecureRandom;
 
 @Lazy
@@ -167,7 +170,11 @@ public class UserAndRoleService implements IUserAndRoleService {
         EntityResult userInsertResult = this.daoHelper.insert(this.userDao, updatedKeysValues);
 
         if (!userInsertResult.isEmpty()) {
-            sendEmail(keysValues.get(UserDao.EMAIL).toString(),"Bienvenido a ColdCare",keysValues.get(UserDao.LOGIN).toString() ,password, "https://cd2024bfi1g1-dev.dev.campusdual.com/app/login?session-expired=false");
+            try {
+                sendEmail(keysValues.get(UserDao.EMAIL).toString(), "Bienvenido a ColdCare", keysValues.get(UserDao.LOGIN).toString(), password, "https://cd2024bfi1g1-dev.dev.campusdual.com/app/login?session-expired=false");
+            } catch (MessagingException ex){
+                return Util.controlErrors("EMAIL_ERROR");
+            }
             Integer userId = (Integer) userInsertResult.get(UserDao.USR_ID);
             Integer rolId = (Integer) keysValues.get(RoleDao.ROL_ID);
 
@@ -185,55 +192,51 @@ public class UserAndRoleService implements IUserAndRoleService {
     @Autowired
     private JavaMailSender mailSender;
 
-    public void sendEmail(String to, String subject,String username, String tempPassword, String url) {
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(to);
-        message.setSubject(subject);
-        message.setText(  "<!DOCTYPE html>"
-				+ "<html lang=\"es\">"
-				+ "<head>"
-				+ "    <meta charset=\"UTF-8\">"
-				+ "    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">"
-				+ "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">"
-				+ "    <title>Bienvenido a ColdCare</title>"
-				+ "</head>"
-				+ "<body style=\"font-family: Arial, sans-serif; background-color: #f4f4f4; color: #333; margin: 0; padding: 20px;\">"
-				+ "    <table style=\"width: 100%; max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);\">"
-				+ "        <tr>"
-				+ "            <td style=\"text-align: center; padding-bottom: 20px;\">"
-				+ "                <h2 style=\"color: #4CAF50;\">¡Bienvenido a ColdCare!</h2>"
-				+ "            </td>"
-				+ "        </tr>"
-				+ "        <tr>"
-				+ "            <td style=\"font-size: 16px; line-height: 1.6;\">"
-				+ "                <p>Estimado <strong>" + username + "</strong>,</p>"
-				+ "                <p>Nos complace informarte que tu cuenta ha sido creada con éxito y estás listo para comenzar a disfrutar de nuestros servicios.</p>"
-				+ "                <p>Para acceder a tu cuenta, por favor, utiliza la siguiente información de inicio de sesión:</p>"
-				+ "                <table style=\"width: 100%; border-collapse: collapse; margin-top: 10px;\">"
-				+ "                    <tr>"
-				+ "                        <td style=\"padding: 10px; background-color: #f4f4f4; font-weight: bold;\">Usuario:</td>"
-				+ "                        <td style=\"padding: 10px; background-color: #f4f4f4;\">" + username + "</td>"
-				+ "                    </tr>"
-				+ "                    <tr>"
-				+ "                        <td style=\"padding: 10px; background-color: #f4f4f4; font-weight: bold;\">Contraseña:</td>"
-				+ "                        <td style=\"padding: 10px; background-color: #f4f4f4;\">" + tempPassword + "</td>"
-				+ "                    </tr>"
-				+ "                </table>"
-				+ "                <p>Recuerda que por razones de seguridad, te recomendamos cambiar tu contraseña después de tu primer inicio de sesión.</p>"
-				+ "                <p>Si tienes alguna pregunta o necesitas asistencia, no dudes en ponerte en contacto con nuestro equipo de soporte al cliente, estaremos encantados de ayudarte.</p>"
-				+ "                <p>Gracias por elegir <strong>ColdCare</strong>. ¡Esperamos que disfrutes de todos los beneficios que ofrecemos!</p>"
-				+ "            </td>"
-				+ "        </tr>"
-				+ "        <tr>"
-				+ "            <td style=\"text-align: center; padding-top: 20px;\">"
-				+ "                <p style=\"font-size: 14px; color: #888;\">Atentamente, <br> El equipo de <strong>ColdCare</strong></p>"
-				+ "                <p style=\"font-size: 14px; color: #888;\">[Correo de contacto] <br> [Teléfono de contacto]</p>"
-				+ "            </td>"
-				+ "        </tr>"
-				+ "    </table>"
-				+ "</body>"
-				+ "</html>");
-        message.setFrom("coldcare33@gmail.com"); // Asegúrate de que el correo coincide con el username del YML
+    public void sendEmail(String to, String subject,String username, String tempPassword, String url) throws MessagingException {
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+
+        String htmlContent = "<!DOCTYPE html>"
+                + "<html lang=\"es\">"
+                + "<head>"
+                + "    <meta charset=\"UTF-8\">"
+                + "    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">"
+                + "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">"
+                + "    <title>Bienvenido a ColdCare</title>"
+                + "</head>"
+                + "<body style=\"font-family: Arial, sans-serif; background-color: #f4f4f4; color: #333; margin: 0; padding: 20px;\">"
+                + "    <table style=\"width: 100%; max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);\">"
+                + "        <tr>"
+                + "            <td style=\"text-align: center; padding-bottom: 20px;\">"
+                + "                <h2 style=\"color: #4CAF50;\">¡Bienvenido a ColdCare!</h2>"
+                + "            </td>"
+                + "        </tr>"
+                + "        <tr>"
+                + "            <td style=\"font-size: 16px; line-height: 1.6;\">"
+                + "                <p>Estimado <strong>" + username + "</strong>,</p>"
+                + "                <p>Nos complace informarte que tu cuenta ha sido creada con éxito y estás listo para comenzar a disfrutar de nuestros servicios.</p>"
+                + "                <p>Para acceder a tu cuenta, por favor, utiliza la siguiente información de inicio de sesión:</p>"
+                + "                <table style=\"width: 100%; border-collapse: collapse; margin-top: 10px;\">"
+                + "                    <tr>"
+                + "                        <td style=\"padding: 10px; background-color: #f4f4f4; font-weight: bold;\">Usuario:</td>"
+                + "                        <td style=\"padding: 10px; background-color: #f4f4f4;\">" + username + "</td>"
+                + "                    </tr>"
+                + "                    <tr>"
+                + "                        <td style=\"padding: 10px; background-color: #f4f4f4; font-weight: bold;\">Contraseña:</td>"
+                + "                        <td style=\"padding: 10px; background-color: #f4f4f4;\">" + tempPassword + "</td>"
+                + "                    </tr>"
+                + "                </table>"
+                + "            </td>"
+                + "        </tr>"
+                + "    </table>"
+                + "</body>"
+                + "</html>";
+
+        helper.setTo(to);
+        helper.setSubject(subject);
+        helper.setText(htmlContent, true);
+        helper.setFrom("coldcare33@gmail.com");
+
         mailSender.send(message);
     }
 

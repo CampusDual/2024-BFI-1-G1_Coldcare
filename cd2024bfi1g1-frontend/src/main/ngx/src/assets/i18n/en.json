@@ -260,5 +260,6 @@
   "USER_UPDATE_ERROR": "Error updating the user table",
   "HAS_REPITED": "Assigned to (number of containers)",
   "ERROR_EXISTING_CONTAINER": "There is already a container with that name",
-  "USR_EMAIL": "Email"
+  "USR_EMAIL": "Email",
+  "EMAIL_ERROR": "Error sending Email"
 }
