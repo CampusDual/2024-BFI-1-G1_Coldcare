@@ -262,7 +262,7 @@
   "COST": "Importe",
   "AMOUNT": "Cantidad",
   "SUBTOTAL": "Subtotal",
-  "FIXED": "Fijo",
+  "FIXED": "Tarifa plana",
   "DEV": "Dispositivo",
   "MEASUREMENTS": "Medidas",
   "TOTAL": "TOTAL"

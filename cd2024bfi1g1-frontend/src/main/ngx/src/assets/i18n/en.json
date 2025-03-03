@@ -262,7 +262,7 @@
   "COST": "Cost",
   "AMOUNT": "Amount",
   "SUBTOTAL": "Subtotal",
-  "FIXED": "Fixed",
+  "FIXED": "Flat rate",
   "DEV": "Device",
   "MEASUREMENTS": "Measurements",
   "TOTAL": "TOTAL"
