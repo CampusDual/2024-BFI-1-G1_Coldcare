@@ -4,11 +4,10 @@
         <div class="inline-fields">
             <div fxLayout="row" fxLayoutGap="15px" layout-padding>
                 <o-combo attr="year" label="YEAR" service="bills" entity="bills" value-column="BIL_YEAR"
-                    columns="BIL_YEAR" visible-columns="BIL_YEAR" null-selection="no" searchable="yes"
+                    columns="BIL_YEAR" visible-columns="BIL_YEAR" null-select searchable="yes"
                     null-selection="yes"></o-combo>
-                <o-combo attr="month" label="MONTH" service="bills" entity="bills" value-column="BIL_MONTH"
-                    columns="BIL_MONTH" visible-columns="BIL_MONTH" null-selection="no" searchable="yes"
-                    null-selection="yes"></o-combo>
+                <o-combo attr="month" label="MONTH" value-column="id" columns="id;month" visible-columns="month"
+                    null-selection="no" searchable="no" translate="yes" [static-data]="integersArray"></o-combo>
                 <o-combo attr="company" label="CMP_NAME" service="bills" entity="bills" value-column="CMP_NAME"
                     columns="CMP_NAME" visible-columns="CMP_NAME" null-selection="no" searchable="yes"
                     null-selection="yes"></o-combo>

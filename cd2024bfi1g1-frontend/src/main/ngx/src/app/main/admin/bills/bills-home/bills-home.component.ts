@@ -7,6 +7,19 @@ import { Expression, FilterExpressionUtils, Util } from "ontimize-web-ngx";
   styleUrls: ['./bills-home.component.css']
 })
 export class BillsHomeComponent {
+  public integersArray = [
+    { id: 1, month: 'JANUARY' },
+    { id: 2, month: 'FEBRUARY' },
+    { id: 3, month: 'MARCH' },
+    { id: 4, month: 'APRIL' },
+    { id: 5, month: 'MAY' },
+    { id: 6, month: 'JUNE' },
+    { id: 7, month: 'JULY' },
+    { id: 8, month: 'AUGUST' },
+    { id: 9, month: 'SEPTEMBER' },
+    { id: 10, month: 'OCTOBER' },
+    { id: 11, month: 'NOVEMBER' },
+    { id: 12, month: 'DECEMBER' }];
   createFilter(values: Array<{ attr: string; value: any }>): Expression {
     let filters: Array<Expression> = [];
     values.forEach(fil => {
