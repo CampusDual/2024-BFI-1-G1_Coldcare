@@ -264,5 +264,7 @@
   "AVERAGE_TIME" :"Tiempo medio de alertas",
   "MAX_TIME" :"Tiempo maximo de alerta",
   "ACTIVE_ALERTS" :"Alertas activas",
-  "ALERTS_DATA": "Información de alertas"
+  "ALERTS_DATA": "Información de alertas",
+  "USR_EMAIL": "Correo",
+  "EMAIL_ERROR": "Error al enviar el Email"
 }

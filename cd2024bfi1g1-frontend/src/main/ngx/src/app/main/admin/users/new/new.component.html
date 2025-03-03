@@ -10,12 +10,13 @@
           <o-column title="user-login-section" appearance="no" layout-gap="15px" layout-align="start stretch">
             <div fxLayout="row wrap" fxLayoutAlign="start start" fxLayoutGap="15px">
               <o-text-input attr="USR_LOGIN" required="yes"></o-text-input>
-              <o-password-input attr="USR_PASSWORD" required="yes" fxFlex></o-password-input>
+              <!-- <o-password-input attr="USR_PASSWORD" required="yes" fxFlex></o-password-input>-->
             </div>
           </o-column>
           <o-column title="user-data-section" appearance="no" layout-gap="15px" layout-align="start stretch">
-            <div fxLayout="row">
-              <o-text-input attr="USR_NAME" required="yes" fxFlex></o-text-input>
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="15px">
+              <o-text-input attr="USR_NAME" required="yes"></o-text-input>
+              <o-email-input attr="USR_EMAIL" required="yes" fxFlex></o-email-input>
             </div>
           </o-column>
           <o-column title="company-data-section" appearance="no" layout-gap="15px" layout-align="start stretch">
