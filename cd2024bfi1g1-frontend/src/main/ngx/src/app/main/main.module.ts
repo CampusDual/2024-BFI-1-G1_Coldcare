@@ -5,7 +5,6 @@ import { SharedModule } from '../shared/shared.module';
 import { MainRoutingModule } from './main-routing.module';
 import { MainComponent } from './main.component';
 import { ProfileComponent } from './profile/profile.component';
-import { UsermicrosHomeComponent } from './usermicros/usermicros-home/usermicros-home.component';
 
 
 @NgModule({
@@ -17,7 +16,6 @@ import { UsermicrosHomeComponent } from './usermicros/usermicros-home/usermicros
   declarations: [
     MainComponent,
     ProfileComponent,
-    UsermicrosHomeComponent
   ]
 })
 export class MainModule { }

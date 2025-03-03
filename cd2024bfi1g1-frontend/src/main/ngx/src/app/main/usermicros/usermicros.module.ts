@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { UsermicrosRoutingModule } from './usermicros-routing.module';
 import { UsermicrosHomeComponent } from './usermicros-home/usermicros-home.component';
+import { OntimizeWebModule } from 'ontimize-web-ngx';
+
 
 
 @NgModule({
@@ -11,7 +13,8 @@ import { UsermicrosHomeComponent } from './usermicros-home/usermicros-home.compo
   ],
   imports: [
     CommonModule,
-    UsermicrosRoutingModule
+    UsermicrosRoutingModule,
+    OntimizeWebModule
   ]
 })
 export class UsermicrosModule { }
