@@ -59,7 +59,7 @@
                 <AmbiguousColumn name="CNT_ID" prefix="cl"/>
                 <AmbiguousColumn name="CL_ID_DESTINY" prefix="t_destiny"/>
                 <AmbiguousColumn name="CL_ID_ORIGIN" prefix="t_origin"/>
-                <AmbiguousColumn name="CNT_NAME_ORIGIN" prefix="t_origin"/>
+                <AmbiguousColumn name="CNT_NAME_ORIGIN" prefix="t_destiny"/>
                 <AmbiguousColumn name="CNT_NAME_DESTINY" prefix="t_origin"/>
             </AmbiguousColumns>
             <Sentence>
