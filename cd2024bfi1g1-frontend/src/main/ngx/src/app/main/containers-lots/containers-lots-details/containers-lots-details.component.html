@@ -18,6 +18,25 @@
         </div>
     </o-column>
 
+    <o-row>      
+        <div id="tablaMedidasContainer">
+            <o-table #measurementsTable attr="tablaMedidas" service="measurements" entity="measurements"
+                parent-keys="CL_ID" columns="DEV_ID;DEV_NAME;ME_DATE;ME_TEMP;ME_HUMIDITY" (onDataLoaded)="fillChart($event)">
+                <o-table-column attr="ME_DATE" type="date"></o-table-column>
+                <o-table-column attr="ME_TEMP" type="real"></o-table-column>
+                <o-table-column attr="ME_HUMIDITY" type="real"></o-table-column>
+            </o-table>
+        </div>
+
+        <o-chart #lineChartBasic type="line" [chart-parameters]="chartParametersTemp"
+            x-label="{{ 'TIME' | oTranslate }}" y-label="{{ 'TEMPERATURE' | oTranslate }}" [color]="colorSchemeTemp"
+            [data]="dataArrayTemp" show-grid-lines="true"></o-chart>
+
+        <o-chart #lineChartBasic type="line" [chart-parameters]="chartParametersHum" x-label="{{ 'TIME' | oTranslate }}"
+            y-label="{{ 'HUMIDITY' | oTranslate }}" [color]="colorSchemeTemp" [data]="dataArrayHum"
+            show-grid-lines="true"></o-chart>
+    </o-row>
+
     <o-row>
         <o-column class="extend">
             <o-table attr="clOriginTable" title="CL_ORIGIN" show-title="yes" service="transfers"
