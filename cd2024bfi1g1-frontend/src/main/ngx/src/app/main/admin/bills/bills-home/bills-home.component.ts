@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Expression, FilterExpressionUtils } from "ontimize-web-ngx";
+import { Expression, FilterExpressionUtils, Util } from "ontimize-web-ngx";
 
 @Component({
   selector: 'app-bills-home',
@@ -9,34 +9,18 @@ import { Expression, FilterExpressionUtils } from "ontimize-web-ngx";
 export class BillsHomeComponent {
   createFilter(values: Array<{ attr: string; value: any }>): Expression {
     let filters: Array<Expression> = [];
+    values.forEach(fil => {
+      if (Util.isDefined(fil.value)) {
+        const attributeMapping = {
+          year: "BIL_YEAR",
+          month: "BIL_MONTH",
+          company: "CMP_NAME"
+        };
 
-    values.forEach((fil) => {
-      if (fil.value) {
-        switch (fil.attr) {
-          case "BIL_YEAR":
-            // Filtrar por ID del dispositivo
-            filters.push(
-              FilterExpressionUtils.buildExpressionEquals("BIL_YEAR", fil.value)
-            );
-            break;
-
-          case "BIL_MONTH":
-            // Filtrar por ID del dispositivo
-            filters.push(
-              FilterExpressionUtils.buildExpressionEquals("BIL_MONTH", fil.value)
-            );
-            break;
-
-          case "CMP_NAME":
-            // Filtrar por ID del dispositivo
-            filters.push(
-              FilterExpressionUtils.buildExpressionEquals("CMP_NAME", fil.value)
-            );
-            break;
-
-          default:
-            console.warn(`Atributo desconocido: ${fil.attr}`);
-            break;
+        const fieldName = attributeMapping[fil.attr];
+        if (fieldName && fil.value) {
+          const valueAsString = String(fil.value);
+          filters.push(FilterExpressionUtils.buildExpressionLike(fieldName, valueAsString));
         }
       }
     });
