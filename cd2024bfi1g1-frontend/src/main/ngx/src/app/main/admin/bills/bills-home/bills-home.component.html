@@ -1,16 +1,16 @@
 <o-form show-header="no" query-on-init="no" fxFill confirm-exit="no">
     <o-column>
-        <label layout-padding>{{"FILTER_ALERTS" | oTranslate}}</label>
+        <label layout-padding>{{"FILTER_BILLS" | oTranslate}}</label>
         <div class="inline-fields">
             <div fxLayout="row" fxLayoutGap="15px" layout-padding>
                 <o-combo attr="year" label="YEAR" service="bills" entity="bills" value-column="BIL_YEAR"
-                    columns="BIL_ID;BIL_YEAR" visible-columns="BIL_YEAR" null-selection="no" searchable="yes"
+                    columns="BIL_YEAR" visible-columns="BIL_YEAR" null-selection="no" searchable="yes"
                     null-selection="yes"></o-combo>
                 <o-combo attr="month" label="MONTH" service="bills" entity="bills" value-column="BIL_MONTH"
-                    columns="BIL_ID;BIL_MONTH" visible-columns="BIL_MONTH" null-selection="no" searchable="yes"
+                    columns="BIL_MONTH" visible-columns="BIL_MONTH" null-selection="no" searchable="yes"
                     null-selection="yes"></o-combo>
-                <o-combo attr="company" label="COMPANY" service="bills" entity="bills" value-column="CMP_NAME"
-                    columns="BIL_ID;CMP_NAME" visible-columns="CMP_NAME" null-selection="no" searchable="yes"
+                <o-combo attr="company" label="CMP_NAME" service="bills" entity="bills" value-column="CMP_NAME"
+                    columns="CMP_NAME" visible-columns="CMP_NAME" null-selection="no" searchable="yes"
                     null-selection="yes"></o-combo>
 
             </div>
@@ -39,7 +39,6 @@
             <o-table-column attr="BIL_DEVICES" title-align="center" content-align="center"></o-table-column>
             <o-table-column attr="BIL_MEASUREMENTS" title-align="center" content-align="center"></o-table-column>
             <o-table-column attr="CMP_NAME" title-align="center" content-align="center"></o-table-column>
-            <o-table-columns-filter columns="BIL_YEAR;BIL_MONTH;CMP_NAME"></o-table-columns-filter>
         </o-table>
     </o-column>
 </o-form>
