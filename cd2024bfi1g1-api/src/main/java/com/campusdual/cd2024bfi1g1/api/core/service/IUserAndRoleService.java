@@ -75,7 +75,7 @@ public interface IUserAndRoleService {
 	 *             the ontimize jee exception
 	 */
 
-	EntityResult userInsert(Map<?, ?> keysValues) throws OntimizeJEERuntimeException;
+	EntityResult userInsert(Map<String, Object> keysValues) throws OntimizeJEERuntimeException;
 
 	/**
 	 * Login Users query.

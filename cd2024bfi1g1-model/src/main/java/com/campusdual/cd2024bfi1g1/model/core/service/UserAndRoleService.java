@@ -6,6 +6,9 @@ import com.campusdual.cd2024bfi1g1.model.core.dao.*;
 import com.campusdual.cd2024bfi1g1.model.core.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -25,456 +28,551 @@ import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
 import com.ontimize.jee.server.security.SecurityTools;
 import com.ontimize.jee.server.security.encrypt.IPasswordEncryptHelper;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import java.security.SecureRandom;
+
 @Lazy
 @Service("UserAndRoleService")
 public class UserAndRoleService implements IUserAndRoleService {
 
-	/** The user dao. */
-	@Autowired
-	private UserDao userDao;
-	/** The user roles dao. */
-	@Autowired
-	private UserRoleDao userRolesDao;
-	/** The user dao. */
-	@Autowired
-	private RoleDao roleDao;
+    /**
+     * The user dao.
+     */
+    @Autowired
+    private UserDao userDao;
+    /**
+     * The user roles dao.
+     */
+    @Autowired
+    private UserRoleDao userRolesDao;
+    /**
+     * The user dao.
+     */
+    @Autowired
+    private RoleDao roleDao;
 
-	/** The server role dao. */
-	@Autowired
-	private RoleServerPermissionDao roleServerPermissionDao;
-	@Autowired
-	private DefaultOntimizeDaoHelper daoHelper;
+    /**
+     * The server role dao.
+     */
+    @Autowired
+    private RoleServerPermissionDao roleServerPermissionDao;
+    @Autowired
+    private DefaultOntimizeDaoHelper daoHelper;
 
-	@Autowired(required = false)
-	private IPasswordEncryptHelper passwordEncrypter;
+    @Autowired(required = false)
+    private IPasswordEncryptHelper passwordEncrypter;
 
-	/*
-	 * (non-Javadoc)
-	 */
-	@Override
-	@Secured({ PermissionsProviderSecured.SECURED })
-	public EntityResult userQuery(final Map<?, ?> keysValues, final List<?> attributes) throws OntimizeJEERuntimeException {
+    private Util util;
 
-		if (!attributes.contains("CMP_NAME")){
-			((List<String>) attributes).add("CMP_NAME");
-		}
+    /*
+     * (non-Javadoc)
+     */
+    @Override
+    @Secured({PermissionsProviderSecured.SECURED})
+    public EntityResult userQuery(final Map<?, ?> keysValues, final List<?> attributes) throws OntimizeJEERuntimeException {
 
-		final EntityResult toRet = this.daoHelper.query(this.userDao, keysValues, attributes);
-		if (toRet.containsKey(UserDao.PHOTO)) {
-			final List<Object> photoCustomer = (List<Object>) toRet.get(UserDao.PHOTO);
-			for (int i = 0; i < photoCustomer.size(); i++) {
-				final Object o = photoCustomer.get(i);
-				if (o instanceof BytesBlock) {
-					photoCustomer.set(i, ((BytesBlock) o).getBytes());
-				}
-			}
-		}
+        if (!attributes.contains("CMP_NAME")) {
+            ((List<String>) attributes).add("CMP_NAME");
+        }
 
-		return toRet;
-	}
-	@Override
-	public EntityResult searchQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
-		return this.daoHelper.query(this.userDao, keyMap, attrList, "search");
-	}
-	/*
-	 * (non-Javadoc)
-	 */
-	@Override
-	@Secured({ PermissionsProviderSecured.SECURED })
-	public AdvancedEntityResult userPaginationQuery(Map<?, ?> keysValues, List<?> attributes, int recordNumber, int startIndex, List<?> orderBy)
-			throws OntimizeJEERuntimeException {
-		return this.daoHelper.paginationQuery(this.userDao, keysValues, attributes, recordNumber, startIndex, orderBy);
-	}
+        final EntityResult toRet = this.daoHelper.query(this.userDao, keysValues, attributes);
+        if (toRet.containsKey(UserDao.PHOTO)) {
+            final List<Object> photoCustomer = (List<Object>) toRet.get(UserDao.PHOTO);
+            for (int i = 0; i < photoCustomer.size(); i++) {
+                final Object o = photoCustomer.get(i);
+                if (o instanceof BytesBlock) {
+                    photoCustomer.set(i, ((BytesBlock) o).getBytes());
+                }
+            }
+        }
 
+        return toRet;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 */
-	@Override
-	@Secured({ PermissionsProviderSecured.SECURED })
-	@Transactional(rollbackFor = Throwable.class)
-	public EntityResult userUpdate(final Map<?, ?> attributesValues, final Map<?, ?> keysValues) throws OntimizeJEERuntimeException {
-		EntityResult uroUpdateRes = null;
-		try {
-			if (attributesValues.containsKey(UserRoleDao.ROL_ID)) {
-				uroUpdateRes = this.daoHelper.update(this.userRolesDao, this.encryptPassword(attributesValues), keysValues);
-				attributesValues.remove(UserRoleDao.ROL_ID);
-			}
-			if (!attributesValues.isEmpty()) {
-				return this.daoHelper.update(this.userDao, this.encryptPassword(attributesValues), keysValues);
-			}else if(uroUpdateRes != null) {
-				return uroUpdateRes;
-			}else{
-				EntityResult res = new EntityResultMapImpl();
-				res.setCode(EntityResult.OPERATION_WRONG);
-				res.setMessage("USER_UPDATE_ERROR");
-				return res;
-			}
+    @Override
+    public EntityResult searchQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
+        return this.daoHelper.query(this.userDao, keyMap, attrList, "search");
+    }
 
-		} finally {
-			this.invalidateSecurityManager();
-		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 */
-	@Override
-	@Secured({ PermissionsProviderSecured.SECURED })
-	@Transactional(rollbackFor = Throwable.class)
-	public EntityResult userDelete(final Map<?, ?> keysValues) throws OntimizeJEERuntimeException {
-		try {
-			return this.daoHelper.delete(this.userDao, keysValues);
-		} finally {
-			this.invalidateSecurityManager();
-		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 */
-	@Override
-	@Secured({ PermissionsProviderSecured.SECURED })
-	@Transactional(rollbackFor = Throwable.class)
-	public EntityResult userInsert(final Map<?, ?> keysValues) throws OntimizeJEERuntimeException {
-		EntityResult userInsertResult = this.daoHelper.insert(this.userDao, this.encryptPassword(keysValues));
-
-		if (!userInsertResult.isEmpty()) {
-			Integer userId = (Integer) userInsertResult.get(UserDao.USR_ID);
-			Integer rolId = (Integer) keysValues.get(RoleDao.ROL_ID);
-
-			Map<String, Object> roleKeysValues = new HashMap<>();
-			roleKeysValues.put(UserRoleDao.USR_ID, userId);
-			roleKeysValues.put(UserRoleDao.ROL_ID, rolId);
-
-			return this.daoHelper.insert(this.userRolesDao, roleKeysValues);
-
-		} else {
-			throw new OntimizeJEERuntimeException("No se pudo insertar el usuario.");
-		}
-	}
-
-	@Override
-	@Secured({ PermissionsProviderSecured.SECURED })
-	public EntityResult roleQuery(final Map<?, ?> keysValues, final List<?> attributes) throws OntimizeJEERuntimeException {
-		return this.daoHelper.query(this.roleDao, keysValues, attributes);
-	}
-
-	@Override
-	public EntityResult roleWithoutAdminQuery(Map<?, ?> keysValues, List<?> attributes) throws OntimizeJEERuntimeException {
-		return this.daoHelper.query(this.roleDao, keysValues, attributes, "asignRole");
-	}
-
-	@Override
-	public EntityResult myRoleQuery(Map<?, ?> keysValues, List<?> attributes) throws OntimizeJEERuntimeException {
+    /*
+     * (non-Javadoc)
+     */
+    @Override
+    @Secured({PermissionsProviderSecured.SECURED})
+    public AdvancedEntityResult userPaginationQuery(Map<?, ?> keysValues, List<?> attributes, int recordNumber, int startIndex, List<?> orderBy)
+            throws OntimizeJEERuntimeException {
+        return this.daoHelper.paginationQuery(this.userDao, keysValues, attributes, recordNumber, startIndex, orderBy);
+    }
 
 
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		EntityResult e = new EntityResultMapImpl();
-		Map<String, String> map = new HashMap<>();
-		String role = authentication.getAuthorities().toArray()[0].toString();
+    /*
+     * (non-Javadoc)
+     */
+    @Override
+    @Secured({PermissionsProviderSecured.SECURED})
+    @Transactional(rollbackFor = Throwable.class)
+    public EntityResult userUpdate(final Map<?, ?> attributesValues, final Map<?, ?> keysValues) throws OntimizeJEERuntimeException {
+        EntityResult uroUpdateRes = null;
+        try {
+            if (attributesValues.containsKey(UserRoleDao.ROL_ID)) {
+                uroUpdateRes = this.daoHelper.update(this.userRolesDao, this.encryptPassword(attributesValues), keysValues);
+                attributesValues.remove(UserRoleDao.ROL_ID);
+            }
+            if (!attributesValues.isEmpty()) {
+                return this.daoHelper.update(this.userDao, this.encryptPassword(attributesValues), keysValues);
+            } else if (uroUpdateRes != null) {
+                return uroUpdateRes;
+            } else {
+                EntityResult res = new EntityResultMapImpl();
+                res.setCode(EntityResult.OPERATION_WRONG);
+                res.setMessage("USER_UPDATE_ERROR");
+                return res;
+            }
 
-		map.put(RoleDao.ROL_NAME, role);
+        } finally {
+            this.invalidateSecurityManager();
+        }
+    }
 
-		e.addRecord(map);
+    /*
+     * (non-Javadoc)
+     */
+    @Override
+    @Secured({PermissionsProviderSecured.SECURED})
+    @Transactional(rollbackFor = Throwable.class)
+    public EntityResult userDelete(final Map<?, ?> keysValues) throws OntimizeJEERuntimeException {
+        try {
+            return this.daoHelper.delete(this.userDao, keysValues);
+        } finally {
+            this.invalidateSecurityManager();
+        }
+    }
 
-		return this.daoHelper.query(this.roleDao, map, attributes);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 */
-	@Override
-	@Secured({ PermissionsProviderSecured.SECURED })
-	public AdvancedEntityResult rolePaginationQuery(Map<?, ?> keysValues, List<?> attributes, int recordNumber, int startIndex, List<?> orderBy)
-			throws OntimizeJEERuntimeException {
-		return this.daoHelper.paginationQuery(this.roleDao, keysValues, attributes, recordNumber, startIndex, orderBy);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 */
-	@Override
-	@Secured({ PermissionsProviderSecured.SECURED })
-	@Transactional(rollbackFor = Throwable.class)
-	public EntityResult roleUpdate(final Map<?, ?> attributesValues, final Map<?, ?> keysValues) throws OntimizeJEERuntimeException {
-		try {
-			return this.daoHelper.update(this.roleDao, attributesValues, keysValues);
-		} finally {
-			this.invalidateSecurityManager();
-		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 */
-	@Override
-	@Secured({ PermissionsProviderSecured.SECURED })
-	@Transactional(rollbackFor = Throwable.class)
-	public EntityResult roleDelete(final Map<?, ?> keysValues) throws OntimizeJEERuntimeException {
-		try {
-			this.roleServerPermissionDao.unsafeDelete(keysValues);
-			return this.daoHelper.delete(this.roleDao, keysValues);
-		} finally {
-			this.invalidateSecurityManager();
-		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 */
-	@Override
-	@Secured({ PermissionsProviderSecured.SECURED })
-	@Transactional(rollbackFor = Throwable.class)
-	public EntityResult roleInsert(final Map<?, ?> keysValues) throws OntimizeJEERuntimeException {
-		try {
-			return this.daoHelper.insert(this.roleDao, keysValues);
-		} finally {
-			this.invalidateSecurityManager();
-		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 */
-	@Override
-	@Secured({ PermissionsProviderSecured.SECURED })
-	public EntityResult serverRoleQuery(final Map<?, ?> keysValues, final List<?> attributes) throws OntimizeJEERuntimeException {
-		return this.daoHelper.query(this.roleServerPermissionDao, keysValues, attributes, "fullRolesWithServerPermissions");
-	}
-
-	/*
-	 * (non-Javadoc)
-	 */
-	@Override
-	@Secured({ PermissionsProviderSecured.SECURED })
-	public AdvancedEntityResult serverRolePaginationQuery(Map<?, ?> keysValues, List<?> attributes, int recordNumber, int startIndex, List<?> orderBy)
-			throws OntimizeJEERuntimeException {
-		return this.daoHelper.paginationQuery(this.roleServerPermissionDao, keysValues, attributes, recordNumber, startIndex, orderBy, "fullRolesWithServerPermissions");
-	}
-
-	/*
-	 * (non-Javadoc)
-	 */
-	@Override
-	@Secured({ PermissionsProviderSecured.SECURED })
-	@Transactional(rollbackFor = Throwable.class)
-	public EntityResult serverRoleUpdate(final Map<?, ?> attributesValues, final Map<?, ?> keysValues) throws OntimizeJEERuntimeException {
-		try {
-			if ("S".equals(attributesValues.get(RoleServerPermissionDao.ACTIVED))) {
-				// insert
-				final Map<String, Object> valuesToInsert = new HashMap<>();
-				valuesToInsert.put(RoleServerPermissionDao.ROL_ID, keysValues.get(RoleServerPermissionDao.ROL_ID));
-				valuesToInsert.put(RoleServerPermissionDao.SRP_ID, keysValues.get(RoleServerPermissionDao.SRP_ID));
-				return this.daoHelper.insert(this.roleServerPermissionDao, valuesToInsert);
-			} else if (keysValues.get(RoleServerPermissionDao.RSP_ID) != null) {
-				// delete
-				final Map<String, Object> valuesToDelete = new HashMap<>();
-				valuesToDelete.put(RoleServerPermissionDao.RSP_ID, keysValues.get(RoleServerPermissionDao.RSP_ID));
-				return this.daoHelper.delete(this.roleServerPermissionDao, valuesToDelete);
-			}
-			return new EntityResultMapImpl();
-		} finally {
-			this.invalidateSecurityManager();
-		}
-	}
-
-	@Override
-	@Secured({ PermissionsProviderSecured.SECURED })
-	@Transactional(rollbackFor = Throwable.class)
-	public EntityResult rolesForUserQuery(final Map<?, ?> keysValues, final List<?> attributes) throws OntimizeJEERuntimeException {
-		return this.daoHelper.query(this.userRolesDao, keysValues, attributes, "fullRolesWithUser");
-	}
-
-	/*
-	 * (non-Javadoc)
-	 */
-	@Override
-	@Secured({ PermissionsProviderSecured.SECURED })
-	public AdvancedEntityResult rolesForUserPaginationQuery(Map<?, ?> keysValues, List<?> attributes, int recordNumber, int startIndex, List<?> orderBy)
-			throws OntimizeJEERuntimeException {
-		return this.daoHelper.paginationQuery(this.userRolesDao, keysValues, attributes, recordNumber, startIndex, orderBy, "fullRolesWithUser");
-	}
-
-	/*
-	 * (non-Javadoc)
-	 */
-
-	@Override
-	@Secured({ PermissionsProviderSecured.SECURED })
-	@Transactional(rollbackFor = Throwable.class)
-	public EntityResult rolesForUserUpdate(final Map<?, ?> attributesValues, final Map<?, ?> keysValues)
-			throws OntimizeJEERuntimeException {
-		try {
-			if ("S".equals(attributesValues.get(UserRoleDao.ACTIVED))) {
-				// insert
-				final Map<String, Object> valuesToInsert = new HashMap<>();
-				valuesToInsert.put(UserRoleDao.USR_ID, keysValues.get(UserRoleDao.USR_ID));
-				valuesToInsert.put(UserRoleDao.ROL_ID, keysValues.get(UserRoleDao.ROL_ID));
-				return this.daoHelper.insert(this.userRolesDao, valuesToInsert);
-			} else if (keysValues.get(UserRoleDao.URO_ID) != null) {
-				// delete
-				final Map<String, Object> valuesToDelete = new HashMap<>();
-				valuesToDelete.put(UserRoleDao.URO_ID, keysValues.get(UserRoleDao.URO_ID));
-				return this.daoHelper.delete(this.userRolesDao, valuesToDelete);
-			}
-			return new EntityResultMapImpl();
-		} finally {
-			this.invalidateSecurityManager();
-		}
-	}
-
-	@Override
-	public String encryptPassword(final String password) throws OntimizeJEERuntimeException {
-		if (this.passwordEncrypter != null) {
-			return this.passwordEncrypter.encrypt(password);
-		}
-		return password;
-	}
-
-	/**
-	 * Refresh security manager.
-	 */
-	private void invalidateSecurityManager() {
-		SecurityTools.invalidateSecurityManager(this.daoHelper.getApplicationContext());
-	}
-
-	protected Map<String, Object> encryptPassword(final Map<?, ?> av) {
-		final Map<String, Object> map = (Map<String, Object>) av;
-
-		if (this.passwordEncrypter != null) {
-			final String pass = (String) map.computeIfPresent(UserDao.PASSWORD,
-					(key, value) -> value == null ? null : this.passwordEncrypter.encrypt((String) value));
-			if (pass != null) {
-				map.put(UserDao.PASSWORD, pass);
-			}
-		}
-		return map;
-	}
-
-	@Override
-	public EntityResult passwordUpdate(final Map<?, ?> attributesValues, final Map<?, ?> keysValues)
-			throws OntimizeJEERuntimeException {
-		final UserInformation userInfo = (UserInformation) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		final Map<String, Object> kvq = new HashMap<>();
-		kvq.put(UserDao.LOGIN, userInfo.getUsername());
-		final EntityResult oldPassword = this.daoHelper.query(userDao, kvq, List.of(UserDao.USR_ID, UserDao.PASSWORD));
-		final Map<String, Object> r = oldPassword.getRecordValues(0);
-		if (this.checkPasswords((String) r.get(UserDao.PASSWORD), (String) attributesValues.get(UserDao.OLD_PASSWORD))) {
-			final Map<String, Object> newPassword = new HashMap<>();
-			newPassword.put(UserDao.PASSWORD, this.encryptPassword((String) attributesValues.get(UserDao.NEW_PASSWORD)));
-			final Map<String, Object> kvu = new HashMap<>();
-			kvu.put(UserDao.USR_ID, r.get(UserDao.USR_ID));
-			return this.daoHelper.update(userDao, newPassword, kvu);
-		} else {
-			final EntityResult error = new EntityResultMapImpl();
-			error.setCode(EntityResult.OPERATION_WRONG);
-			error.setMessage("The old password isn't correct!");
-			return error;
-		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 */
-	@Override
-	public EntityResult profileQuery(final Map<?, ?> keysValues, final List<?> attributes) throws OntimizeJEERuntimeException {
-		final UserInformation userInfo = (UserInformation) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		final Map<String, Object> kv = new HashMap<>();
-		kv.put(UserDao.LOGIN, userInfo.getUsername());
-		final EntityResult toRet = this.daoHelper.query(this.userDao, kv, attributes);
-		if (toRet.containsKey(UserDao.PHOTO)) {
-			final List<Object> photoCustomer = (List<Object>) toRet.get(UserDao.PHOTO);
-			for (int i = 0; i < photoCustomer.size(); i++) {
-				final Object o = photoCustomer.get(i);
-				if (o instanceof BytesBlock) {
-					photoCustomer.set(i, ((BytesBlock) o).getBytes());
-				}
-			}
-		}
-
-		return toRet;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 */
-	@Override
-	@Transactional(rollbackFor = Throwable.class)
-	public EntityResult profileUpdate(final Map<?, ?> attributesValues, final Map<?, ?> keysValues) throws OntimizeJEERuntimeException {
-		try {
-			final UserInformation userInfo = (UserInformation) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			final Map<String, Object> kvq = new HashMap<>();
-			kvq.put(UserDao.LOGIN, userInfo.getUsername());
-			final EntityResult er = this.daoHelper.query(this.userDao, kvq, List.of(UserDao.USR_ID));
-			final Map<String, Object> kvu = new HashMap<>();
-			kvu.put(UserDao.USR_ID, er.getRecordValues(0).get(UserDao.USR_ID));
-			return this.daoHelper.update(this.userDao, this.encryptPassword(attributesValues), kvu);
-		} finally {
-			this.invalidateSecurityManager();
-		}
-	}
-
-	@Override
-	public EntityResult loginUserQuery(final Map<?, ?> keysValues, final List<?> attributes) throws OntimizeJEERuntimeException {
-		final UserInformation userInfo = (UserInformation) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		final EntityResult eR = new EntityResultMapImpl();
-		final Map<String, Object> usrMap = new HashMap<>();
-
-		for (final Object key : userInfo.getOtherData().keySet()) {
-			if (userInfo.getOtherData().get(key) != null) {
-				usrMap.put(String.valueOf(key), userInfo.getOtherData().get(key));
-			}
-		}
-		eR.putAll(usrMap);
-		return eR;
-	}
-
-	@Override
-	public EntityResult getClientPermissions() {
-		final Collection<GrantedAuthority> authorities = ((UserInformation) SecurityContextHolder.getContext().getAuthentication()
-				.getPrincipal()).getAuthorities();
-		if (authorities.isEmpty()) {
-			return new EntityResultMapImpl();
-		} else {
-			final String userRole = authorities.iterator().next().getAuthority();
-			return this.daoHelper.query(this.roleDao, new HashMap<>(Map.of(RoleDao.ROL_NAME, userRole)),
-					List.of(RoleDao.JSON_CLIENT_PERMISSION));
-		}
-	}
+    /*
+     * (non-Javadoc)
+     */
+    @Override
+    @Secured({PermissionsProviderSecured.SECURED})
+    @Transactional(rollbackFor = Throwable.class)
+    public EntityResult userInsert(final Map<String, Object> keysValues) throws OntimizeJEERuntimeException {
 
 
+        String password = generateRandomPassword();
 
-	protected boolean checkPasswords(final String storedPassword, final String password) throws OntimizeJEERuntimeException {
-		if (this.passwordEncrypter == null) {
-			return (password != null && storedPassword.equals(password));
-		} else {
-			try {
-				this.passwordEncrypter.checkPasswords(storedPassword, password);
-				return true;
-			} catch (final Exception e) {
-				return false;
-			}
-		}
-	}
+        Map<String, Object> updatedKeysValues = new HashMap<>();
 
-	public static Integer getUserCompanyId(DefaultOntimizeDaoHelper daoHelper, UserDao userDao){
-		Integer userId = Util.getUserId();
+        for (Map.Entry<?, ?> entry : keysValues.entrySet()) {
+            updatedKeysValues.put((String) entry.getKey(), entry.getValue());
+        }
+        updatedKeysValues.put(UserDao.PASSWORD, password);
+        updatedKeysValues.put(UserDao.PASSWORD, encryptPassword(password));
+        EntityResult userInsertResult = this.daoHelper.insert(this.userDao, updatedKeysValues);
 
-		Map<String, Object> filter = new HashMap<>();
-		filter.put(UserDao.USR_ID, userId);
-		List<String> columns = List.of(UserDao.CMP_ID);
+        if (!userInsertResult.isEmpty()) {
+            try {
+                sendEmail(keysValues.get(UserDao.EMAIL).toString(), "Bienvenido a ColdCare", keysValues.get(UserDao.LOGIN).toString(), password, "https://cd2024bfi1g1-dev.dev.campusdual.com/app/login?session-expired=false");
+            } catch (MessagingException ex){
+                return Util.controlErrors("EMAIL_ERROR");
+            }
+            Integer userId = (Integer) userInsertResult.get(UserDao.USR_ID);
+            Integer rolId = (Integer) keysValues.get(RoleDao.ROL_ID);
 
-		EntityResult userEr = daoHelper.query(userDao, filter, columns);
-		if (userEr.isEmpty()) {
-			throw new RuntimeException("Unknown user");
-		}
+            Map<String, Object> roleKeysValues = new HashMap<>();
+            roleKeysValues.put(UserRoleDao.USR_ID, userId);
+            roleKeysValues.put(UserRoleDao.ROL_ID, rolId);
 
-		Map<String, Object> user = userEr.getRecordValues(0);
-		return (Integer) user.get(UserDao.CMP_ID);
-	}
+            return this.daoHelper.insert(this.userRolesDao, roleKeysValues);
+
+        } else {
+            throw new OntimizeJEERuntimeException("No se pudo insertar el usuario.");
+        }
+    }
+
+    @Autowired
+    private JavaMailSender mailSender;
+
+    public void sendEmail(String to, String subject,String username, String tempPassword, String url) throws MessagingException {
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+
+        String htmlContent = "<!DOCTYPE html>"
+                + "<html lang=\"es\">"
+                + "<head>"
+                + "    <meta charset=\"UTF-8\">"
+                + "    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">"
+                + "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">"
+                + "    <title>Bienvenido a ColdCare</title>"
+                + "</head>"
+                + "<body style=\"font-family: Arial, sans-serif; background-color: #f4f4f4; color: #333; margin: 0; padding: 20px;\">"
+                + "    <table style=\"width: 100%; max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);\">"
+                + "        <tr>"
+                + "            <td style=\"text-align: center; padding-bottom: 20px;\">"
+                + "                <h2 style=\"color: #1384c7;\">¡Bienvenido a ColdCare!</h2>"
+                + "            </td>"
+                + "        </tr>"
+                + "        <tr>"
+                + "            <td style=\"font-size: 16px; line-height: 1.6;\">"
+                + "                <p>Estimado <strong>" + username + "</strong>,</p>"
+                + "                <p>Nos complace informarte que tu cuenta ha sido creada con éxito y estás listo para comenzar a disfrutar de nuestros servicios.</p>"
+                + "                <p>Para acceder a tu cuenta, por favor, utiliza la siguiente información de inicio de sesión:</p>"
+                + "                <table style=\"width: 100%; border-collapse: collapse; margin-top: 10px;\">"
+                + "                    <tr>"
+                + "                        <td style=\"padding: 10px; background-color: #f4f4f4; font-weight: bold;\">Usuario:</td>"
+                + "                        <td style=\"padding: 10px; background-color: #f4f4f4;\">" + username + "</td>"
+                + "                    </tr>"
+                + "                    <tr>"
+                + "                        <td style=\"padding: 10px; background-color: #f4f4f4; font-weight: bold;\">Contraseña:</td>"
+                + "                        <td style=\"padding: 10px; background-color: #f4f4f4;\">" + tempPassword + "</td>"
+                + "                    </tr>"
+                + "                </table>"
+                + "            </td>"
+                + "        </tr>"
+                + "    </table>"
+                + "</body>"
+                + "</html>";
+
+        helper.setTo(to);
+        helper.setSubject(subject);
+        helper.setText(htmlContent, true);
+        helper.setFrom("coldcare33@gmail.com");
+
+        mailSender.send(message);
+    }
+
+    @Override
+    @Secured({PermissionsProviderSecured.SECURED})
+    public EntityResult roleQuery(final Map<?, ?> keysValues, final List<?> attributes) throws OntimizeJEERuntimeException {
+        return this.daoHelper.query(this.roleDao, keysValues, attributes);
+    }
+
+    @Override
+    public EntityResult roleWithoutAdminQuery(Map<?, ?> keysValues, List<?> attributes) throws OntimizeJEERuntimeException {
+        return this.daoHelper.query(this.roleDao, keysValues, attributes, "asignRole");
+    }
+
+    @Override
+    public EntityResult myRoleQuery(Map<?, ?> keysValues, List<?> attributes) throws OntimizeJEERuntimeException {
 
 
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        EntityResult e = new EntityResultMapImpl();
+        Map<String, String> map = new HashMap<>();
+        String role = authentication.getAuthorities().toArray()[0].toString();
 
+        map.put(RoleDao.ROL_NAME, role);
+
+        e.addRecord(map);
+
+        return this.daoHelper.query(this.roleDao, map, attributes);
+    }
+
+    /*
+     * (non-Javadoc)
+     */
+    @Override
+    @Secured({PermissionsProviderSecured.SECURED})
+    public AdvancedEntityResult rolePaginationQuery(Map<?, ?> keysValues, List<?> attributes, int recordNumber, int startIndex, List<?> orderBy)
+            throws OntimizeJEERuntimeException {
+        return this.daoHelper.paginationQuery(this.roleDao, keysValues, attributes, recordNumber, startIndex, orderBy);
+    }
+
+    /*
+     * (non-Javadoc)
+     */
+    @Override
+    @Secured({PermissionsProviderSecured.SECURED})
+    @Transactional(rollbackFor = Throwable.class)
+    public EntityResult roleUpdate(final Map<?, ?> attributesValues, final Map<?, ?> keysValues) throws OntimizeJEERuntimeException {
+        try {
+            return this.daoHelper.update(this.roleDao, attributesValues, keysValues);
+        } finally {
+            this.invalidateSecurityManager();
+        }
+    }
+
+    /*
+     * (non-Javadoc)
+     */
+    @Override
+    @Secured({PermissionsProviderSecured.SECURED})
+    @Transactional(rollbackFor = Throwable.class)
+    public EntityResult roleDelete(final Map<?, ?> keysValues) throws OntimizeJEERuntimeException {
+        try {
+            this.roleServerPermissionDao.unsafeDelete(keysValues);
+            return this.daoHelper.delete(this.roleDao, keysValues);
+        } finally {
+            this.invalidateSecurityManager();
+        }
+    }
+
+    /*
+     * (non-Javadoc)
+     */
+    @Override
+    @Secured({PermissionsProviderSecured.SECURED})
+    @Transactional(rollbackFor = Throwable.class)
+    public EntityResult roleInsert(final Map<?, ?> keysValues) throws OntimizeJEERuntimeException {
+        try {
+            return this.daoHelper.insert(this.roleDao, keysValues);
+        } finally {
+            this.invalidateSecurityManager();
+        }
+    }
+
+    /*
+     * (non-Javadoc)
+     */
+    @Override
+    @Secured({PermissionsProviderSecured.SECURED})
+    public EntityResult serverRoleQuery(final Map<?, ?> keysValues, final List<?> attributes) throws OntimizeJEERuntimeException {
+        return this.daoHelper.query(this.roleServerPermissionDao, keysValues, attributes, "fullRolesWithServerPermissions");
+    }
+
+    /*
+     * (non-Javadoc)
+     */
+    @Override
+    @Secured({PermissionsProviderSecured.SECURED})
+    public AdvancedEntityResult serverRolePaginationQuery(Map<?, ?> keysValues, List<?> attributes, int recordNumber, int startIndex, List<?> orderBy)
+            throws OntimizeJEERuntimeException {
+        return this.daoHelper.paginationQuery(this.roleServerPermissionDao, keysValues, attributes, recordNumber, startIndex, orderBy, "fullRolesWithServerPermissions");
+    }
+
+    /*
+     * (non-Javadoc)
+     */
+    @Override
+    @Secured({PermissionsProviderSecured.SECURED})
+    @Transactional(rollbackFor = Throwable.class)
+    public EntityResult serverRoleUpdate(final Map<?, ?> attributesValues, final Map<?, ?> keysValues) throws OntimizeJEERuntimeException {
+        try {
+            if ("S".equals(attributesValues.get(RoleServerPermissionDao.ACTIVED))) {
+                // insert
+                final Map<String, Object> valuesToInsert = new HashMap<>();
+                valuesToInsert.put(RoleServerPermissionDao.ROL_ID, keysValues.get(RoleServerPermissionDao.ROL_ID));
+                valuesToInsert.put(RoleServerPermissionDao.SRP_ID, keysValues.get(RoleServerPermissionDao.SRP_ID));
+                return this.daoHelper.insert(this.roleServerPermissionDao, valuesToInsert);
+            } else if (keysValues.get(RoleServerPermissionDao.RSP_ID) != null) {
+                // delete
+                final Map<String, Object> valuesToDelete = new HashMap<>();
+                valuesToDelete.put(RoleServerPermissionDao.RSP_ID, keysValues.get(RoleServerPermissionDao.RSP_ID));
+                return this.daoHelper.delete(this.roleServerPermissionDao, valuesToDelete);
+            }
+            return new EntityResultMapImpl();
+        } finally {
+            this.invalidateSecurityManager();
+        }
+    }
+
+    @Override
+    @Secured({PermissionsProviderSecured.SECURED})
+    @Transactional(rollbackFor = Throwable.class)
+    public EntityResult rolesForUserQuery(final Map<?, ?> keysValues, final List<?> attributes) throws OntimizeJEERuntimeException {
+        return this.daoHelper.query(this.userRolesDao, keysValues, attributes, "fullRolesWithUser");
+    }
+
+    /*
+     * (non-Javadoc)
+     */
+    @Override
+    @Secured({PermissionsProviderSecured.SECURED})
+    public AdvancedEntityResult rolesForUserPaginationQuery(Map<?, ?> keysValues, List<?> attributes, int recordNumber, int startIndex, List<?> orderBy)
+            throws OntimizeJEERuntimeException {
+        return this.daoHelper.paginationQuery(this.userRolesDao, keysValues, attributes, recordNumber, startIndex, orderBy, "fullRolesWithUser");
+    }
+
+    /*
+     * (non-Javadoc)
+     */
+
+    @Override
+    @Secured({PermissionsProviderSecured.SECURED})
+    @Transactional(rollbackFor = Throwable.class)
+    public EntityResult rolesForUserUpdate(final Map<?, ?> attributesValues, final Map<?, ?> keysValues)
+            throws OntimizeJEERuntimeException {
+        try {
+            if ("S".equals(attributesValues.get(UserRoleDao.ACTIVED))) {
+                // insert
+                final Map<String, Object> valuesToInsert = new HashMap<>();
+                valuesToInsert.put(UserRoleDao.USR_ID, keysValues.get(UserRoleDao.USR_ID));
+                valuesToInsert.put(UserRoleDao.ROL_ID, keysValues.get(UserRoleDao.ROL_ID));
+                return this.daoHelper.insert(this.userRolesDao, valuesToInsert);
+            } else if (keysValues.get(UserRoleDao.URO_ID) != null) {
+                // delete
+                final Map<String, Object> valuesToDelete = new HashMap<>();
+                valuesToDelete.put(UserRoleDao.URO_ID, keysValues.get(UserRoleDao.URO_ID));
+                return this.daoHelper.delete(this.userRolesDao, valuesToDelete);
+            }
+            return new EntityResultMapImpl();
+        } finally {
+            this.invalidateSecurityManager();
+        }
+    }
+
+    @Override
+    public String encryptPassword(final String password) throws OntimizeJEERuntimeException {
+        if (this.passwordEncrypter != null) {
+            return this.passwordEncrypter.encrypt(password);
+        }
+        return password;
+    }
+
+    /**
+     * Refresh security manager.
+     */
+    private void invalidateSecurityManager() {
+        SecurityTools.invalidateSecurityManager(this.daoHelper.getApplicationContext());
+    }
+
+    protected Map<String, Object> encryptPassword(final Map<?, ?> av) {
+        final Map<String, Object> map = (Map<String, Object>) av;
+
+        if (this.passwordEncrypter != null) {
+            final String pass = (String) map.computeIfPresent(UserDao.PASSWORD,
+                    (key, value) -> value == null ? null : this.passwordEncrypter.encrypt((String) value));
+            if (pass != null) {
+                map.put(UserDao.PASSWORD, pass);
+            }
+        }
+        return map;
+    }
+
+    @Override
+    public EntityResult passwordUpdate(final Map<?, ?> attributesValues, final Map<?, ?> keysValues)
+            throws OntimizeJEERuntimeException {
+        final UserInformation userInfo = (UserInformation) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        final Map<String, Object> kvq = new HashMap<>();
+        kvq.put(UserDao.LOGIN, userInfo.getUsername());
+        final EntityResult oldPassword = this.daoHelper.query(userDao, kvq, List.of(UserDao.USR_ID, UserDao.PASSWORD));
+        final Map<String, Object> r = oldPassword.getRecordValues(0);
+        if (this.checkPasswords((String) r.get(UserDao.PASSWORD), (String) attributesValues.get(UserDao.OLD_PASSWORD))) {
+            final Map<String, Object> newPassword = new HashMap<>();
+            newPassword.put(UserDao.PASSWORD, this.encryptPassword((String) attributesValues.get(UserDao.NEW_PASSWORD)));
+            final Map<String, Object> kvu = new HashMap<>();
+            kvu.put(UserDao.USR_ID, r.get(UserDao.USR_ID));
+            return this.daoHelper.update(userDao, newPassword, kvu);
+        } else {
+            final EntityResult error = new EntityResultMapImpl();
+            error.setCode(EntityResult.OPERATION_WRONG);
+            error.setMessage("The old password isn't correct!");
+            return error;
+        }
+    }
+
+    /*
+     * (non-Javadoc)
+     */
+    @Override
+    public EntityResult profileQuery(final Map<?, ?> keysValues, final List<?> attributes) throws OntimizeJEERuntimeException {
+        final UserInformation userInfo = (UserInformation) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        final Map<String, Object> kv = new HashMap<>();
+        kv.put(UserDao.LOGIN, userInfo.getUsername());
+        final EntityResult toRet = this.daoHelper.query(this.userDao, kv, attributes);
+        if (toRet.containsKey(UserDao.PHOTO)) {
+            final List<Object> photoCustomer = (List<Object>) toRet.get(UserDao.PHOTO);
+            for (int i = 0; i < photoCustomer.size(); i++) {
+                final Object o = photoCustomer.get(i);
+                if (o instanceof BytesBlock) {
+                    photoCustomer.set(i, ((BytesBlock) o).getBytes());
+                }
+            }
+        }
+
+        return toRet;
+    }
+
+    /*
+     * (non-Javadoc)
+     */
+    @Override
+    @Transactional(rollbackFor = Throwable.class)
+    public EntityResult profileUpdate(final Map<?, ?> attributesValues, final Map<?, ?> keysValues) throws OntimizeJEERuntimeException {
+        try {
+            final UserInformation userInfo = (UserInformation) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            final Map<String, Object> kvq = new HashMap<>();
+            kvq.put(UserDao.LOGIN, userInfo.getUsername());
+            final EntityResult er = this.daoHelper.query(this.userDao, kvq, List.of(UserDao.USR_ID));
+            final Map<String, Object> kvu = new HashMap<>();
+            kvu.put(UserDao.USR_ID, er.getRecordValues(0).get(UserDao.USR_ID));
+            return this.daoHelper.update(this.userDao, this.encryptPassword(attributesValues), kvu);
+        } finally {
+            this.invalidateSecurityManager();
+        }
+    }
+
+    @Override
+    public EntityResult loginUserQuery(final Map<?, ?> keysValues, final List<?> attributes) throws OntimizeJEERuntimeException {
+        final UserInformation userInfo = (UserInformation) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        final EntityResult eR = new EntityResultMapImpl();
+        final Map<String, Object> usrMap = new HashMap<>();
+
+        for (final Object key : userInfo.getOtherData().keySet()) {
+            if (userInfo.getOtherData().get(key) != null) {
+                usrMap.put(String.valueOf(key), userInfo.getOtherData().get(key));
+            }
+        }
+        eR.putAll(usrMap);
+        return eR;
+    }
+
+    @Override
+    public EntityResult getClientPermissions() {
+        final Collection<GrantedAuthority> authorities = ((UserInformation) SecurityContextHolder.getContext().getAuthentication()
+                .getPrincipal()).getAuthorities();
+        if (authorities.isEmpty()) {
+            return new EntityResultMapImpl();
+        } else {
+            final String userRole = authorities.iterator().next().getAuthority();
+            return this.daoHelper.query(this.roleDao, new HashMap<>(Map.of(RoleDao.ROL_NAME, userRole)),
+                    List.of(RoleDao.JSON_CLIENT_PERMISSION));
+        }
+    }
+
+
+    protected boolean checkPasswords(final String storedPassword, final String password) throws OntimizeJEERuntimeException {
+        if (this.passwordEncrypter == null) {
+            return (password != null && storedPassword.equals(password));
+        } else {
+            try {
+                this.passwordEncrypter.checkPasswords(storedPassword, password);
+                return true;
+            } catch (final Exception e) {
+                return false;
+            }
+        }
+    }
+
+    public static Integer getUserCompanyId(DefaultOntimizeDaoHelper daoHelper, UserDao userDao) {
+        Integer userId = Util.getUserId();
+
+        Map<String, Object> filter = new HashMap<>();
+        filter.put(UserDao.USR_ID, userId);
+        List<String> columns = List.of(UserDao.CMP_ID);
+
+        EntityResult userEr = daoHelper.query(userDao, filter, columns);
+        if (userEr.isEmpty()) {
+            throw new RuntimeException("Unknown user");
+        }
+
+        Map<String, Object> user = userEr.getRecordValues(0);
+        return (Integer) user.get(UserDao.CMP_ID);
+    }
+
+
+    private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+";
+    private static final int PASSWORD_LENGTH = 12;
+
+    public static String generateRandomPassword() {
+        SecureRandom random = new SecureRandom();
+        StringBuilder password = new StringBuilder(PASSWORD_LENGTH);
+
+        for (int i = 0; i < PASSWORD_LENGTH; i++) {
+            int index = random.nextInt(CHARACTERS.length());
+            password.append(CHARACTERS.charAt(index));
+        }
+
+        return password.toString();
+    }
 
 }

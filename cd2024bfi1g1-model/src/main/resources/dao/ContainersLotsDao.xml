@@ -108,5 +108,43 @@
                 ]]>
             </Sentence>
         </Query>
+        <Query id="container_lot_with_alert_data">
+            <AmbiguousColumns>
+                <AmbiguousColumn name="LOT_ID" prefix="cl"/>
+                <AmbiguousColumn name="CNT_ID" prefix="cl"/>
+                <AmbiguousColumn name="PRO_ID" prefix="p"/>
+                <AmbiguousColumn name="CL_ID" prefix="cl"/>
+            </AmbiguousColumns>
+            <Sentence>
+                WITH alert_data AS (
+                    SELECT
+                    cl_id,
+                    SUM(
+                        COALESCE(EXTRACT(EPOCH FROM (alt_date_end - alt_date_init)),
+                        EXTRACT(EPOCH FROM (NOW() - alt_date_init)))
+                    ) AS total_time,
+                    AVG(
+                        COALESCE(EXTRACT(EPOCH FROM (alt_date_end - alt_date_init)),
+                        EXTRACT(EPOCH FROM (NOW() - alt_date_init)))
+                    ) AS average_time,
+                    MAX(
+                        COALESCE(EXTRACT(EPOCH FROM (alt_date_end - alt_date_init)),
+                        EXTRACT(EPOCH FROM (NOW() - alt_date_init)))
+                    ) AS max_time,
+                    COUNT(*) FILTER (WHERE alt_date_end IS NULL) AS active_alerts
+                    FROM alerts
+                    GROUP BY cl_id
+                )
+                SELECT #COLUMNS#
+                FROM containers_lots cl
+                JOIN LOTS l ON cl.lot_id = l.lot_id
+                JOIN CONTAINERS c ON c.CNT_ID = cl.CNT_ID
+                JOIN PRODUCTS p ON l.pro_id = p.pro_id
+                LEFT JOIN alert_data a ON cl.cl_id = a.cl_id
+
+                #WHERE#
+                GROUP BY cl.cl_id, l.lot_id, c.cnt_id, p.pro_id, a.total_time, a.average_time, a.max_time, a.active_alerts,a.cl_id;
+            </Sentence>
+        </Query>
     </Queries>
 </JdbcEntitySetup>
