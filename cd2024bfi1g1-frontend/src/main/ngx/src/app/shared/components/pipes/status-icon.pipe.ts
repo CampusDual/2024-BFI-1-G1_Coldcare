@@ -5,18 +5,18 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class StatusIconPipe implements PipeTransform {
 
-  transform(value: string): string {
-    if (!value) return '';
+  transform(value: string): { icon: string, class: string } {
+    if (!value) return { icon: 'help_outline', class: 'default' };
 
     switch (value.toUpperCase()) {
       case 'PENDING':
-        return 'hourglass_empty'; // Ícono de espera
+        return { icon: 'hourglass_empty', class: 'pending' };
       case 'INITIATED':
-        return 'local_shipping'; // Ícono de transporte
+        return { icon: 'local_shipping', class: 'initiated' };
       case 'FINISHED':
-        return 'check_circle'; // Ícono de finalizado
+        return { icon: 'check_circle', class: 'finished' };
       default:
-        return 'help_outline'; // Ícono por defecto (?)
+        return { icon: 'help_outline', class: 'default' };
     }
   }
 }

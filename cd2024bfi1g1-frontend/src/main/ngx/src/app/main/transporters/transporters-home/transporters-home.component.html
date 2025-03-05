@@ -6,19 +6,29 @@
     <mat-card-header>
 
       <o-column>
-        <mat-card-title>{{"ORIGIN_NAME" | oTranslate}}</mat-card-title>
-        <mat-card-subtitle>{{ row.ORIGIN_NAME }}</mat-card-subtitle>
+        <div class="row">
+          <span class="title">{{ "ORIGIN_NAME" | oTranslate }}:</span> 
+          <span>{{ row.ORIGIN_NAME }}</span>
+        </div>
 
-        <mat-card-title>{{"DESTINATION_NAME" | oTranslate}}</mat-card-title>
-        <mat-card-subtitle>{{ row.DESTINATION_NAME }}</mat-card-subtitle>
+        <div class="row">
+          <span class="title">{{ "DESTINATION_NAME" | oTranslate }}:</span> 
+          <span>{{ row.DESTINATION_NAME }}</span>
+        </div>
 
-        <mat-card-title>{{"TRP_DATE" | oTranslate}}</mat-card-title>
-        <mat-card-subtitle>{{ row.TRP_DATE | dateTransform}}</mat-card-subtitle>
+        <div class="row">
+          <span class="title">{{ "TRP_DATE" | oTranslate }}:</span> 
+          <span>{{ row.TRP_DATE | dateTransform }}</span>
+        </div>
 
-        <mat-card-title>{{"TST_NAME" | oTranslate}}</mat-card-title>
-        <mat-icon>{{ row.TST_NAME | statusIcon}}</mat-icon>
-
+        <div class="row">
+          <span class="title">{{ "TST_NAME" | oTranslate }}:</span> 
+          <mat-icon [ngClass]="(row.TST_NAME | statusIcon).class">
+            {{ (row.TST_NAME | statusIcon).icon }}
+          </mat-icon>
+        </div>
       </o-column>
+
     </mat-card-header>
   </mat-card>
 </o-list>
