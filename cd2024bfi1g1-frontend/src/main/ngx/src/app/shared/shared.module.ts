@@ -10,6 +10,7 @@ import { AlertBooleanRendererComponent } from './components/alert-boolean-render
 import { MonthRendererPipe } from './components/pipes/month-renderer.pipe';
 import { DateTransformPipe } from './components/pipes/date-transform.pipe';
 import { StatusIconPipe } from './components/pipes/status-icon.pipe';
+import { SecondsToTimePipe } from './components/pipes/seconds-to-time.pipe';
 
 
 
@@ -26,7 +27,8 @@ import { StatusIconPipe } from './components/pipes/status-icon.pipe';
     AlertBooleanRendererComponent,
     MonthRendererPipe,
     DateTransformPipe,
-    StatusIconPipe
+    StatusIconPipe,
+    SecondsToTimePipe
   ],
   exports: [
     CommonModule,
@@ -38,7 +40,8 @@ import { StatusIconPipe } from './components/pipes/status-icon.pipe';
     AlertBooleanRendererComponent,
     MonthRendererPipe,
     DateTransformPipe,
-    StatusIconPipe
+    StatusIconPipe,
+    SecondsToTimePipe
   ]
 })
 export class SharedModule { }
