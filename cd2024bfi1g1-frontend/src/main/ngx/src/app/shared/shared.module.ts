@@ -10,6 +10,7 @@ import { AlertBooleanRendererComponent } from './components/alert-boolean-render
 import { MonthRendererPipe } from './components/pipes/month-renderer.pipe';
 import { SecondsToTimePipe } from './components/pipes/seconds-to-time.pipe';
 import { ContainersHomeBooleanRendererComponent, } from './components/containers-home-boolean-renderer/containers-home-boolean-renderer.component';
+import { ContainerLotsBooleanRenderComponent } from './components/container-lots-boolean-render/container-lots-boolean-render.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { ContainersHomeBooleanRendererComponent, } from './components/containers
     AlertBooleanRendererComponent,
     MonthRendererPipe,
     SecondsToTimePipe,
-    ContainersHomeBooleanRendererComponent
+    ContainersHomeBooleanRendererComponent,
+    ContainerLotsBooleanRenderComponent
   ],
   exports: [
     CommonModule,
@@ -38,6 +40,7 @@ import { ContainersHomeBooleanRendererComponent, } from './components/containers
     MonthRendererPipe,
     SecondsToTimePipe,
     ContainersHomeBooleanRendererComponent,
+    ContainerLotsBooleanRenderComponent
   ]
 })
 export class SharedModule { }
