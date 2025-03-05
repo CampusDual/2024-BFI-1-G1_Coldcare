@@ -149,16 +149,30 @@
                     COUNT(*) FILTER (WHERE alt_date_end IS NULL) AS active_alerts
                     FROM alerts
                     GROUP BY cl_id
-                )
+                ),
+                latest_measurements AS (
+                    SELECT
+                         clv.cnt_id,
+                         m.me_temp,
+                         m.me_humidity
+                    FROM measurements m
+                    INNER JOIN containers_lots_current_view clv ON m.cl_id = clv.cl_id
+                    INNER JOIN (
+                        SELECT cl_id, MAX(me_date) AS last_date
+                        FROM measurements
+                        GROUP BY cl_id
+                    ) latest ON m.cl_id = latest.cl_id
+                    WHERE m.me_date = latest.last_date and clv.cl_is_current
+                  )
                 SELECT #COLUMNS#
                 FROM containers_lots cl
                 JOIN LOTS l ON cl.lot_id = l.lot_id
                 JOIN CONTAINERS c ON c.CNT_ID = cl.CNT_ID
                 JOIN PRODUCTS p ON l.pro_id = p.pro_id
+                LEFT JOIN latest_measurements lm ON lm.CNT_ID = cl.CNT_ID
                 LEFT JOIN alert_data a ON cl.cl_id = a.cl_id
-
                 #WHERE#
-                GROUP BY cl.cl_id, l.lot_id, c.cnt_id, p.pro_id, a.total_time, a.average_time, a.max_time, a.active_alerts,a.cl_id;
+                GROUP BY cl.cl_id, l.lot_id, c.cnt_id, p.pro_id, a.total_time, a.average_time, a.max_time, a.active_alerts,a.cl_id,lm.ME_TEMP,lm.ME_HUMIDITY;
             </Sentence>
         </Query>
     </Queries>

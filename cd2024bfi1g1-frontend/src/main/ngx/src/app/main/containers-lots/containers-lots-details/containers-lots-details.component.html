@@ -1,6 +1,6 @@
 <o-form keys-sql-types="INTEGER" parent-keys="CL_ID" keys="CL_ID" include-parent-keys="yes" service="containersLots"
     entity="containersLots" show-header="yes" header-actions="R;U;D"
-    columns="CNT_NAME;LOT_NAME;PRO_NAME;MIN_TEMP;MAX_TEMP">
+    columns="CNT_NAME;LOT_NAME;PRO_NAME;MIN_TEMP;MAX_TEMP;ME_TEMP;ME_HUMIDITY">
     <o-column title="CL_INFO">
         <div class="inline-fields">
             <o-text-input attr="CNT_NAME" read-only="yes"></o-text-input>
@@ -10,6 +10,8 @@
             <o-text-input attr="PRO_NAME" read-only="yes"></o-text-input>
             <o-text-input attr="MIN_TEMP" read-only="yes"></o-text-input>
             <o-text-input attr="MAX_TEMP" read-only="yes"></o-text-input>
+            <o-text-input attr="ME_TEMP" title="LAST_TEMP" read-only="yes"></o-text-input>
+            <o-text-input attr="ME_HUMIDITY" title="LAST_HUMIDITY" read-only="yes"></o-text-input>
         </div>
     </o-column>
 
@@ -21,12 +23,12 @@
 
             <o-text-input #averageTime attr="AVERAGE_TIME" read-only="yes" hidden></o-text-input>
             <o-text-input attr="AVERAGE_TIME_TEXT" label="AVERAGE_TIME" read-only="yes" automatic-binding="false"
-            automatic-registering="false" [data]="averageTime.getValue() | secondsToTime"></o-text-input>
+                automatic-registering="false" [data]="averageTime.getValue() | secondsToTime"></o-text-input>
 
             <o-text-input #maxTime attr="MAX_TIME" read-only="yes" hidden></o-text-input>
             <o-text-input attr="MAX_TIME_TEXT" label="MAX_TIME" read-only="yes" automatic-binding="false"
-            automatic-registering="false" [data]="maxTime.getValue() | secondsToTime"></o-text-input>
-            
+                automatic-registering="false" [data]="maxTime.getValue() | secondsToTime"></o-text-input>
+
             <o-text-input attr="ACTIVE_ALERTS" read-only="yes"></o-text-input>
         </div>
     </o-column>

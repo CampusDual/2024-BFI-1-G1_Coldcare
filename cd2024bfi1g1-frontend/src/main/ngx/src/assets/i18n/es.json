@@ -270,5 +270,7 @@
   "MONTH": "Mes",
   "ALERTS_DATA": "Información de alertas",
   "USR_EMAIL": "Correo",
-  "EMAIL_ERROR": "Error al enviar el Email"
+  "EMAIL_ERROR": "Error al enviar el Email",
+  "ME_TEMP": "Última Temperatura (ºC)",
+  "ME_HUMIDITY": "Última Humedad (%)"
 }
