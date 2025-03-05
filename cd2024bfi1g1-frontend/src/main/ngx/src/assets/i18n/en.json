@@ -274,5 +274,7 @@
   "ALERTS_DETAIL": "Alert detail",
   "ALT_DATE_INIT": "Start date",
   "ALT_DATE_END": "End date",
-  "ALT_DURATION": "Duration"
+  "ALT_DURATION": "Duration",
+  "MIN_TEMP_DEV": "Min Temp (ºC)",
+  "MAX_TEMP_DEV": "Max Temp (ºC)"
 }
