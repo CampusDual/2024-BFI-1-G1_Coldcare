@@ -1,29 +1,41 @@
 <o-form #formCNT attr="containers_form_update" include-parent-keys="yes" parent-keys="CNT_ID" keys-sql-types="INTEGER"
   service="containers" entity="containersWithMeasurements" columns="CNT_NAME" visible-columns="CNT_NAME" keys="CNT_ID"
-  fxLayout="column" show-header="yes" header-actions="R;U" after-update-mode="detail" class="standalone-form-container">
+  fxLayout="column" show-header="yes" header-actions="R;U" after-update-mode="detail" class="standalone-form-container"
+  (onDataLoaded)="fillData()">
   <o-row class="form-row">
     <o-column class="column-extend">
-      <o-row attr="row1">
+      <div class="inline-fields-2">
         <o-column title="CONTAINER_DATA">
           <div class="inline-fields">
-            <o-text-input attr="CNT_NAME"></o-text-input>
+            <o-text-input #miInput attr="CNT_NAME"><span></span></o-text-input>
             <o-slide-toggle attr="CNT_MOBILITY" label="CURRENT_MOBILITY" read-only="no"></o-slide-toggle>
           </div>
+          <div class="inline-fields">
+            <o-text-input attr="AVG_TEMP" read-only="true"></o-text-input>
+            <o-text-input attr="MAX_TEMP_DEV" label="PRO_MAX_TEMP" read-only="true"></o-text-input>
+            <o-text-input attr="MIN_TEMP_DEV" label="PRO_MIN_TEMP" read-only="true"></o-text-input>
+          </div>
+          <div class="inline-fields">
+            <o-text-input attr="AVG_HUMIDITY" read-only="true"></o-text-input>
+            <o-text-input attr="MAX_HUMIDITY_DEV" read-only="true"></o-text-input>
+            <o-text-input attr="MIN_HUMIDITY_DEV" read-only="true"></o-text-input>
+          </div>
+          <div class="inline-fields">
+            <o-text-input attr="ALT_COUNT" label="ALERTS" read-only="true"></o-text-input>
+          </div>
         </o-column>
-      </o-row>
-
-      <div class="inline-fields">
-        <o-text-input attr="AVG_TEMP" read-only="true"></o-text-input>
-        <o-text-input attr="MAX_TEMP_DEV" label="PRO_MAX_TEMP" read-only="true"></o-text-input>
-        <o-text-input attr="MIN_TEMP_DEV" label="PRO_MIN_TEMP" read-only="true"></o-text-input>
-        <o-text-input attr="AVG_HUMIDITY" read-only="true"></o-text-input>
-        <o-text-input attr="MAX_HUMIDITY_DEV" read-only="true"></o-text-input>
-        <o-text-input attr="MIN_HUMIDITY_DEV" read-only="true"></o-text-input>
-        <o-text-input attr="ALT_COUNT" label="ALERTS" read-only="true"></o-text-input>
+        <o-column>
+          <o-table attr="devicesTable" title="DEVICES" show-title="yes" service="devices" entity="devices"
+            include-parent-keys="yes" parent-keys="CNT_ID" query-on-init="true" keys="DEV_ID"
+            columns="DEV_ID;DEV_NAME;CNT_ID" visible-columns="DEV_NAME" insert-button="false" delete-button="false"
+            refresh-button="false" detail-form-route="CNT_ID;DEV_ID" detail-form-route-params="CNT_ID;DEV_ID"
+            virtual-scroll="false">
+            <o-table-column attr="DEV_NAME" title="IDENTIFIER"></o-table-column>
+          </o-table>
+        </o-column>
       </div>
-
       <o-row>
-        <o-column class="extend">
+        <o-column class="column-extend">
           <o-table attr="lotHistory" title="LOT_HISTORY" show-title="yes" service="containersLots"
             entity="containersLotsWithAlerts" keys="CL_ID" parent-keys="CNT_ID"
             columns="CL_ID;LOT_NAME;CL_START_DATE;CL_END_DATE;PRO_ID;PRO_NAME;HAS_ALERT"
@@ -38,16 +50,6 @@
             <o-table-column attr="HAS_ALERT" title="HAS_ALERT" title-align="center" content-align="center">
               <alert-boolean-renderer />
             </o-table-column>
-          </o-table>
-        </o-column>
-
-        <o-column class="extend">
-          <o-table attr="devicesTable" title="DEVICES" show-title="yes" service="devices" entity="devices"
-            include-parent-keys="yes" parent-keys="CNT_ID" query-on-init="true" keys="DEV_ID"
-            columns="DEV_ID;DEV_NAME;CNT_ID" visible-columns="DEV_NAME" insert-button="false" delete-button="false"
-            refresh-button="false" detail-form-route="CNT_ID;DEV_ID" detail-form-route-params="CNT_ID;DEV_ID"
-            virtual-scroll="false">
-            <o-table-column attr="DEV_NAME" title="IDENTIFIER"></o-table-column>
           </o-table>
         </o-column>
       </o-row>

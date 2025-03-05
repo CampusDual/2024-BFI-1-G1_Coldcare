@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { OFormComponent } from 'ontimize-web-ngx';
 
 @Component({
   selector: 'app-containers-details',
@@ -7,11 +8,26 @@ import { Router } from '@angular/router';
   styleUrls: ['./containers-details.component.css']
 })
 
-export class ContainersDetailsComponent {
+export class ContainersDetailsComponent implements AfterViewInit {
+
+  @ViewChild('miInput', { static: false }) miInput!: ElementRef;
+  @ViewChild('formCNT', { static: false }) formCNT!: OFormComponent;
 
   constructor(
     private router: Router
   ) { }
+
+  ngAfterViewInit() {
+    this.formCNT.onDataLoaded.subscribe(() => this.fillData());
+
+  }
+
+  fillData() {
+    const spanElement = this.miInput.nativeElement.querySelector('span');
+    if (spanElement) {
+      spanElement.textContent = 'Valor por defecto';
+    }
+  }
 
   public openContainersLots(selected: any) {
     const row = selected.row;
