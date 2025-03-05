@@ -1,6 +1,9 @@
+// Este es el service worker que escuchara aunq nuestra aplicaion este cerrada
+
 importScripts("https://www.gstatic.com/firebasejs/11.4.0/firebase-app-compat.js")
 importScripts("https://www.gstatic.com/firebasejs/11.4.0/firebase-messaging-compat.js")
 
+// Es el mismo que el de firebase.js
 const firebaseConfig = {
   apiKey: "AIzaSyAoAsO_Vt28fvZk9mnnCC2H-Q9YlznsGkY",
   authDomain: "coldcarebfi1g1.firebaseapp.com",
@@ -13,6 +16,7 @@ const firebaseConfig = {
 const app = firebase.initializeApp(firebaseConfig);
 const messaging = firebase.messaging(app)
 
+//Si recibimos un mensaje mientras estamos ausentes
 messaging.onBackgroundMessage(payload => {
   console.log("Recibiste mensaje mientras estabas ausente");
 
@@ -20,7 +24,7 @@ messaging.onBackgroundMessage(payload => {
   const notificationTitle = payload.notification.title;
   const nofificationOptions = {
     body: payload.notification.body,
-    icon: "../icons/ontimize32.png"
+    icon: "./icons/ontimize32.png"
   }
 
   return self.ServiceWorkerRegistration.showNotification(

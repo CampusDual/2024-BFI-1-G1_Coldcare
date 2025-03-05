@@ -1,5 +1,6 @@
 import { Component, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { OntimizeService, Expression, FilterExpressionUtils, OTableComponent, Util, OTranslateService } from 'ontimize-web-ngx';
+import { FirebaseService } from 'src/app/firebase.service';
 
 
 @Component({
@@ -22,7 +23,7 @@ export class AlertsHomeComponent {
 
 
   @ViewChild("alertsTable") alertsTable: OTableComponent;
-  constructor(private ontimizeService: OntimizeService) {
+  constructor(private ontimizeService: OntimizeService, private firebaseService: FirebaseService) {
     this.ontimizeService.configureService(
       this.ontimizeService.getDefaultServiceConfiguration('alertsWithCalculatedColumns')
     );
@@ -33,6 +34,10 @@ export class AlertsHomeComponent {
   private timeoutId: any;
 
   ngAfterViewInit(): void {
+    // Este código se implementó solo para probar la spike de forma rápida y sencilla.
+    // No se debe utilizar este enfoque en producción, ya que el uso de setTimeout de esta forma 
+    // no es adecuado para manejar acciones asíncronas o temporizadores de manera controlada.
+    // He puesto un txt a la altura de este componente donde se detalla una posible solucion valida
     this.timeoutId = setTimeout(() => {
       this.updateAlertCount();
     }, 1000);
@@ -41,12 +46,24 @@ export class AlertsHomeComponent {
   }
 
   updateAlertCount() {
+    //Cuenta el numero de filas de la tabla de alertas y segun eso cambia el titulo
     const rowCount = this.alertsTable ? this.alertsTable.getDataArray().length : 0;
     document.title = rowCount > 0 ? `(${rowCount}) Alertas ` : "ColdCare";
   }
 
   onDataChange() {
     this.updateAlertCount();
+
+    // Crear y enviar la notificación push al backend
+    const alertMessage = '¡Nueva alerta de temperatura!'; // Cambia el mensaje según lo que necesites
+    this.firebaseService.sendPushNotification('alertId123', alertMessage).subscribe({
+      next: (response) => {
+        console.log('Notificación enviada', response);
+      },
+      error: (error) => {
+        console.error('Error al enviar la notificación', error);
+      }
+    });
   }
 
   selectionRow(event) {

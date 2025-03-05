@@ -16,10 +16,14 @@ export class AppComponent {
     if (this.ontimizeMatIconRegistry.addOntimizeSvgIcon) {
       this.ontimizeMatIconRegistry.addOntimizeSvgIcon('containerIcon', 'assets/icons/container.svg');
     }
-    this.firebaseService.activarNotificaciones((message: string) => {
-      this.showSnackBar(message);
+
+    // Activar notificaciones y mostrar en un Snackbar
+    this.firebaseService.activarNotificaciones((body: string) => {
+      this.showSnackBar(body);
     });
+
   }
+
 
   constructor(private router: Router, protected appearanceService: AppearanceService, protected injector: Injector, private firebaseService: FirebaseService, private snackBar: MatSnackBar) {
     this.ontimizeMatIconRegistry = this.injector.get(OntimizeMatIconRegistry);
