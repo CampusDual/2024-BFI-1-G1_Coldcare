@@ -265,6 +265,9 @@
   "AVERAGE_TIME": "Average time of alerts",
   "MAX_TIME": "Max time of alerts",
   "ACTIVE_ALERTS": "Active alerts",
+  "FILTER_BILLS": "Usage filter",
+  "YEAR": "Year",
+  "MONTH": "Month",
   "ALERTS_DATA": "Alert information",
   "USR_EMAIL": "Email",
   "EMAIL_ERROR": "Error sending Email"
