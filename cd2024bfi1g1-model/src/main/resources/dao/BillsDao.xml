@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <JdbcEntitySetup xmlns="http://www.ontimize.com/schema/jdbc"
-                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                 xsi:schemaLocation="http://www.ontimize.com/schema/jdbc http://www.ontimize.com/schema/jdbc/ontimize-jdbc-dao.xsd"
-                 catalog="" schema="${mainschema}" table="bills" datasource="mainDataSource"
-                 sqlhandler="dbSQLStatementHandler">
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.ontimize.com/schema/jdbc http://www.ontimize.com/schema/jdbc/ontimize-jdbc-dao.xsd" catalog="" schema="${mainschema}" table="bills" datasource="mainDataSource" sqlhandler="dbSQLStatementHandler">
     <DeleteKeys>
         <Column>BIL_ID</Column>
     </DeleteKeys>
@@ -14,11 +11,11 @@
     <Queries>
         <Query id="default">
             <AmbiguousColumns>
-                <AmbiguousColumn name="CMP_ID" prefix="c"/>
+                <AmbiguousColumn name="CMP_ID" prefix="b"/>
             </AmbiguousColumns>
             <Sentence>
                 <![CDATA[
-                    SELECT #COLUMNS#
+                    SELECT DISTINCT #COLUMNS#
                     FROM bills b
                     JOIN companies c ON c.cmp_id = b.cmp_id
                     #WHERE#
