@@ -80,18 +80,43 @@ export class LotsGraphComponent {
       container: this.graphContainer.nativeElement,
       elements,
       style: [
-        { selector: 'node', style: { 'background-color': '#007cc3', 'label': 'data(label)', 'color': 'black', 'text-valign': 'center', 'text-halign': 'center' } },
-        { selector: 'edge', style: { 'width': 2, 'line-color': '#666', 'target-arrow-shape': 'triangle', 'curve-style': 'bezier' } },
         {
-          selector: 'node[hasAlert = "true"]',
+          selector: 'node',
           style: {
-            'background-color': '#c30000'
+            'background-color': '#009BF5',
+            'label': 'data(label)',
+            'color': 'black',
+            'text-valign': 'center',
+            'text-halign': 'center'
           }
         },
         {
-          selector: 'node[isFirstNode = "true"]',
+          selector: 'edge',
           style: {
-            'background-color': '#66b3ff'
+            'width': 2,
+            'line-color': '#999999',
+            'target-arrow-shape': 'triangle',
+            'curve-style': 'bezier'
+          }
+        },
+        {
+          selector: 'node[hasAlert = "true"][isFirstNode = "true"]',
+          style: {
+            'background-color': '#FF6161',
+            'shape': 'rectangle'
+          }
+        },
+        {
+          selector: 'node[isFirstNode = "true"]:not([hasAlert = "true"])',
+          style: {
+            'background-color': '#009BF5',
+            'shape': 'rectangle'
+          }
+        },
+        {
+          selector: 'node[hasAlert = "true"]:not([isFirstNode = "true"])',
+          style: {
+            'background-color': '#FF6161'
           }
         }
       ],
@@ -101,5 +126,6 @@ export class LotsGraphComponent {
       }
     });
   }
+
 
 }

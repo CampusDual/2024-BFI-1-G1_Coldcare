@@ -18,7 +18,6 @@ export class LotsDetailsComponent {
   graphData: any[] = [];
 
   updateGraph(event: any) {
-    console.log('Datos del grafo:', event);
     this.graphData = event || [];
   }
 

@@ -257,5 +257,10 @@
   "transporter": "Carrier",
   "USER_UPDATE_ERROR": "Error updating the user table",
   "HAS_REPITED": "Assigned to (number of containers)",
-  "ERROR_EXISTING_CONTAINER": "There is already a container with that name"
+  "ERROR_EXISTING_CONTAINER": "There is already a container with that name",
+  "LEGEND": "Legend",
+  "INIT_NODE": "Initial container",
+  "INTER_NODE": "Intermediate container",
+  "NORMAL_NODE": "Container without alerts",
+  "ALERT_NODE": "Container with alerts"
 }

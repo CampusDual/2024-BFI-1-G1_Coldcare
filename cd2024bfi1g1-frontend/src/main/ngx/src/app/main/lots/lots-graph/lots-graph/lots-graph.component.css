@@ -1,5 +1,51 @@
+.container {
+  display: flex;
+  align-items: flex-start;
+}
+
 #cy {
-  width: 100%;
+  width: 80%;
   height: 500px;
   display: block;
+}
+
+#legend {
+  width: 20%;
+  padding-left: 20px;
+  box-sizing: border-box;
+  border-left: 1px solid gray;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.legend-shape {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  line-height: 0;
+  display: inline-flex;
+  align-items: center;
+  color: transparent;
+  -webkit-text-stroke: 2px black;
+}
+
+.legend-color {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  line-height: 0;
+  display: inline-flex;
+  align-items: center;
+}
+
+.alert {
+  color: #FF6161;
+}
+
+.node {
+  color: #009BF5;
 }
