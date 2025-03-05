@@ -8,6 +8,8 @@ import { InDateRangeBooleanRendererComponent } from './components/in-date-range-
 import { BillsMonthRendererComponent } from './components/bills-month-renderer/bills-month-renderer.component';
 import { AlertBooleanRendererComponent } from './components/alert-boolean-renderer/alert-boolean-renderer.component';
 import { MonthRendererPipe } from './components/pipes/month-renderer.pipe';
+import { DateTransformPipe } from './components/pipes/date-transform.pipe';
+import { StatusIconPipe } from './components/pipes/status-icon.pipe';
 
 
 
@@ -22,7 +24,9 @@ import { MonthRendererPipe } from './components/pipes/month-renderer.pipe';
     InDateRangeBooleanRendererComponent,
     BillsMonthRendererComponent,
     AlertBooleanRendererComponent,
-    MonthRendererPipe
+    MonthRendererPipe,
+    DateTransformPipe,
+    StatusIconPipe
   ],
   exports: [
     CommonModule,
@@ -32,7 +36,9 @@ import { MonthRendererPipe } from './components/pipes/month-renderer.pipe';
     InDateRangeBooleanRendererComponent,
     BillsMonthRendererComponent,
     AlertBooleanRendererComponent,
-    MonthRendererPipe
+    MonthRendererPipe,
+    DateTransformPipe,
+    StatusIconPipe
   ]
 })
 export class SharedModule { }
