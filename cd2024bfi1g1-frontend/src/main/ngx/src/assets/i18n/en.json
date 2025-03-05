@@ -265,5 +265,6 @@
   "FIXED": "Flat rate",
   "DEV": "Device",
   "MEASUREMENTS": "Measurements",
-  "TOTAL": "TOTAL"
+  "TOTAL": "TOTAL",
+  "BIL_DATE": "Bill date"
 }

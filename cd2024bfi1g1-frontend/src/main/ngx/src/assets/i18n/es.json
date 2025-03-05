@@ -265,5 +265,6 @@
   "FIXED": "Tarifa plana",
   "DEV": "Dispositivo",
   "MEASUREMENTS": "Medidas",
-  "TOTAL": "TOTAL"
+  "TOTAL": "TOTAL",
+  "BIL_DATE": "Fecha de la factura"
 }
