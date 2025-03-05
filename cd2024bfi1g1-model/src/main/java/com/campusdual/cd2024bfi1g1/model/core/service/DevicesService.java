@@ -56,6 +56,11 @@ public class DevicesService implements IDevicesService {
     public EntityResult devicesInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException {
         Map<String, Object> valuesToInsert = new HashMap<>(attrMap);
         valuesToInsert.put(DEV_NAME, attrMap.get(DEV_MAC));
+
+        Integer cmpID = Util.getUserCompanyId(this.daoHelper, this.userDao);
+        if(cmpID != null){
+            valuesToInsert.put(DevicesDao.CMP_ID, cmpID);
+        }
         return this.daoHelper.insert(this.devicesDao, valuesToInsert);
     }
 
