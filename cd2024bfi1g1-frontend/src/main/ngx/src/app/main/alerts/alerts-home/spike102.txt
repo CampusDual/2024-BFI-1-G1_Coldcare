@@ -18,6 +18,7 @@ NOTIFICACIONES PUSH
   https://www.youtube.com/watch?v=KfyAuuujWAg&t=2034s
 
   En el archivo app.component.html hay un codigo temporal usado para la spike donde el usuario se loguea en Firebase y activa los mensajes.
+  Para mostrar este mensaje como prueba he puesto que cuando inicies el servidor te lo mande.
   SOLUCION PROPUESTA
   El metodo loguearse podria integrarse desde la pantalla de login en la que entras con tu usuario
   Para activar las notificaciones push se debe ver cual es la mejor solucion:
