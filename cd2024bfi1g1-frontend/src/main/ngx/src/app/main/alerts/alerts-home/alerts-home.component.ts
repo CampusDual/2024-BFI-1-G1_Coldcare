@@ -55,15 +55,15 @@ export class AlertsHomeComponent {
     this.updateAlertCount();
 
     // Crear y enviar la notificación push al backend
-    const alertMessage = '¡Nueva alerta de temperatura!'; // Cambia el mensaje según lo que necesites
-    this.firebaseService.sendPushNotification('alertId123', alertMessage).subscribe({
-      next: (response) => {
-        console.log('Notificación enviada', response);
-      },
-      error: (error) => {
-        console.error('Error al enviar la notificación', error);
-      }
-    });
+    // const alertMessage = '¡Nueva alerta de temperatura!'; // Cambia el mensaje según lo que necesites
+    // this.firebaseService.sendPushNotification('alertId123', alertMessage).subscribe({
+    //   next: (response) => {
+    //     console.log('Notificación enviada', response);
+    //   },
+    //   error: (error) => {
+    //     console.error('Error al enviar la notificación', error);
+    //   }
+    // });
   }
 
   selectionRow(event) {

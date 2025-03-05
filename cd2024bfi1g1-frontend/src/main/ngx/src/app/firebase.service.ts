@@ -53,11 +53,5 @@ export class FirebaseService {
     });
   }
 
-  // Función para enviar notificaciones al backend
-  sendPushNotification(alertId: string, message: string) {
-    return this.http.post('/api/send-push-notification', { alertId, message });
-  }
-
-
 
 }
