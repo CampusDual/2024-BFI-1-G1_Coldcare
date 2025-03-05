@@ -26,11 +26,12 @@
         </o-filter-builder>
 
         <o-table #alertsTable attr="alertsTable" service="alerts" entity="alertsWithCalculatedColumns" keys="ALT_ID"
-            columns="ALT_ID;ALT_DATE_INIT;ALT_DATE_END;CNT_NAME;LOT_NAME;AVG_TEMP;AVG_HUMIDITY;MAX_TEMP_DEV;MAX_HUMIDITY_DEV;MIN_TEMP_DEV;MIN_HUMIDITY_DEV;ALT_MIN_TEMP;ALT_MAX_TEMP;PRO_ID;PRO_NAME;ALT_STATE"
-            visible-columns="ALT_STATE;ALT_DATE_INIT;CNT_NAME;LOT_NAME;PRO_NAME;ALT_DURATION;ALT_MIN_TEMP;ALT_MAX_TEMP;MIN_TEMP_DEV;MAX_TEMP_DEV;AVG_HUMIDITY"
+            columns="ALT_ID;ALT_DATE_INIT;ALT_DATE_END;CNT_NAME;LOT_NAME;AVG_TEMP;AVG_HUMIDITY;MAX_TEMP_DEV;MAX_HUMIDITY_DEV;MIN_TEMP_DEV;MIN_HUMIDITY_DEV;ALT_MIN_TEMP;ALT_MAX_TEMP;PRO_ID;PRO_NAME;ALT_STATE;DEV_NAME"
+            visible-columns="ALT_STATE;ALT_DATE_INIT;DEV_NAME;CNT_NAME;LOT_NAME;PRO_NAME;ALT_DURATION;ALT_MIN_TEMP;ALT_MAX_TEMP;MIN_TEMP_DEV;MAX_TEMP_DEV;AVG_HUMIDITY"
             select-all-checkbox-visible="yes" insert-button="no" delete-button="no" refresh-button="yes"
-            quick-filter="no" detail-mode="none" title="ALERTS" show-title="yes" sort-columns="ALT_DATE_INIT:DESC"
-            virtual-scroll="false" horizontal-scroll="true" quick-filter="yes" selection-mode="none">
+            quick-filter="no" detail-mode="click" title="ALERTS" show-title="yes" sort-columns="ALT_DATE_INIT:DESC"
+            virtual-scroll="false" horizontal-scroll="true" quick-filter="yes" selection-mode="none"
+            [row-class]="getRowClass">
 
             <o-table-button label="BTN_SAVED" icon="check" (onClick)="selectionRow($event)"></o-table-button>
 
@@ -48,6 +49,7 @@
             <o-table-column attr="ALT_DATE_INIT" title="DATE" type="date" format="DD/MM/YYYY HH:mm:ss"
                 content-align="center"></o-table-column>
             <o-table-column attr="CNT_NAME" title="CONTAINER" content-align="center"></o-table-column>
+            <o-table-column attr="DEV_NAME" title="DEV" content-align="center"></o-table-column>
             <o-table-column attr="LOT_NAME" title="LOT" content-align="center"></o-table-column>
             <o-table-column attr="ALT_DURATION" title="DURATION" content-align="center">
                 <app-alerts-duration-renderer></app-alerts-duration-renderer>
@@ -58,9 +60,10 @@
             <o-table-column attr="ALT_MAX_TEMP" title="ALT_MAX_TEMP" content-align="center">
                 <o-table-cell-renderer-real max-decimal-digits="2"></o-table-cell-renderer-real>
             </o-table-column>
-            <o-table-column attr="MAX_TEMP_DEV" title="MAX_TEMP" content-align="center"></o-table-column>
+            <o-table-column title="MAX_TEMP" attr="MAX_TEMP_DEV" content-align="center"></o-table-column>
             <o-table-column attr="MIN_TEMP_DEV" title="MIN_TEMP" content-align="center"></o-table-column>
             <o-table-column attr="AVG_HUMIDITY" title="AVG_HUMIDITY" content-align="center"></o-table-column>
+
         </o-table>
     </o-column>
 

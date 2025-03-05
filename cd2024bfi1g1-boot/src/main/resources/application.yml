@@ -71,6 +71,14 @@ server:
 spring:
   application:
     name: cd2024bfi1g1
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: coldcare33@gmail.com
+    password: emqo xnto fdzz sqrt
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
   flyway:
     enabled: true
     locations: classpath:/db/migration/

@@ -32,5 +32,10 @@
 			<groupId>com.ontimize.jee</groupId>
 			<artifactId>ontimize-jee-webclient-addons</artifactId>
 		</dependency>
+
+		<dependency>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>javax.mail</artifactId>
+		</dependency>
 	</dependencies>
 </project>

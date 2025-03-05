@@ -26,7 +26,8 @@ export const routes: Routes = [
       { path: 'transports', loadChildren: () => import('./transports/transports.module').then(m => m.TransportsModule) },
       { path: 'transporters', loadChildren: () => import('./transporters/transporters.module').then(m => m.TransportersModule) },
       { path: 'company-bills', loadChildren: () => import('./company-bills/company-bills.module').then(m => m.CompanyBillsModule) },
-      { path: 'containers-lots', loadChildren: () => import('./containers-lots/containers-lots.module').then(m => m.ContainersLotsModule) }
+      { path: 'containers-lots', loadChildren: () => import('./containers-lots/containers-lots.module').then(m => m.ContainersLotsModule) },
+      { path: 'usermicros', loadChildren: () => import('./usermicros/usermicros.module').then(m => m.UsermicrosModule) }
     ]
   }
 ];

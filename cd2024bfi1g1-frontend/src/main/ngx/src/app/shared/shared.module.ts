@@ -7,7 +7,10 @@ import { DevicesColumnRendererComponent } from '../main/devices/devices-column-r
 import { InDateRangeBooleanRendererComponent } from './components/in-date-range-boolean-renderer/in-date-range-boolean-renderer.component';
 import { BillsMonthRendererComponent } from './components/bills-month-renderer/bills-month-renderer.component';
 import { AlertBooleanRendererComponent } from './components/alert-boolean-renderer/alert-boolean-renderer.component';
-
+import { MonthRendererPipe } from './components/pipes/month-renderer.pipe';
+import { DateRendererPipe } from './components/pipes/date-renderer.pipe';
+import { SecondsToTimePipe } from './components/pipes/seconds-to-time.pipe';
+import { DatePipe } from '@angular/common';
 
 
 @NgModule({
@@ -20,7 +23,10 @@ import { AlertBooleanRendererComponent } from './components/alert-boolean-render
     DevicesColumnRendererComponent,
     InDateRangeBooleanRendererComponent,
     BillsMonthRendererComponent,
-    AlertBooleanRendererComponent
+    AlertBooleanRendererComponent,
+    MonthRendererPipe,
+    DateRendererPipe,
+    SecondsToTimePipe
   ],
   exports: [
     CommonModule,
@@ -29,7 +35,13 @@ import { AlertBooleanRendererComponent } from './components/alert-boolean-render
     DevicesColumnRendererComponent,
     InDateRangeBooleanRendererComponent,
     BillsMonthRendererComponent,
-    AlertBooleanRendererComponent
-  ]
+    AlertBooleanRendererComponent,
+    MonthRendererPipe,
+    DateRendererPipe,
+    SecondsToTimePipe
+  ],
+  providers: [
+    DatePipe
+  ],
 })
 export class SharedModule { }
