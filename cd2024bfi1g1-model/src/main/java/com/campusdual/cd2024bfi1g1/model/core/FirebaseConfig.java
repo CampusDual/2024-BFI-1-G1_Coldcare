@@ -16,7 +16,7 @@ public class FirebaseConfig {
 
     @Bean
     public FirebaseApp initializeFirebase() throws IOException {
-        InputStream serviceAccount = getClass().getClassLoader().getResourceAsStream("firebase-credentials.json");
+        FileInputStream serviceAccount = new FileInputStream("cd2024bfi1g1-frontend\\src\\main\\ngx\\src\\assets\\coldcarebfi1g1-firebase.json");
 
         if (serviceAccount == null) {
             throw new IOException("No se encontró el archivo firebase-credentials.json en resources/");
