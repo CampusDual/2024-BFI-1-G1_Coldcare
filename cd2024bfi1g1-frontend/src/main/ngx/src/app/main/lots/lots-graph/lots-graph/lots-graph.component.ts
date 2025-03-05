@@ -21,41 +21,53 @@ export class LotsGraphComponent {
   }
 
   transformDataToGraph(data: any[]) {
-    const sortedData = [...data].sort((a, b) => a.CL_START_DATE - b.CL_START_DATE);
-
     const nodes = new Map<string, any>();
+    const clIdToNodeId = new Map<number, string>(); // Mapa para buscar nodos por CL_ID
+    const clIdToStartDate = new Map<number, number>(); // Para almacenar CL_START_DATE por CL_ID
     const edges: any[] = [];
-    const graph = new Map<string, string[]>(); // Para rastrear las conexiones existentes
+    const destinations = new Set<number>(); // Conjunto de nodos destino
 
-    sortedData.forEach((entry, index) => {
-      const containerId = entry.CNT_ID.toString();
-      const containerName = entry.CNT_NAME;
-      const hasAlert = entry.HAS_ALERT === true || entry.HAS_ALERT === "true" ? "true" : "false";
+    // Primera pasada: Guardar CL_ID → CL_START_DATE y marcar nodos destino
+    data.forEach(entry => {
+      clIdToStartDate.set(entry.CL_ID, entry.CL_START_DATE);
+      if (entry.CL_ID_DESTINY) {
+        destinations.add(entry.CL_ID_DESTINY);
+      }
+    });
 
-      // Agregar nodo si no existe
-      if (!nodes.has(containerId)) {
-        nodes.set(containerId, { data: { id: containerId, label: containerName, hasAlert: hasAlert } });
-        graph.set(containerId, []); // Inicializar la lista de conexiones para este nodo
+    // Segunda pasada: Detectar nodos iniciales
+    data.forEach(entry => {
+      const nodeId = entry.CNT_ID.toString();
+      const nodeName = entry.CNT_NAME;
+      const hasAlert = entry.HAS_ALERT ? "true" : "false";
+
+      let isFirstNode = "false";
+
+      if (!destinations.has(entry.CL_ID)) {
+        isFirstNode = "true";
+      } else if (entry.CL_ID_ORIGIN && clIdToStartDate.has(entry.CL_ID_ORIGIN)) {
+        const originStartDate = clIdToStartDate.get(entry.CL_ID_ORIGIN)!;
+        if (originStartDate > entry.CL_START_DATE) {
+          isFirstNode = "true";
+        }
       }
 
-      // Conectar este contenedor con los contenedores anteriores que cumplan la condición de fecha
-      for (let i = index - 1; i >= 0; i--) {
-        const prevContainer = sortedData[i];
-        const prevContainerId = prevContainer.CNT_ID.toString();
+      if (!nodes.has(nodeId)) {
+        nodes.set(nodeId, { data: { id: nodeId, label: nodeName, hasAlert, isFirstNode } });
+      }
 
-        if (prevContainer.CL_END_DATE <= entry.CL_START_DATE) {
-          // Verificar si ya existe una ruta indirecta entre prevContainerId y containerId
-          if (!this.hasIndirectPath(graph, prevContainerId, containerId)) {
-            edges.push({
-              data: {
-                id: `${prevContainerId}_${containerId}`,
-                source: prevContainerId,
-                target: containerId
-              }
-            });
-            graph.get(prevContainerId)?.push(containerId); // Registrar la conexión en el grafo
-          }
-          // break; // Solo conectamos con el contenedor anterior más reciente que cumpla la condición
+      // Guardar la relación CL_ID → CNT_ID
+      clIdToNodeId.set(entry.CL_ID, nodeId);
+    });
+
+    // Tercera pasada: Crear aristas basadas en CL_ID_ORIGIN
+    data.forEach(entry => {
+      if (entry.CL_ID_ORIGIN && clIdToNodeId.has(entry.CL_ID_ORIGIN)) {
+        const sourceId = clIdToNodeId.get(entry.CL_ID_ORIGIN)!;
+        const targetId = clIdToNodeId.get(entry.CL_ID)!;
+
+        if (sourceId !== targetId) {
+          edges.push({ data: { id: `${sourceId}_${targetId}`, source: sourceId, target: targetId } });
         }
       }
     });
@@ -63,39 +75,25 @@ export class LotsGraphComponent {
     return [...nodes.values(), ...edges];
   }
 
-  // Función para verificar si ya existe una ruta indirecta entre dos nodos
-  hasIndirectPath(graph: Map<string, string[]>, source: string, target: string): boolean {
-    const visited = new Set<string>();
-    const queue: string[] = [source];
-
-    while (queue.length > 0) {
-      const current = queue.shift()!;
-      if (current === target) {
-        return true; // Existe una ruta indirecta
-      }
-      if (!visited.has(current)) {
-        visited.add(current);
-        const neighbors = graph.get(current) || [];
-        queue.push(...neighbors);
-      }
-    }
-
-    return false; // No existe una ruta indirecta
-  }
-
   renderGraph(elements: any[]) {
     cytoscape({
       container: this.graphContainer.nativeElement,
       elements,
       style: [
-        { selector: 'node', style: { 'background-color': '#007bff', 'label': 'data(label)', 'color': 'black', 'text-valign': 'center', 'text-halign': 'center' } },
+        { selector: 'node', style: { 'background-color': '#007cc3', 'label': 'data(label)', 'color': 'black', 'text-valign': 'center', 'text-halign': 'center' } },
         { selector: 'edge', style: { 'width': 2, 'line-color': '#666', 'target-arrow-shape': 'triangle', 'curve-style': 'bezier' } },
         {
           selector: 'node[hasAlert = "true"]',
           style: {
-            'background-color': 'red'
+            'background-color': '#c30000'
           }
         },
+        {
+          selector: 'node[isFirstNode = "true"]',
+          style: {
+            'background-color': '#66b3ff'
+          }
+        }
       ],
       layout: {
         name: 'dagre',
