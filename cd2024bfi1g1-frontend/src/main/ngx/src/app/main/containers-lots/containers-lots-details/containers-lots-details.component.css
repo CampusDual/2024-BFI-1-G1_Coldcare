@@ -30,3 +30,9 @@ p {
 #tablaMedidasContainer {
     display: none !important;
   }
+
+.graphs {
+  display: grid;
+  grid-template-columns: 50% 50%; 
+  gap: 70px;
+}  
