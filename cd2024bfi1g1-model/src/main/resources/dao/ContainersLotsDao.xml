@@ -70,10 +70,25 @@
                             ) AS has_alert
                         FROM
                             containers_lots cl
-                    )
+                    ),
+                        latest_measurements AS (
+                            SELECT
+                                clv.cnt_id,
+                                m.me_temp,
+                                m.me_humidity
+                            FROM measurements m
+                            INNER JOIN containers_lots_current_view clv ON m.cl_id = clv.cl_id
+                            INNER JOIN (
+                                SELECT cl_id, MAX(me_date) AS last_date
+                                FROM measurements
+                                GROUP BY cl_id
+                            ) latest ON m.cl_id = latest.cl_id
+                            WHERE m.me_date = latest.last_date and clv.cl_is_current
+                        )
                     SELECT #COLUMNS#
                     FROM cl
                     INNER JOIN containers c ON cl.cnt_id = c.cnt_id
+                    INNER JOIN latest_measurements lm ON lm.cnt_id = cl.cnt_id
                     #WHERE#
                     #ORDER#
                 ]]>
