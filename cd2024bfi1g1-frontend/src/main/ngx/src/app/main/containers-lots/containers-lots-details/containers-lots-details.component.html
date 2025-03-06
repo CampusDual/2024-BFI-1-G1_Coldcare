@@ -79,7 +79,7 @@
           {{ 'TAB_GRAPHS' | oTranslate }}
         </div>
       </ng-template>
-      <o-row>
+      <div class="graphs-container">
         <div id="tablaMedidasContainer">
           <o-table #measurementsTable attr="tablaMedidas" service="measurements" entity="measurements"
             parent-keys="CL_ID" columns="DEV_ID;DEV_NAME;ME_DATE;ME_TEMP;ME_HUMIDITY" (onDataLoaded)="fillChart($event)"
@@ -100,7 +100,7 @@
             [data]="dataArrayHum" show-grid-lines="true" virtual-scroll="no"
             style="height: auto; max-height: none; overflow: hidden"></o-chart>
         </div>
-      </o-row>
+      </div>
     </mat-tab>
 
     <mat-tab label="Measurements">
