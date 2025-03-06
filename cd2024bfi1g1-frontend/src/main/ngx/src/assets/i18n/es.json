@@ -272,5 +272,8 @@
   "USR_EMAIL": "Correo",
   "EMAIL_ERROR": "Error al enviar el Email",
   "ME_TEMP": "Última Temperatura (ºC)",
-  "ME_HUMIDITY": "Última Humedad (%)"
+  "ME_HUMIDITY": "Última Humedad (%)",
+  "MAX_TEMP_CNT_LOT": "Contenedor lote T(ºC)",
+  "MIN_TEMP_CNT_LOT": "Contenedor lote T(ºC)",
+  "AVG_TEMP_CNT_LOT": "Contenedor lote Media T (ºC)"
 }
