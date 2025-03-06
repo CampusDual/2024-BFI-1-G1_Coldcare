@@ -7,4 +7,6 @@ import { Component } from '@angular/core';
 })
 export class TransportersHomeComponent {
 
+  listHeight = innerHeight - 84;
+
 }
