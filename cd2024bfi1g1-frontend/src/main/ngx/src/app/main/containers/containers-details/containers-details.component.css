@@ -9,15 +9,12 @@ o-slide-toggle {
     margin-left: 10px;
 }
 
-.inline-fields-2 {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-
-}
-
-.o-container-scroll.o-scroll.o-container-gap>div {
-    display: grid !important;
-    grid-template-rows: repeat(4, 1fr) !important;
+.title {
+    font-weight: bold;
+    font-size: 18px;
+    height: 20px;
+    margin-top: 10px;
+    margin-left: 5px;
 }
 
 .inline-fields {
