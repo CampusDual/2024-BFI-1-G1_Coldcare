@@ -8,10 +8,12 @@ import { InDateRangeBooleanRendererComponent } from './components/in-date-range-
 import { BillsMonthRendererComponent } from './components/bills-month-renderer/bills-month-renderer.component';
 import { AlertBooleanRendererComponent } from './components/alert-boolean-renderer/alert-boolean-renderer.component';
 import { MonthRendererPipe } from './components/pipes/month-renderer.pipe';
+import { DateRendererPipe } from './components/pipes/date-renderer.pipe';
 import { SecondsToTimePipe } from './components/pipes/seconds-to-time.pipe';
 import { ContainersHomeBooleanRendererComponent, } from './components/containers-home-boolean-renderer/containers-home-boolean-renderer.component';
 import { ContainerLotsBooleanRenderComponent } from './components/container-lots-boolean-render/container-lots-boolean-render.component';
 import { LotsBooleanRenderComponent } from './components/lots-boolean-render/lots-boolean-render.component';
+import { DatePipe } from '@angular/common';
 
 
 @NgModule({
@@ -29,7 +31,9 @@ import { LotsBooleanRenderComponent } from './components/lots-boolean-render/lot
     SecondsToTimePipe,
     ContainersHomeBooleanRendererComponent,
     ContainerLotsBooleanRenderComponent,
-    LotsBooleanRenderComponent
+    LotsBooleanRenderComponent,
+    DateRendererPipe,
+    SecondsToTimePipe
   ],
   exports: [
     CommonModule,
@@ -43,7 +47,12 @@ import { LotsBooleanRenderComponent } from './components/lots-boolean-render/lot
     SecondsToTimePipe,
     ContainersHomeBooleanRendererComponent,
     ContainerLotsBooleanRenderComponent,
-    LotsBooleanRenderComponent
-  ]
+    LotsBooleanRenderComponent,
+    DateRendererPipe,
+    SecondsToTimePipe
+  ],
+  providers: [
+    DatePipe
+  ],
 })
 export class SharedModule { }
