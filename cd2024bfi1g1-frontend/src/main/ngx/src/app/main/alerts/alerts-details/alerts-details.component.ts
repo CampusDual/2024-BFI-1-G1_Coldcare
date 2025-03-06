@@ -1,14 +1,14 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Expression, FilterExpressionUtils, OTableComponent, OTranslateService } from 'ontimize-web-ngx';
-import { DataAdapterUtils, LineChartConfiguration, OChartComponent } from 'ontimize-web-ngx-charts';
+import { LineChartConfiguration, OChartComponent } from 'ontimize-web-ngx-charts';
 
 @Component({
-  selector: 'app-containers-lots-details',
-  templateUrl: './containers-lots-details.component.html',
-  styleUrls: ['./containers-lots-details.component.css']
+  selector: 'app-alerts-details',
+  templateUrl: './alerts-details.component.html',
+  styleUrls: ['./alerts-details.component.css']
 })
-export class ContainersLotsDetailsComponent {
+export class AlertsDetailsComponent implements OnInit {
 
   @ViewChild('measurementsTemperatureTable', { static: false }) measurementsTemperatureTable: OTableComponent;
   @ViewChild('measurementsHumidityTable', { static: false }) measurementsHumidityTable: OTableComponent;
@@ -80,38 +80,10 @@ export class ContainersLotsDetailsComponent {
     return '';
   }
 
-  public openContainersLotsDetail(selected: any) {
-    const row = selected.row;
-    if (row && row.CL_ID) {
-      this.router.navigate(['main', 'containers-lots', row.CL_ID], { queryParams: { isdetail: true } });
-    }
-  }
 
-  // Carga datos gráficas
-  createFilter(values: Array<{ attr, value }>): Expression {
-    let filters: Array<Expression> = [];
-    values.forEach(fil => {
-      if (fil.value) {
-        if (fil.attr === 'DEV_ID') {
-          filters.push(FilterExpressionUtils.buildExpressionEquals('DEV_ID', fil.value));
-        }
-        if (fil.attr === 'ME_DATE') {
-          filters.push(FilterExpressionUtils.buildExpressionMoreEqual('ME_DATE', fil.value.startDate));
-        }
-        if (fil.attr === 'ME_DATE') {
-          filters.push(FilterExpressionUtils.buildExpressionLessEqual('ME_DATE', fil.value.endDate));
-        }
-      }
-    });
-
-    if (filters.length > 0) {
-      return filters.reduce((exp1, exp2) => FilterExpressionUtils.buildComplexExpression(exp1, exp2, FilterExpressionUtils.OP_AND));
-    } else {
-      return null;
-    }
-  }
 
   fillChart(ev: any) {
+
     this.tempField = this.translator.get('TEMPERATURE');
     this.humidityField = this.translator.get('HUMIDITY');
 
@@ -149,21 +121,50 @@ export class ContainersLotsDetailsComponent {
     this.dataArrayTemp = Object.keys(devicesData).map(devId => ({
       name: devId,
       series: devicesData[devId].map(point => ({
-        name: point.ME_DATE, 
-        value: point[this.tempField] 
+        name: point.ME_DATE,
+        value: point[this.tempField]
       }))
     }));
 
     this.dataArrayHum = Object.keys(devicesData).map(devId => ({
       name: devId,
       series: devicesData[devId].map(point => ({
-        name: point.ME_DATE, 
-        value: point[this.humidityField] 
+        name: point.ME_DATE,
+        value: point[this.humidityField]
       }))
     }));
 
     this.colorSchemeTemp = { domain: Object.values(this.deviceColorMap) };
     this.colorSchemeHum = { domain: Object.values(this.deviceColorMap) };
+  }
+
+  ngOnInit(): void { }
+
+  getCellData(startDate, endDate): string {
+    let totalSeconds: number;
+
+    if (!startDate) {
+      return 'Fecha de inicio no disponible';
+    }
+
+    if (!endDate) {
+      const now = new Date();
+      totalSeconds = Math.floor((now.getTime() - new Date(startDate).getTime()) / 1000);
+    } else {
+      totalSeconds = Math.floor((new Date(endDate).getTime() - new Date(startDate).getTime()) / 1000);
+    }
+
+    const days = Math.floor(totalSeconds / (24 * 3600));
+    const hours = Math.floor((totalSeconds % (24 * 3600)) / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const secs = totalSeconds % 60;
+
+    const formattedTime = `${String(hours).padStart(2, '0')}h ${String(minutes).padStart(2, '0')}m ${String(secs).padStart(2, '0')}s`;
+
+    if (days > 0) {
+      return `${days}d ${formattedTime}`;
+    }
+    return formattedTime;
   }
 
 }

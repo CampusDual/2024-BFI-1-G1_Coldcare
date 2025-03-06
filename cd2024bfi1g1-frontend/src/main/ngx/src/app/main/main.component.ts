@@ -24,6 +24,9 @@ export class MainComponent implements OnInit {
       } else if (ress['data'][0]['ROL_NAME'] == "transporter" && !visited){
         localStorage.setItem('visited', 'true');
         this.router.navigate(['main','transporters'],{});
+      }else if (ress['data'][0]['ROL_NAME'] == "usermicros" && !visited){
+        localStorage.setItem('visited', 'true');
+        this.router.navigate(['main','usermicros'],{});
       }
     });
   }
