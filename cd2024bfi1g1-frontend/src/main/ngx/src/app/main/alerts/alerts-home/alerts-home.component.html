@@ -7,7 +7,7 @@
                 <o-combo attr="contenedor" label="CONTAINER" service="alerts" entity="containersAlerts"
                     value-column="CNT_NAME" columns="CNT_ID;CNT_NAME" visible-columns="CNT_NAME" null-selection="no"
                     searchable="yes" null-selection="yes"></o-combo>
-                <o-combo attr="lote" label="LOT_NAME" service="alerts" entity="containersAlerts" value-column="LOT_NAME"
+                <o-combo attr="lote" label="LOT" service="alerts" entity="containersAlerts" value-column="LOT_NAME"
                     columns="LOT_ID;LOT_NAME" visible-columns="LOT_NAME" null-selection="no" searchable="yes"
                     null-selection="yes"></o-combo>
                 <o-combo attr="estado" label="ALT_STATES" value-column="ALT_STATE" columns="ALT_STATE"
@@ -30,7 +30,8 @@
             visible-columns="ALT_STATE;ALT_DATE_INIT;DEV_NAME;CNT_NAME;LOT_NAME;PRO_NAME;ALT_DURATION;ALT_MIN_TEMP;ALT_MAX_TEMP;MIN_TEMP_DEV;MAX_TEMP_DEV;AVG_HUMIDITY"
             select-all-checkbox-visible="yes" insert-button="no" delete-button="no" refresh-button="yes"
             quick-filter="no" detail-mode="none" title="ALERTS" show-title="yes" sort-columns="ALT_DATE_INIT:DESC"
-            virtual-scroll="false" horizontal-scroll="true" quick-filter="yes" selection-mode="none" [row-class]="getRowClass" >
+            virtual-scroll="false" horizontal-scroll="true" quick-filter="yes" selection-mode="none"
+            [row-class]="getRowClass">
 
             <o-table-button label="BTN_SAVED" icon="check" (onClick)="selectionRow($event)"></o-table-button>
 
