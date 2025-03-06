@@ -82,8 +82,8 @@
       <o-row>
         <div id="tablaMedidasContainer">
           <o-table #measurementsTable attr="tablaMedidas" service="measurements" entity="measurements"
-            parent-keys="CL_ID" columns="DEV_ID;DEV_NAME;ME_DATE;ME_TEMP;ME_HUMIDITY"
-            (onDataLoaded)="fillChart($event)">
+            parent-keys="CL_ID" columns="DEV_ID;DEV_NAME;ME_DATE;ME_TEMP;ME_HUMIDITY" (onDataLoaded)="fillChart($event)"
+            virtual-scroll="no" style="height: auto; max-height: none; overflow: hidden">
             <o-table-column attr="ME_DATE" type="date"></o-table-column>
             <o-table-column attr="ME_TEMP" type="real"></o-table-column>
             <o-table-column attr="ME_HUMIDITY" type="real"></o-table-column>
@@ -92,11 +92,13 @@
         <div class="graphs">
           <o-chart #lineChartBasic type="line" [chart-parameters]="chartParametersTemp"
             x-label="{{ 'TIME' | oTranslate }}" y-label="{{ 'TEMPERATURE' | oTranslate }}" [color]="colorSchemeTemp"
-            [data]="dataArrayTemp" show-grid-lines="true"></o-chart>
+            [data]="dataArrayTemp" show-grid-lines="true" virtual-scroll="no"
+            style="height: auto; max-height: none; overflow: hidden"></o-chart>
 
           <o-chart #lineChartBasic type="line" [chart-parameters]="chartParametersHum"
             x-label="{{ 'TIME' | oTranslate }}" y-label="{{ 'HUMIDITY' | oTranslate }}" [color]="colorSchemeTemp"
-            [data]="dataArrayHum" show-grid-lines="true"></o-chart>
+            [data]="dataArrayHum" show-grid-lines="true" virtual-scroll="no"
+            style="height: auto; max-height: none; overflow: hidden"></o-chart>
         </div>
       </o-row>
     </mat-tab>
@@ -112,7 +114,7 @@
         columns="ME_ID;ME_DATE;ME_TEMP;ME_HUMIDITY;DEV_NAME;MIN_TEMP;MAX_TEMP"
         visible-columns="ME_DATE;ME_TEMP;ME_HUMIDITY;DEV_NAME" query-rows="20" select-all-checkbox-visible="no"
         insert-button="no" delete-button="no" refresh-button="yes" quick-filter="no" pageable="true" virtual-scroll="no"
-        [row-class]="rowClass">
+        [row-class]="rowClass" virtual-scroll="no" style="height: auto; max-height: none; overflow: hidden">
         <o-table-column attr="ME_DATE" title="DATE" type="date" format="DD/MM/YYYY HH:mm:ss"></o-table-column>
         <o-table-column attr="ME_TEMP" title-align="center" content-align="center" title="TEMPERATURE"></o-table-column>
         <o-table-column attr="ME_HUMIDITY" title-align="center" content-align="center"
