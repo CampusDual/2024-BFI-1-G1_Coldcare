@@ -1,6 +1,7 @@
 <o-list #transportsList attr="transports" title="TRANSPORTS" show-title="yes" service="transports"
   entity="transportsPerUser" keys="TRP_ID" columns="TRP_ID;ORIGIN_NAME;DESTINATION_NAME;TRP_DATE;VHC_PLATE;TST_NAME"
-  visible-columns="ORIGIN_NAME;DESTINATION_NAME;TRP_DATE;VHC_PLATE;TST_NAME" delete-button="no" insert-button="no">
+  visible-columns="ORIGIN_NAME;DESTINATION_NAME;TRP_DATE;VHC_PLATE;TST_NAME" delete-button="no" insert-button="no"
+  quick-filter="no">
 
   <mat-card *ngFor="let row of transportsList.dataArray" [o-list-item]="row">
     <mat-card-header>
