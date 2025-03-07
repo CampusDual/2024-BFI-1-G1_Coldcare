@@ -291,5 +291,6 @@
   "MIN_TEMP_DEV": "Tª Min",
   "MAX_TEMP_DEV": "Tª Max",
   "ALERTS_ACTIVE_TEXT": "Hay #ALT_COUNT# alerta/s activa/s",
-  "ALT_ACTIVE_TEST": " "
+  "ALT_ACTIVE_TEST": " ",
+  "DEVICES_REQUESTS": "Peticiones por dispositivo"
 }

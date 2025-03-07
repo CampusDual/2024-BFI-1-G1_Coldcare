@@ -291,5 +291,6 @@
   "MIN_TEMP_DEV": "Min Temp",
   "MAX_TEMP_DEV": "Max Temp",
   "ALERTS_ACTIVE_TEXT": "There are #ALT_COUNT# active alert/s",
-  "ALT_ACTIVE_TEST": " "
+  "ALT_ACTIVE_TEST": " ",
+  "DEVICES_REQUESTS": "Petitions per device"
 }

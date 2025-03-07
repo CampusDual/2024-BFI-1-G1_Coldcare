@@ -1,82 +1,79 @@
 <o-form #bilForm attr="costTable" service="bills" entity="billsWithPlan" include-parent-keys="yes" parent-keys="BIL_ID"
     keys="BIL_ID" keys-sql-types="INTEGER" columns="BIL_ID" show-header="false" detect-changes-on-blur="no"
     (onDataLoaded)="fillTable()">
-    <o-row class="form-row">
-        <o-column class="column-extend">
-            <o-row attr="row1" layout-align="start stretch">
-                <o-column title="USAGE_DETAIL" layout-align="start stretch">
-                    <div class="inline-fields">
-                        <o-text-input #bil_year attr="BIL_YEAR" read-only="true" hidden></o-text-input>
-                        <o-text-input #bil_month attr="BIL_MONTH" read-only="true" hidden></o-text-input>
-                        <o-text-input #bil_month_text attr="BIL_MONTH_TEXT" label="BIL_MONTH" automatic-binding="false"
-                            automatic-registering="false" read-only="true"
-                            [data]="bil_month.getValue() | monthRenderer | oTranslate" hidden></o-text-input>
-                        <o-text-input attr="BIL_DATE" automatic-binding="false" automatic-registering="false"
-                            read-only="true"
-                            [data]="bil_month_text.getValue() + ' ' + bil_year.getValue()"></o-text-input>
-                        <o-integer-input #bilMeasurements attr="BIL_MEASUREMENTS" read-only="true"></o-integer-input>
-                        <o-integer-input #bundleRequests attr="PP_BUNDLE_REQUESTS" read-only="true"></o-integer-input>
-                    </div>
-                </o-column>
-            </o-row>
+    <div class="full-screen-background">
+        <div id="row1">
+            <div id="usage-detail">
+                <h2>{{ 'USAGE_DETAIL' | oTranslate }}</h2>
+                <div id="usage-detail-grid">
+                    <o-text-input #bil_year attr="BIL_YEAR" read-only="true" hidden></o-text-input>
+                    <o-text-input #bil_month attr="BIL_MONTH" read-only="true" hidden></o-text-input>
+                    <o-text-input #bil_month_text attr="BIL_MONTH_TEXT" label="BIL_MONTH" automatic-binding="false"
+                        automatic-registering="false" read-only="true"
+                        [data]="bil_month.getValue() | monthRenderer | oTranslate" hidden></o-text-input>
+                    <o-text-input attr="BIL_DATE" automatic-binding="false" automatic-registering="false"
+                        read-only="true" [data]="bil_month_text.getValue() + ' ' + bil_year.getValue()"></o-text-input>
+                    <o-integer-input #bilMeasurements attr="BIL_MEASUREMENTS" read-only="true"></o-integer-input>
+                    <o-integer-input #bundleRequests attr="PP_BUNDLE_REQUESTS" read-only="true"></o-integer-input>
+                </div>
+            </div>
 
-            <o-row attr="row2" layout-align="start stretch">
-                <o-column title="PLANS_DETAIL" layout-align="start stretch">
-                    <table class="consumption-table">
-                        <thead>
-                            <tr>
-                                <th>{{ 'CONCEPT' | oTranslate }}</th>
-                                <th>{{ 'COST' | oTranslate }}</th>
-                                <th>{{ 'AMOUNT' | oTranslate }}</th>
-                                <th>{{ 'SUBTOTAL' | oTranslate }}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>{{ 'FIXED' | oTranslate }}</td>
-                                <td class="centerNumb">{{ fixedPriceValue }}</td>
-                                <td class="centerNumb">{{ fixedQuantityValue }}</td>
-                                <td class="centerNumb">{{ fixedSubtotalValue }}</td>
-                            </tr>
-                            <tr>
-                                <td>{{ 'DEV' | oTranslate }}</td>
-                                <td class="centerNumb">{{ devPriceValue }}</td>
-                                <td class="centerNumb">{{ devQuantityValue }}</td>
-                                <td class="centerNumb">{{ devSubtotalValue }}</td>
-                            </tr>
-                            <tr>
-                                <td>{{ 'MEASUREMENTS' | oTranslate }}</td>
-                                <td class="centerNumb">{{ bundlePriceValue }}</td>
-                                <td class="centerNumb">{{ bundleQuantityValue }}</td>
-                                <td class="centerNumb">{{ bundleSubtotalValue }}</td>
-                            </tr>
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td colspan="3"><strong>{{ 'TOTAL' | oTranslate }}</strong></td>
-                                <td class="centerNumb"><strong>{{ totalValue }}</strong></td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                    <div class="inline-fields">
-                        <o-real-input #fixedPrice attr="PP_FIXED_PRICE" read-only="true" oHidden></o-real-input>
-                        <o-real-input #devPrice attr="PP_DEV_PRICE" read-only="true" oHidden></o-real-input>
-                        <o-real-input #bundlePrice attr="PP_BUNDLE_PRICE" read-only="true" oHidden></o-real-input>
-                        <o-integer-input #bilDevices attr="BIL_DEVICES" read-only="true" oHidden></o-integer-input>
-                        <o-real-input attr="BIL_EXPENSE" read-only="true" oHidden></o-real-input>
-                    </div>
-                </o-column>
-            </o-row>
-            <o-table attr="costTable" service="devices" entity="devicesWithMeasurementCount" keys="DEV_ID"
-                parent-keys="BIL_ID" columns="DEV_ID;DEV_NAME;ME_COUNT" visible-columns="DEV_NAME;ME_COUNT"
-                query-rows="20" select-all-checkbox-visible="no" insert-button="no" delete-button="no"
-                refresh-button="no" detail-mode="none" title="DEVICES" show-title="yes" refresh-button="yes"
-                virtual-scroll="no">
-                <o-table-column attr="DEV_NAME" title="DEV" title-align="center"
-                    content-align="center"></o-table-column>
-                <o-table-column attr="ME_COUNT" title="BIL_MEASUREMENTS" title-align="center"
-                    content-align="center"></o-table-column>
-            </o-table>
-        </o-column>
-    </o-row>
+            <div>
+                <h2>{{ 'PLANS_DETAIL' | oTranslate }}</h2>
+                <table class="consumption-table">
+                    <thead>
+                        <tr>
+                            <th>{{ 'CONCEPT' | oTranslate }}</th>
+                            <th>{{ 'COST' | oTranslate }}</th>
+                            <th>{{ 'AMOUNT' | oTranslate }}</th>
+                            <th>{{ 'SUBTOTAL' | oTranslate }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{ 'FIXED' | oTranslate }}</td>
+                            <td class="centerNumb">{{ fixedPriceValue + "€"}}</td>
+                            <td class="centerNumb">{{ fixedQuantityValue }}</td>
+                            <td class="centerNumb">{{ fixedSubtotalValue + "€"}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ 'DEV' | oTranslate }}</td>
+                            <td class="centerNumb">{{ devPriceValue + "€"}}</td>
+                            <td class="centerNumb">{{ devQuantityValue }}</td>
+                            <td class="centerNumb">{{ devSubtotalValue + "€"}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ 'MEASUREMENTS' | oTranslate }}</td>
+                            <td class="centerNumb">{{ bundlePriceValue + "€"}}</td>
+                            <td class="centerNumb">{{ bundleQuantityValue }}</td>
+                            <td class="centerNumb">{{ bundleSubtotalValue + "€"}}</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3"><strong>{{ 'TOTAL' | oTranslate }}</strong></td>
+                            <td class="centerNumb"><strong>{{ totalValue + "€"}}</strong></td>
+                        </tr>
+                    </tfoot>
+                </table>
+                <div>
+                    <o-real-input #fixedPrice attr="PP_FIXED_PRICE" read-only="true" oHidden></o-real-input>
+                    <o-real-input #devPrice attr="PP_DEV_PRICE" read-only="true" oHidden></o-real-input>
+                    <o-real-input #bundlePrice attr="PP_BUNDLE_PRICE" read-only="true" oHidden></o-real-input>
+                    <o-integer-input #bilDevices attr="BIL_DEVICES" read-only="true" oHidden></o-integer-input>
+                    <o-real-input attr="BIL_EXPENSE" read-only="true" oHidden></o-real-input>
+                </div>
+            </div>
+        </div>
+
+        <o-table attr="costTable" service="devices" entity="devicesWithMeasurementCount" keys="DEV_ID"
+            parent-keys="BIL_ID" columns="DEV_ID;DEV_NAME;ME_COUNT" visible-columns="DEV_NAME;ME_COUNT" query-rows="20"
+            select-all-checkbox-visible="no" insert-button="no" delete-button="no" refresh-button="no"
+            detail-mode="none" title="DEVICES_REQUESTS" show-title="yes" refresh-button="no" virtual-scroll="no"
+            quick-filter="no">
+            <o-table-column attr="DEV_NAME" title="DEV" title-align="center" content-align="center"></o-table-column>
+            <o-table-column attr="ME_COUNT" title="BIL_MEASUREMENTS" title-align="center"
+                content-align="center"></o-table-column>
+        </o-table>
+    </div>
 </o-form>
