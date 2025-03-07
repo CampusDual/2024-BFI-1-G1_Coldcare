@@ -1,4 +1,4 @@
-import { Component, Injector, ViewChild, AfterViewInit, OnInit } from '@angular/core';
+import { Component, Injector, ViewChild, AfterViewInit } from '@angular/core';
 import { OFormComponent, OntimizeService, OButtonComponent, OComboComponent } from 'ontimize-web-ngx';
 import { TRP_STATUS_END, TRP_STATUS_INIT, TRP_STATUS_PENDING } from 'src/app/shared/constants';
 import { GeolocationService } from 'src/app/services/geolocation.service';
@@ -7,7 +7,7 @@ import { GeolocationService } from 'src/app/services/geolocation.service';
   selector: 'app-transporters-details',
   templateUrl: './transporters-details.component.html'
 })
-export class TransportersDetailsComponent implements AfterViewInit, OnInit {
+export class TransportersDetailsComponent implements AfterViewInit {
 
   @ViewChild('form', { static: true }) form!: OFormComponent;
   @ViewChild('combo', { static: false }) combo!: OComboComponent;
@@ -23,18 +23,7 @@ export class TransportersDetailsComponent implements AfterViewInit, OnInit {
     this.service = this.injector.get(OntimizeService);
   }
 
-  ngOnInit() {
-    const trackingActive = localStorage.getItem('trackingActive');
-    const trpId = localStorage.getItem('TRP_ID');
-    console.log(trackingActive, trpId);
 
-    if (trackingActive === 'true' && trpId) {
-      console.log("entró");
-
-      this.continueStatusInitiated();
-    }
-
-  }
 
   ngAfterViewInit() {
     this.updateButtonState();
@@ -62,10 +51,7 @@ export class TransportersDetailsComponent implements AfterViewInit, OnInit {
     this.geolocationService.startTracking(trpId);
   }
 
-  continueStatusInitiated() {
-    const trpId = Number(localStorage.getItem('TRP_ID'));
-    this.geolocationService.startTracking(trpId);
-  }
+
 
   setStatusEnd() {
     this.updateStatus(TRP_STATUS_END);
