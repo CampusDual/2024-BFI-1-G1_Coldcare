@@ -4,7 +4,7 @@
   <o-column title="DEVICE_DATA" layout-align="start stretch" layout-padding>
     <div class="inline-fields">
       <o-text-input attr="DEV_MAC" read-only="true"></o-text-input>
-      <o-text-input attr="DEV_NAME" label="DEVICE_NAME" required="true"></o-text-input>
+      <o-text-input attr="DEV_NAME" label="NAME" required="true"></o-text-input>
       <o-combo attr="CNT_ID" label="CONTAINER_ASSIGN" service="containers" entity="containers" value-column="CNT_ID"
         columns="CNT_ID;CNT_NAME" visible-columns="CNT_NAME" null-selection="yes" searchable="yes" clear-button="yes">
       </o-combo>
@@ -17,20 +17,22 @@
   <o-column title="MEASUREMENTS_HISTORIC" layout-align="start stretch" layout-padding>
     <div class="inline-fields">
       <div fxLayout="column" layout-padding>
-        <o-daterange-input #DATES attr="ME_DATE" label="{{ 'DATE_RANGE_INPUT' | oTranslate }}" read-only="no"
-          required="no" format="DD/MM/YYYY" show-week-numbers="true" mode="desktop" automatic-binding="false"
-          translate="yes">
+        <o-daterange-input #dates attr="ME_DATE" label="{{ 'DATE_RANGE_INPUT' | oTranslate }}" read-only="no"
+          required="no" format="DD/MM/YYYY" show-week-numbers="true" mode="desktop"
+          translate="yes" automatic-registering="false">
         </o-daterange-input>
       </div>
       <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="8px">
-        <o-button attr="clear" (onClick)="DATES.clearValue()" type="RAISED" label="{{ 'CLEAR' | oTranslate }}"
+        <o-button attr="filter" [oFilterBuilderQuery]="filterBuilder" type="RAISED" color="primary"
+          label="{{ 'FILTER' | oTranslate }}" class="filter-button"></o-button>
+        <o-button attr="clear" (onClick)="dates.clearValue(); filterBuilder.triggerReload()" type="RAISED" label="{{ 'CLEAR' | oTranslate }}"
           class="filter-button"></o-button>
       </div>
     </div>
 
     <!-- Filtro para ambas graficas -->
     <o-filter-builder #filterBuilder attr="thefilter" filters="DEV_ID:DEV_ID;ME_DATE:ME_DATE"
-      [target]="measurementsTable" query-on-change="yes" [expression-builder]="createFilter"></o-filter-builder>
+      [target]="measurementsTable" query-on-change="yes" [expression-builder]="createFilter.bind(this)" ></o-filter-builder>
 
     <!--Tabla de Medidas-->
     <o-table #measurementsTable attr="tablaMedidas" service="measurements" entity="measurements"
