@@ -11,3 +11,7 @@ o-button {
   max-width: 40%;
   align-content: center;
 }
+
+#measurements-historic {
+  margin-bottom: 20px;
+}
