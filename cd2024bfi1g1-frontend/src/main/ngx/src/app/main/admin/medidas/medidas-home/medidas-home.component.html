@@ -4,7 +4,7 @@
 
     <div class="inline-fields">
       <div>
-        <o-combo attr="DEV_ID" label="DEVICE_NAME_INPUT" service="devices" entity="devices" value-column="DEV_ID"
+        <o-combo attr="DEV_ID" label="DEV" service="devices" entity="devices" value-column="DEV_ID"
           columns="DEV_ID;DEV_NAME" visible-columns="DEV_NAME" null-selection="yes" searchable="yes"></o-combo>
       </div>
       <div>
@@ -29,5 +29,5 @@
   <o-table-column attr="ME_DATE" title="DATE" type="date" format="DD/MM/YYYY HH:mm:ss"></o-table-column>
   <o-table-column attr="ME_TEMP" title="TEMPERATURE" type="real" content-align="center"></o-table-column>
   <o-table-column attr="ME_HUMIDITY" title="HUMIDITY" type="real" content-align="center"></o-table-column>
-  <o-table-column attr="DEV_NAME" title="IDENTIFIER"></o-table-column>
+  <o-table-column attr="DEV_NAME" title="NAME"></o-table-column>
 </o-table>

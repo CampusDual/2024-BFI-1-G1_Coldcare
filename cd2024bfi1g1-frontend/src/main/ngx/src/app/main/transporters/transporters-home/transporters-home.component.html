@@ -1,36 +1,36 @@
 <div style="height: 100%;">
-<o-list #transportsList attr="transports" title="TRANSPORTS" show-title="yes" service="transports"
-  entity="transportsPerUser" keys="TRP_ID" columns="TRP_ID;ORIGIN_NAME;DESTINATION_NAME;TRP_DATE;VHC_PLATE;TST_NAME"
-  visible-columns="ORIGIN_NAME;DESTINATION_NAME;TRP_DATE;VHC_PLATE;TST_NAME" delete-button="no" insert-button="no"
-  quick-filter="no" [ngStyle]="listStyle">
+  <o-list #transportsList attr="transports" title="TRANSPORTS" show-title="yes" service="transports"
+    entity="transportsPerUser" keys="TRP_ID" columns="TRP_ID;ORIGIN_NAME;DESTINATION_NAME;TRP_DATE;VHC_PLATE;TST_NAME"
+    visible-columns="ORIGIN_NAME;DESTINATION_NAME;TRP_DATE;VHC_PLATE;TST_NAME" delete-button="no" insert-button="no"
+    quick-filter="no" [ngStyle]="listStyle">
 
-  <mat-card *ngFor="let row of transportsList.dataArray" [o-list-item]="row">
-    <mat-card-header>
+    <mat-card *ngFor="let row of transportsList.dataArray" [o-list-item]="row">
+      <mat-card-header>
 
-      <o-column>
-        <div class="row">
-          <span class="title">{{ "ORIGIN_NAME" | oTranslate }}:</span>
-          <span>{{ row.ORIGIN_NAME }}</span>
-        </div>
+        <o-column>
+          <div class="row">
+            <span class="title">{{ "ORIGIN_NAME" | oTranslate }}:</span>
+            <span>{{ row.ORIGIN_NAME }}</span>
+          </div>
 
-        <div class="row">
-          <span class="title">{{ "DESTINATION_NAME" | oTranslate }}:</span>
-          <span>{{ row.DESTINATION_NAME }}</span>
-        </div>
+          <div class="row">
+            <span class="title">{{ "DESTINATION_NAME" | oTranslate }}:</span>
+            <span>{{ row.DESTINATION_NAME }}</span>
+          </div>
 
-        <div class="row">
-          <span class="title">{{ "TRP_DATE" | oTranslate }}:</span>
-          <span>{{ row.TRP_DATE | dateTransform }}</span>
-        </div>
+          <div class="row">
+            <span class="title">{{ "TRP_DATE" | oTranslate }}:</span>
+            <span>{{ row.TRP_DATE | dateTransform }}</span>
+          </div>
 
-        <div class="row">
-          <span class="title">{{ "TST_NAME" | oTranslate }}:</span>
-          <mat-icon [ngClass]="(row.TST_NAME | statusIcon).class">
-            {{ (row.TST_NAME | statusIcon).icon }}
-          </mat-icon>
-        </div>
-      </o-column>
-    </mat-card-header>
-  </mat-card>
-</o-list>
+          <div class="row">
+            <span class="title">{{ "TST_NAME" | oTranslate }}:</span>
+            <mat-icon [ngClass]="(row.TST_NAME | statusIcon).class">
+              {{ (row.TST_NAME | statusIcon).icon }}
+            </mat-icon>
+          </div>
+        </o-column>
+      </mat-card-header>
+    </mat-card>
+  </o-list>
 </div>
