@@ -10,8 +10,9 @@ import { AlertBooleanRendererComponent } from './components/alert-boolean-render
 import { MonthRendererPipe } from './components/pipes/month-renderer.pipe';
 import { DateTransformPipe } from './components/pipes/date-transform.pipe';
 import { StatusIconPipe } from './components/pipes/status-icon.pipe';
+import { DateRendererPipe } from './components/pipes/date-renderer.pipe';
 import { SecondsToTimePipe } from './components/pipes/seconds-to-time.pipe';
-
+import { DatePipe } from '@angular/common';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { SecondsToTimePipe } from './components/pipes/seconds-to-time.pipe';
     MonthRendererPipe,
     DateTransformPipe,
     StatusIconPipe,
+    DateRendererPipe,
     SecondsToTimePipe
   ],
   exports: [
@@ -41,7 +43,11 @@ import { SecondsToTimePipe } from './components/pipes/seconds-to-time.pipe';
     MonthRendererPipe,
     DateTransformPipe,
     StatusIconPipe,
+    DateRendererPipe,
     SecondsToTimePipe
-  ]
+  ],
+  providers: [
+    DatePipe
+  ],
 })
 export class SharedModule { }

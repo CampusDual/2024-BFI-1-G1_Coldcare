@@ -299,3 +299,7 @@ o-date-input[read-only] {
 .o-table .mat-mdc-table .mat-mdc-row.error-row .mat-mdc-cell.mat-column-ME_TEMP {
   color: red;
 }
+
+.mat-mdc-tab-label-container {
+  background-color: $accent-color;
+  }
