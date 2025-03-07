@@ -1,29 +1,29 @@
-<o-form show-header="no" query-on-init="no" fxFill ignore-on-exit="name;login;company">
-  <o-row class="form-row">
-    <o-column title="FILTER_USERS" class="column-extend">
+<o-form show-header="no" query-on-init="no" ignore-on-exit="name;login;company">
+  <div class="full-screen-background">
+    <div>
+      <h2>{{ 'FILTER_USERS' | oTranslate }}</h2>
       <div class="inline-fields">
         <o-combo attr="login" label="USR_LOGIN" service="users" entity="search" value-column="USR_LOGIN"
           columns="USR_ID;USR_NAME;USR_LOGIN" visible-columns="USR_NAME;USR_LOGIN" null-selection="yes" searchable="yes"
           separator=" - "></o-combo>
         <o-combo attr="company" label="CMP_NAME" service="companies" entity="companies" value-column="CMP_NAME"
           columns="CMP_ID;CMP_NAME" visible-columns="CMP_NAME" null-selection="yes" searchable="yes"></o-combo>
-
         <o-button attr="clear" [oFilterBuilderClear]="filterBuilder" type="BASIC" label="CLEAR" icon="clear"></o-button>
       </div>
+
       <o-filter-builder #filterBuilder attr="thefilter" filters="login;company" [target]="usersTable"
         query-on-change="yes" query-on-change-delay="500" [expression-builder]="createFilter">
       </o-filter-builder>
-
-      <o-table #usersTable attr="users" service="users" entity="user" keys="USR_ID" style="height: 1000px;"
+    </div>
+    <div>
+      <o-table #usersTable attr="users" service="users" entity="user" keys="USR_ID"
         columns="USR_ID;USR_NAME;USR_LOGIN;CMP_ID;CMP_NAME;USR_EMAIL"
         visible-columns="USR_NAME;USR_LOGIN;CMP_NAME;USR_EMAIL" sort-columns="USR_NAME" query-rows="25"
         quick-filter="yes" row-height="medium" pageable="true" query-on-init="yes" query-on-bind="false"
         select-all-checkbox-visible="no" insert-button="yes" delete-button="no" refresh-button="yes" fixed-header="yes"
-        class="home-table" fxFlex export-mode="local" detail-mode="click" show-title="true" title="USERS"
-        virtual-scroll="no">
+        fxFlex export-mode="local" detail-mode="click" show-title="true" title="USERS" virtual-scroll="no">
         <o-table-columns-filter columns="USR_NAME;USR_LOGIN;CMP_NAME;USR_EMAIL"></o-table-columns-filter>
       </o-table>
-    </o-column>
-  </o-row>
-
+    </div>
+  </div>
 </o-form>

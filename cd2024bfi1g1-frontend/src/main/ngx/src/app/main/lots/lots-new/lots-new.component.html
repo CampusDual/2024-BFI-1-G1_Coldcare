@@ -1,15 +1,14 @@
 <o-form attr="lotsNew" service="lots" entity="lots" keys="LOT_ID" show-header="true" after-insert-mode="close"
   confirm-exit="false">
-  <o-row attr="row1" class="form-row" layout-align="start stretch">
-    <o-column title="LOT_NEW" layout-align="start stretch" class="column-extend">
-      <div class="inline-fields">
-        <o-text-input #lotName attr="LOT_NAME" required="yes"></o-text-input>
-        <o-combo #productCombo attr="PRO_ID" label="Producto" service="products" entity="products" value-column="PRO_ID"
-          columns="PRO_ID;PRO_NAME;PRO_MIN_TEMP;PRO_MAX_TEMP" visible-columns="PRO_NAME" null-selection="no"
-          searchable="no" required="true" (onValueChange)="onNewProductChange($event)"></o-combo>
-        <o-real-input #minTempInput attr="MIN_TEMP" clear-button="yes"></o-real-input>
-        <o-real-input #maxTempInput attr="MAX_TEMP" clear-button="yes"></o-real-input>
-      </div>
-    </o-column>
-  </o-row>
+  <div class="full-screen-background-with-toolbar">
+    <h2>{{ 'LOT_NEW' | oTranslate }}</h2>
+    <div class="inline-fields">
+      <o-text-input #lotName attr="LOT_NAME" required="yes"></o-text-input>
+      <o-combo #productCombo attr="PRO_ID" label="Producto" service="products" entity="products" value-column="PRO_ID"
+        columns="PRO_ID;PRO_NAME;PRO_MIN_TEMP;PRO_MAX_TEMP" visible-columns="PRO_NAME" null-selection="no"
+        searchable="no" required="true" (onValueChange)="onNewProductChange($event)"></o-combo>
+      <o-real-input #minTempInput attr="MIN_TEMP" clear-button="yes"></o-real-input>
+      <o-real-input #maxTempInput attr="MAX_TEMP" clear-button="yes"></o-real-input>
+    </div>
+  </div>
 </o-form>

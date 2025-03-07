@@ -1,24 +1,21 @@
 <o-form attr="companiesDetails" parent-keys="CMP_ID" keys="CMP_ID" keys-sql-types="INTEGER" service="companies"
   entity="companies" header-actions="R;U;D">
-  <o-row class="form-row">
-    <o-column class="column-extend">
-      <o-row attr="row1" layout-align="start stretch">
-        <o-column title="COMPANY_DATA" layout-align="start stretch" layout-padding class="column-extend">
-          <div class="inline-fields">
-            <o-text-input attr="CMP_NAME"></o-text-input>
-            <o-combo attr="PLN_ID" label="PLAN_ASSIGN" service="plan" entity="plan" value-column="PLN_ID"
-              columns="PLN_ID;PLN_NAME" visible-columns="PLN_NAME" null-selection="no" searchable="yes">
-            </o-combo>
-          </div>
-        </o-column>
-      </o-row>
-      <o-table attr="users" title="USERS" show-title="true" service="users" entity="user" parent-keys="CMP_ID"
-        keys-sql-types="INTEGER" keys="USR_ID" columns="USR_ID;USR_NAME;CMP_ID" visible-columns="USR_NAME"
-        insert-button="no" delete-button="no" refresh-button="no" detail-mode="none" virtual-scroll="false">
-        <o-table-column attr="USR_ID" type="integer"></o-table-column>
-        <o-table-column attr="USR_NAME" type="string"></o-table-column>
-        <o-table-column attr="CMP_ID" type="integer"></o-table-column>
-      </o-table>
-    </o-column>
-  </o-row>
+  <div class="full-screen-background-with-toolbar">
+    <div>
+      <h2>{{ 'COMPANY_DATA' | oTranslate }}</h2>
+      <div class="inline-fields">
+        <o-text-input attr="CMP_NAME"></o-text-input>
+        <o-combo attr="PLN_ID" label="PLAN_ASSIGN" service="plan" entity="plan" value-column="PLN_ID"
+          columns="PLN_ID;PLN_NAME" visible-columns="PLN_NAME" null-selection="no" searchable="yes">
+        </o-combo>
+      </div>
+    </div>
+    <o-table attr="users" title="USERS" show-title="true" service="users" entity="user" parent-keys="CMP_ID"
+      keys-sql-types="INTEGER" keys="USR_ID" columns="USR_ID;USR_NAME;CMP_ID" visible-columns="USR_NAME"
+      insert-button="no" delete-button="no" refresh-button="no" detail-mode="none" virtual-scroll="false">
+      <o-table-column attr="USR_ID" type="integer"></o-table-column>
+      <o-table-column attr="USR_NAME" type="string"></o-table-column>
+      <o-table-column attr="CMP_ID" type="integer"></o-table-column>
+    </o-table>
+  </div>
 </o-form>

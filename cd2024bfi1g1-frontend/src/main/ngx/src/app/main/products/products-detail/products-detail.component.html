@@ -1,12 +1,11 @@
 <o-form attr="proDetail" parent-keys="PRO_ID" keys="PRO_ID" keys-sql-types="INTEGER" service="products"
     entity="products" header-actions="R;U;D">
-    <o-row attr="row1" layout-align="start stretch" class="form-row">
-        <o-column title="PRO_DETAIL" layout-align="start stretch" class="column-extend" layout-padding>
-            <div class="inline-fields">
-                <o-text-input attr="PRO_NAME" required="yes"></o-text-input>
-                <o-real-input attr="PRO_MIN_TEMP" clear-button="yes" required="true"></o-real-input>
-                <o-real-input attr="PRO_MAX_TEMP" clear-button="yes" required="true"></o-real-input>
-            </div>
-        </o-column>
-    </o-row>
+    <div class="full-screen-background-with-toolbar">
+        <h2>{{ 'PRO_DETAIL' | oTranslate }}</h2>
+        <div class="inline-fields">
+            <o-text-input attr="PRO_NAME" required="yes"></o-text-input>
+            <o-real-input attr="PRO_MIN_TEMP" clear-button="yes" required="true"></o-real-input>
+            <o-real-input attr="PRO_MAX_TEMP" clear-button="yes" required="true"></o-real-input>
+        </div>
+    </div>
 </o-form>

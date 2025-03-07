@@ -1,11 +1,10 @@
 <o-form attr="locationsTable" parent-keys="LOC_ID" keys="LOC_ID" keys-sql-types="INTEGER" service="locations"
     entity="locations" header-actions="R;U;D">
-    <o-row attr="row1" layout-align="start stretch" class="form-row">
-        <o-column title="LOC_DATA" layout-align="start stretch" layout-padding class="column-extend">
-            <div class="inline-fields">
-                <o-text-input attr="LOC_NAME"></o-text-input>
-                <o-text-input attr="LOC_ADDRESS" class="address"></o-text-input>
-            </div>
-        </o-column>
-    </o-row>
+    <div class="full-screen-background-with-toolbar">
+        <h2>{{ 'LOC_DATA' | oTranslate }}</h2>
+        <div class="inline-fields">
+            <o-text-input attr="LOC_NAME"></o-text-input>
+            <o-text-input attr="LOC_ADDRESS" class="address"></o-text-input>
+        </div>
+    </div>
 </o-form>

@@ -113,11 +113,15 @@ $success-color: #4caf50;
 }
 
 .full-screen-background {
-  min-height: calc(100vh - 100px);
+  min-height: calc(100vh - 112px);
 }
 
 .full-screen-background-with-toolbar {
-  height: calc(100vh - 188px);
+  min-height: calc(100vh - 200px);
+}
+
+.section {
+  margin-bottom: 15px;
 }
 
 /* Títulos */
