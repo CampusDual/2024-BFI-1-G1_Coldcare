@@ -4,7 +4,7 @@
   <o-row attr="row1">
     <o-column title="CONTAINER_DATA">
       <div class="inline-fields">
-        <o-text-input attr="CNT_NAME"></o-text-input>
+        <o-text-input attr="CNT_NAME" label="NAME"></o-text-input>
         <o-slide-toggle attr="CNT_MOBILITY" label="CURRENT_MOBILITY" read-only="no"></o-slide-toggle>
       </div>
     </o-column>
@@ -55,7 +55,7 @@
         include-parent-keys="yes" parent-keys="CNT_ID" query-on-init="true" keys="DEV_ID"
         columns="DEV_ID;DEV_NAME;CNT_ID" visible-columns="DEV_NAME" insert-button="false" delete-button="false"
         refresh-button="false" detail-form-route="CNT_ID;DEV_ID" detail-form-route-params="CNT_ID;DEV_ID">
-        <o-table-column attr="DEV_NAME" title="IDENTIFIER"></o-table-column>
+        <o-table-column attr="DEV_NAME" title="NAME"></o-table-column>
       </o-table>
     </o-column>
   </o-row>

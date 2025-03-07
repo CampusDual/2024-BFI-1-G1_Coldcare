@@ -2,7 +2,7 @@
   after-insert-mode="close" confirm-exit="false" header-actions="I;R;U">
   <o-column title="Plan" layout-align="start stretch" layout-padding>
     <div class="inline-fields">
-      <o-text-input attr="PLN_NAME" label="PLN_NAME" required="yes"></o-text-input>
+      <o-text-input attr="PLN_NAME" label="NAME" required="yes"></o-text-input>
     </div>
   </o-column>
   <o-column title="PRICES" layout-align="start stretch" layout-padding>
@@ -13,7 +13,7 @@
       <o-text-input attr="PP_BUNDLE_REQUESTS" label="PP_BUNDLE_REQUESTS" required="yes"></o-text-input>
     </div>
   </o-column>
-  <o-column title="DATES" layout-align="start stretch" layout-padding>
+  <o-column title="DATE" layout-align="start stretch" layout-padding>
     <div class="inline-fields">
       <o-date-input #DATES attr="PP_START" value-type="timestamp" label="PP_START" read-only="no" required="yes"
         format="DD/MM/YYYY" show-week-numbers="true" mode="desktop" translate="yes">
