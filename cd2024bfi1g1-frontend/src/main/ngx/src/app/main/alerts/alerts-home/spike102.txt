@@ -1,0 +1,28 @@
+INDICAR CON UN NUMERO EN LA PESTAÑA DEL NAVEGADOR
+
+  Actualmente, el sistema muestra la cantidad de filas en la tabla de alertas en el título de la página.
+
+  El problema es q para actualizar el título con la cantidad de alertas, el usuario debe entrar en la vista de alertas. Este comportamiento no es el deseado, ya que queremos que el título se actualice constantemente, independientemente de si el usuario está en la vista de alertas o no.
+
+  SOLUCION PROPUESTA
+  Una posible solucion consiste en crear un servicio en el componente principal (Main) que se encargue de realizar la consulta periódica que devuelve la cantidad de alertas disponibles. Este servicio debe estar ejecutándose de forma continua y actualizando el título cada cierto tiempo, sin necesidad de que el usuario esté en la vista de alertas.
+
+  CONSIDERACIONES
+  Gestión del temporizador: Es importate destruir este temporizador cuando el usuario haga logout de la página para evitar que la consulta siga realizándose de manera indefinida en segundo plano.
+
+
+
+NOTIFICACIONES PUSH
+
+  Para realizar esta implementacion he utilizado Firebase. Dejo a continuacion el video por el que me he guiado, hay que tener en cuenta que en el video se muestra cómo hacerlo en una aplicación de React, por lo q hay ciertas cosas que son diferentes.
+  https://www.youtube.com/watch?v=KfyAuuujWAg&t=2034s
+
+  En el archivo app.component.html hay un codigo temporal usado para la spike donde el usuario se loguea en Firebase y activa los mensajes.
+  Para mostrar este mensaje como prueba he puesto que cuando inicies el servidor te lo mande.
+  SOLUCION PROPUESTA
+  El metodo loguearse podria integrarse desde la pantalla de login en la que entras con tu usuario
+  Para activar las notificaciones push se debe ver cual es la mejor solucion:
+    - Que pida activar las notificaciones cuando entres con tu usuario
+    - Un apartado donde se puedan activar y desactivar
+
+  En el código actual también se han dejado comentarios sobre cómo funciona cada sección
