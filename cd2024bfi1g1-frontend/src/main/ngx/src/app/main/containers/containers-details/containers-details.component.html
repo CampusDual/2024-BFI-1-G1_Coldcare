@@ -1,4 +1,4 @@
-<o-form #formCNT attr="containers_form_update" include-parent-keys="yes" parent-keys="CNT_ID" keys-sql-types="INTEGER"
+<o-form attr="containers_form_update" include-parent-keys="yes" parent-keys="CNT_ID" keys-sql-types="INTEGER"
   service="containers" entity="containersWithMeasurements" columns="CNT_NAME" visible-columns="CNT_NAME" keys="CNT_ID"
   fxLayout="column" show-header="yes" header-actions="R;U" after-update-mode="detail" class="standalone-form-container"
   (onDataLoaded)="fillData($event)">
@@ -16,9 +16,11 @@
               <o-text-input #avgTemp attr="AVG_TEMP" read-only="true" oHidden></o-text-input>
               <o-text-input attr="AVG_TEMP_VISIBLE" label="AVG_TEMP" read-only="true" automatic-registering="false"
                 automatic-binding="false" [data]="avgTempVisible"></o-text-input>
+
               <o-text-input #maxTemp attr="MAX_TEMP_DEV" label="PRO_MAX_TEMP" read-only="true" oHidden></o-text-input>
               <o-text-input attr="MAX_TEMP_VISIBLE" label="PRO_MAX_TEMP" read-only="true" automatic-registering="false"
                 automatic-binding="false" [data]="maxTempVisible"></o-text-input>
+
               <o-text-input #minTemp attr="MIN_TEMP_DEV" label="PRO_MIN_TEMP" read-only="true" oHidden></o-text-input>
               <o-text-input attr="MIN_TEMP_VISIBLE" label="PRO_MIN_TEMP" read-only="true" automatic-registering="false"
                 automatic-binding="false" [data]="minTempVisible"></o-text-input>
@@ -27,9 +29,11 @@
               <o-text-input #avgHumidity attr="AVG_HUMIDITY" read-only="true" oHidden></o-text-input>
               <o-text-input attr="AVG_HUMIDITY_VISIBLE" label="AVG_HUMIDITY" read-only="true"
                 automatic-registering="false" automatic-binding="false" [data]="avgHumidityVisible"></o-text-input>
+
               <o-text-input #maxHumidity attr="MAX_HUMIDITY_DEV" read-only="true" oHidden></o-text-input>
               <o-text-input attr="MAX_HUMIDITY_VISIBLE" label="MAX_HUMIDITY_DEV" read-only="true"
                 automatic-registering="false" automatic-binding="false" [data]="maxHumidityVisible"></o-text-input>
+
               <o-text-input #minHumidity attr="MIN_HUMIDITY_DEV" read-only="true" oHidden></o-text-input>
               <o-text-input attr="MIN_HUMIDITY_VISIBLE" label="MIN_HUMIDITY_DEV" read-only="true"
                 automatic-registering="false" automatic-binding="false" [data]="minHumidityVisible"></o-text-input>

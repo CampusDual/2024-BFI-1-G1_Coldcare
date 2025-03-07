@@ -289,5 +289,7 @@
   "ALT_DATE_END": "End date",
   "ALT_DURATION": "Duration",
   "MIN_TEMP_DEV": "Min Temp",
-  "MAX_TEMP_DEV": "Max Temp"
+  "MAX_TEMP_DEV": "Max Temp",
+  "ALERTS_ACTIVE_TEXT": "There are #ALT_COUNT# active alert/s",
+  "ALT_ACTIVE_TEST": " "
 }

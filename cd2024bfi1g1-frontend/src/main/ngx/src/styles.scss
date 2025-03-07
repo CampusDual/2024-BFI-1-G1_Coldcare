@@ -234,7 +234,7 @@ tr.mat-mdc-row.mdc-data-table__row.cdk-row:nth-child(even) {
 .column-extend {
   flex: 1;
   width: 100%;
-}
+} 
 
 o-combo-search {
   .mat-mdc-form-field-focus-overlay {
@@ -244,6 +244,7 @@ o-combo-search {
 
 o-text-input,
 o-date-input,
+o-email-input,
 o-daterange-input,
 o-integer-input,
 o-password-input,
@@ -313,4 +314,13 @@ o-date-input[read-only] {
 
 .mat-mdc-tab-label-container {
   background-color: $accent-color;
+}
+
+//charts
+
+.chart-legend {
+  .legend-labels{
+    background: white !important;
   }
+}
+

@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { Expression, FilterExpressionUtils, OTableComponent, OTranslateService } from 'ontimize-web-ngx';
-import { DataAdapterUtils, LineChartConfiguration, OChartComponent } from 'ontimize-web-ngx-charts';
+import { Expression, FilterExpressionUtils, OTableComponent, OTextInputComponent, OTranslateService } from 'ontimize-web-ngx';
+import { LineChartConfiguration, OChartComponent } from 'ontimize-web-ngx-charts';
 
 @Component({
   selector: 'app-containers-lots-details',
@@ -13,10 +13,12 @@ export class ContainersLotsDetailsComponent {
   @ViewChild('measurementsTemperatureTable', { static: false }) measurementsTemperatureTable: OTableComponent;
   @ViewChild('measurementsHumidityTable', { static: false }) measurementsHumidityTable: OTableComponent;
   @ViewChild('lineChartBasic', { static: false }) lineChart: OChartComponent;
+  @ViewChild('activeAlert', { static: false }) activeAlert!: OTextInputComponent;
 
   dataArrayTemp: any = [];
   dataArrayHum: any = [];
   chartData = [];
+  activeAlertVisible: number = 0;
 
   chartParametersTemp: LineChartConfiguration;
   chartParametersHum: LineChartConfiguration;
@@ -50,6 +52,7 @@ export class ContainersLotsDetailsComponent {
     private translator: OTranslateService,
     private router: Router
   ) {
+
     // Configuración del gráfico de temperatura
     this.chartParametersTemp = new LineChartConfiguration();
     this.chartParametersTemp.isArea = [true];
@@ -149,21 +152,33 @@ export class ContainersLotsDetailsComponent {
     this.dataArrayTemp = Object.keys(devicesData).map(devId => ({
       name: devId,
       series: devicesData[devId].map(point => ({
-        name: point.ME_DATE, 
-        value: point[this.tempField] 
+        name: point.ME_DATE,
+        value: point[this.tempField]
       }))
     }));
 
     this.dataArrayHum = Object.keys(devicesData).map(devId => ({
       name: devId,
       series: devicesData[devId].map(point => ({
-        name: point.ME_DATE, 
-        value: point[this.humidityField] 
+        name: point.ME_DATE,
+        value: point[this.humidityField]
       }))
     }));
 
     this.colorSchemeTemp = { domain: Object.values(this.deviceColorMap) };
     this.colorSchemeHum = { domain: Object.values(this.deviceColorMap) };
+  }
+
+  fillData(e: any) {
+    if (e.ACTIVE_ALERTS !== undefined) {
+      this.activeAlertVisible = this.activeAlert.getValue();
+    } else {
+      this.activeAlertVisible = 0;
+    }
+  }
+
+  public translateLabel() {
+    return this.translator.get("ALERTS_ACTIVE_TEXT").replace("#ALT_COUNT#", this.activeAlertVisible.toString());
   }
 
 }

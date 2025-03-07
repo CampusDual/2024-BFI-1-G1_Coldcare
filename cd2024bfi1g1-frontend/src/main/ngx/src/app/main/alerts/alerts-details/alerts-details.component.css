@@ -1,3 +1,7 @@
 #tablaMedidasContainer {
     display: none !important;
 }
+
+.form-row {
+    height: 89vh;
+}

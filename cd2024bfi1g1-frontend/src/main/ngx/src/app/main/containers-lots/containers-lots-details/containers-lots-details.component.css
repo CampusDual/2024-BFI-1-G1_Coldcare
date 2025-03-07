@@ -29,16 +29,16 @@ p {
 
 #tablaMedidasContainer {
     display: none !important;
-  }
+}
 
 .graphs {
-  display: grid;
-  grid-template-columns: 50% 50%; 
-  gap: 40px;
-}  
+    display: grid;
+    grid-template-columns: 50% 50%;
+    gap: 40px;
+}
 
 .graphs-container {
-    display: flex; 
-    justify-content: center; 
+    display: flex;
+    justify-content: center;
     align-items: center;
 }

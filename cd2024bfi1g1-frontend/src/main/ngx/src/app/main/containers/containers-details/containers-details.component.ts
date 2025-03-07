@@ -1,6 +1,6 @@
-import { Component, Injector, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { OFormComponent, OTextInputComponent, OTranslateService } from 'ontimize-web-ngx';
+import { OTextInputComponent, OTranslateService } from 'ontimize-web-ngx';
 
 @Component({
   selector: 'app-containers-details',
@@ -17,13 +17,11 @@ export class ContainersDetailsComponent {
   @ViewChild('maxHumidity', { static: false }) maxHumidity!: OTextInputComponent;
   @ViewChild('minHumidity', { static: false }) minHumidity!: OTextInputComponent;
   @ViewChild('alertsCount', { static: false }) alertsCount!: OTextInputComponent;
-  @ViewChild('formCNT', { static: false }) formCNT!: OFormComponent;
 
-  translator: OTranslateService;
-
-  constructor(private router: Router, protected injector: Injector) {
-    this.translator = this.injector.get(OTranslateService);
-  }
+  constructor(
+    private router: Router,
+    private translator: OTranslateService
+  ) { }
 
   public avgTempVisible: string = "N/A";
   public maxTempVisible: string = "N/A";
@@ -34,7 +32,6 @@ export class ContainersDetailsComponent {
   public alertCountVisible: number = 0;
 
   fillData(e: any) {
-    console.log(e);
     if (e.AVG_TEMP !== undefined) {
       this.avgTempVisible = this.avgTemp.getValue() + " ºC";
     }

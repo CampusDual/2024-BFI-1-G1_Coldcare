@@ -1,19 +1,21 @@
 <o-form keys-sql-types="INTEGER" parent-keys="CL_ID" keys="CL_ID" include-parent-keys="yes" service="containersLots"
   entity="containersLots" show-header="yes" header-actions="R;U;D"
-  columns="CNT_NAME;LOT_NAME;PRO_NAME;MIN_TEMP;MAX_TEMP">
-  <o-column title="CL_INFO">
+  columns="CNT_NAME;LOT_NAME;PRO_NAME;MIN_TEMP;MAX_TEMP" (onDataLoaded)="fillData($event)">
+  <o-column title="CL_INFO" class="column-extend">
     <div class="inline-fields">
-      <o-text-input attr="CNT_NAME" read-only="yes"></o-text-input>
-      <o-text-input attr="LOT_NAME" read-only="yes"></o-text-input>
-    </div>
-    <div class="inline-fields">
-      <o-text-input attr="PRO_NAME" read-only="yes"></o-text-input>
-      <o-text-input attr="MIN_TEMP" read-only="yes"></o-text-input>
-      <o-text-input attr="MAX_TEMP" read-only="yes"></o-text-input>
+      <o-text-input #cntName attr="CNT_NAME" read-only="yes"></o-text-input>
+      <o-text-input #lotName attr="LOT_NAME" read-only="yes"></o-text-input>
+      <o-text-input #proName attr="PRO_NAME" read-only="yes"></o-text-input>
+      <o-text-input #minTemp attr="MIN_TEMP" read-only="yes" hidden></o-text-input>
+      <o-text-input attr="MIN_TEMP_TEXT" label="MIN_TEMP_DEV" read-only="yes" [data]="minTemp.getValue() + ' ºC'"
+        automatic-binding="false" automatic-registering="false"></o-text-input>
+      <o-text-input #maxTemp attr="MAX_TEMP" read-only="yes" hidden></o-text-input>
+      <o-text-input attr="MAX_TEMP_TEXT" label="MAX_TEMP_DEV" read-only="yes" [data]="maxTemp.getValue() + ' ºC'"
+        automatic-binding="false" automatic-registering="false"></o-text-input>
     </div>
   </o-column>
 
-  <o-column title="ALERTS_DATA">
+  <o-column title="ALERTS_DATA" class="column-extend">
     <div class="inline-fields">
       <o-text-input #totalTime attr="TOTAL_TIME" read-only="yes" hidden></o-text-input>
       <o-text-input attr="TOTAL_TIME_TEXT" label="TOTAL_TIME" read-only="yes" automatic-binding="false"
@@ -27,7 +29,9 @@
       <o-text-input attr="MAX_TIME_TEXT" label="MAX_TIME" read-only="yes" automatic-binding="false"
         automatic-registering="false" [data]="maxTime.getValue() | secondsToTime"></o-text-input>
 
-      <o-text-input attr="ACTIVE_ALERTS" read-only="yes"></o-text-input>
+      <o-text-input #activeAlert attr="ACTIVE_ALERTS" read-only="true" hidden></o-text-input>
+      <o-text-input attr="ALT_ACTIVE_TEST" read-only="true" automatic-registering="false" automatic-binding="false"
+        [data]="translateLabel()"></o-text-input>
     </div>
   </o-column>
 
@@ -93,12 +97,12 @@
           <o-chart #lineChartBasic type="line" [chart-parameters]="chartParametersTemp"
             x-label="{{ 'TIME' | oTranslate }}" y-label="{{ 'TEMPERATURE' | oTranslate }}" [color]="colorSchemeTemp"
             [data]="dataArrayTemp" show-grid-lines="true" virtual-scroll="no"
-            style="height: auto; max-height: none; overflow: hidden"></o-chart>
+            style="height: 50vh; max-height: none; overflow: hidden"></o-chart>
 
           <o-chart #lineChartBasic type="line" [chart-parameters]="chartParametersHum"
             x-label="{{ 'TIME' | oTranslate }}" y-label="{{ 'HUMIDITY' | oTranslate }}" [color]="colorSchemeTemp"
             [data]="dataArrayHum" show-grid-lines="true" virtual-scroll="no"
-            style="height: auto; max-height: none; overflow: hidden"></o-chart>
+            style="height: 50vh; max-height: none; overflow: hidden"></o-chart>
         </div>
       </div>
     </mat-tab>
