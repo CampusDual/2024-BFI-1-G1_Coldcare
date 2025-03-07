@@ -8,6 +8,8 @@ import { InDateRangeBooleanRendererComponent } from './components/in-date-range-
 import { BillsMonthRendererComponent } from './components/bills-month-renderer/bills-month-renderer.component';
 import { AlertBooleanRendererComponent } from './components/alert-boolean-renderer/alert-boolean-renderer.component';
 import { MonthRendererPipe } from './components/pipes/month-renderer.pipe';
+import { DateTransformPipe } from './components/pipes/date-transform.pipe';
+import { StatusIconPipe } from './components/pipes/status-icon.pipe';
 import { DateRendererPipe } from './components/pipes/date-renderer.pipe';
 import { SecondsToTimePipe } from './components/pipes/seconds-to-time.pipe';
 import { DatePipe } from '@angular/common';
@@ -25,6 +27,8 @@ import { DatePipe } from '@angular/common';
     BillsMonthRendererComponent,
     AlertBooleanRendererComponent,
     MonthRendererPipe,
+    DateTransformPipe,
+    StatusIconPipe,
     DateRendererPipe,
     SecondsToTimePipe
   ],
@@ -37,6 +41,8 @@ import { DatePipe } from '@angular/common';
     BillsMonthRendererComponent,
     AlertBooleanRendererComponent,
     MonthRendererPipe,
+    DateTransformPipe,
+    StatusIconPipe,
     DateRendererPipe,
     SecondsToTimePipe
   ],
