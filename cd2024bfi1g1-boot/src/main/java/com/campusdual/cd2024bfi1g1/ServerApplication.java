@@ -27,7 +27,7 @@ public class ServerApplication implements CommandLineRunner { // Implementamos C
 
 	@Override
 	public void run(String... args) throws Exception {
-		String token = "f1l5v3Bi9BBmMuPk3X0E7E:APA91bFzwshG3-ej6Ji8qMA1V-lnMNhHsN14NNAJ6hw3xgJTVYyWoKo3tghNaMratT29HVOiRhnjinlltEryhf6CNORpe1CzGWnurSQfQw6gYjpB5J8sq9w";
+		String token = "cgh3OvsNPTFLRMYvZ2qOCo:APA91bE5x51qYgfh8Ye-IEHK8jZbtmMwfgJjqpD_ZN7kRQMqXWgkFNNTSLy_2a11KlTvZM3D-3s4LUFbBN4Tph7SacfaFk709LG_PJc5gLGmwQc7bOUxLsc";
 
 		// Enviar una notificación push al arrancar la aplicación
 		String response = notificationService.sendNotification(token, "Notificación automática", "Nueva alerta generada desde el backend");

@@ -34,13 +34,6 @@ export class AppComponent {
     }
   }
 
-  loguearse() {
-    this.firebaseService.loguearse();
-  }
-
-  activarMensajes() {
-    this.firebaseService.activarMensajes();
-  }
 
   // Método para mostrar el snackBar
   showSnackBar(message: string) {

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { OntimizeService } from 'ontimize-web-ngx';
+import { FirebaseService } from '../firebase.service';
 
 @Component({
   selector: 'app-main',
@@ -9,25 +10,51 @@ import { OntimizeService } from 'ontimize-web-ngx';
 })
 export class MainComponent implements OnInit {
 
-  constructor(private router: Router, private oService: OntimizeService) { }
+  constructor(private router: Router, private oService: OntimizeService, private firebaseService: FirebaseService,
+  ) { }
 
   ngOnInit() {
 
     const visited = localStorage.getItem('visited');
 
     this.oService.configureService(this.oService.getDefaultServiceConfiguration("users"));
-    this.oService.query({}, ["ROL_ID", "ROL_NAME"],"myRole").subscribe(ress => {
-      
-      if(ress['data'][0]['ROL_NAME'] == "admin" && !visited){
+    this.oService.query({}, ["ROL_ID", "ROL_NAME"], "myRole").subscribe(ress => {
+
+      if (ress['data'][0]['ROL_NAME'] == "admin" && !visited) {
         localStorage.setItem('visited', 'true');
-        this.router.navigate(['main','admin','devices-without-users'],{});
-      } else if (ress['data'][0]['ROL_NAME'] == "transporter" && !visited){
+        this.router.navigate(['main', 'admin', 'devices-without-users'], {});
+      } else if (ress['data'][0]['ROL_NAME'] == "transporter" && !visited) {
         localStorage.setItem('visited', 'true');
-        this.router.navigate(['main','transporters'],{});
-      }else if (ress['data'][0]['ROL_NAME'] == "usermicros" && !visited){
-        localStorage.setItem('visited', 'true');
-        this.router.navigate(['main','usermicros'],{});
+        this.router.navigate(['main', 'transporters'], {});
       }
+
+      this.loguearse()
     });
   }
+
+  loguearse() {
+    this.firebaseService.loguearse();
+    console.log("Logueado");
+
+    this.requestPermission();
+
+  }
+
+  requestPermission = async (): Promise<void> => {
+    try {
+      const permission: NotificationPermission = await Notification.requestPermission();
+      if (permission === "granted") {
+        console.log("Permiso concedido");
+
+        setTimeout(() => {
+          this.firebaseService.activarMensajes();
+        }, 100);
+
+      } else {
+        console.log("Permiso denegado");
+      }
+    } catch (error) {
+      console.error("Error al solicitar permisos", error);
+    }
+  };
 }
