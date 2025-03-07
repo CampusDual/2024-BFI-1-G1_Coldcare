@@ -1,15 +1,43 @@
-<o-table attr="usageTable" service="bills" entity="bills" keys="BIL_ID"
-    columns="BIL_ID;BIL_YEAR;BIL_MONTH;BIL_EXPENSE;BIL_DEVICES;BIL_MEASUREMENTS;CMP_ID;CMP_NAME"
-    visible-columns="BIL_YEAR;BIL_MONTH;BIL_EXPENSE;BIL_DEVICES;BIL_MEASUREMENTS;CMP_NAME" title="USAGE" query-rows="20"
-    select-all-checkbox-visible="no" insert-button="no" delete-button="no" refresh-button="yes" quick-filter="no"
-    pageable="true" detail-mode="none" show-title="yes" sort-columns="BIL_YEAR:DESC;BIL_MONTH:DESC">
-    <o-table-column attr="BIL_YEAR" title-align="center" content-align="center"></o-table-column>
-    <o-table-column attr="BIL_MONTH" title-align="center" content-align="center">
-        <bills-month-renderer></bills-month-renderer>
-    </o-table-column>
-    <o-table-column attr="BIL_EXPENSE" format="" title-align="center" content-align="center" type="currency"
-        currency-symbol=""></o-table-column>
-    <o-table-column attr="BIL_DEVICES" title-align="center" content-align="center"></o-table-column>
-    <o-table-column attr="BIL_MEASUREMENTS" title-align="center" content-align="center"></o-table-column>
-    <o-table-column attr="CMP_NAME" title-align="center" content-align="center"></o-table-column>
-</o-table>
+<o-form show-header="no" query-on-init="no" fxFill confirm-exit="no">
+    <o-column>
+        <label layout-padding>{{"FILTER_BILLS" | oTranslate}}</label>
+        <div class="inline-fields">
+            <div fxLayout="row" fxLayoutGap="15px" layout-padding>
+                <o-combo attr="year" label="YEAR" service="bills" entity="bills" value-column="BIL_YEAR"
+                    columns="BIL_YEAR" visible-columns="BIL_YEAR" null-select searchable="yes"
+                    null-selection="yes"></o-combo>
+                <o-combo attr="month" label="MONTH" value-column="id" columns="id;month" visible-columns="month"
+                    null-selection="no" searchable="no" translate="yes" [static-data]="integersArray"></o-combo>
+                <o-combo attr="company" label="CMP_NAME" service="bills" entity="bills" value-column="CMP_NAME"
+                    columns="CMP_NAME" visible-columns="CMP_NAME" null-selection="no" searchable="yes"
+                    null-selection="yes"></o-combo>
+
+            </div>
+            <div fxLayoutAlign="end center" fxLayoutGap="8px">
+
+                <o-button attr="clear" [oFilterBuilderClear]="filterBuilder" type="BASIC" label="CLEAR"
+                    icon="clear"></o-button>
+            </div>
+        </div>
+        <o-filter-builder #filterBuilder attr="billFilter" filters="year;month;company" [target]="usageTable"
+            query-on-change="yes" [expression-builder]="createFilter">
+        </o-filter-builder>
+
+        <o-table #usageTable attr="usageTable" service="bills" entity="bills" keys="BIL_ID"
+            columns="BIL_ID;BIL_YEAR;BIL_MONTH;BIL_EXPENSE;BIL_DEVICES;BIL_MEASUREMENTS;CMP_ID;CMP_NAME"
+            visible-columns="BIL_YEAR;BIL_MONTH;BIL_EXPENSE;BIL_DEVICES;BIL_MEASUREMENTS;CMP_NAME" title="USAGE"
+            query-rows="20" select-all-checkbox-visible="no" insert-button="no" delete-button="no" refresh-button="yes"
+            quick-filter="no" pageable="true" detail-mode="click" show-title="yes"
+            sort-columns="BIL_YEAR:DESC;BIL_MONTH:DESC">
+            <o-table-column attr="BIL_YEAR" title="YEAR" title-align="center" content-align="center"></o-table-column>
+            <o-table-column attr="BIL_MONTH" title="MONTH" title-align="center" content-align="center">
+                <bills-month-renderer></bills-month-renderer>
+            </o-table-column>
+            <o-table-column attr="BIL_EXPENSE" format="" title-align="center" content-align="center" type="currency"
+                currency-symbol=""></o-table-column>
+            <o-table-column attr="BIL_DEVICES" title-align="center" content-align="center"></o-table-column>
+            <o-table-column attr="BIL_MEASUREMENTS" title-align="center" content-align="center"></o-table-column>
+            <o-table-column attr="CMP_NAME" title-align="center" content-align="center"></o-table-column>
+        </o-table>
+    </o-column>
+</o-form>

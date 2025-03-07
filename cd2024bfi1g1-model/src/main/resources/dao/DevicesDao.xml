@@ -72,5 +72,33 @@
                 ]]>
             </Sentence>
         </Query>
+        <Query id="devicesWithMeasurementCount">
+            <AmbiguousColumns>
+                <AmbiguousColumn name="CMP_ID" prefix="d"/>
+                <AmbiguousColumn name="DEV_ID" prefix="d"/>
+            </AmbiguousColumns>
+            <Sentence>
+                <![CDATA[
+                    WITH measurement_counts AS (
+                        select
+                            d.cmp_id,
+                            d.dev_id,
+                            b.bil_year,
+                            b.bil_month,
+                            b.bil_id,
+                            COUNT(m.me_id) AS me_count
+                        FROM devices d
+                        JOIN measurements m ON d.dev_id = m.dev_id
+                        JOIN bills b ON d.cmp_id = b.cmp_id and b.bil_year = EXTRACT(YEAR FROM m.me_date) and b.bil_month = extract(month from m.me_date)
+                        GROUP BY d.dev_id, b.bil_id
+                    )
+                    SELECT #COLUMNS#
+                    FROM devices d
+                    LEFT JOIN measurement_counts mc ON d.dev_id = mc.dev_id
+                    #WHERE#
+                    #ORDER#
+                ]]>
+            </Sentence>
+        </Query>
     </Queries>
 </JdbcEntitySetup>

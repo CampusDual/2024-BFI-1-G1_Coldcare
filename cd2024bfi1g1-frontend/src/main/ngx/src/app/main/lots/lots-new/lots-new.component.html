@@ -4,7 +4,7 @@
     <o-column title="LOT_NEW" layout-align="start stretch">
       <div class="inline-fields">
         <o-text-input #lotName attr="LOT_NAME" required="yes"></o-text-input>
-        <o-combo #productCombo attr="PRO_ID" label="Producto" service="products" entity="products" value-column="PRO_ID"
+        <o-combo #productCombo attr="PRO_ID" label="PRO_NAME" service="products" entity="products" value-column="PRO_ID"
           columns="PRO_ID;PRO_NAME;PRO_MIN_TEMP;PRO_MAX_TEMP" visible-columns="PRO_NAME" null-selection="no"
           searchable="no" required="true" (onValueChange)="onNewProductChange($event)"></o-combo>
         <o-real-input #minTempInput attr="MIN_TEMP" clear-button="yes"></o-real-input>

@@ -36,6 +36,17 @@ public class DevicesService implements IDevicesService {
     }
 
     @Override
+    public EntityResult devicesWithMeasurementCountQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
+
+        Integer cmpId = Util.getUserCompanyId(this.daoHelper, this.userDao);
+        if (cmpId != null) {
+            keyMap.put(DevicesDao.CMP_ID, cmpId);
+        }
+
+        return this.daoHelper.query(this.devicesDao, keyMap, attrList, "devicesWithMeasurementCount");
+    }
+
+    @Override
     public EntityResult devicesWithoutUserQuery(Map<String, Object> keyMap, List<String> attrList)
             throws OntimizeJEERuntimeException {
         return this.daoHelper.query(this.devicesDao, keyMap, attrList, "devicesWithoutUser");
@@ -45,6 +56,11 @@ public class DevicesService implements IDevicesService {
     public EntityResult devicesInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException {
         Map<String, Object> valuesToInsert = new HashMap<>(attrMap);
         valuesToInsert.put(DEV_NAME, attrMap.get(DEV_MAC));
+
+        Integer cmpID = Util.getUserCompanyId(this.daoHelper, this.userDao);
+        if(cmpID != null){
+            valuesToInsert.put(DevicesDao.CMP_ID, cmpID);
+        }
         return this.daoHelper.insert(this.devicesDao, valuesToInsert);
     }
 
