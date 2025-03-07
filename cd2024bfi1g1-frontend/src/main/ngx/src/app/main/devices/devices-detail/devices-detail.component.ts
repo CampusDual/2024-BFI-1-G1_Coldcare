@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Expression, FilterExpressionUtils, OTableComponent, OTranslateService } from 'ontimize-web-ngx';
+import { Expression, FilterExpressionUtils, ODateRangeInputComponent, OFilterBuilderComponent, OTableComponent, OTranslateService } from 'ontimize-web-ngx';
 import { DataAdapterUtils, LineChartConfiguration, OChartComponent } from 'ontimize-web-ngx-charts';
 
 @Component({
@@ -15,6 +15,9 @@ export class DevicesDetailComponent {
   @ViewChild('measurementsHumidityTable', { static: false }) measurementsHumidityTable: OTableComponent;
 
   @ViewChild('lineChartBasic', { static: false }) lineChart: OChartComponent;
+
+  @ViewChild('dates', { static: false }) dateFilter: ODateRangeInputComponent;
+
 
   dataArrayTemp: any = [];
   dataArrayHum: any = [];
@@ -62,18 +65,25 @@ export class DevicesDetailComponent {
   }
 
   createFilter(values: Array<{ attr, value }>): Expression {
+    console.log('Filtros generados:', this.dateFilter);
 
     let filters: Array<Expression> = [];
     values.forEach(fil => {
+
       if (fil.value) {
         if (fil.attr === 'DEV_ID') {
           filters.push(FilterExpressionUtils.buildExpressionEquals('DEV_ID', fil.value));
         }
-        if (fil.attr === 'ME_DATE') {
-          filters.push(FilterExpressionUtils.buildExpressionMoreEqual('ME_DATE', fil.value.startDate));
-        }
-        if (fil.attr === 'ME_DATE') {
-          filters.push(FilterExpressionUtils.buildExpressionLessEqual('ME_DATE', fil.value.endDate));
+        
+        if (this.dateFilter.getValue() != undefined) {
+          console.log('Agregando filtro de rango de fechas:', fil.value);
+          let endDate = new Date(this.dateFilter.getValue().endDate);
+          endDate.setHours(23);
+          endDate.setMinutes(59);
+          endDate.setSeconds(59);
+          endDate.setMilliseconds(999);
+          filters.push(FilterExpressionUtils.buildExpressionMoreEqual('ME_DATE', this.dateFilter.getValue().startDate));
+          filters.push(FilterExpressionUtils.buildExpressionLessEqual('ME_DATE', endDate.getTime()));
         }
       }
     });
@@ -81,6 +91,7 @@ export class DevicesDetailComponent {
     if (filters.length > 0) {
       return filters.reduce((exp1, exp2) => FilterExpressionUtils.buildComplexExpression(exp1, exp2, FilterExpressionUtils.OP_AND));
     } else {
+      console.log("No hay filtro");
       return null;
     }
   }
