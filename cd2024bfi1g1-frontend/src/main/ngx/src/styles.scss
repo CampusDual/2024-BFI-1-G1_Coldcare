@@ -107,17 +107,27 @@ $success-color: #4caf50;
 
 /* Contenedor principal */
 .full-screen-background,
+.full-screen-background-table,
 .full-screen-background-with-toolbar {
   padding: 16px;
   background-color: white;
 }
 
-.full-screen-background {
+.full-screen-background,
+.full-screen-background-table {
   min-height: calc(100vh - 112px);
 }
 
 .full-screen-background-with-toolbar {
   min-height: calc(100vh - 200px);
+}
+
+.full-screen-background-table {
+  o-table {
+    box-shadow: none;
+    border-radius: 0;
+    height: calc(100vh - 112px);
+  }
 }
 
 .section {
@@ -132,7 +142,17 @@ h2 {
   margin-bottom: 10px;
 }
 
+h3 {
+  margin: 10px 0;
+}
+
 /* Tabla */
+o-table {
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+  width: auto;
+}
+
 // Encabezado
 .mat-mdc-header-cell.mdc-data-table__header-cell {
   background-color: #1c4e78 !important;
@@ -227,7 +247,6 @@ tr.mat-mdc-row.mdc-data-table__row.cdk-row:nth-child(even) {
 .mat-mdc-text-field-wrapper.mdc-text-field.mdc-text-field--filled {
   display: inline-block;
   width: 100%;
-  max-width: 400px;
   position: relative;
   background-color: $primary-color;
   border: 2px solid #ddd;
@@ -246,11 +265,18 @@ tr.mat-mdc-row.mdc-data-table__row.cdk-row:nth-child(even) {
   }
 }
 
+.main-info {
+  padding: 0 7px;
+  font-weight: bold;
+  font-size: 1.1rem;
+  align-content: center;
+}
+
 // Estilos específicos para campos dentro de .inline-fields
 .inline-fields {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 5px;
+  gap: 7px;
   padding: 10px;
 }
 
@@ -260,6 +286,7 @@ o-combo-search {
   }
 }
 
+mat-form-field,
 o-text-input,
 o-date-input,
 o-email-input,
@@ -275,6 +302,7 @@ o-combo-search {
   font-size: 14px;
   line-height: 1.6;
   padding: 0;
+  align-content: center;
 
   &[read-only="yes"],
   &[read-only="true"] {
@@ -317,6 +345,14 @@ o-date-input[read-only] {
   padding: 0;
 }
 
+o-combo-search {
+  padding: 8px 16px 16px 16px !important;
+
+  .mdc-text-field__input {
+    padding-bottom: 5px;
+  }
+}
+
 .mat-mdc-text-field-wrapper.mdc-text-field.mdc-text-field--filled {
   height: 50px;
   padding: 0px 7px;
@@ -335,9 +371,12 @@ o-date-input[read-only] {
 }
 
 //charts
+.ngx-charts {
+  margin-bottom: 20px;
+}
 
 .chart-legend {
   .legend-labels {
-    background: white !important;
+    background: transparent !important;
   }
 }

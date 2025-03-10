@@ -1,12 +1,12 @@
-<o-table attr="productsTable" service="products" entity="products" keys="PRO_ID"
-    columns="PRO_ID;PRO_NAME;PRO_MIN_TEMP;PRO_MAX_TEMP" visible-columns="PRO_NAME;PRO_MIN_TEMP;PRO_MAX_TEMP"
-    query-rows="20" select-all-checkbox-visible="no" insert-button="yes" delete-button="no" refresh-button="yes"
-    quick-filter="no" pageable="true" title="PRODUCTS" show-title="yes" virtual-scroll="false">
-    <!-- Columnas de la Tabla -->
-    <o-table-column attr="PRO_NAME" title="IDENTIFIER" title-align="center" content-align="center"></o-table-column>
-    <o-table-column attr="PRO_MIN_TEMP" max-decimal-digits=2 type="real" title-align="center"
-        content-align="center"></o-table-column>
-    <o-table-column attr="PRO_MAX_TEMP" max-decimal-digits=2 type="real" title-align="center"
-        content-align="center"></o-table-column>
-
-</o-table>
+<div class="full-screen-background-table">
+    <o-table attr="productsTable" service="products" entity="products" keys="PRO_ID"
+        columns="PRO_ID;PRO_NAME;PRO_MIN_TEMP;PRO_MAX_TEMP" visible-columns="PRO_NAME;PRO_MIN_TEMP;PRO_MAX_TEMP"
+        query-rows="20" select-all-checkbox-visible="no" insert-button="yes" delete-button="no" refresh-button="yes"
+        quick-filter="no" pageable="true" title="PRODUCTS" show-title="yes" virtual-scroll="false">
+        <o-table-column attr="PRO_NAME" title="IDENTIFIER" title-align="center" content-align="center"></o-table-column>
+        <o-table-column attr="PRO_MIN_TEMP" max-decimal-digits=2 type="real" title-align="center"
+            content-align="center"></o-table-column>
+        <o-table-column attr="PRO_MAX_TEMP" max-decimal-digits=2 type="real" title-align="center"
+            content-align="center"></o-table-column>
+    </o-table>
+</div>
