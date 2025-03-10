@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Expression, FilterExpressionUtils, OTableComponent, OTextInputComponent, OTranslateService } from 'ontimize-web-ngx';
 import { LineChartConfiguration, OChartComponent } from 'ontimize-web-ngx-charts';
+import { SecondsToTimePipe } from 'src/app/shared/components/pipes/seconds-to-time.pipe';
 
 @Component({
   selector: 'app-containers-lots-details',
@@ -13,12 +14,18 @@ export class ContainersLotsDetailsComponent {
   @ViewChild('measurementsTemperatureTable', { static: false }) measurementsTemperatureTable: OTableComponent;
   @ViewChild('measurementsHumidityTable', { static: false }) measurementsHumidityTable: OTableComponent;
   @ViewChild('lineChartBasic', { static: false }) lineChart: OChartComponent;
+  @ViewChild('totalTime', { static: false }) totalTime!: OTextInputComponent;
+  @ViewChild('averageTime', { static: false }) averageTime!: OTextInputComponent;
+  @ViewChild('maxTime', { static: false }) maxTime!: OTextInputComponent;
   @ViewChild('activeAlert', { static: false }) activeAlert!: OTextInputComponent;
 
   dataArrayTemp: any = [];
   dataArrayHum: any = [];
   chartData = [];
   activeAlertVisible: number = 0;
+  totalTimeVisible: string = "N/A";
+  averageTimeVisible: string = "N/A";
+  maxTimeVisible: string = "N/A";
 
   chartParametersTemp: LineChartConfiguration;
   chartParametersHum: LineChartConfiguration;
@@ -49,6 +56,7 @@ export class ContainersLotsDetailsComponent {
   }
 
   constructor(
+    private secondsToTime: SecondsToTimePipe,
     private translator: OTranslateService,
     private router: Router
   ) {
@@ -170,10 +178,17 @@ export class ContainersLotsDetailsComponent {
   }
 
   fillData(e: any) {
+    if (e.TOTAL_TIME !== undefined) {
+      this.totalTimeVisible = this.secondsToTime.transform(this.totalTime.getValue());
+    }
+    if (e.AVERAGE_TIME !== undefined) {
+      this.averageTimeVisible = this.secondsToTime.transform(this.averageTime.getValue());
+    }
+    if (e.MAX_TIME !== undefined) {
+      this.maxTimeVisible = this.secondsToTime.transform(this.maxTime.getValue());
+    }
     if (e.ACTIVE_ALERTS !== undefined) {
       this.activeAlertVisible = this.activeAlert.getValue();
-    } else {
-      this.activeAlertVisible = 0;
     }
   }
 

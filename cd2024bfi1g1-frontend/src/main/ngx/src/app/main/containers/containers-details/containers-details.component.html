@@ -28,16 +28,13 @@
           <o-text-input #minHumidity attr="MIN_HUMIDITY_DEV" read-only="true" oHidden></o-text-input>
           <o-text-input attr="MIN_HUMIDITY_VISIBLE" label="MIN_HUMIDITY_DEV" read-only="true"
             automatic-registering="false" automatic-binding="false" [data]="minHumidityVisible"></o-text-input>
-
-          <div class="alerts-count"></div>
-
           <o-text-input #alertsCount attr="ALT_COUNT" read-only="true" oHidden></o-text-input>
           <div class="alerts-count">
             {{translateLabel()}}
           </div>
         </div>
       </div>
-      <div id="devices-table">
+      <div>
         <o-table attr="devicesTable" title="DEVICES" show-title="yes" service="devices" entity="devices"
           include-parent-keys="yes" parent-keys="CNT_ID" query-on-init="true" keys="DEV_ID"
           columns="DEV_ID;DEV_NAME;CNT_ID" visible-columns="DEV_NAME" insert-button="false" delete-button="false"

@@ -12,7 +12,7 @@ o-table {
 
 .row1 {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 49% 49%;
 }
 
 p {
@@ -29,4 +29,10 @@ p {
 
 #tablaMedidasContainer {
     display: none !important;
+}
+
+.label {
+    padding-left: 7px;
+    font-size: 10px;
+    color: #333333;
 }

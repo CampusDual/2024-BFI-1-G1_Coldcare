@@ -2,3 +2,7 @@ o-button {
     max-width: 70%;
     align-content: center;
 }
+
+o-table {
+    height: calc(100vh - 324px);
+}

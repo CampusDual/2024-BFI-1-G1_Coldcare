@@ -5,6 +5,7 @@ o-slide-toggle {
 .row1 {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    margin-bottom: 15px;
 }
 
 .container-data-grid {
@@ -23,6 +24,7 @@ o-slide-toggle {
     align-content: center;
 }
 
-#devices-table {
-    margin-bottom: 16px;
+o-table {
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
 }
