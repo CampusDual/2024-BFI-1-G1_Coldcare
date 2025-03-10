@@ -1,6 +1,6 @@
 <o-form keys-sql-types="INTEGER" parent-keys="CL_ID" keys="CL_ID" include-parent-keys="yes" service="containersLots"
   entity="containersLots" show-header="yes" header-actions="R;U;D"
-  columns="CNT_NAME;LOT_NAME;PRO_NAME;MIN_TEMP;MAX_TEMP">
+  columns="CNT_NAME;LOT_NAME;PRO_NAME;MIN_TEMP;MAX_TEMP;ME_TEMP;ME_HUMIDITY;CNT_MOBILITY">
   <o-column title="CL_INFO">
     <div class="inline-fields">
       <o-text-input attr="CNT_NAME" read-only="yes"></o-text-input>
@@ -10,6 +10,14 @@
       <o-text-input attr="PRO_NAME" read-only="yes"></o-text-input>
       <o-text-input attr="MIN_TEMP" read-only="yes"></o-text-input>
       <o-text-input attr="MAX_TEMP" read-only="yes"></o-text-input>
+      <o-text-input attr="ME_TEMP" title="LAST_TEMP" read-only="yes"></o-text-input>
+      <o-text-input attr="ME_HUMIDITY" title="LAST_HUMIDITY" read-only="yes"></o-text-input>
+      <o-text-input #movility attr="CNT_MOBILITY" title="CNT_MOBILITY" read-only="yes" hidden>
+        <app-container-lots-boolean-render [cntMobility]="movility.getValue()"></app-container-lots-boolean-render>
+      </o-text-input>
+
+      <app-container-lots-boolean-render [cntMobility]="movility.getValue()"></app-container-lots-boolean-render>
+
     </div>
   </o-column>
 
