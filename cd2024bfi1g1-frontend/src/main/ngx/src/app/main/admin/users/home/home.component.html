@@ -16,7 +16,7 @@
       </o-filter-builder>
     </div>
     <div>
-      <o-table #usersTable attr="users" service="users" entity="user" keys="USR_ID"
+      <o-table class="table-adjust" #usersTable attr="users" service="users" entity="user" keys="USR_ID"
         columns="USR_ID;USR_NAME;USR_LOGIN;CMP_ID;CMP_NAME;USR_EMAIL"
         visible-columns="USR_NAME;USR_LOGIN;CMP_NAME;USR_EMAIL" sort-columns="USR_NAME" query-rows="25"
         quick-filter="yes" row-height="medium" pageable="true" query-on-init="yes" query-on-bind="false"

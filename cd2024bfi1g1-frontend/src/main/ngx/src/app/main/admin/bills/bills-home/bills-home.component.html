@@ -20,7 +20,7 @@
             query-on-change="yes" [expression-builder]="createFilter">
         </o-filter-builder>
 
-        <o-table #usageTable attr="usageTable" service="bills" entity="bills" keys="BIL_ID"
+        <o-table #usageTable class="table-adjust" attr="usageTable" service="bills" entity="bills" keys="BIL_ID"
             columns="BIL_ID;BIL_YEAR;BIL_MONTH;BIL_EXPENSE;BIL_DEVICES;BIL_MEASUREMENTS;CMP_ID;CMP_NAME"
             visible-columns="BIL_YEAR;BIL_MONTH;BIL_EXPENSE;BIL_DEVICES;BIL_MEASUREMENTS;CMP_NAME" title="USAGE"
             query-rows="20" select-all-checkbox-visible="no" insert-button="no" delete-button="no" refresh-button="yes"

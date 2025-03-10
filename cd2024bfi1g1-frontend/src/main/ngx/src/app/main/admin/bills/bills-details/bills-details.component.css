@@ -43,3 +43,7 @@ td {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
 }
+
+.table-adjust {
+    height: calc(100vh - 401px);
+}
