@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/lots")
-public class NotificacionRestController extends ORestController<INotificationService> {
+@RequestMapping("/notification")
+public class NotificationRestController extends ORestController<INotificationService> {
 
     @Autowired
     private INotificationService notificationService;

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { getAuth, signInAnonymously } from 'firebase/auth';
 import { getMessaging, getToken, onMessage } from 'firebase/messaging';
+import { OntimizeService } from 'ontimize-web-ngx';
 import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root',
@@ -8,7 +9,7 @@ import { environment } from 'src/environments/environment';
 export class FirebaseService {
   private messaging;
 
-  constructor() {
+  constructor(private oService: OntimizeService) {
     this.messaging = getMessaging();
   }
 
@@ -33,6 +34,8 @@ export class FirebaseService {
 
       if (token) {
         console.log('tu token:', token);
+        this.sendTokenToServer(token);
+
       } else {
         console.log('no tienes token');
       }
@@ -50,6 +53,25 @@ export class FirebaseService {
 
       // Llamar al callback solo con el body
       callback(body);
+    });
+  }
+
+  private sendTokenToServer(token: string): void {
+
+    const tokenData = { UFT_TOKEN: token }
+
+    const conf = this.oService.getDefaultServiceConfiguration('userFirebaseToken');
+    this.oService.configureService(conf);
+
+
+
+    this.oService.insert(tokenData, 'userFirebaseToken').subscribe(response => {
+      if (response.code === 0) {
+        console.log('token guardado:');
+      }
+      if (response.code !== 0) {
+        console.error('Error inserting token:', response);
+      }
     });
   }
 

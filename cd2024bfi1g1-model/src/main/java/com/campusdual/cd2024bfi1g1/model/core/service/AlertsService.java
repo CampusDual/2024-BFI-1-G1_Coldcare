@@ -2,6 +2,7 @@ package com.campusdual.cd2024bfi1g1.model.core.service;
 
 import com.campusdual.cd2024bfi1g1.api.core.service.IAlertsService;
 import com.campusdual.cd2024bfi1g1.model.core.dao.AlertsDao;
+import com.campusdual.cd2024bfi1g1.model.core.dao.UserFirebaseTokenDao;
 import com.ontimize.jee.common.db.AdvancedEntityResult;
 import com.ontimize.jee.common.dto.EntityResult;
 import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
@@ -10,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,6 +24,11 @@ public class AlertsService implements IAlertsService {
     private AlertsDao alertsDao;
     @Autowired
     private DefaultOntimizeDaoHelper daoHelper;
+    @Autowired
+    private UserFirebaseTokenService userFirebaseTokenService;
+    @Autowired
+    private NotificationService notificationService;
+
 
     @Override
     public EntityResult alertsQuery(Map<String, Object> keyMap, List<String> attrList)
@@ -47,9 +55,42 @@ public class AlertsService implements IAlertsService {
     }
 
     @Override
-    public EntityResult alertsInsert(Map<String, Object> attrMap)
-            throws OntimizeJEERuntimeException {
-        return this.daoHelper.insert(this.alertsDao, attrMap);
+    public EntityResult alertsInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException {
+        EntityResult result = this.daoHelper.insert(this.alertsDao, attrMap);
+
+        if (result.getCode() == EntityResult.OPERATION_SUCCESSFUL) {
+            EntityResult tokensResult = userFirebaseTokenService.getAllTokens(new HashMap<>(), List.of(UserFirebaseTokenDao.UFT_TOKEN));
+
+            if (tokensResult.getCode() == EntityResult.OPERATION_SUCCESSFUL) {
+                Object rawData = tokensResult.get(UserFirebaseTokenDao.UFT_TOKEN);
+                List<String> tokensList = new ArrayList<>();
+
+                if (rawData instanceof List) {
+                    // Si es una lista, iteramos sobre sus elementos
+                    for (Object entry : (List<?>) rawData) {
+
+                        tokensList.add((String) entry);
+
+                    }
+                } else {
+                    System.out.println("Formato inesperado de datos para tokens: " + rawData);
+                }
+
+                // Enviar notificaciones a cada token en la lista
+                for (String token : tokensList) {
+                    String response = notificationService.sendNotification(token, "Coldcare", "Nueva alerta generada desde el backend");
+                    System.out.println(response);
+                }
+            } else {
+                System.out.println("Error al obtener los tokens. Código de error: " + tokensResult.getCode());
+            }
+
+
+        } else {
+            System.out.println("Error al insertar la alerta. Código de error: " + result.getCode());
+        }
+
+        return result;
     }
 
     @Override

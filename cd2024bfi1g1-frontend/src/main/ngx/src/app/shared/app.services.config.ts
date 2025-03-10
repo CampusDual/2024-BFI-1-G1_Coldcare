@@ -52,5 +52,8 @@ export const SERVICE_CONFIG: Object = {
   },
   'transportsCoordinates': {
     'path': '/transportsCoordinates'
-  }
+  },
+  'userFirebaseToken': {
+    'path': '/userFirebaseToken'
+  },
 };
