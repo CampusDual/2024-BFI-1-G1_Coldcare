@@ -19,11 +19,11 @@
       [target]="measurementsTable" query-on-change="yes" [expression-builder]="createFilter"></o-filter-builder>
 
     <!-- Tabla de Resultados -->
-    <o-table #measurementsTable attr="measurementsTable" service="measurements" entity="measurements" keys="ME_ID"
-      columns="ME_ID;ME_DATE;ME_TEMP;ME_HUMIDITY;DEV_NAME" visible-columns="DEV_NAME;ME_DATE;ME_TEMP;ME_HUMIDITY"
-      query-rows="15" select-all-checkbox-visible="no" insert-button="no" delete-button="no" refresh-button="yes"
-      quick-filter="no" pageable="true" detail-mode="none" title="MEASUREMENTS" show-title="yes"
-      sort-columns="ME_DATE:DESC" virtual-scroll="false">
+    <o-table #measurementsTable class="table-adjust" attr="measurementsTable" service="measurements"
+      entity="measurements" keys="ME_ID" columns="ME_ID;ME_DATE;ME_TEMP;ME_HUMIDITY;DEV_NAME"
+      visible-columns="DEV_NAME;ME_DATE;ME_TEMP;ME_HUMIDITY" query-rows="15" select-all-checkbox-visible="no"
+      insert-button="no" delete-button="no" refresh-button="yes" quick-filter="no" pageable="true" detail-mode="none"
+      title="MEASUREMENTS" show-title="yes" sort-columns="ME_DATE:DESC" virtual-scroll="false">
       <!-- Columnas de la Tabla -->
       <o-table-column attr="ME_DATE" title="DATE" type="date" format="DD/MM/YYYY HH:mm:ss"></o-table-column>
       <o-table-column attr="ME_TEMP" title="TEMPERATURE" type="real" content-align="center"></o-table-column>

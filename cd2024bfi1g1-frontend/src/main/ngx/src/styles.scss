@@ -122,6 +122,11 @@ $success-color: #4caf50;
   min-height: calc(100vh - 200px);
 }
 
+.table-adjust {
+  margin-top: 15px;
+  box-shadow: none;
+}
+
 .full-screen-background-table {
   o-table {
     box-shadow: none;
