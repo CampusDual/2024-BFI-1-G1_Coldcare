@@ -1,22 +1,20 @@
 <o-form #form attr="transportersDetail" parent-keys="TRP_ID" keys="TRP_ID" keys-sql-types="INTEGER" service="transports"
   entity="transports" header-actions="R" undo-button="no" editable-detail="no">
-  <o-row attr="row1" layout-align="start stretch">
-    <o-column title="TRP_DATA" layout-align="start stretch" layout-padding>
-      <div class="inline-fields">
-        <o-text-input attr="ORIGIN_NAME" read-only="yes"></o-text-input>
-        <o-text-input attr="DESTINATION_NAME" read-only="yes"></o-text-input>
-        <o-date-input attr="TRP_DATE" label="DELIVERY_DATE" read-only="yes"></o-date-input>
-        <o-text-input attr="VHC_PLATE" read-only="yes"></o-text-input>
-        <o-combo #combo attr="TST_ID" label="TST_NAME" parent-keys="TRP_ID" service="transports" entity="transports"
-          value-column="TST_ID" columns="TST_ID;TST_NAME" visible-columns="TST_NAME" searchable="no" required="yes"
-          read-only="yes" translate="yes"></o-combo>
+  <div class="full-screen-background-with-toolbar">
+    <h2>{{ 'TRP_DATA' | oTranslate }}</h2>
+    <div class="inline-fields">
+      <o-text-input attr="ORIGIN_NAME" read-only="yes"></o-text-input>
+      <o-text-input attr="DESTINATION_NAME" read-only="yes"></o-text-input>
+      <o-date-input attr="TRP_DATE" label="DELIVERY_DATE" read-only="yes"></o-date-input>
+      <o-text-input attr="VHC_PLATE" read-only="yes"></o-text-input>
+      <o-combo #combo attr="TST_ID" label="TST_NAME" parent-keys="TRP_ID" service="transports" entity="transports"
+        value-column="TST_ID" columns="TST_ID;TST_NAME" visible-columns="TST_NAME" searchable="no" required="yes"
+        read-only="yes" translate="yes"></o-combo>
 
-        <o-button #init attr="BTN_INIT" type="RAISED" label="BTN_INIT" layout-padding color="accent"
-          (click)="setStatusInit()"></o-button>
-        <o-button #end attr="BTN_END" type="RAISED" label="BTN_END" layout-padding color="warn"
-          (click)="setStatusEnd()"></o-button>
-
-      </div>
-    </o-column>
-  </o-row>
+      <o-button #init attr="BTN_INIT" type="RAISED" label="BTN_INIT" layout-padding color="accent"
+        (click)="setStatusInit()"></o-button>
+      <o-button #end attr="BTN_END" type="RAISED" label="BTN_END" layout-padding color="warn"
+        (click)="setStatusEnd()"></o-button>
+    </div>
+  </div>
 </o-form>

@@ -1,6 +1,7 @@
 <o-form attr="newDestiny" service="transfers" entity="transfersDestiny" keys="TRA_ID" show-header="true"
     after-insert-mode="close" confirm-exit="false">
-    <o-row class="form-row">
+    <div class="full-screen-background-with-toolbar">
+        <h2>{{ 'TRANSFER_NEW_DESTINY' | oTranslate }}</h2>
         <o-integer-input #inputDestiny attr="CL_ID_DESTINY" oHidden></o-integer-input>
         <o-table attr="tableDestiny" title="AVAILABLE_CNT" show-title="yes" service="containersLots"
             entity="containersLotsTransfers" columns="CNT_NAME;CL_START_DATE;CL_END_DATE" keys="CL_ID"
@@ -15,5 +16,5 @@
             <o-table-column attr="CL_END_DATE" title="CL_END_DATE" type="date" content-align="center"
                 title-align="center"></o-table-column>
         </o-table>
-    </o-row>
+    </div>
 </o-form>

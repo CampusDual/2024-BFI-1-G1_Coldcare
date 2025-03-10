@@ -7,7 +7,7 @@
         <o-text-input #lotName attr="LOT_NAME" required="yes"></o-text-input>
         <o-combo #productCombo attr="PRO_ID" label="Producto" service="products" entity="products" value-column="PRO_ID"
           columns="PRO_ID;PRO_NAME;PRO_MIN_TEMP;PRO_MAX_TEMP" visible-columns="PRO_NAME" null-selection="no"
-          searchable="no" required="true"></o-combo>
+          searchable="yes" required="true"></o-combo>
         <o-real-input #minTempInput attr="MIN_TEMP" clear-button="yes"></o-real-input>
         <o-real-input #maxTempInput attr="MAX_TEMP" clear-button="yes"></o-real-input>
         <o-button attr="LOT_IMPORT" type="RAISED" label="LOT_IMPORT" layout-padding color="primary"

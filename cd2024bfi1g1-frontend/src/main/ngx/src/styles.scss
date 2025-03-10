@@ -122,11 +122,6 @@ $success-color: #4caf50;
   min-height: calc(100vh - 200px);
 }
 
-.table-adjust {
-  margin-top: 15px;
-  box-shadow: none;
-}
-
 .full-screen-background-table {
   o-table {
     box-shadow: none;
@@ -153,9 +148,11 @@ h3 {
 
 /* Tabla */
 o-table {
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
-  border-radius: 4px;
   width: auto;
+}
+
+.table-adjust {
+  margin-top: 15px;
 }
 
 // Encabezado
@@ -375,7 +372,7 @@ o-combo-search {
   background-color: $accent-color;
 }
 
-//charts
+/* Charts */
 .ngx-charts {
   margin-bottom: 20px;
 }
@@ -384,4 +381,19 @@ o-combo-search {
   .legend-labels {
     background: transparent !important;
   }
+}
+
+/* Tabs */
+.mat-mdc-tab-group.o-tab-ontimize>.mat-mdc-tab-header .mat-mdc-tab-label-container .mat-mdc-tab.mdc-tab {
+
+  background-color: #6e7d89;
+
+  .ng-star-inserted {
+    color: white;
+  }
+}
+
+.mat-mdc-tab-group.o-tab-ontimize>.mat-mdc-tab-header .mat-mdc-tab-label-container .mat-mdc-tab.mdc-tab.mdc-tab--active {
+  background-color: #8ab2d2;
+
 }

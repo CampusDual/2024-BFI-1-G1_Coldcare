@@ -1,18 +1,18 @@
-.tabla-columnas {
+o-table {
+    box-shadow: none;
+}
+
+.tab-label {
+    font-weight: bold;
+}
+
+#date-range {
+    margin-bottom: 25px;
+}
+
+.row1 {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 30px;
-}
-
-.tabla-columnas>div {
-    max-width: 100%;
-}
-
-o-table {
-    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
-    border-radius: 4px;
-    margin: 10px;
-    width: auto;
 }
 
 p {
@@ -29,16 +29,4 @@ p {
 
 #tablaMedidasContainer {
     display: none !important;
-}
-
-.graphs {
-    display: grid;
-    grid-template-columns: 50% 50%;
-    gap: 40px;
-}
-
-.graphs-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }

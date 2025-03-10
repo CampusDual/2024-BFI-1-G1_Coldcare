@@ -1,8 +1,7 @@
 <o-form attr="containers_form_insert" service="containers" entity="containers" fxLayout="column" keys="CNT_ID"
   show-header="true" after-insert-mode="close" confirm-exit="false">
-  <o-row attr="row1" layout-align="start stretch" class="form-row">
-    <o-column title="CONTAINER_NEW" layout-align="start stretch" class="column-extend" layout-padding>
-      <o-text-input attr="CNT_NAME" class="margin-right-24"></o-text-input>
-    </o-column>
-  </o-row>
+  <div class="full-screen-background-with-toolbar">
+    <h2>{{ 'CONTAINER_NEW' | oTranslate }}</h2>
+    <o-text-input attr="CNT_NAME" class="inline-fields" required="yes"></o-text-input>
+  </div>
 </o-form>
