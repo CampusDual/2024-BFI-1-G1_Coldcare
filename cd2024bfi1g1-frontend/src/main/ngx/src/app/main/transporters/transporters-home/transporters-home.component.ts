@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class TransportersHomeComponent {
 
+  public listStyle = {
+    display: 'block',
+    height: (innerHeight - 112) + 'px'
+  };
 }
+  

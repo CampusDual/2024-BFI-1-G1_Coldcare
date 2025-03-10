@@ -1,15 +1,13 @@
 import { Component, Injector, ViewChild, AfterViewInit } from '@angular/core';
 import { OFormComponent, OntimizeService, OButtonComponent, OComboComponent } from 'ontimize-web-ngx';
 import { TRP_STATUS_END, TRP_STATUS_INIT, TRP_STATUS_PENDING } from 'src/app/shared/constants';
+import { GeolocationService } from 'src/app/services/geolocation.service';
 
 @Component({
   selector: 'app-transporters-details',
   templateUrl: './transporters-details.component.html'
 })
 export class TransportersDetailsComponent implements AfterViewInit {
-
-  ubicacion: string = 'Esperando ubicación...';
-  private ubicacionInterval: any;
 
   @ViewChild('form', { static: true }) form!: OFormComponent;
   @ViewChild('combo', { static: false }) combo!: OComboComponent;
@@ -18,7 +16,10 @@ export class TransportersDetailsComponent implements AfterViewInit {
 
   protected service: OntimizeService;
 
-  constructor(protected injector: Injector) {
+  constructor(
+    protected injector: Injector,
+    private geolocationService: GeolocationService,
+  ) {
     this.service = this.injector.get(OntimizeService);
   }
 
@@ -44,22 +45,15 @@ export class TransportersDetailsComponent implements AfterViewInit {
 
   setStatusInit() {
     this.updateStatus(TRP_STATUS_INIT);
-    this.insertGeolocation()
-
-    this.ubicacionInterval = setInterval(() => {
-      this.insertGeolocation()
-    }, 5000);
+    const trpId = this.form.getUrlParam('TRP_ID');
+    this.geolocationService.startTracking(trpId);
   }
+
+
 
   setStatusEnd() {
     this.updateStatus(TRP_STATUS_END);
-    console.log("Hola");
-
-    if (this.ubicacionInterval) {
-      console.log("adios");
-
-      clearInterval(this.ubicacionInterval);
-    }
+    this.geolocationService.stopTracking();
   }
 
   private updateStatus(status: number) {
@@ -76,36 +70,8 @@ export class TransportersDetailsComponent implements AfterViewInit {
         this.combo.refresh();
         this.updateButtonState();
       } else {
-        alert('Impossible to update data!');
+        console.error('Impossible to update data!');
       }
     });
-  }
-
-  private insertGeolocation() {
-    if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const lat = position.coords.latitude;
-          const lon = position.coords.longitude;
-
-          const trpId = this.form.getUrlParam('TRP_ID');
-          const data = { TRP_ID: Number(trpId), TC_LATITUDE: lat, TC_LONGITUDE: lon };
-
-          const conf = this.service.getDefaultServiceConfiguration('transportsCoordinates');
-          this.service.configureService(conf);
-
-          this.service.insert(data, 'transportsCoordinates').subscribe(response => {
-            if (response.code !== 0) {
-              console.error('Error inserting geolocation:', response);
-            }
-          });
-        },
-        (error) => {
-          console.error('Error getting location:', error.message);
-        }
-      );
-    } else {
-      console.error('Geolocation is not supported by this browser.');
-    }
   }
 }

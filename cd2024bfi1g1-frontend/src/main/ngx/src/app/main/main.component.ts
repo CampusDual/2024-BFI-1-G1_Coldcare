@@ -16,17 +16,20 @@ export class MainComponent implements OnInit {
     const visited = localStorage.getItem('visited');
 
     this.oService.configureService(this.oService.getDefaultServiceConfiguration("users"));
-    this.oService.query({}, ["ROL_ID", "ROL_NAME"],"myRole").subscribe(ress => {
-      
-      if(ress['data'][0]['ROL_NAME'] == "admin" && !visited){
+    this.oService.query({}, ["ROL_ID", "ROL_NAME"], "myRole").subscribe(ress => {
+
+      if (ress['data'][0]['ROL_NAME'] == "admin" && !visited) {
         localStorage.setItem('visited', 'true');
-        this.router.navigate(['main','admin','devices-without-users'],{});
-      } else if (ress['data'][0]['ROL_NAME'] == "transporter" && !visited){
+        this.router.navigate(['main', 'admin', 'devices-without-users'], {});
+      } else if (ress['data'][0]['ROL_NAME'] == "transporter" && !visited) {
         localStorage.setItem('visited', 'true');
-        this.router.navigate(['main','transporters'],{});
-      }else if (ress['data'][0]['ROL_NAME'] == "usermicros" && !visited){
+        this.router.navigate(['main', 'transporters'], {});
+      } else if (ress['data'][0]['ROL_NAME'] == "usermicros" && !visited) {
         localStorage.setItem('visited', 'true');
-        this.router.navigate(['main','usermicros'],{});
+        this.router.navigate(['main', 'usermicros'], {});
+      } else if (ress['data'][0]['ROL_NAME'] == "user" && !visited) {
+        localStorage.setItem('visited', 'true');
+        this.router.navigate(['main', 'lots'], {});
       }
     });
   }

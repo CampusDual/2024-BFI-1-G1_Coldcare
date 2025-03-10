@@ -10,7 +10,6 @@
           <o-column title="user-login-section" appearance="no" layout-gap="15px" layout-align="start stretch">
             <div fxLayout="row wrap" fxLayoutAlign="start start" fxLayoutGap="15px">
               <o-text-input attr="USR_LOGIN" required="yes"></o-text-input>
-              <!-- <o-password-input attr="USR_PASSWORD" required="yes" fxFlex></o-password-input>-->
             </div>
           </o-column>
           <o-column title="user-data-section" appearance="no" layout-gap="15px" layout-align="start stretch">
@@ -19,11 +18,11 @@
               <o-email-input attr="USR_EMAIL" required="yes" fxFlex></o-email-input>
             </div>
           </o-column>
-          <o-column title="company-data-section" appearance="no" layout-gap="15px" layout-align="start stretch">
+          <o-column title="COMPANY_DATA" appearance="no" layout-gap="15px" layout-align="start stretch">
             <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="15px">
               <o-combo attr="CMP_ID" service="companies" entity="companies" value-column="CMP_ID"
                 columns="CMP_ID;CMP_NAME" visible-columns="CMP_NAME" null-selection="yes" searchable="no"></o-combo>
-              <o-combo attr="ROL_ID" service="users" entity="roleWithoutAdmin" value-column="ROL_ID"
+              <o-combo attr="ROL_ID" label="rol_name" service="users" entity="roleWithoutAdmin" value-column="ROL_ID"
                 columns="ROL_ID;ROL_NAME" visible-columns="ROL_NAME" null-selection="no" searchable="no" required="yes"
                 translate="yes"></o-combo>
             </div>

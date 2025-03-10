@@ -99,14 +99,25 @@
                                 JOIN containers_lots cl ON cl.lot_id = l.lot_id
                                 WHERE cl.cl_id = a.cl_id
                             ) AS has_alert,
-                            COUNT(cl.lot_id) AS has_repited
+                            COUNT(DISTINCT cl.cl_id) AS has_repited,
+                            ROUND(AVG(m.me_temp)::numeric, 2) AS avg_temp_cnt_lot,
+                            ROUND(MAX(m.me_temp)::numeric, 2) AS max_temp_cnt_lot,
+                            ROUND(MIN(m.me_temp)::numeric, 2) AS min_temp_cnt_lot,
+                           CASE
+                                WHEN bool_and(c.cnt_mobility) THEN 'true'
+                                WHEN bool_and(NOT c.cnt_mobility) THEN 'false'
+                                ELSE 'truefalse'
+                           END AS cnt_mobility
                         FROM lots l
                         LEFT JOIN containers_lots cl ON cl.lot_id = l.lot_id
+                        LEFT JOIN measurements m ON m.cl_id = cl.cl_id
+                        LEFT JOIN containers c ON c.cnt_id = cl.cnt_id
                         WHERE cl.cl_start_date <= now()
                             AND (cl.cl_end_date IS NULL OR cl.cl_end_date >= now())
                         GROUP BY l.lot_id, l.pro_id, l.cmp_id
                     )
-                    SELECT #COLUMNS#
+                    SELECT
+                         #COLUMNS#
                     FROM lots l
                     LEFT JOIN t ON t.lot_id = l.lot_id
                     LEFT JOIN products p ON p.pro_id = l.pro_id
