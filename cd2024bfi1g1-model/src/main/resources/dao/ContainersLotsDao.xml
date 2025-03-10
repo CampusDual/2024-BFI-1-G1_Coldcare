@@ -76,60 +76,60 @@
                 ]]>
             </Sentence>
         </Query>
-        <!--<Query id="containers_of_lot">
-    <AmbiguousColumns>
-        <AmbiguousColumn name="CNT_ID" prefix="cl"/>
-        <AmbiguousColumn name="CL_ID_DESTINY" prefix="t_origin"/>
-        <AmbiguousColumn name="CL_ID_ORIGIN" prefix="t_destiny"/>
-        <AmbiguousColumn name="CNT_ORIGIN_NAME" prefix="t_destiny"/>
-        <AmbiguousColumn name="CNT_DESTINY_NAME" prefix="t_origin"/>
-        <AmbiguousColumn name="TRA_ID" prefix="t_origin"/>
-    </AmbiguousColumns>
-    <Sentence>
-        <![CDATA[
-                    WITH cl AS (
+        <Query id="cl_with_origin_destination">
+        <AmbiguousColumns>
+            <AmbiguousColumn name="CNT_ID" prefix="cl"/>
+            <AmbiguousColumn name="CL_ID_DESTINY" prefix="t_origin"/>
+            <AmbiguousColumn name="CL_ID_ORIGIN" prefix="t_destiny"/>
+            <AmbiguousColumn name="CNT_ORIGIN_NAME" prefix="t_destiny"/>
+            <AmbiguousColumn name="CNT_DESTINY_NAME" prefix="t_origin"/>
+            <AmbiguousColumn name="TRA_ID" prefix="t_origin"/>
+        </AmbiguousColumns>
+            <Sentence>
+                <![CDATA[
+                        WITH cl AS (
+                            SELECT
+                                cl.*,
+                                EXISTS (
+                                    SELECT 1
+                                    FROM alerts a
+                                    WHERE a.cl_id = cl.cl_id
+                                ) AS has_alert
+                            FROM
+                                containers_lots cl
+                        ),
+                        transfers_with_names AS (
+                            SELECT
+                                t.tra_id,
+                                t.cl_id_origin,
+                                t.cl_id_destiny,
+                                origin.cnt_name AS cnt_origin_name,
+                                destiny.cnt_name AS cnt_destiny_name
+                            FROM
+                                transfers t
+                            LEFT JOIN
+                                containers_lots cl_origin ON t.cl_id_origin = cl_origin.cl_id
+                            LEFT JOIN
+                                containers origin ON cl_origin.cnt_id = origin.cnt_id
+                            LEFT JOIN
+                                containers_lots cl_destiny ON t.cl_id_destiny = cl_destiny.cl_id
+                            LEFT JOIN
+                                containers destiny ON cl_destiny.cnt_id = destiny.cnt_id
+                        )
                         SELECT
-                            cl.*,
-                            EXISTS (
-                                SELECT 1
-                                FROM alerts a
-                                WHERE a.cl_id = cl.cl_id
-                            ) AS has_alert
-                        FROM
-                            containers_lots cl
-                    ),
-                    transfers_with_names AS (
-                        SELECT
-                            t.tra_id,
-                            t.cl_id_origin,
-                            t.cl_id_destiny,
-                            origin.cnt_name AS cnt_origin_name,
-                            destiny.cnt_name AS cnt_destiny_name
-                        FROM
-                            transfers t
+                            #COLUMNS#
+                        FROM cl
+                        INNER JOIN
+                            containers c ON cl.cnt_id = c.cnt_id
                         LEFT JOIN
-                            containers_lots cl_origin ON t.cl_id_origin = cl_origin.cl_id
+                            transfers_with_names t_origin ON cl.cl_id = t_origin.cl_id_origin
                         LEFT JOIN
-                            containers origin ON cl_origin.cnt_id = origin.cnt_id
-                        LEFT JOIN
-                            containers_lots cl_destiny ON t.cl_id_destiny = cl_destiny.cl_id
-                        LEFT JOIN
-                            containers destiny ON cl_destiny.cnt_id = destiny.cnt_id
-                    )
-                    SELECT
-                        #COLUMNS#
-                    FROM cl
-                    INNER JOIN
-                        containers c ON cl.cnt_id = c.cnt_id
-                    LEFT JOIN
-                        transfers_with_names t_origin ON cl.cl_id = t_origin.cl_id_origin
-                    LEFT JOIN
-                        transfers_with_names t_destiny ON cl.cl_id = t_destiny.cl_id_destiny
-                    #WHERE#
-                    #ORDER#
-                ]]>
-</Sentence>
-</Query>-->
+                            transfers_with_names t_destiny ON cl.cl_id = t_destiny.cl_id_destiny
+                        #WHERE#
+                        #ORDER#
+                    ]]>
+            </Sentence>
+        </Query>
         <Query id="cl_with_alerts">
             <AmbiguousColumns>
                 <AmbiguousColumn name="LOT_ID" prefix="cl"/>

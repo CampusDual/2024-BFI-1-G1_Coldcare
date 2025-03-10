@@ -143,6 +143,15 @@ public class ContainersLotsService implements IContainersLotsService {
         return this.daoHelper.query(this.containersLotsDao, keyMap, attrList, "containers_of_lot");
     }
 
+    @Override
+    public EntityResult clWithOriginDestinationQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
+
+        Integer cmpId = Util.getUserCompanyId(this.daoHelper, this.userDao);
+        keyMap.put(DevicesDao.CMP_ID, cmpId);
+
+        return this.daoHelper.query(this.containersLotsDao, keyMap, attrList, "cl_with_origin_destination");
+    }
+
     private boolean filterStartAndEndDates(Map<String, Object> attrMap) {
 
         //Creamos un nuevo mapa con las condiciones

@@ -1,5 +1,5 @@
-import { Component, ViewChild } from '@angular/core';
-import { OComboComponent, ORealInputComponent } from 'ontimize-web-ngx';
+import { Component, Injector, ViewChild } from '@angular/core';
+import { DialogService, OComboComponent, OntimizeService, ORealInputComponent } from 'ontimize-web-ngx';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,16 +9,44 @@ import { Router } from '@angular/router';
 })
 export class LotsDetailsComponent {
 
-  constructor(private router: Router) { }
-
   @ViewChild('productCombo', { static: false }) productCombo!: OComboComponent;
   @ViewChild('minTempInput', { static: false }) minTempInput!: ORealInputComponent;
   @ViewChild('maxTempInput', { static: false }) maxTempInput!: ORealInputComponent;
 
   graphData: any[] = [];
+  protected service: OntimizeService;
+
+  constructor(
+    protected injector: Injector,
+    private router: Router,
+    private dialogService: DialogService,
+  ) {
+    this.service = this.injector.get(OntimizeService);
+  }
 
   updateGraph(event: any) {
-    this.graphData = event || [];
+    const lotId = event.LOT_ID;
+    const columns = [
+      'CNT_ID',
+      'CL_ID',
+      'CL_START_DATE',
+      'CL_ID_ORIGIN',
+      'CL_ID_DESTINY',
+      'CNT_NAME',
+      'HAS_ALERT'
+    ];
+    const filter = { LOT_ID: Number(lotId) };
+
+    const conf = this.service.getDefaultServiceConfiguration('containersLots');
+    this.service.configureService(conf);
+
+    this.service.query(filter, columns, 'clWithOriginDestination').subscribe(response => {
+      if (response.code === 0) {
+        this.graphData = response.data || [];
+      } else {
+        this.dialogService.alert('ERROR_TITLE', 'ERROR_MSG_GRAPH_QUERY');
+      }
+    })
   }
 
   importTemperature() {

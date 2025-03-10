@@ -123,7 +123,9 @@ export class LotsGraphComponent {
       layout: {
         name: 'dagre',
         ...({ rankDir: 'LR', nodeSep: 50, edgeSep: 10, rankSep: 100 } as any)
-      }, userZoomingEnabled: false
+      },
+      userZoomingEnabled: false,
+      maxZoom: 90
 
     });
   }

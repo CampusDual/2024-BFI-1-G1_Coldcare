@@ -1,5 +1,5 @@
 <o-form attr="lotsDetail" parent-keys="LOT_ID" keys="LOT_ID" keys-sql-types="INTEGER" service="lots" entity="lots"
-  header-actions="R;U">
+  header-actions="R;U" (onDataLoaded)="updateGraph($event)">
   <o-row attr="row1" layout-align="start stretch">
     <o-column title="LOT_DETAIL" layout-align="start stretch" layout-padding>
       <div class="inline-fields">
