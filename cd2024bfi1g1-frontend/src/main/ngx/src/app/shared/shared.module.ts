@@ -36,7 +36,8 @@ import { DatePipe } from '@angular/common';
     LotsBooleanRenderComponent,
     DateRendererPipe,
     SecondsToTimePipe,
-    StatusIconPipe
+    StatusIconPipe,
+    DateTransformPipe
   ],
   exports: [
     CommonModule,
@@ -54,6 +55,7 @@ import { DatePipe } from '@angular/common';
     DateRendererPipe,
     SecondsToTimePipe,
     StatusIconPipe,
+    DateTransformPipe,
   ],
   providers: [
     DatePipe
