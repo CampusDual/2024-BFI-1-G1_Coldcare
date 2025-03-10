@@ -10,7 +10,7 @@ import * as L from 'leaflet';
 export class TransportsMapComponent implements AfterViewInit {
 
   @ViewChild('oMapRouting', { static: false }) oMap!: OMapComponent;
-  
+
   dataArrayCoordinates: any[] = [];
   polyline: L.Polyline | null = null;
 
@@ -33,15 +33,13 @@ export class TransportsMapComponent implements AfterViewInit {
       this.dataArrayCoordinates.forEach(punto => {
         const latLng = L.latLng(punto["TC_LATITUDE"], punto["TC_LONGITUDE"]);
         latLngs.push(latLng);
-
       });
 
       if (latLngs.length > 1) {
-
         this.polyline = L.polyline(latLngs, {
-          color: 'blue', 
-          weight: 4,     
-          opacity: 0.7  
+          color: 'blue',
+          weight: 4,
+          opacity: 0.7
         }).addTo(map);
       }
 
@@ -50,6 +48,8 @@ export class TransportsMapComponent implements AfterViewInit {
   }
 
   fillChart(ev: any) {
+    console.log(ev);
+
     this.dataArrayCoordinates = ev.map(row => ({
       TC_LATITUDE: row.TC_LATITUDE,
       TC_LONGITUDE: row.TC_LONGITUDE
