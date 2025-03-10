@@ -3,8 +3,8 @@
   <o-row attr="row1" layout-align="start stretch">
     <o-column title="LOT_DETAIL" layout-align="start stretch" layout-padding>
       <div class="inline-fields">
-        <o-text-input #lotName attr="LOT_NAME" required="yes"></o-text-input>
-        <o-combo #productCombo attr="PRO_ID" label="Producto" service="products" entity="products" value-column="PRO_ID"
+        <o-text-input #lotName attr="LOT_NAME" label="NAME" required="yes"></o-text-input>
+        <o-combo #productCombo attr="PRO_ID" label="PRO_NAME" service="products" entity="products" value-column="PRO_ID"
           columns="PRO_ID;PRO_NAME;PRO_MIN_TEMP;PRO_MAX_TEMP" visible-columns="PRO_NAME" null-selection="no"
           searchable="no" required="true"></o-combo>
         <o-real-input #minTempInput attr="MIN_TEMP" clear-button="yes"></o-real-input>
@@ -16,26 +16,21 @@
   </o-row>
   <app-lots-graph [graphData]="graphData"></app-lots-graph>
   <o-row>
-    <o-table #containersInLot attr="containersInLot" title="CONTAINERS_HISTORY" show-title="yes"
-      service="containersLots" entity="containersOfLot" keys="CL_ID;TRA_ID" parent-keys="LOT_ID"
-      columns="CL_ID;TRA_ID;CNT_NAME;CNT_ID;CL_START_DATE;CL_END_DATE;CL_ID_ORIGIN;CNT_ORIGIN_NAME;CL_ID_DESTINY;CNT_DESTINY_NAME;HAS_ALERT"
-      visible-columns="CNT_NAME;CL_START_DATE;CL_END_DATE;CNT_ORIGIN_NAME;CNT_DESTINY_NAME;ACTIVE;HAS_ALERT"
-      delete-button="no" insert-button="false" refresh-button="true" sort-columns="CL_END_DATE:DESC;CL_START_DATE:DESC"
-      virtual-scroll="false" (onClick)="openContainersLots($event)" detail-mode="none"
-      (onDataLoaded)="updateGraph($event)">
-      <o-table-column attr="CNT_NAME" title="CONTAINER" title-align="center" content-align="center"></o-table-column>
-      <o-table-column attr="CL_START_DATE" type="date" format="DD/MM/YYYY" title-align="center"
+    <o-table attr="containersInLot" title="CONTAINERS_HISTORY" show-title="yes" service="containersLots"
+      entity="containersOfLot" keys="CL_ID" parent-keys="LOT_ID"
+      columns="CL_ID;CNT_NAME;CNT_ID;CL_START_DATE;CL_END_DATE;HAS_ALERT"
+      visible-columns="CNT_NAME;CL_START_DATE;CL_END_DATE;ACTIVE;HAS_ALERT" delete-button="no" insert-button="false"
+      refresh-button="true" sort-columns="CL_END_DATE:DESC;CL_START_DATE:DESC" virtual-scroll="false"
+      (onClick)="openContainersLots($event)" detail-mode="none">
+      <o-table-column attr="CNT_NAME" title="CNT_NAME" title-align="center" content-align="center"></o-table-column>
+      <o-table-column attr="CL_START_DATE" title="CL_START_DATE" type="date" format="DD/MM/YYYY" title-align="center"
         content-align="center"></o-table-column>
-      <o-table-column attr="CL_END_DATE" type="date" format="DD/MM/YYYY" title-align="center"
+      <o-table-column attr="CL_END_DATE" title="CL_END_DATE" type="date" format="DD/MM/YYYY" title-align="center"
         content-align="center"></o-table-column>
-      <o-table-column attr="CNT_ORIGIN_NAME" title="CL_ORIGIN" title-align="center"
-        content-align="center"></o-table-column>
-      <o-table-column attr="CNT_DESTINY_NAME" title="CL_DESTINY" title-align="center"
-        content-align="center"></o-table-column>
-      <o-table-column attr="ACTIVE" title-align="center" content-align="center">
+      <o-table-column attr="ACTIVE" title="ACTIVE" title-align="center" content-align="center">
         <in-date-range-boolean-renderer />
       </o-table-column>
-      <o-table-column attr="HAS_ALERT" title-align="center" content-align="center">
+      <o-table-column attr="HAS_ALERT" title="HAS_ALERT" title-align="center" content-align="center">
         <alert-boolean-renderer />
       </o-table-column>
     </o-table>
