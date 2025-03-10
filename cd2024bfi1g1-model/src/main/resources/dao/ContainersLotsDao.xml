@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <JdbcEntitySetup xmlns="http://www.ontimize.com/schema/jdbc"
-                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                 xsi:schemaLocation="http://www.ontimize.com/schema/jdbc http://www.ontimize.com/schema/jdbc/ontimize-jdbc-dao.xsd"
-                 catalog="" schema="${mainschema}" table="containers_lots" datasource="mainDataSource"
-                 sqlhandler="dbSQLStatementHandler">
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.ontimize.com/schema/jdbc http://www.ontimize.com/schema/jdbc/ontimize-jdbc-dao.xsd" catalog="" schema="${mainschema}" table="containers_lots" datasource="mainDataSource" sqlhandler="dbSQLStatementHandler">
     <DeleteKeys>
         <Column>CL_ID</Column>
     </DeleteKeys>
@@ -57,14 +54,39 @@
         <Query id="containers_of_lot">
             <AmbiguousColumns>
                 <AmbiguousColumn name="CNT_ID" prefix="cl"/>
-                <AmbiguousColumn name="CL_ID_DESTINY" prefix="t_origin"/>
-                <AmbiguousColumn name="CL_ID_ORIGIN" prefix="t_destiny"/>
-                <AmbiguousColumn name="CNT_ORIGIN_NAME" prefix="t_destiny"/>
-                <AmbiguousColumn name="CNT_DESTINY_NAME" prefix="t_origin"/>
-                <AmbiguousColumn name="TRA_ID" prefix="t_origin"/>
             </AmbiguousColumns>
             <Sentence>
                 <![CDATA[
+                    WITH cl AS (
+                        SELECT
+                            cl.*,
+                            EXISTS (
+                                SELECT 1
+                                FROM alerts a
+                                WHERE a.cl_id = cl.cl_id
+                            ) AS has_alert
+                        FROM
+                            containers_lots cl
+                    )
+                    SELECT #COLUMNS#
+                    FROM cl
+                    INNER JOIN containers c ON cl.cnt_id = c.cnt_id
+                    #WHERE#
+                    #ORDER#
+                ]]>
+            </Sentence>
+        </Query>
+        <!--<Query id="containers_of_lot">
+    <AmbiguousColumns>
+        <AmbiguousColumn name="CNT_ID" prefix="cl"/>
+        <AmbiguousColumn name="CL_ID_DESTINY" prefix="t_origin"/>
+        <AmbiguousColumn name="CL_ID_ORIGIN" prefix="t_destiny"/>
+        <AmbiguousColumn name="CNT_ORIGIN_NAME" prefix="t_destiny"/>
+        <AmbiguousColumn name="CNT_DESTINY_NAME" prefix="t_origin"/>
+        <AmbiguousColumn name="TRA_ID" prefix="t_origin"/>
+    </AmbiguousColumns>
+    <Sentence>
+        <![CDATA[
                     WITH cl AS (
                         SELECT
                             cl.*,
@@ -106,8 +128,8 @@
                     #WHERE#
                     #ORDER#
                 ]]>
-            </Sentence>
-        </Query>
+</Sentence>
+</Query>-->
         <Query id="cl_with_alerts">
             <AmbiguousColumns>
                 <AmbiguousColumn name="LOT_ID" prefix="cl"/>
