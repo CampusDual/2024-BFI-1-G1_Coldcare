@@ -1,74 +1,64 @@
 <o-form attr="costTable" service="alerts" entity="alertsWithCalculatedColumns" include-parent-keys="yes"
     parent-keys="ALT_ID" keys="ALT_ID" keys-sql-types="INTEGER"
     columns="ALT_ID;ALT_DATE_INIT;ALT_DATE_END;CNT_NAME;LOT_NAME;AVG_TEMP;AVG_HUMIDITY;MAX_TEMP_DEV;MAX_HUMIDITY_DEV;MIN_TEMP_DEV;MIN_HUMIDITY_DEV;ALT_MIN_TEMP;ALT_MAX_TEMP;PRO_ID;PRO_NAME;ALT_STATE;DEV_NAME"
-    show-header="false" detect-changes-on-blur="no">
-    <o-row class="form-row">
-        <o-column class="column-extend">
-            <o-row attr="row1" layout-align="start stretch">
-                <o-column title="ALERTS_DETAIL" layout-align="start stretch" class="column-extend">
-                    <div class="inline-fields">
+    header-actions="R" undo-button="no" editable-detail="no" detect-changes-on-blur="no"
+    (onDataLoaded)="fillData($event)">
+    <div class="full-screen-background-with-toolbar">
+        <div>
+            <h2>{{ 'ALERTS_DETAIL' | oTranslate }}</h2>
+            <div class="inline-fields">
+                <o-text-input attr="ALT_DATE_INIT" #alert_date_init hidden></o-text-input>
+                <o-text-input attr="ALT_DATE_INIT1" label="ALT_DATE_INIT" automatic-binding="no"
+                    automatic-registering="no" read-only="true"
+                    [data]="alert_date_init.getValue() | dateRenderer"></o-text-input>
 
-                        <o-text-input attr="ALT_DATE_INIT" #alert_date_init hidden></o-text-input>
-                        <o-text-input attr="ALT_DATE_INIT1" label="ALT_DATE_INIT" automatic-binding="no"
-                            automatic-registering="no" read-only="true"
-                            [data]="alert_date_init.getValue() | dateRenderer "></o-text-input>
+                <o-text-input attr="ALT_DATE_END" #alertDateEnd hidden> </o-text-input>
+                <o-text-input attr="ALT_DATE_END1" label="ALT_DATE_END" automatic-binding="no"
+                    automatic-registering="no" read-only="true" [data]="alertDateEndVisible"></o-text-input>
 
-                        <o-text-input attr="ALT_DATE_END" #alert_date_end hidden> </o-text-input>
-                        <o-text-input attr="ALT_DATE_END1" label="ALT_DATE_END" automatic-binding="no"
-                            automatic-registering="no" read-only="true"
-                            [data]="alert_date_end.getValue() | dateRenderer "></o-text-input>
+                <o-text-input attr="ALT_DURATION" title="DURATION" automatic-binding="no" automatic-registering="no"
+                    read-only="true" [data]="getCellData(alert_date_init.getValue(), alertDateEnd.getValue())"
+                    content-align="center">
+                </o-text-input>
+            </div>
+            <div class="inline-fields">
+                <o-text-input attr="DEV_NAME" read-only="true"></o-text-input>
+                <o-text-input attr="CNT_NAME" read-only="true"></o-text-input>
+                <o-text-input attr="LOT_NAME" read-only="true"></o-text-input>
+                <o-text-input attr="PRO_NAME" read-only="true"></o-text-input>
+            </div>
+            <div class="inline-fields">
 
-                        <o-text-input attr="ALT_DURATION" title="DURATION" automatic-binding="no"
-                            automatic-registering="no" read-only="true"
-                            [data]="getCellData(alert_date_init.getValue(), alert_date_end.getValue())"
-                            content-align="center">
+                <o-real-input attr="ALT_MIN_TEMP" read-only="true"></o-real-input>
+                <o-real-input attr="ALT_MAX_TEMP" read-only="true"></o-real-input>
+                <o-real-input attr="MIN_TEMP_DEV" read-only="true"></o-real-input>
+                <o-real-input attr="MAX_TEMP_DEV" read-only="true"></o-real-input>
+                <o-real-input attr="AVG_HUMIDITY" read-only="true"></o-real-input>
+            </div>
+        </div>
+        <div id="tablaMedidasContainer">
+            <o-table #measurementsTable attr="tablaMedidas" service="measurements" entity="measurements"
+                parent-keys="ALT_ID" columns="DEV_ID;DEV_NAME;ME_DATE;ME_TEMP;ME_HUMIDITY"
+                (onDataLoaded)="fillChart($event)">
+                <o-table-column attr="ME_DATE" type="date"></o-table-column>
+                <o-table-column attr="ME_TEMP" type="real"></o-table-column>
+                <o-table-column attr="ME_HUMIDITY" type="real"></o-table-column>
 
-                        </o-text-input>
-
-                        <o-text-input attr="DEV_NAME" read-only="true"></o-text-input>
-                        <o-text-input attr="CNT_NAME" read-only="true"></o-text-input>
-                        <o-text-input attr="LOT_NAME" read-only="true"></o-text-input>
-                        <o-text-input attr="PRO_NAME" read-only="true"></o-text-input>
-                    </div>
-                </o-column>
-            </o-row>
-            <o-row attr="row2" layout-align="start stretch">
-                <o-column layout-align="start stretch" class="column-extend">
-                    <div class="inline-fields">
-
-                        <o-real-input attr="ALT_MIN_TEMP" read-only="true" style="margin-left:15px ;"></o-real-input>
-                        <o-real-input attr="ALT_MAX_TEMP" read-only="true"></o-real-input>
-                        <o-real-input attr="MIN_TEMP_DEV" read-only="true"></o-real-input>
-                        <o-real-input attr="MAX_TEMP_DEV" read-only="true"></o-real-input>
-                        <o-real-input attr="AVG_HUMIDITY" read-only="true"></o-real-input>
-
-                    </div>
-                </o-column>
-            </o-row>
-            <o-row>
-                <div id="tablaMedidasContainer">
-                    <o-table #measurementsTable attr="tablaMedidas" service="measurements" entity="measurements"
-                        parent-keys="ALT_ID" columns="DEV_ID;DEV_NAME;ME_DATE;ME_TEMP;ME_HUMIDITY"
-                        (onDataLoaded)="fillChart($event)">
-                        <o-table-column attr="ME_DATE" type="date"></o-table-column>
-                        <o-table-column attr="ME_TEMP" type="real"></o-table-column>
-                        <o-table-column attr="ME_HUMIDITY" type="real"></o-table-column>
-
-                    </o-table>
-                </div>
-                <o-column class="column-extend">
-                    <o-chart #lineChartBasic type="line" [chart-parameters]="chartParametersTemp"
-                        x-label="{{ 'TIME' | oTranslate }}" y-label="{{ 'TEMPERATURE' | oTranslate }}"
-                        [color]="colorSchemeTemp" [data]="dataArrayTemp" show-grid-lines="true"
-                        style="height: 50vh; max-height: none; overflow: hidden"></o-chart>
-                </o-column>
-                <o-column class="column-extend">
-                    <o-chart #lineChartBasic type="line" [chart-parameters]="chartParametersHum"
-                        x-label="{{ 'TIME' | oTranslate }}" y-label="{{ 'HUMIDITY' | oTranslate }}"
-                        [color]="colorSchemeTemp" [data]="dataArrayHum" show-grid-lines="true"
-                        style="height: 50vh; max-height: none; overflow: hidden"></o-chart>
-                </o-column>
-            </o-row>
-        </o-column>
-    </o-row>
+            </o-table>
+        </div>
+        <div class="chart-grid">
+            <div>
+                <o-chart #lineChartBasic type="line" [chart-parameters]="chartParametersTemp"
+                    x-label="{{ 'TIME' | oTranslate }}" y-label="{{ 'TEMPERATURE' | oTranslate }}"
+                    [color]="colorSchemeTemp" [data]="dataArrayTemp" show-grid-lines="true"
+                    style="height: 50vh; max-height: none; overflow: hidden"></o-chart>
+            </div>
+            <div>
+                <o-chart #lineChartBasic type="line" [chart-parameters]="chartParametersHum"
+                    x-label="{{ 'TIME' | oTranslate }}" y-label="{{ 'HUMIDITY' | oTranslate }}"
+                    [color]="colorSchemeTemp" [data]="dataArrayHum" show-grid-lines="true"
+                    style="height: 50vh; max-height: none; overflow: hidden"></o-chart>
+            </div>
+        </div>
+    </div>
 </o-form>

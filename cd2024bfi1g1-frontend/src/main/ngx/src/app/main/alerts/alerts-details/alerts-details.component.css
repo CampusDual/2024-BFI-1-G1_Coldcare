@@ -2,6 +2,8 @@
     display: none !important;
 }
 
-.form-row {
-    height: 89vh;
+.chart-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 15px;
 }

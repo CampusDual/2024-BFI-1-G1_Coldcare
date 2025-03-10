@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { Expression, FilterExpressionUtils, OTableComponent, OTranslateService } from 'ontimize-web-ngx';
+import { Expression, FilterExpressionUtils, OTableComponent, OTextInputComponent, OTranslateService } from 'ontimize-web-ngx';
 import { LineChartConfiguration, OChartComponent } from 'ontimize-web-ngx-charts';
+import { DateRendererPipe } from 'src/app/shared/components/pipes/date-renderer.pipe';
 
 @Component({
   selector: 'app-alerts-details',
@@ -13,6 +14,7 @@ export class AlertsDetailsComponent implements OnInit {
   @ViewChild('measurementsTemperatureTable', { static: false }) measurementsTemperatureTable: OTableComponent;
   @ViewChild('measurementsHumidityTable', { static: false }) measurementsHumidityTable: OTableComponent;
   @ViewChild('lineChartBasic', { static: false }) lineChart: OChartComponent;
+  @ViewChild('alertDateEnd', { static: false }) alertDateEnd: OTextInputComponent;
 
   dataArrayTemp: any = [];
   dataArrayHum: any = [];
@@ -47,6 +49,7 @@ export class AlertsDetailsComponent implements OnInit {
   }
 
   constructor(
+    private dateRenderer: DateRendererPipe,
     private translator: OTranslateService,
     private router: Router
   ) {
@@ -79,8 +82,6 @@ export class AlertsDetailsComponent implements OnInit {
     }
     return '';
   }
-
-
 
   fillChart(ev: any) {
 
@@ -167,4 +168,11 @@ export class AlertsDetailsComponent implements OnInit {
     return formattedTime;
   }
 
+  public alertDateEndVisible: string = "N/A";
+
+  fillData(e: any) {
+    if (e.ALT_DATE_END !== undefined) {
+      this.alertDateEndVisible = this.dateRenderer.transform(this.alertDateEnd.getValue(), 'yyyy/MM/dd HH:mm:ss');
+    }
+  }
 }

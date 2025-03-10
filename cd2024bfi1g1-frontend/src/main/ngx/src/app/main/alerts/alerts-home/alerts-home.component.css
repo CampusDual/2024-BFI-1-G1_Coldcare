@@ -11,3 +11,7 @@ o-button {
   max-width: 40%;
   align-content: center;
 }
+
+.table-adjust {
+  height: calc(100vh - 236px);
+}
