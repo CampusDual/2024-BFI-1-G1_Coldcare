@@ -10,9 +10,10 @@ export class TransportsDetailsComponent {
 
   @ViewChild('transporter', { static: false }) transporter!: OTextInputComponent;
 
+  public transporterVisible: string = "N/A"
   fillData(e: any) {
-    if (e.USR_NAME === undefined) {
-      this.transporter.setValue("N/A");
+    if (e.USR_NAME !== undefined) {
+      this.transporterVisible = this.transporter.getValue();
     }
   }
 }

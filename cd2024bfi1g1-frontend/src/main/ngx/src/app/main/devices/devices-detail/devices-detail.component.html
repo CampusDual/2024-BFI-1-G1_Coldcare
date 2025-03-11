@@ -22,11 +22,12 @@
           required="no" format="DD/MM/YYYY" show-week-numbers="true" mode="desktop" translate="yes"
           automatic-registering="false">
         </o-daterange-input>
-
-        <o-button attr="filter" [oFilterBuilderQuery]="filterBuilder" type="RAISED" color="primary"
-          label="{{ 'FILTER' | oTranslate }}" class="filter-button"></o-button>
-        <o-button attr="clear" (onClick)="dates.clearValue(); filterBuilder.triggerReload()" type="RAISED"
-          label="{{ 'CLEAR' | oTranslate }}" class="filter-button"></o-button>
+        <div>
+          <o-button id="filter" attr="filter" [oFilterBuilderQuery]="filterBuilder" type="RAISED" color="primary"
+            label="{{ 'FILTER' | oTranslate }}" class="filter-button"></o-button>
+          <o-button attr="clear" (onClick)="dates.clearValue(); filterBuilder.triggerReload()" type="RAISED"
+            label="{{ 'CLEAR' | oTranslate }}" class="filter-button"></o-button>
+        </div>
       </div>
 
       <!-- Filtro para ambas graficas -->

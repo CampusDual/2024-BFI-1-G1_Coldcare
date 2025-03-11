@@ -17,8 +17,9 @@
       <o-combo #combo attr="TST_ID" label="TST_NAME" parent-keys="TRP_ID" service="transports" entity="transports"
         value-column="TST_ID" columns="TST_ID;TST_NAME" visible-columns="TST_NAME" searchable="no" read-only="yes"
         translate="yes"></o-combo>
-      <o-text-input #transporter attr="USR_NAME" label="TRP_NAME" translate="yes" read-only="yes"
-        automatic-registering="false"></o-text-input>
+      <o-text-input #transporter attr="USR_NAME" label="TRP_NAME" hidden></o-text-input>
+      <o-text-input attr="USR_NAME_VISIBLE" label="TRP_NAME" translate="yes" read-only="yes"
+        automatic-registering="false" automatic-binding="false" [data]="transporterVisible"></o-text-input>
     </div>
 
     <app-transports-map></app-transports-map>

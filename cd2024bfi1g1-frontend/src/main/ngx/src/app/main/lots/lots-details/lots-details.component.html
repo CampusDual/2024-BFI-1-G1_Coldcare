@@ -20,8 +20,8 @@
         columns="CL_ID;CNT_NAME;CNT_MOBILITY;CNT_ID;CL_START_DATE;CL_END_DATE;HAS_ALERT;ME_TEMP;ME_HUMIDITY"
         visible-columns="CNT_NAME;CNT_MOBILITY;CL_START_DATE;CL_END_DATE;ME_TEMP;ME_HUMIDITY;ACTIVE;HAS_ALERT"
         delete-button="no" insert-button="false" refresh-button="true"
-        sort-columns="CL_END_DATE:DESC;CL_START_DATE:DESC" virtual-scroll="false" (onClick)="openContainersLots($event)"
-        detail-mode="none">
+        sort-columns="CL_END_DATE:DESC;CL_START_DATE:DESC" virtual-scroll="false" horizontal-scroll="true"
+        (onClick)="openContainersLots($event)" detail-mode="none">
         <o-table-column attr="CNT_NAME" title="CNT_NAME" title-align="center" content-align="center"></o-table-column>
         <o-table-column attr="CNT_MOBILITY" title="CNT_MOBILITY" title-align="center" content-align="center">
           <app-containers-home-boolean-renderer /></o-table-column>

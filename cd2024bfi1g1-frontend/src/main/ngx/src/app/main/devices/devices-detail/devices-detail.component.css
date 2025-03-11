@@ -3,10 +3,6 @@ o-table {
   display: none !important;
 }
 
-o-daterange-input {
-  width: 270px
-}
-
 o-button {
   max-width: 40%;
   align-content: center;
@@ -14,4 +10,9 @@ o-button {
 
 #measurements-historic {
   margin-bottom: 20px;
+  align-items: center;
+}
+
+#filter {
+  margin-right: 10px;
 }

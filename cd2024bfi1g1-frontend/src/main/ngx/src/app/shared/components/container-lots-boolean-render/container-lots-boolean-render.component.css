@@ -1,11 +1,10 @@
 .label-text {
     font-size: 13px;
-
 }
 
 .icon-container {
     display: block;
-    text-align: center;
+    text-align: start;
 }
 
 mat-icon {
