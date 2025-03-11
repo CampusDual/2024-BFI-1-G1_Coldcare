@@ -86,7 +86,7 @@ export class LotsGraphComponent {
             'background-color': '#009BF5',
             'label': 'data(label)',
             'color': 'black',
-            'text-valign': 'center',
+            'text-valign': 'top',
             'text-halign': 'center'
           }
         },
@@ -102,7 +102,7 @@ export class LotsGraphComponent {
         {
           selector: 'node[hasAlert = "true"][isFirstNode = "true"]',
           style: {
-            'background-color': '#FF6161',
+            'background-color': '#CA1717',
             'shape': 'rectangle'
           }
         },
@@ -116,7 +116,7 @@ export class LotsGraphComponent {
         {
           selector: 'node[hasAlert = "true"]:not([isFirstNode = "true"])',
           style: {
-            'background-color': '#FF6161'
+            'background-color': '#CA1717'
           }
         }
       ],
