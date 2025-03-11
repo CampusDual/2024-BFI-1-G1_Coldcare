@@ -5,9 +5,10 @@
       <div class="inline-fields">
         <o-combo attr="login" label="USR_LOGIN" service="users" entity="search" value-column="USR_LOGIN"
           columns="USR_ID;USR_NAME;USR_LOGIN" visible-columns="USR_NAME;USR_LOGIN" null-selection="yes" searchable="yes"
-          separator=" - "></o-combo>
+          separator=" - " clear-button="yes"></o-combo>
         <o-combo attr="company" label="CMP_NAME" service="companies" entity="companies" value-column="CMP_NAME"
-          columns="CMP_ID;CMP_NAME" visible-columns="CMP_NAME" null-selection="yes" searchable="yes"></o-combo>
+          columns="CMP_ID;CMP_NAME" visible-columns="CMP_NAME" null-selection="yes" searchable="yes"
+          clear-button="yes"></o-combo>
         <o-button attr="clear" [oFilterBuilderClear]="filterBuilder" type="BASIC" label="CLEAR" icon="clear"></o-button>
       </div>
 

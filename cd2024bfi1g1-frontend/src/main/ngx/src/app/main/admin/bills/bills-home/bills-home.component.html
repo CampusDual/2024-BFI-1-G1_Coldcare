@@ -4,12 +4,12 @@
             <h2>{{ 'FILTER_BILLS' | oTranslate }}</h2>
             <div class="inline-fields">
                 <o-combo attr="year" label="YEAR" service="bills" entity="bills" value-column="BIL_YEAR"
-                    columns="BIL_YEAR" visible-columns="BIL_YEAR" null-select searchable="yes"
-                    null-selection="yes"></o-combo>
+                    columns="BIL_YEAR" visible-columns="BIL_YEAR" searchable="yes" null-selection="yes"
+                    clear-button="yes"></o-combo>
                 <o-combo attr="month" label="MONTH" value-column="id" columns="id;month" visible-columns="month"
-                    null-selection="no" searchable="no" translate="yes" [static-data]="integersArray"></o-combo>
+                    searchable="no" translate="yes" [static-data]="integersArray" clear-button="yes"></o-combo>
                 <o-combo attr="company" label="CMP_NAME" service="bills" entity="bills" value-column="CMP_NAME"
-                    columns="CMP_NAME" visible-columns="CMP_NAME" null-selection="no" searchable="yes"
+                    columns="CMP_NAME" visible-columns="CMP_NAME" searchable="yes" clear-button="yes"
                     null-selection="yes"></o-combo>
                 <o-button attr="clear" [oFilterBuilderClear]="filterBuilder" type="BASIC" label="CLEAR"
                     icon="clear"></o-button>

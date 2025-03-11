@@ -5,14 +5,14 @@
             <h2>{{ 'FILTER_ALERTS' | oTranslate }}</h2>
             <div class="inline-fields">
                 <o-combo attr="contenedor" label="CONTAINER" service="alerts" entity="containersAlerts"
-                    value-column="CNT_NAME" columns="CNT_ID;CNT_NAME" visible-columns="CNT_NAME" null-selection="no"
-                    searchable="yes" null-selection="yes"></o-combo>
+                    value-column="CNT_NAME" columns="CNT_ID;CNT_NAME" visible-columns="CNT_NAME" searchable="yes"
+                    null-selection="yes" clear-button="yes"></o-combo>
                 <o-combo attr="lote" label="LOT" service="alerts" entity="containersAlerts" value-column="LOT_NAME"
-                    columns="LOT_ID;LOT_NAME" visible-columns="LOT_NAME" null-selection="no" searchable="yes"
-                    null-selection="yes"></o-combo>
+                    columns="LOT_ID;LOT_NAME" visible-columns="LOT_NAME" searchable="yes" null-selection="yes"
+                    clear-button="yes"></o-combo>
                 <o-combo attr="estado" label="ALT_STATES" value-column="ALT_STATE" columns="ALT_STATE"
                     visible-columns="ALT_STATE" null-selection="yes" searchable=" yes" translate="yes"
-                    [static-data]="integersArray">
+                    clear-button="yes" [static-data]="integersArray">
                 </o-combo>
                 <o-button attr="clear" [oFilterBuilderClear]="filterBuilder" type="BASIC" label="CLEAR"
                     icon="clear"></o-button>
