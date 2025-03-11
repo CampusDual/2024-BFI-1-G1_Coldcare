@@ -6,7 +6,8 @@
       <div>
         <h2>{{ 'CONTAINER_DATA' | oTranslate }}</h2>
         <div class="container-data-grid">
-          <o-text-input class="container-name" attr="CNT_NAME" style="align-content: center;"></o-text-input>
+          <o-text-input class="container-name" attr="CNT_NAME" label="NAME"
+            style="align-content: center;"></o-text-input>
           <o-slide-toggle attr="CNT_MOBILITY" label="CURRENT_MOBILITY" read-only="no"></o-slide-toggle>
 
           <o-text-input #avgTemp attr="AVG_TEMP" read-only="true" oHidden></o-text-input>
@@ -40,7 +41,7 @@
           columns="DEV_ID;DEV_NAME;CNT_ID" visible-columns="DEV_NAME" insert-button="false" delete-button="false"
           refresh-button="false" detail-form-route="CNT_ID;DEV_ID" detail-form-route-params="CNT_ID;DEV_ID"
           virtual-scroll="false" quick-filter="no">
-          <o-table-column attr="DEV_NAME" title="IDENTIFIER"></o-table-column>
+          <o-table-column attr="DEV_NAME" title="NAME"></o-table-column>
         </o-table>
       </div>
     </div>

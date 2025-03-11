@@ -1,15 +1,36 @@
-<div class="full-screen-background-table">
-  <o-table attr="transports" title="TRANSPORTS" show-title="yes" service="transports" entity="transportsPerUser"
-    keys="TRP_ID" columns="TRP_ID;ORIGIN_NAME;DESTINATION_NAME;TRP_DATE;VHC_PLATE;TST_NAME"
+<div style="height: 100%;">
+  <o-list #transportsList attr="transports" title="TRANSPORTS" show-title="yes" service="transports"
+    entity="transportsPerUser" keys="TRP_ID" columns="TRP_ID;ORIGIN_NAME;DESTINATION_NAME;TRP_DATE;VHC_PLATE;TST_NAME"
     visible-columns="ORIGIN_NAME;DESTINATION_NAME;TRP_DATE;VHC_PLATE;TST_NAME" delete-button="no" insert-button="no"
-    virtual-scroll="false">
-    <o-table-column attr="ORIGIN_NAME" title-align="center" content-align="center"></o-table-column>
-    <o-table-column attr="DESTINATION_NAME" title-align="center" content-align="center"></o-table-column>
-    <o-table-column attr="TRP_DATE" title="DATE" type="date" format="DD/MM/YYYY" title-align="center"
-      content-align="center"></o-table-column>
-    <o-table-column attr="VHC_PLATE" title="VEHICLES" title-align="center" content-align="center"></o-table-column>
-    <o-table-column attr="TST_NAME" title-align="center" content-align="center">
-      <app-transporters-column-renderer></app-transporters-column-renderer>
-    </o-table-column>
-  </o-table>
+    quick-filter="no" [ngStyle]="listStyle">
+
+    <mat-card *ngFor="let row of transportsList.dataArray" [o-list-item]="row">
+      <mat-card-header>
+
+        <o-column>
+          <div class="row">
+            <span class="title">{{ 'TRP_ORIGIN' | oTranslate }}:</span>
+            <span>{{ row.ORIGIN_NAME }}</span>
+          </div>
+
+          <div class="row">
+            <span class="title">{{ "TRP_DESTINATION" | oTranslate }}:</span>
+            <span>{{ row.DESTINATION_NAME }}</span>
+          </div>
+
+          <div class="row">
+            <span class="title">{{ "DATE" | oTranslate }}:</span>
+            <span>{{ row.TRP_DATE | dateTransform }}</span>
+          </div>
+
+          <div class="row">
+            <span class="title">{{ "ALT_STATES" | oTranslate }}:</span>
+            <mat-icon [ngClass]="(row.TST_NAME | statusIcon).class">
+              {{ (row.TST_NAME | statusIcon).icon }}
+            </mat-icon>
+          </div>
+        </o-column>
+      </mat-card-header>
+    </mat-card>
+  </o-list>
 </div>

@@ -1,0 +1,1 @@
+ALTER TABLE public.transports_coordinates ADD tc_has_alert boolean DEFAULT false NOT NULL;

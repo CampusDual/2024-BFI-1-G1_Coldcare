@@ -4,8 +4,8 @@
     <div class="section">
       <h2>{{ 'LOT_DETAIL' | oTranslate }}</h2>
       <div class="inline-fields">
-        <o-text-input #lotName attr="LOT_NAME" required="yes"></o-text-input>
-        <o-combo #productCombo attr="PRO_ID" label="Producto" service="products" entity="products" value-column="PRO_ID"
+        <o-text-input #lotName attr="LOT_NAME" label="NAME" required="yes"></o-text-input>
+        <o-combo #productCombo attr="PRO_ID" label="PRO_NAME" service="products" entity="products" value-column="PRO_ID"
           columns="PRO_ID;PRO_NAME;PRO_MIN_TEMP;PRO_MAX_TEMP" visible-columns="PRO_NAME" null-selection="no"
           searchable="yes" required="true"></o-combo>
         <o-real-input #minTempInput attr="MIN_TEMP" clear-button="yes"></o-real-input>
@@ -17,15 +17,21 @@
     <div>
       <o-table attr="containersInLot" title="CONTAINERS_HISTORY" show-title="yes" service="containersLots"
         entity="containersOfLot" keys="CL_ID" parent-keys="LOT_ID"
-        columns="CL_ID;CNT_NAME;CNT_ID;CL_START_DATE;CL_END_DATE;HAS_ALERT"
-        visible-columns="CNT_NAME;CL_START_DATE;CL_END_DATE;ACTIVE;HAS_ALERT" delete-button="no" insert-button="false"
-        refresh-button="true" sort-columns="CL_END_DATE:DESC;CL_START_DATE:DESC" virtual-scroll="false"
-        (onClick)="openContainersLots($event)" detail-mode="none">
+        columns="CL_ID;CNT_NAME;CNT_MOBILITY;CNT_ID;CL_START_DATE;CL_END_DATE;HAS_ALERT;ME_TEMP;ME_HUMIDITY"
+        visible-columns="CNT_NAME;CNT_MOBILITY;CL_START_DATE;CL_END_DATE;ME_TEMP;ME_HUMIDITY;ACTIVE;HAS_ALERT"
+        delete-button="no" insert-button="false" refresh-button="true"
+        sort-columns="CL_END_DATE:DESC;CL_START_DATE:DESC" virtual-scroll="false" (onClick)="openContainersLots($event)"
+        detail-mode="none">
         <o-table-column attr="CNT_NAME" title="CNT_NAME" title-align="center" content-align="center"></o-table-column>
+        <o-table-column attr="CNT_MOBILITY" title="CNT_MOBILITY" title-align="center" content-align="center">
+          <app-containers-home-boolean-renderer /></o-table-column>
         <o-table-column attr="CL_START_DATE" title="CL_START_DATE" type="date" format="DD/MM/YYYY" title-align="center"
           content-align="center"></o-table-column>
         <o-table-column attr="CL_END_DATE" title="CL_END_DATE" type="date" format="DD/MM/YYYY" title-align="center"
           content-align="center"></o-table-column>
+        <o-table-column attr="ME_TEMP" title="LAST_TEMP" content-align="center" title-align="center"></o-table-column>
+        <o-table-column attr="ME_HUMIDITY" title="LAST_HUMIDITY" content-align="center"
+          title-align="center"></o-table-column>
         <o-table-column attr="ACTIVE" title="ACTIVE" title-align="center" content-align="center">
           <in-date-range-boolean-renderer />
         </o-table-column>
