@@ -126,8 +126,6 @@ export class LotsGraphComponent {
       },
       userZoomingEnabled: false
     });
-
-    this.graphContainer.nativeElement.style.backgroundColor = 'white';
   }
 
 
