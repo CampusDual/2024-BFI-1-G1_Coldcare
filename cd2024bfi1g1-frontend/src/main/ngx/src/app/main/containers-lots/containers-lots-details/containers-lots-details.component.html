@@ -7,6 +7,13 @@
       <h2>{{ 'CL_INFO' | oTranslate }}</h2>
       <div class="inline-fields">
         <div>
+          <o-text-input #movility attr="CNT_MOBILITY" title="CNT_MOBILITY" read-only="yes" hidden>
+            <app-container-lots-boolean-render [cntMobility]="movility.getValue()"></app-container-lots-boolean-render>
+          </o-text-input>
+
+          <app-container-lots-boolean-render [cntMobility]="movility.getValue()"></app-container-lots-boolean-render>
+        </div>
+        <div>
           <o-text-input #cntName class="main-info" attr="CNT_NAME" read-only="yes" hidden></o-text-input>
           <label class="label">{{ 'CNT_NAME' | oTranslate }}</label>
           <div class="main-info">{{ cntName.getValue() }}</div>
@@ -16,24 +23,18 @@
           <label class="label">{{ 'LOT_NAME' | oTranslate }}</label>
           <div class="main-info">{{ lotName.getValue() }}</div>
         </div>
+        <o-text-input #proName attr="PRO_NAME" read-only="yes"></o-text-input>
       </div>
       <div class="inline-fields">
-        <o-text-input #proName attr="PRO_NAME" read-only="yes"></o-text-input>
         <o-text-input #minTemp attr="MIN_TEMP" read-only="yes" hidden></o-text-input>
         <o-text-input attr="MIN_TEMP_TEXT" label="MIN_TEMP_DEV" read-only="yes" [data]="minTemp.getValue() + ' ºC'"
           automatic-binding="false" automatic-registering="false"></o-text-input>
         <o-text-input #maxTemp attr="MAX_TEMP" read-only="yes" hidden></o-text-input>
         <o-text-input attr="MAX_TEMP_TEXT" label="MAX_TEMP_DEV" read-only="yes" [data]="maxTemp.getValue() + ' ºC'"
           automatic-binding="false" automatic-registering="false"></o-text-input>
+        <o-text-input attr="ME_TEMP" title="LAST_TEMP" read-only="yes"></o-text-input>
+        <o-text-input attr="ME_HUMIDITY" title="LAST_HUMIDITY" read-only="yes"></o-text-input>
       </div>
-      <o-text-input attr="ME_TEMP" title="LAST_TEMP" read-only="yes"></o-text-input>
-      <o-text-input attr="ME_HUMIDITY" title="LAST_HUMIDITY" read-only="yes"></o-text-input>
-      <o-text-input #movility attr="CNT_MOBILITY" title="CNT_MOBILITY" read-only="yes" hidden>
-        <app-container-lots-boolean-render [cntMobility]="movility.getValue()"></app-container-lots-boolean-render>
-      </o-text-input>
-
-      <app-container-lots-boolean-render [cntMobility]="movility.getValue()"></app-container-lots-boolean-render>
-
     </div>
 
     <div>
