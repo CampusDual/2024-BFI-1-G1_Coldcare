@@ -1,7 +1,7 @@
 <o-form keys-sql-types="INTEGER" parent-keys="CL_ID" keys="CL_ID" include-parent-keys="yes" service="containersLots"
   entity="containersLots" show-header="yes" header-actions="R;U;D"
   columns="CNT_NAME;LOT_NAME;PRO_NAME;MIN_TEMP;MAX_TEMP;ME_TEMP;ME_HUMIDITY;CNT_MOBILITY"
-  (onDataLoaded)="fillData($event);ME_TEMP;ME_HUMIDITY;CNT_MOBILITY">
+  (onDataLoaded)="fillData($event)">
   <div class="full-screen-background-with-toolbar">
     <div>
       <h2>{{ 'CL_INFO' | oTranslate }}</h2>
@@ -29,11 +29,18 @@
         <o-text-input #minTemp attr="MIN_TEMP" read-only="yes" hidden></o-text-input>
         <o-text-input attr="MIN_TEMP_TEXT" label="MIN_TEMP_DEV" read-only="yes" [data]="minTemp.getValue() + ' ºC'"
           automatic-binding="false" automatic-registering="false"></o-text-input>
+
         <o-text-input #maxTemp attr="MAX_TEMP" read-only="yes" hidden></o-text-input>
         <o-text-input attr="MAX_TEMP_TEXT" label="MAX_TEMP_DEV" read-only="yes" [data]="maxTemp.getValue() + ' ºC'"
           automatic-binding="false" automatic-registering="false"></o-text-input>
-        <o-text-input attr="ME_TEMP" title="LAST_TEMP" read-only="yes"></o-text-input>
-        <o-text-input attr="ME_HUMIDITY" title="LAST_HUMIDITY" read-only="yes"></o-text-input>
+
+        <o-text-input #lastTemp attr="ME_TEMP" title="LAST_TEMP" read-only="yes" hidden></o-text-input>
+        <o-text-input attr="MAX_TEMP_TEXT" label="LAST_TEMP" read-only="yes" [data]="lastTempVisible"
+          automatic-binding="false" automatic-registering="false"></o-text-input>
+
+        <o-text-input #lastHumidity attr="ME_HUMIDITY" title="LAST_HUMIDITY" read-only="yes" hidden></o-text-input>
+        <o-text-input attr="MAX_HUMIDITY_TEXT" label="LAST_HUMIDITY" read-only="yes" [data]="lastHumidityVisible"
+          automatic-binding="false" automatic-registering="false"></o-text-input>
       </div>
     </div>
 

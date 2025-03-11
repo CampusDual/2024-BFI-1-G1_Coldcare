@@ -40,7 +40,7 @@
           include-parent-keys="yes" parent-keys="CNT_ID" query-on-init="true" keys="DEV_ID"
           columns="DEV_ID;DEV_NAME;CNT_ID" visible-columns="DEV_NAME" insert-button="false" delete-button="false"
           refresh-button="false" detail-form-route="CNT_ID;DEV_ID" detail-form-route-params="CNT_ID;DEV_ID"
-          virtual-scroll="false" quick-filter="no">
+          virtual-scroll="false" quick-filter="no" horizontal-scroll="true">
           <o-table-column attr="DEV_NAME" title="NAME"></o-table-column>
         </o-table>
       </div>
@@ -49,7 +49,8 @@
       entity="containersLotsWithAlerts" keys="CL_ID" parent-keys="CNT_ID"
       columns="CL_ID;LOT_NAME;CL_START_DATE;CL_END_DATE;PRO_ID;PRO_NAME;HAS_ALERT"
       visible-columns="LOT_NAME;PRO_NAME;CL_START_DATE;CL_END_DATE;ACTIVE;HAS_ALERT" delete-button="no"
-      refresh-button="false" (onClick)="openContainersLots($event)" detail-mode="none" virtual-scroll="false">
+      refresh-button="false" (onClick)="openContainersLots($event)" detail-mode="none" virtual-scroll="false"
+      horizontal-scroll="true">
       <o-table-column attr="LOT_NAME" title="LOT"></o-table-column>
       <o-table-column attr="CL_START_DATE" title="CL_START_DATE" type="date" format="DD/MM/YYYY"></o-table-column>
       <o-table-column attr="CL_END_DATE" title="CL_END_DATE" type="date" format="DD/MM/YYYY"></o-table-column>

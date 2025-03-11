@@ -18,6 +18,8 @@ export class ContainersLotsDetailsComponent {
   @ViewChild('averageTime', { static: false }) averageTime!: OTextInputComponent;
   @ViewChild('maxTime', { static: false }) maxTime!: OTextInputComponent;
   @ViewChild('activeAlert', { static: false }) activeAlert!: OTextInputComponent;
+  @ViewChild('lastHumidity', { static: false }) lastHumidity!: OTextInputComponent;
+  @ViewChild('lastTemp', { static: false }) lastTemp!: OTextInputComponent;
 
   dataArrayTemp: any = [];
   dataArrayHum: any = [];
@@ -26,6 +28,9 @@ export class ContainersLotsDetailsComponent {
   totalTimeVisible: string = "N/A";
   averageTimeVisible: string = "N/A";
   maxTimeVisible: string = "N/A";
+  lastHumidityVisible: string = "N/A";
+  lastTempVisible: string = "N/A";
+
 
   chartParametersTemp: LineChartConfiguration;
   chartParametersHum: LineChartConfiguration;
@@ -189,6 +194,12 @@ export class ContainersLotsDetailsComponent {
     }
     if (e.ACTIVE_ALERTS !== undefined) {
       this.activeAlertVisible = this.activeAlert.getValue();
+    }
+    if (e.ME_HUMIDITY !== undefined) {
+      this.lastHumidityVisible = this.lastHumidity.getValue() + "%";
+    }
+    if (e.ME_TEMP !== undefined) {
+      this.lastTempVisible = this.lastTemp.getValue() + " Cº";
     }
   }
 

@@ -29,11 +29,30 @@
             </div>
             <div class="inline-fields">
 
-                <o-real-input attr="ALT_MIN_TEMP" read-only="true"></o-real-input>
-                <o-real-input attr="ALT_MAX_TEMP" read-only="true"></o-real-input>
-                <o-real-input attr="MIN_TEMP_DEV" read-only="true"></o-real-input>
-                <o-real-input attr="MAX_TEMP_DEV" read-only="true"></o-real-input>
-                <o-real-input attr="AVG_HUMIDITY" read-only="true"></o-real-input>
+                <o-real-input #alertMinTemp attr="ALT_MIN_TEMP" read-only="true" hidden></o-real-input>
+                <o-text-input attr="ALT_MIN_TEMP_VISIBLE" label="ALT_MIN_TEMP" read-only="true"
+                    [data]="alertMinTemp.getValue() + ' Cº'" automatic-registering="false"
+                    automatic-binding="false"></o-text-input>
+
+                <o-real-input #alertMaxTemp attr="ALT_MAX_TEMP" read-only="true" hidden></o-real-input>
+                <o-text-input attr="ALT_MAX_TEMP_VISIBLE" label="ALT_MAX_TEMP" read-only="true"
+                    [data]="alertMaxTemp.getValue() + ' Cº'" automatic-registering="false"
+                    automatic-binding="false"></o-text-input>
+
+                <o-real-input #minTemp attr="MIN_TEMP_DEV" read-only="true" hidden></o-real-input>
+                <o-text-input attr="MIN_TEMP_DEV_VISIBLE" label="MIN_TEMP_DEV" read-only="true"
+                    [data]="minTemp.getValue() + ' Cº'" automatic-registering="false"
+                    automatic-binding="false"></o-text-input>
+
+                <o-real-input #maxTemp attr="MAX_TEMP_DEV" read-only="true" hidden></o-real-input>
+                <o-text-input attr="MAX_TEMP_DEV_VISIBLE" label="MAX_TEMP_DEV" read-only="true"
+                    [data]="maxTemp.getValue() + ' Cº'" automatic-registering="false"
+                    automatic-binding="false"></o-text-input>
+
+                <o-real-input #avgHumidity attr="AVG_HUMIDITY" read-only="true" hidden></o-real-input>
+                <o-text-input attr="AVG_HUMIDITY_VISIBLE" label="AVG_HUMIDITY" read-only="true"
+                    [data]="avgHumidity.getValue() + '%'" automatic-registering="false"
+                    automatic-binding="false"></o-text-input>
             </div>
         </div>
         <div id="tablaMedidasContainer">

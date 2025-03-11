@@ -1,3 +1,7 @@
-div{
+div {
   align-items: center;
+}
+
+.mat-datepicker-toggle.read-only.ng-tns-c40-48 {
+  display: none;
 }
