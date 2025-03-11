@@ -14,7 +14,9 @@
       </div>
     </o-column>
   </o-row>
-  <app-lots-graph [graphData]="graphData"></app-lots-graph>
+  <div id="graphDiv">
+    <app-lots-graph [graphData]="graphData"></app-lots-graph>
+  </div>
   <o-row>
     <o-table attr="containersInLot" title="CONTAINERS_HISTORY" show-title="yes" service="containersLots"
       entity="containersOfLot" keys="CL_ID" parent-keys="LOT_ID"
