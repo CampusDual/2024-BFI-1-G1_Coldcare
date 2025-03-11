@@ -168,3 +168,7 @@ postgresql:
   existingSecret: cd2024bfi1g1-dev-db-secret   
   persistence:
     size: 1.5Gi
+
+firebase:
+  auth:
+    secret: firebase-auth-secret

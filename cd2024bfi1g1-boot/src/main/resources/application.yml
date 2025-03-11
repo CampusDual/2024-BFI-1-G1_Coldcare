@@ -102,3 +102,5 @@ spring:
       org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration, org.springframework.boot.actuate.autoconfigure.ManagementWebSecurityAutoConfiguration, org.springframework.boot.autoconfigure.security.FallbackWebSecurityAutoConfiguration
 environment:
   profile: ${ENVIRONMENT_PROFILE:#{'production'}}
+firebase:
+  serviceAccountKey: ${FIREBASE_SERVICE_ACCOUNT_KEY}

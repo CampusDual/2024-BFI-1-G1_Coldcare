@@ -166,4 +166,8 @@ postgresql:
   postgresqlDatabase: cd2024bfi1g1
   existingSecret: cd2024bfi1g1-db-secret     
   persistence:
-    size: 1.5Gi  
+    size: 1.5Gi
+
+firebase:
+  auth:
+    secret: firebase-auth-secret
