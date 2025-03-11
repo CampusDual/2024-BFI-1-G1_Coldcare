@@ -1,31 +1,50 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { AuthService } from 'ontimize-web-ngx';
+import { OntimizeService } from 'ontimize-web-ngx';
+import { Title } from '@angular/platform-browser';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AlertaService {
 
-  private apiUrl = 'http://localhost:8080/alerts';
 
-  constructor(private http: HttpClient, private authService: AuthService) { }
+  alertsIds: any[] = [];
+  constructor(
+    private titleService: Title,
+    private ontimizeService: OntimizeService
+  ) {
 
-
-  obtenerAlertasPendientes(altIds: number[]): Observable<any> {
-
-    const token = this.authService.getSessionInfo();
-
-    if (!token) {
-      throw new Error('No se encontró el token de autenticación');
-    }
-
-
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-
-    return this.http.get<any>(`${this.apiUrl}?altIds=${altIds.join(',')}`, { headers });
   }
+
+  obtenerAlertas(): void {
+
+    this.ontimizeService.configureService(this.ontimizeService.getDefaultServiceConfiguration('alerts'));
+    this.ontimizeService.query(undefined, ['ALT_ID', 'ALT_STATE'], 'alerts').subscribe({
+      next: (value: any) => {
+        let alertasPendientes = 0;
+        this.alertsIds = value.data;
+        this.alertsIds.forEach((alerta) => {
+
+          if (alerta.ALT_STATE == false) {
+            alertasPendientes++;
+          }
+
+          if (alertasPendientes > 0) {
+            this.titleService.setTitle(`(${alertasPendientes}) ColdCare`);
+          } else {
+            this.titleService.setTitle(`ColdCare`);
+          }
+
+        });
+
+      },
+      error(err) {
+        console.log(err)
+      },
+      complete() {
+
+      }
+    });
+  }
+
 }
