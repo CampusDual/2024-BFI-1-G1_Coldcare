@@ -1,5 +1,5 @@
 <o-form attr="lotsDetail" parent-keys="LOT_ID" keys="LOT_ID" keys-sql-types="INTEGER" service="lots" entity="lots"
-  header-actions="R;U">
+  header-actions="R;U" (onDataLoaded)="updateGraph($event)">
   <o-row attr="row1" layout-align="start stretch">
     <o-column title="LOT_DETAIL" layout-align="start stretch" layout-padding>
       <div class="inline-fields">
@@ -20,7 +20,7 @@
       columns="CL_ID;CNT_NAME;CNT_MOBILITY;CNT_ID;CL_START_DATE;CL_END_DATE;HAS_ALERT;ME_TEMP;ME_HUMIDITY"
       visible-columns="CNT_NAME;CNT_MOBILITY;CL_START_DATE;CL_END_DATE;ME_TEMP;ME_HUMIDITY;ACTIVE;HAS_ALERT"
       delete-button="no" insert-button="false" refresh-button="true" sort-columns="CL_END_DATE:DESC;CL_START_DATE:DESC"
-      virtual-scroll="false" (onClick)="openContainersLots($event)" detail-mode="none">
+      virtual-scroll="false" horizontal-scroll="false" (onClick)="openContainersLots($event)" detail-mode="none">
       <o-table-column attr="CNT_NAME" title="CNT_NAME" title-align="center" content-align="center"></o-table-column>
       <o-table-column attr="CNT_MOBILITY" title="CNT_MOBILITY" title-align="center" content-align="center">
         <app-containers-home-boolean-renderer /></o-table-column>
@@ -39,4 +39,7 @@
       </o-table-column>
     </o-table>
   </o-row>
+  <div id="graphDiv">
+    <app-lots-graph [graphData]="graphData"></app-lots-graph>
+  </div>
 </o-form>

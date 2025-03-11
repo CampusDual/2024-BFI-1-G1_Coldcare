@@ -235,7 +235,7 @@ public class UserAndRoleService implements IUserAndRoleService {
         helper.setTo(to);
         helper.setSubject(subject);
         helper.setText(htmlContent, true);
-        helper.setFrom("coldcare33@gmail.com");
+        helper.setFrom("noreplycoldcare@gmail.com");
 
         mailSender.send(message);
     }

@@ -239,6 +239,11 @@
   "USER_UPDATE_ERROR": "Error al actualizar los datos de usuarios",
   "HAS_REPITED": "Contenedores del lote",
   "ERROR_EXISTING_CONTAINER": "Ya existe un contenedor con ese nombre",
+  "LEGEND": "Leyenda",
+  "INIT_NODE": "Contenedor inicial",
+  "INTER_NODE": "Contenedor intermedio",
+  "NORMAL_NODE": "Contenedor sin alertas",
+  "ALERT_NODE": "Contenedor con alertas",
   "CONCEPT": "Concepto",
   "COST": "Importe",
   "AMOUNT": "Cantidad",
@@ -271,5 +276,7 @@
   "ALT_DATE_END": "Fecha fin",
   "ALT_DURATION": "Duración",
   "MIN_TEMP_DEV": "Tª Min (ºC)",
-  "MAX_TEMP_DEV": "Tª Max (ºC)"
+  "MAX_TEMP_DEV": "Tª Max (ºC)",
+  "ERROR_TITLE": "Error",
+  "ERROR_MSG_GRAPH_QUERY": "Error al recuperar los contenedores del lote"
 }

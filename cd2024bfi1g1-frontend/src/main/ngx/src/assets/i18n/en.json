@@ -239,6 +239,11 @@
   "USER_UPDATE_ERROR": "Error updating the user table",
   "HAS_REPITED": "Lot containers",
   "ERROR_EXISTING_CONTAINER": "There is already a container with that name",
+  "LEGEND": "Legend",
+  "INIT_NODE": "Initial container",
+  "INTER_NODE": "Intermediate container",
+  "NORMAL_NODE": "Container without alerts",
+  "ALERT_NODE": "Container with alerts",
   "CONCEPT": "Concept",
   "COST": "Cost",
   "AMOUNT": "Amount",
@@ -271,5 +276,7 @@
   "ALT_DATE_END": "End date",
   "ALT_DURATION": "Duration",
   "MIN_TEMP_DEV": "Min Temp (ºC)",
-  "MAX_TEMP_DEV": "Max Temp (ºC)"
+  "MAX_TEMP_DEV": "Max Temp (ºC)",
+  "ERROR_TITLE": "Error",
+  "ERROR_MSG_GRAPH_QUERY": "Error retrieving containers from the batch"
 }
