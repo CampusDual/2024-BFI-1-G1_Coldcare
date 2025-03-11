@@ -17,12 +17,13 @@
       </div>
     </div>
     <div class="section">
-      <h2>{{ 'company-data-section' | oTranslate }}</h2>
+      <h2>{{ 'COMPANY_DATA' | oTranslate }}</h2>
       <div class="inline-fields">
         <o-combo attr="CMP_ID" service="companies" entity="companies" value-column="CMP_ID" columns="CMP_ID;CMP_NAME"
           visible-columns="CMP_NAME" null-selection="no" searchable="yes"></o-combo>
-        <o-combo attr="ROL_ID" service="users" entity="roleWithoutAdmin" value-column="ROL_ID" columns="ROL_ID;ROL_NAME"
-          visible-columns="ROL_NAME" null-selection="no" searchable="no" required="yes" translate="yes"></o-combo>
+        <o-combo attr="ROL_ID" label="rol_name" service="users" entity="roleWithoutAdmin" value-column="ROL_ID"
+          columns="ROL_ID;ROL_NAME" visible-columns="ROL_NAME" null-selection="no" searchable="no" required="yes"
+          translate="yes"></o-combo>
         <o-text-input attr="URO_ID" hidden="yes"></o-text-input>
       </div>
     </div>

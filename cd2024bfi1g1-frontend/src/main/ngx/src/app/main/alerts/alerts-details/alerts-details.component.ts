@@ -160,7 +160,7 @@ export class AlertsDetailsComponent implements OnInit {
     const minutes = Math.floor((totalSeconds % 3600) / 60);
     const secs = totalSeconds % 60;
 
-    const formattedTime = `${String(hours).padStart(2, '0')}h ${String(minutes).padStart(2, '0')}m ${String(secs).padStart(2, '0')}s`;
+    const formattedTime = `${String(hours).padStart(2, '0')}h ${String(minutes).padStart(2, '0')}min ${String(secs).padStart(2, '0')}s`;
 
     if (days > 0) {
       return `${days}d ${formattedTime}`;
