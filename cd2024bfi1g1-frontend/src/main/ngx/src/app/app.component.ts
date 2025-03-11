@@ -12,7 +12,9 @@ import { Title } from '@angular/platform-browser';
 })
 export class AppComponent {
 
-  constructor(private router: Router, protected appearanceService: AppearanceService, protected injector: Injector, private geolocationService: GeolocationService,
+  altIds: number[] = [1, 2];
+
+  constructor(private router: Router, protected appearanceService: AppearanceService, protected injector: Injector, private geolocationService: GeolocationService, private alertaService: AlertaService, private titleService: Title
   ) {
     this.ontimizeMatIconRegistry = this.injector.get(OntimizeMatIconRegistry);
     if (window['__ontimize'] !== undefined && window['__ontimize']['redirect'] !== undefined) {
@@ -23,8 +25,7 @@ export class AppComponent {
   }
 
   ontimizeMatIconRegistry: OntimizeMatIconRegistry;
-  alertaService: AlertaService
-  titleService: Title
+
 
   ngOnInit() {
     if (this.ontimizeMatIconRegistry.addOntimizeSvgIcon) {
@@ -36,25 +37,33 @@ export class AppComponent {
       const trpId = Number(localStorage.getItem('TRP_ID'));
       this.geolocationService.continueTracking(trpId);
     }
-
-
+    this.obtenerAlertas();
 
     setInterval(() => {
       this.obtenerAlertas();
     }, 5000);
   }
 
-  altIds = [1, 2, 3];
-  obtenerAlertas(): void {
-    this.alertaService.obtenerAlertasPendientes().subscribe((alertas) => {
-      const cantidadAlertas = alertas.filter(alerta => alerta.ESTADO === 'pendiente').length;
 
-      // Cambia el título de la pestaña para reflejar el número de alertas
+  obtenerAlertas(): void {
+
+    this.alertaService.obtenerAlertasPendientes([]).subscribe((alerts) => {
+      // Filtrar las alertas pendientes y extraer los IDs
+      console.log('Alertas pendienteseeeeeeee:', alerts);
+      const alertasPendientes = alerts.filter(alerta => alerta.ESTADO === 'pendiente');
+
+      // Actualizar altIds con los IDs de las alertas pendientes
+      this.altIds = alertasPendientes.map(alerta => alerta.ID); // Suponiendo que cada alerta tiene un campo ID
+
+      // Cambiar el título según la cantidad de alertas pendientes
+      const cantidadAlertas = alertasPendientes.length;
       if (cantidadAlertas > 0) {
         this.titleService.setTitle(`Tienes ${cantidadAlertas} alertas pendientes`);
       } else {
         this.titleService.setTitle('No tienes alertas pendientes');
       }
+
+      console.log('Alertas pendientes:', this.altIds);
     });
   }
 }
