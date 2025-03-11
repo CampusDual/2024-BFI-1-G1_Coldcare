@@ -59,39 +59,49 @@ public class AlertsService implements IAlertsService {
         EntityResult result = this.daoHelper.insert(this.alertsDao, attrMap);
 
         if (result.getCode() == EntityResult.OPERATION_SUCCESSFUL) {
-            EntityResult tokensResult = userFirebaseTokenService.getAllTokens(new HashMap<>(), List.of(UserFirebaseTokenDao.UFT_TOKEN));
+            EntityResult alertResult = this.daoHelper.query(this.alertsDao, attrMap, List.of("CMP_ID"), "containersAlerts");
 
-            if (tokensResult.getCode() == EntityResult.OPERATION_SUCCESSFUL) {
-                Object rawData = tokensResult.get(UserFirebaseTokenDao.UFT_TOKEN);
-                List<String> tokensList = new ArrayList<>();
+            if (alertResult.getCode() == EntityResult.OPERATION_SUCCESSFUL && alertResult.calculateRecordNumber() > 0) {
+                Integer cmpId = (Integer) alertResult.getRecordValues(0).get("CMP_ID");
 
-                if (rawData instanceof List) {
-                    // Si es una lista, iteramos sobre sus elementos
-                    for (Object entry : (List<?>) rawData) {
+                if (cmpId != null) {
+                    Map<String, Object> filter = new HashMap<>();
+                    filter.put("CMP_ID", cmpId);
 
-                        tokensList.add((String) entry);
+                    EntityResult tokensResult = userFirebaseTokenService.userFirebaseTokenQuery(filter, List.of(UserFirebaseTokenDao.UFT_TOKEN));
 
+                    if (tokensResult.getCode() == EntityResult.OPERATION_SUCCESSFUL) {
+                        Object rawData = tokensResult.get(UserFirebaseTokenDao.UFT_TOKEN);
+                        List<String> tokensList = new ArrayList<>();
+
+                        if (rawData instanceof List) {
+                            for (Object entry : (List<?>) rawData) {
+                                tokensList.add((String) entry);
+                            }
+                        } else {
+                            System.out.println("Formato inesperado de datos para tokens: " + rawData);
+                        }
+
+                        for (String token : tokensList) {
+                            String response = notificationService.sendNotification(token, "Coldcare", "Se ha generado una nueva alerta");
+                            System.out.println(response);
+                        }
+                    } else {
+                        System.out.println("Error al obtener los tokens. Código de error: " + tokensResult.getCode());
                     }
                 } else {
-                    System.out.println("Formato inesperado de datos para tokens: " + rawData);
-                }
-
-                // Enviar notificaciones a cada token en la lista
-                for (String token : tokensList) {
-                    String response = notificationService.sendNotification(token, "Coldcare", "Nueva alerta generada desde el backend");
-                    System.out.println(response);
+                    System.out.println("No se encontró el CMP_ID para la alerta.");
                 }
             } else {
-                System.out.println("Error al obtener los tokens. Código de error: " + tokensResult.getCode());
+                System.out.println("Error al obtener la empresa de la alerta.");
             }
-
-
         } else {
             System.out.println("Error al insertar la alerta. Código de error: " + result.getCode());
         }
 
         return result;
     }
+
 
     @Override
     public EntityResult alertsUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap)

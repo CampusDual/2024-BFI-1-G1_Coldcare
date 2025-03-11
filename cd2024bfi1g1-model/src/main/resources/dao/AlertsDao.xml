@@ -28,6 +28,8 @@
             <AmbiguousColumns>
                 <AmbiguousColumn name="cnt_id" prefix="c"/>
                 <AmbiguousColumn name="lot_id" prefix="l"/>
+                <AmbiguousColumn name="cl_id" prefix="cl"/>
+                <AmbiguousColumn name="cmp_id" prefix="c"/>
             </AmbiguousColumns>
             <Sentence>
                 <![CDATA[
