@@ -276,5 +276,6 @@
   "ALT_DATE_END": "End date",
   "ALT_DURATION": "Duration",
   "MIN_TEMP_DEV": "Min Temp (ºC)",
-  "MAX_TEMP_DEV": "Max Temp (ºC)"
+  "MAX_TEMP_DEV": "Max Temp (ºC)",
+  "ERROR_TITLE": "Error"
 }

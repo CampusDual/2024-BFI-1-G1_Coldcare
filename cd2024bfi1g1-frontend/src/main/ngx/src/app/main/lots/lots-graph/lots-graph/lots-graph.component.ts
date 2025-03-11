@@ -83,7 +83,7 @@ export class LotsGraphComponent {
         {
           selector: 'node',
           style: {
-            'background-color': '#009BF5',
+            'background-color': '#007BC3',
             'label': 'data(label)',
             'color': 'black',
             'text-valign': 'top',
@@ -109,7 +109,7 @@ export class LotsGraphComponent {
         {
           selector: 'node[isFirstNode = "true"]:not([hasAlert = "true"])',
           style: {
-            'background-color': '#009BF5',
+            'background-color': '#007BC3',
             'shape': 'rectangle'
           }
         },
