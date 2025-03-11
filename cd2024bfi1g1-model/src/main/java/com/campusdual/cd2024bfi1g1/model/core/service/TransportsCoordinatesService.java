@@ -30,6 +30,18 @@ public class TransportsCoordinatesService implements ITransportsCoordinatesServi
     @Override
     public EntityResult transportsCoordinatesInsert(Map<String, Object> attrMap)
             throws OntimizeJEERuntimeException {
+
+        Integer trpId = Integer.parseInt(attrMap.get(TransportsCoordinatesDao.TRP_ID).toString());
+
+        Map<String, Object> filter = Map.of(TransportsCoordinatesDao.TRP_ID, trpId);
+        List<String> columns = List.of(TransportsCoordinatesDao.TC_HAS_ALERT);
+
+        Boolean has_alert = this.transportCoordinatesHasAlert(filter, columns);
+
+        if (has_alert) {
+            attrMap.put(TransportsCoordinatesDao.TC_HAS_ALERT, true);
+        }
+
         return this.daoHelper.insert(this.transportsCoordinatesDao, attrMap);
     }
 
@@ -43,6 +55,17 @@ public class TransportsCoordinatesService implements ITransportsCoordinatesServi
     public EntityResult transportsCoordinatesDelete(Map<String, Object> keyMap)
             throws OntimizeJEERuntimeException {
         return this.daoHelper.delete(this.transportsCoordinatesDao, keyMap);
+    }
+
+    private Boolean transportCoordinatesHasAlert(Map<String, Object> keyMap, List<String> attrList)
+            throws OntimizeJEERuntimeException {
+        EntityResult eR = this.daoHelper.query(this.transportsCoordinatesDao, keyMap, attrList, "coordinates_has_alert");
+        if (eR.isEmpty() || eR.isWrong()) {
+            return false;
+        }
+        Map<String, Object> row = eR.getRecordValues(0);
+
+        return (Boolean) row.get(TransportsCoordinatesDao.TC_HAS_ALERT);
     }
 
 }
