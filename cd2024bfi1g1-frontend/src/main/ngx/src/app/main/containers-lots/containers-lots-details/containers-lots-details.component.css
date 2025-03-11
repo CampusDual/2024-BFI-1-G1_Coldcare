@@ -36,3 +36,8 @@ p {
     font-size: 10px;
     color: #333333;
 }
+
+.inline-fields-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}

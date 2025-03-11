@@ -278,7 +278,21 @@ tr.mat-mdc-row.mdc-data-table__row.cdk-row:nth-child(even) {
 .inline-fields {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 7px;
+  gap: 5px;
+  padding: 10px;
+}
+
+.inline-fields-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr) auto;
+  gap: 5px;
+  padding: 10px;
+}
+
+.inline-fields-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr) auto;
+  gap: 5px;
   padding: 10px;
 }
 

@@ -5,13 +5,11 @@
   <div class="full-screen-background-with-toolbar">
     <div>
       <h2>{{ 'CL_INFO' | oTranslate }}</h2>
-      <div class="inline-fields">
+      <div class="inline-fields-4">
         <div>
-          <o-text-input #movility attr="CNT_MOBILITY" title="CNT_MOBILITY" read-only="yes" hidden>
-            <app-container-lots-boolean-render [cntMobility]="movility.getValue()"></app-container-lots-boolean-render>
-          </o-text-input>
-
-          <app-container-lots-boolean-render [cntMobility]="movility.getValue()"></app-container-lots-boolean-render>
+          <label class="label">{{ 'CNT_MOBILITY' | oTranslate }}</label>
+          <app-container-lots-boolean-render
+            [cntMobility]="containerLot.CNT_MOBILITY"></app-container-lots-boolean-render>
         </div>
         <div>
           <o-text-input #cntName class="main-info" attr="CNT_NAME" read-only="yes" hidden></o-text-input>
@@ -25,7 +23,7 @@
         </div>
         <o-text-input #proName attr="PRO_NAME" read-only="yes"></o-text-input>
       </div>
-      <div class="inline-fields">
+      <div class="inline-fields-4">
         <o-text-input #minTemp attr="MIN_TEMP" read-only="yes" hidden></o-text-input>
         <o-text-input attr="MIN_TEMP_TEXT" label="MIN_TEMP_DEV" read-only="yes" [data]="minTemp.getValue() + ' ºC'"
           automatic-binding="false" automatic-registering="false"></o-text-input>
@@ -46,7 +44,7 @@
 
     <div>
       <h3>{{ 'ALERTS_DATA' | oTranslate }}</h3>
-      <div class="inline-fields">
+      <div class="inline-fields-4">
         <o-text-input #totalTime attr="TOTAL_TIME" read-only="yes" hidden></o-text-input>
         <o-text-input attr="TOTAL_TIME_TEXT" label="TOTAL_TIME" read-only="yes" automatic-binding="false"
           automatic-registering="false" [data]="totalTimeVisible"></o-text-input>

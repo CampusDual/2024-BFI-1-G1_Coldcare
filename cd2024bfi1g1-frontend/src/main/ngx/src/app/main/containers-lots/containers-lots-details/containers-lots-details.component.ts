@@ -30,7 +30,7 @@ export class ContainersLotsDetailsComponent {
   maxTimeVisible: string = "N/A";
   lastHumidityVisible: string = "N/A";
   lastTempVisible: string = "N/A";
-
+  containerLot: any = {};
 
   chartParametersTemp: LineChartConfiguration;
   chartParametersHum: LineChartConfiguration;
@@ -183,6 +183,7 @@ export class ContainersLotsDetailsComponent {
   }
 
   fillData(e: any) {
+    this.containerLot = e;
     if (e.TOTAL_TIME !== undefined) {
       this.totalTimeVisible = this.secondsToTime.transform(this.totalTime.getValue());
     }

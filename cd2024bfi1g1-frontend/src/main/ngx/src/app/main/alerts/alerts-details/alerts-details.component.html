@@ -6,28 +6,13 @@
     <div class="full-screen-background-with-toolbar">
         <div>
             <h2>{{ 'ALERTS_DETAIL' | oTranslate }}</h2>
-            <div class="inline-fields">
-                <o-text-input attr="ALT_DATE_INIT" #alert_date_init hidden></o-text-input>
-                <o-text-input attr="ALT_DATE_INIT1" label="ALT_DATE_INIT" automatic-binding="no"
-                    automatic-registering="no" read-only="true"
-                    [data]="alert_date_init.getValue() | dateRenderer"></o-text-input>
-
-                <o-text-input attr="ALT_DATE_END" #alertDateEnd hidden> </o-text-input>
-                <o-text-input attr="ALT_DATE_END1" label="ALT_DATE_END" automatic-binding="no"
-                    automatic-registering="no" read-only="true" [data]="alertDateEndVisible"></o-text-input>
-
-                <o-text-input attr="ALT_DURATION" title="DURATION" automatic-binding="no" automatic-registering="no"
-                    read-only="true" [data]="getCellData(alert_date_init.getValue(), alertDateEnd.getValue())"
-                    content-align="center">
-                </o-text-input>
-            </div>
-            <div class="inline-fields">
+            <div class="inline-fields-4">
                 <o-text-input attr="DEV_NAME" label="DEV" read-only="true"></o-text-input>
                 <o-text-input attr="CNT_NAME" read-only="true"></o-text-input>
                 <o-text-input attr="LOT_NAME" read-only="true"></o-text-input>
                 <o-text-input attr="PRO_NAME" read-only="true"></o-text-input>
             </div>
-            <div class="inline-fields">
+            <div class="inline-fields-4">
 
                 <o-real-input #alertMinTemp attr="ALT_MIN_TEMP" read-only="true" hidden></o-real-input>
                 <o-text-input attr="ALT_MIN_TEMP_VISIBLE" label="ALT_MIN_TEMP" read-only="true"
@@ -48,7 +33,21 @@
                 <o-text-input attr="MAX_TEMP_DEV_VISIBLE" label="MAX_TEMP_DEV" read-only="true"
                     [data]="maxTemp.getValue() + ' Cº'" automatic-registering="false"
                     automatic-binding="false"></o-text-input>
+            </div>
+            <div class="inline-fields-4">
+                <o-text-input attr="ALT_DATE_INIT" #alert_date_init hidden></o-text-input>
+                <o-text-input attr="ALT_DATE_INIT1" label="ALT_DATE_INIT" automatic-binding="no"
+                    automatic-registering="no" read-only="true"
+                    [data]="alert_date_init.getValue() | dateRenderer"></o-text-input>
 
+                <o-text-input attr="ALT_DATE_END" #alertDateEnd hidden> </o-text-input>
+                <o-text-input attr="ALT_DATE_END1" label="ALT_DATE_END" automatic-binding="no"
+                    automatic-registering="no" read-only="true" [data]="alertDateEndVisible"></o-text-input>
+
+                <o-text-input attr="ALT_DURATION" title="DURATION" automatic-binding="no" automatic-registering="no"
+                    read-only="true" [data]="getCellData(alert_date_init.getValue(), alertDateEnd.getValue())"
+                    content-align="center">
+                </o-text-input>
                 <o-real-input #avgHumidity attr="AVG_HUMIDITY" read-only="true" hidden></o-real-input>
                 <o-text-input attr="AVG_HUMIDITY_VISIBLE" label="AVG_HUMIDITY" read-only="true"
                     [data]="avgHumidity.getValue() + '%'" automatic-registering="false"
