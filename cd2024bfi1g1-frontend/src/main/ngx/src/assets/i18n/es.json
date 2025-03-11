@@ -277,5 +277,6 @@
   "ALT_DURATION": "Duración",
   "MIN_TEMP_DEV": "Tª Min (ºC)",
   "MAX_TEMP_DEV": "Tª Max (ºC)",
-  "ERROR_TITLE": "Error"
+  "ERROR_TITLE": "Error",
+  "ERROR_MSG_GRAPH_QUERY": "Error al recuperar los contenedores del lote"
 }

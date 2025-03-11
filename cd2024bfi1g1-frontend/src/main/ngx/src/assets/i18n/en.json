@@ -277,5 +277,6 @@
   "ALT_DURATION": "Duration",
   "MIN_TEMP_DEV": "Min Temp (ºC)",
   "MAX_TEMP_DEV": "Max Temp (ºC)",
-  "ERROR_TITLE": "Error"
+  "ERROR_TITLE": "Error",
+  "ERROR_MSG_GRAPH_QUERY": "Error retrieving containers from the batch"
 }
