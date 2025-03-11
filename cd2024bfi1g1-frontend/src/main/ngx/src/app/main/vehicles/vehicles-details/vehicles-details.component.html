@@ -4,8 +4,8 @@
     <h2>{{ 'VEHICLE_DATA' | oTranslate }}</h2>
     <div class="inline-fields">
       <o-text-input attr="VHC_PLATE"></o-text-input>
-      <o-combo attr="USR_ID" service="vehicles" entity="userTransporter" value-column="USR_ID" columns="USR_ID;USR_NAME"
-        visible-columns="USR_NAME" null-selection="no" searchable="yes" required="yes"></o-combo>
+      <o-combo attr="USR_ID" label="user" service="vehicles" entity="userTransporter" value-column="USR_ID"
+        columns="USR_ID;USR_NAME" visible-columns="USR_NAME" null-selection="no" searchable="yes"></o-combo>
     </div>
   </div>
 </o-form>
