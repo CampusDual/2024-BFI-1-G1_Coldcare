@@ -165,8 +165,6 @@ public class TransportsService implements ITransportsService {
 
             SQLStatementBuilder.BasicExpression userHasAccess = new SQLStatementBuilder.BasicExpression(userIsTransporter, SQLStatementBuilder.BasicOperator.OR_OP, userWasAsgnToVhcAndTrUsrNull);
 
-
-
             keyMap.put(SQLStatementBuilder.ExtendedSQLConditionValuesProcessor.EXPRESSION_KEY, userHasAccess);
         }
 
