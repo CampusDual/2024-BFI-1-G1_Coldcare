@@ -31,7 +31,7 @@ public class TransportsCoordinatesService implements ITransportsCoordinatesServi
     public EntityResult transportsCoordinatesInsert(Map<String, Object> attrMap)
             throws OntimizeJEERuntimeException {
 
-        Integer trpId = (Integer) attrMap.get(TransportsCoordinatesDao.TRP_ID);
+        Integer trpId = Integer.parseInt(attrMap.get(TransportsCoordinatesDao.TRP_ID).toString());
 
         Map<String, Object> filter = Map.of(TransportsCoordinatesDao.TRP_ID, trpId);
         List<String> columns = List.of(TransportsCoordinatesDao.TC_HAS_ALERT);
