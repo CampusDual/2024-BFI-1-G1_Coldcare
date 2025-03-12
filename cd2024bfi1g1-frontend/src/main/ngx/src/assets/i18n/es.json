@@ -280,5 +280,7 @@
   "ERROR_TITLE": "Error",
   "ERROR_MSG_GRAPH_QUERY": "Error al recuperar los contenedores del lote",
   "ALERT_GENERATED": "Se ha producido una alerta",
-  "ALERT_TITLE": "ALERTA"
+  "ALERT_TITLE": "ALERTA",
+  "alert_title_key": "Alerta Importante",
+  "alert_body_key": "Se ha generado una nueva alerta."
 }

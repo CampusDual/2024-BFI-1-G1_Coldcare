@@ -280,5 +280,7 @@
   "ERROR_TITLE": "Error",
   "ERROR_MSG_GRAPH_QUERY": "Error retrieving containers from the batch",
   "ALERT_GENERATED": "An alert has been triggered",
-  "ALERT_TITLE": "ALERT"
+  "ALERT_TITLE": "ALERT",
+  "alert_title_key": "Important Alert",
+  "alert_body_key": "A new alert has been generated."
 }
