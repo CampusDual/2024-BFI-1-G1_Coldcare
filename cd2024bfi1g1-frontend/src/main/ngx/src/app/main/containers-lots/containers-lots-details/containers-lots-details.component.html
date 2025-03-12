@@ -58,8 +58,9 @@
           automatic-registering="false" [data]="maxTimeVisible"></o-text-input>
 
         <o-text-input #activeAlert attr="ACTIVE_ALERTS" read-only="true" hidden></o-text-input>
-        <o-text-input attr="ALT_ACTIVE_TEST" read-only="true" automatic-registering="false" automatic-binding="false"
-          [data]="translateLabel()"></o-text-input>
+        <div id="alerts-count">
+          <div id="alerts-text">{{translateLabel()}}</div>
+        </div>
       </div>
     </div>
 

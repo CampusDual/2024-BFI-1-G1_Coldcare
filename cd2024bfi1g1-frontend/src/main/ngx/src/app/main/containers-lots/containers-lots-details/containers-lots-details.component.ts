@@ -206,10 +206,13 @@ export class ContainersLotsDetailsComponent {
 
   public translateLabel() {
     if (this.activeAlertVisible === 0) {
+      document.getElementById("alerts-text").classList.remove("alerts-count-active");
       return this.translator.get("NO_ALERTS_ACTIVE_TEXT");
     } else if (this.activeAlertVisible === 1) {
+      document.getElementById("alerts-text").classList.add("alerts-count-active");
       return this.translator.get("ALERTS_ACTIVE_TEXT_SINGULAR").replace("#ALT_COUNT#", this.activeAlertVisible.toString());
     } else {
+      document.getElementById("alerts-text").classList.add("alerts-count-active");
       return this.translator.get("ALERTS_ACTIVE_TEXT").replace("#ALT_COUNT#", this.activeAlertVisible.toString());
     }
   }
