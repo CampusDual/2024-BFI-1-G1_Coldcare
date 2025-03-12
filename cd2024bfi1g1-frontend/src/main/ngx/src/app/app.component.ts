@@ -1,6 +1,6 @@
-import { Component, Injector, ChangeDetectorRef } from '@angular/core';
+import { Component, Injector, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AppearanceService, OntimizeMatIconRegistry, OntimizeService } from 'ontimize-web-ngx';
+import { AppearanceService, OntimizeMatIconRegistry } from 'ontimize-web-ngx';
 import { GeolocationService } from './services/geolocation.service';
 import { AlertaService } from './services/alerta.service';
 
@@ -10,7 +10,7 @@ import { AlertaService } from './services/alerta.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
   constructor(
     private router: Router,
@@ -18,7 +18,6 @@ export class AppComponent {
     protected injector: Injector,
     private geolocationService: GeolocationService,
     private alertaService: AlertaService,
-    private oService: OntimizeService
   ) {
     this.ontimizeMatIconRegistry = this.injector.get(OntimizeMatIconRegistry);
     if (window['__ontimize'] !== undefined && window['__ontimize']['redirect'] !== undefined) {
@@ -26,6 +25,7 @@ export class AppComponent {
       window['__ontimize']['redirect'] = undefined;
       this.router.navigate([redirectTo]);
     }
+
   }
 
   ontimizeMatIconRegistry: OntimizeMatIconRegistry;
@@ -41,13 +41,11 @@ export class AppComponent {
       this.geolocationService.continueTracking(trpId);
     }
 
-    this.oService.configureService(this.oService.getDefaultServiceConfiguration("users"));
-    this.oService.query({}, ["ROL_ID", "ROL_NAME"], "myRole").subscribe(ress => {
-      if (ress['data'][0]['ROL_NAME'] == "user") {
-        setInterval(() => {
-          this.alertaService.obtenerAlertas();
-        }, 1000);
-      }
-    });
+
+
+    setInterval(() => {
+      this.alertaService.obtenerAlertas();
+    }, 1000);
+
   }
 }
