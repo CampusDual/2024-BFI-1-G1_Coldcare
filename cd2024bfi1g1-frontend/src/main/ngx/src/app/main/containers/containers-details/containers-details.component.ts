@@ -58,7 +58,16 @@ export class ContainersDetailsComponent {
   }
 
   public translateLabel() {
-    return this.translator.get("ALERTS_COUNT_TEXT").replace("#ALT_COUNT#", this.alertCountVisible.toString());
+    if (this.alertCountVisible === 0) {
+      document.getElementById("alerts-text").classList.remove("alerts-count-active");
+      return this.translator.get("NO_ALERTS_COUNT_TEXT");
+    } else if (this.alertCountVisible === 1) {
+      document.getElementById("alerts-text").classList.add("alerts-count-active");
+      return this.translator.get("ALERTS_COUNT_TEXT_SINGULAR").replace("#ALT_COUNT#", this.alertCountVisible.toString());
+    } else {
+      document.getElementById("alerts-text").classList.add("alerts-count-active");
+      return this.translator.get("ALERTS_COUNT_TEXT").replace("#ALT_COUNT#", this.alertCountVisible.toString());
+    }
   }
 
   public openContainersLots(selected: any) {

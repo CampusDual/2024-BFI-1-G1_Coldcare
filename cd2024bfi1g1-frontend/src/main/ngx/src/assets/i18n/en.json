@@ -246,7 +246,9 @@
   "HAS_REPITED": "Lot containers",
   "ERROR_EXISTING_CONTAINER": "There is already a container with that name",
   "FILTER_MEASUREMENTS": "Measurements filter",
-  "ALERTS_COUNT_TEXT": "There have been #ALT_COUNT# alert/s",
+  "ALERTS_COUNT_TEXT": "There have been #ALT_COUNT# alerts",
+  "ALERTS_COUNT_TEXT_SINGULAR": "There has been #ALT_COUNT# alert",
+  "NO_ALERTS_COUNT_TEXT": "There have been no alerts",
   "ALT_COUNT_VISIBLE": " ",
   "CONCEPT": "Concept",
   "COST": "Cost",
@@ -281,7 +283,9 @@
   "ALT_DURATION": "Duration",
   "MIN_TEMP_DEV": "Min Temp",
   "MAX_TEMP_DEV": "Max Temp",
-  "ALERTS_ACTIVE_TEXT": "There are #ALT_COUNT# active alert/s",
+  "ALERTS_ACTIVE_TEXT": "There are #ALT_COUNT# active alerts",
+  "ALERTS_ACTIVE_TEXT_SINGULAR": "There is #ALT_COUNT# active alert",
+  "NO_ALERTS_ACTIVE_TEXT": "There are no active alerts",
   "ALT_ACTIVE_TEST": " ",
   "DEVICES_REQUESTS": "Measurements per device"
 }

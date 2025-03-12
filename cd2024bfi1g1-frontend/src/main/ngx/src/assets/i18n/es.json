@@ -246,7 +246,9 @@
   "HAS_REPITED": "Contenedores del lote",
   "ERROR_EXISTING_CONTAINER": "Ya existe un contenedor con ese nombre",
   "FILTER_MEASUREMENTS": "Filtro de medidas",
-  "ALERTS_COUNT_TEXT": "Se han producido #ALT_COUNT# alerta/s",
+  "ALERTS_COUNT_TEXT": "Se han producido #ALT_COUNT# alertas",
+  "ALERTS_COUNT_TEXT_SINGULAR": "Se ha producido #ALT_COUNT# alerta",
+  "NO_ALERTS_COUNT_TEXT": "No se han producido alertas",
   "ALT_COUNT_VISIBLE": " ",
   "CONCEPT": "Concepto",
   "COST": "Importe",
@@ -281,7 +283,9 @@
   "ALT_DURATION": "Duración",
   "MIN_TEMP_DEV": "Tª Min",
   "MAX_TEMP_DEV": "Tª Max",
-  "ALERTS_ACTIVE_TEXT": "Hay #ALT_COUNT# alerta/s activa/s",
+  "ALERTS_ACTIVE_TEXT": "Hay #ALT_COUNT# alertas activas",
+  "ALERTS_ACTIVE_TEXT_SINGULAR": "Hay #ALT_COUNT# alerta activa",
+  "NO_ALERTS_ACTIVE_TEXT": "No hay alertas activas",
   "ALT_ACTIVE_TEST": " ",
   "DEVICES_REQUESTS": "Medidas por dispositivo"
 }

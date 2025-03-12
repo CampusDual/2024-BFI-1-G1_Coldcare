@@ -41,3 +41,9 @@ p {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
 }
+
+.alerts-count-active {
+    background-color: #ca1717;
+    color: #fafafa;
+    font-weight: bold;
+}

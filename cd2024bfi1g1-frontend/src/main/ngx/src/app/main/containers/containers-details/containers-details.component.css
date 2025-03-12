@@ -18,10 +18,23 @@ o-slide-toggle {
     grid-column: span 2;
 }
 
-.alerts-count {
+#alerts-count {
     grid-column: span 3;
     text-align: center;
     align-content: center;
+    justify-items: center;
+}
+
+#alerts-text {
+    width: fit-content;
+    padding: 3px 10px;
+    border-radius: 4px;
+}
+
+.alerts-count-active {
+    background-color: #ca1717;
+    color: #fafafa;
+    font-weight: bold;
 }
 
 o-table {
