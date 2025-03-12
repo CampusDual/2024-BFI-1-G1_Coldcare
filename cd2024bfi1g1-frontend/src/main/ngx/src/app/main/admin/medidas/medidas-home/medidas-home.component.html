@@ -4,7 +4,7 @@
     <div>
       <h2>{{ 'FILTER_MEASUREMENTS' | oTranslate }}</h2>
       <div class="inline-fields">
-        <o-combo attr="DEV_ID" label="DEVICE_NAME_INPUT" service="devices" entity="devices" value-column="DEV_ID"
+        <o-combo attr="DEV_ID" label="DEV" service="devices" entity="devices" value-column="DEV_ID"
           columns="DEV_ID;DEV_NAME" visible-columns="DEV_NAME" null-selection="yes" searchable="yes"
           clear-button="yes"></o-combo>
         <o-daterange-input attr="ME_DATE" label="DATE_RANGE_INPUT" read-only="no" required="no" format="DD/MM/YYYY"
