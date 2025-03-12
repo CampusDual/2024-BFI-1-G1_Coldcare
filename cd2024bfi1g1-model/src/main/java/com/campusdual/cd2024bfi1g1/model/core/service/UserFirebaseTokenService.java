@@ -39,7 +39,15 @@ public class UserFirebaseTokenService implements IUserFirebaseTokenService {
         String token = (String) attrMap.get(UserFirebaseTokenDao.UFT_TOKEN);
         Integer cmpId = Util.getUserCompanyId(this.daoHelper, this.userDao);
 
+        Map<String, Object> userRoleFilter = new HashMap<>();
+        userRoleFilter.put("USR_ID", userId);
 
+        EntityResult roleResult = this.daoHelper.query(this.userDao, userRoleFilter, List.of("USR_ID"), "getUserByRole");
+
+        if (roleResult.calculateRecordNumber() == 0) {
+            System.out.println("El usuario no tiene el rol 'user'. No se puede insertar el token.");
+            return null;
+        }
         Map<String, Object> filter = new HashMap<>();
         filter.put(UserFirebaseTokenDao.UFT_TOKEN, token);
 
@@ -51,7 +59,6 @@ public class UserFirebaseTokenService implements IUserFirebaseTokenService {
             Integer uftId = (Integer) existingResult.getRecordValues(0).get(UserFirebaseTokenDao.UFT_ID);
 
             if (existingUserId.equals(userId)) {
-                System.out.println("Ya existe este usuario con el mismo token");
                 return null;
 
             } else {

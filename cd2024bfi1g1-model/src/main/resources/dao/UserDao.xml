@@ -59,5 +59,23 @@
                 ]]>
 			</Sentence>
 		</Query>
+		<Query id="getUserByRole">
+			<AmbiguousColumns>
+				<AmbiguousColumn name="CMP_ID" prefix="u" />
+				<AmbiguousColumn name="USR_ID" prefix="u" />
+			</AmbiguousColumns>
+			<Sentence>
+				<![CDATA[
+                    SELECT
+                        #COLUMNS#
+                    FROM
+                        ${mainschema}.usr_user u
+                    INNER JOIN usr_user_role usr ON u.usr_id = usr.usr_id
+                    INNER JOIN usr_role ur ON ur.rol_id = usr.rol_id
+                    #WHERE# AND ur.rol_name = 'user'
+                    #ORDER#
+                ]]>
+			</Sentence>
+		</Query>
 	</Queries>
 </JdbcEntitySetup>
