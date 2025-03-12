@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { AppearanceService, OntimizeMatIconRegistry } from 'ontimize-web-ngx';
 import { GeolocationService } from './services/geolocation.service';
 import { FirebaseService } from './firebase.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { DialogService } from 'ontimize-web-ngx';
 
 @Component({
   selector: 'o-app',
@@ -26,13 +26,20 @@ export class AppComponent {
 
     // Activar notificaciones y mostrar en un Snackbar
     this.firebaseService.activarNotificaciones((body: string) => {
-      this.showSnackBar(body);
+      this.showAlertDialog(body);
     });
 
   }
 
 
-  constructor(private router: Router, protected appearanceService: AppearanceService, protected injector: Injector, private geolocationService: GeolocationService, private firebaseService: FirebaseService, private snackBar: MatSnackBar) {
+  constructor(
+    private router: Router,
+    protected appearanceService: AppearanceService,
+    protected injector: Injector,
+    private geolocationService: GeolocationService,
+    private firebaseService: FirebaseService,
+    private dialogService: DialogService // Inyectamos DialogService
+  ) {
     this.ontimizeMatIconRegistry = this.injector.get(OntimizeMatIconRegistry);
     if (window['__ontimize'] !== undefined && window['__ontimize']['redirect'] !== undefined) {
       let redirectTo = window['__ontimize']['redirect'];
@@ -43,10 +50,8 @@ export class AppComponent {
 
 
   // Método para mostrar el snackBar
-  showSnackBar(message: string) {
-    this.snackBar.open(message, 'Cerrar', {
-      duration: 3000,  // Duración de la notificación
-    });
+  showAlertDialog(message: string) {
+    this.dialogService.alert('ALERT_TITLE', 'ALERT_GENERATED');
   }
 
 }

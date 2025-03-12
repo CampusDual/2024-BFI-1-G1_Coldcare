@@ -279,5 +279,6 @@
   "MAX_TEMP_DEV": "Max Temp (ºC)",
   "ERROR_TITLE": "Error",
   "ERROR_MSG_GRAPH_QUERY": "Error retrieving containers from the batch",
-  "ALERT_GENERATED": "An alert has been triggered"
+  "ALERT_GENERATED": "An alert has been triggered",
+  "ALERT_TITLE": "ALERT"
 }

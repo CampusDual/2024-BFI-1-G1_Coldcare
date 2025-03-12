@@ -279,5 +279,6 @@
   "MAX_TEMP_DEV": "Tª Max (ºC)",
   "ERROR_TITLE": "Error",
   "ERROR_MSG_GRAPH_QUERY": "Error al recuperar los contenedores del lote",
-  "ALERT_GENERATED": "Se ha producido una alerta"
+  "ALERT_GENERATED": "Se ha producido una alerta",
+  "ALERT_TITLE": "ALERTA"
 }
