@@ -27,7 +27,7 @@ td {
     text-align: center;
 }
 
-#row1 {
+.row1 {
     display: grid;
     grid-template-columns: 1fr 1fr;
     margin-bottom: 50px;
@@ -38,7 +38,7 @@ td {
     margin-left: 15px;
 }
 
-#usage-detail-grid {
+.usage-detail-grid {
     height: 60%;
     display: grid;
     grid-template-columns: repeat(3, 1fr);

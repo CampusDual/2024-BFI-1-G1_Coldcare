@@ -22,11 +22,6 @@ p {
     margin: 0;
 }
 
-.extend {
-    flex: 1;
-    width: 50%;
-}
-
 #tablaMedidasContainer {
     display: none !important;
 }

@@ -2,10 +2,10 @@
     keys="BIL_ID" keys-sql-types="INTEGER" columns="BIL_ID" detect-changes-on-blur="no" (onDataLoaded)="fillTable()"
     header-actions="R" undo-button="no" editable-detail="no">
     <div class="full-screen-background-with-toolbar">
-        <div id="row1">
+        <div class="row1">
             <div id="usage-detail">
                 <h2>{{ 'USAGE_DETAIL' | oTranslate }}</h2>
-                <div id="usage-detail-grid">
+                <div class="usage-detail-grid">
                     <o-text-input attr="CMP_NAME" read-only="true"></o-text-input>
                     <o-text-input #bil_year attr="BIL_YEAR" read-only="true" hidden></o-text-input>
                     <o-text-input #bil_month attr="BIL_MONTH" read-only="true" hidden></o-text-input>

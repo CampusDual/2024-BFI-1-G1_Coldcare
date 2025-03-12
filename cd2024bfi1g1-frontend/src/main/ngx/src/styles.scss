@@ -411,3 +411,36 @@ o-combo-search {
   background-color: #8ab2d2;
 
 }
+
+@media (max-width: 960px) {
+  .inline-fields,
+  .inline-fields-4,
+  .inline-fields-3,
+  .usage-detail-grid,
+  .container-data-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+  .row1 {
+    grid-template-columns: 1fr !important;
+  }
+  #alerts-count {
+    grid-column: span 1 !important;
+    justify-items: start !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .inline-fields,
+  .inline-fields-4,
+  .inline-fields-3,
+  .usage-detail-grid,
+  .container-data-grid,
+  .row1 {
+    grid-template-columns: 1fr !important;
+  }
+  .container-name,
+  #alerts-count {
+    grid-column: span 1 !important;
+    justify-items: start !important;
+  }
+}
