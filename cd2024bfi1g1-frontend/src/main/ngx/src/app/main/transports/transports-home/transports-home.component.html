@@ -4,7 +4,7 @@
     columns="TRP_ID;ORIGIN_NAME;DESTINATION_NAME;CNT_NAME;VHC_PLATE;TRP_DATE;USR_NAME;TST_NAME"
     visible-columns="ORIGIN_NAME;DESTINATION_NAME;CNT_NAME;VHC_PLATE;TRP_DATE;USR_NAME;TST_NAME"
     sort-columns="TRP_DATE:ASC" delete-button="false" virtual-scroll="false" horizontal-scroll="true"
-    (onDataLoaded)="fillData()">
+    (onDataLoaded)="fillData()" query-rows="20">
     <o-table-column attr="ORIGIN_NAME" title="TRP_ORIGIN" title-align="center" content-align="center"></o-table-column>
     <o-table-column attr="DESTINATION_NAME" title="TRP_DESTINATION" title-align="center"
       content-align="center"></o-table-column>
