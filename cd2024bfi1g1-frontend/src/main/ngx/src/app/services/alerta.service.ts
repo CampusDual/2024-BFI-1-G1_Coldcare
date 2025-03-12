@@ -20,11 +20,11 @@ export class AlertaService {
 
     this.oService.configureService(this.oService.getDefaultServiceConfiguration("users"));
     this.oService.query({}, ["ROL_ID", "ROL_NAME"], "myRole").subscribe(ress => {
-      console.log(ress)
-      if (ress['data'][0]['ROL_NAME'] == "user") {
 
+
+      if (ress['data'][0]['ROL_NAME'] == "user") {
         this.ontimizeService.configureService(this.ontimizeService.getDefaultServiceConfiguration('alerts'));
-        this.ontimizeService.query(undefined, ['ALT_ID', 'ALT_STATE'], 'alerts').subscribe({
+        this.ontimizeService.query({}, ['ALT_ID', 'ALT_STATE'], 'alerts').subscribe({
           next: (value: any) => {
             let alertasPendientes = 0;
             this.alertsIds = value.data;
@@ -50,11 +50,8 @@ export class AlertaService {
 
           }
         });
-
       }
     });
-
   }
-
 }
 

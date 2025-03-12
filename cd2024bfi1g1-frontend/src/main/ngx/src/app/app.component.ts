@@ -2,7 +2,7 @@ import { Component, Injector, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppearanceService, OntimizeMatIconRegistry } from 'ontimize-web-ngx';
 import { GeolocationService } from './services/geolocation.service';
-import { AlertaService } from './services/alerta.service';
+
 
 
 @Component({
@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
     protected appearanceService: AppearanceService,
     protected injector: Injector,
     private geolocationService: GeolocationService,
-    private alertaService: AlertaService,
+
   ) {
     this.ontimizeMatIconRegistry = this.injector.get(OntimizeMatIconRegistry);
     if (window['__ontimize'] !== undefined && window['__ontimize']['redirect'] !== undefined) {
@@ -40,12 +40,5 @@ export class AppComponent implements OnInit {
       const trpId = Number(localStorage.getItem('TRP_ID'));
       this.geolocationService.continueTracking(trpId);
     }
-
-
-
-    setInterval(() => {
-      this.alertaService.obtenerAlertas();
-    }, 1000);
-
   }
 }

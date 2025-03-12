@@ -56,6 +56,7 @@ export class LoginComponent implements OnInit {
       this.router.navigate([this.redirect]);
     } else {
       localStorage.removeItem('visited');
+      localStorage.removeItem('alerts');
       this.authService.clearSessionData();
     }
   }
