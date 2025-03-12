@@ -6,7 +6,6 @@ import { ContainersHomeComponent } from './containers-home/containers-home.compo
 import { ContainersNewComponent } from './containers-new/containers-new.component';
 import { ContainersDetailsComponent } from './containers-details/containers-details.component';
 import { SharedModule } from "../../shared/shared.module";
-import { ContainersHomeBooleanRendererComponent } from './containers-home-boolean-renderer/containers-home-boolean-renderer.component';
 import { ContainersLotsNewComponent } from './containers-lots-new/containers-lots-new.component';
 
 @NgModule({
@@ -14,7 +13,6 @@ import { ContainersLotsNewComponent } from './containers-lots-new/containers-lot
     ContainersHomeComponent,
     ContainersNewComponent,
     ContainersDetailsComponent,
-    ContainersHomeBooleanRendererComponent,
     ContainersLotsNewComponent
   ],
   imports: [

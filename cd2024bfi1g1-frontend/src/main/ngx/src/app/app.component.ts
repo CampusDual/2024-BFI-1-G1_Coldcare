@@ -1,6 +1,7 @@
 import { Component, Injector } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppearanceService, OntimizeMatIconRegistry } from 'ontimize-web-ngx';
+import { GeolocationService } from './services/geolocation.service';
 import { FirebaseService } from './firebase.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -17,6 +18,12 @@ export class AppComponent {
       this.ontimizeMatIconRegistry.addOntimizeSvgIcon('containerIcon', 'assets/icons/container.svg');
     }
 
+    if (this.geolocationService.checkTrackingStatus()) {
+      console.log('Tracking activo al recargar. Reiniciando...');
+      const trpId = Number(localStorage.getItem('TRP_ID'));
+      this.geolocationService.continueTracking(trpId);
+    }
+
     // Activar notificaciones y mostrar en un Snackbar
     this.firebaseService.activarNotificaciones((body: string) => {
       this.showSnackBar(body);
@@ -25,7 +32,7 @@ export class AppComponent {
   }
 
 
-  constructor(private router: Router, protected appearanceService: AppearanceService, protected injector: Injector, private firebaseService: FirebaseService, private snackBar: MatSnackBar) {
+  constructor(private router: Router, protected appearanceService: AppearanceService, protected injector: Injector, private geolocationService: GeolocationService, private firebaseService: FirebaseService, private snackBar: MatSnackBar) {
     this.ontimizeMatIconRegistry = this.injector.get(OntimizeMatIconRegistry);
     if (window['__ontimize'] !== undefined && window['__ontimize']['redirect'] !== undefined) {
       let redirectTo = window['__ontimize']['redirect'];

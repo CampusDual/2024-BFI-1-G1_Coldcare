@@ -74,8 +74,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: coldcare33@gmail.com
-    password: emqo xnto fdzz sqrt
+    username: noreplycoldcare@gmail.com
+    password: yvap gnqs wzlh qvru
     properties:
       mail.smtp.auth: true
       mail.smtp.starttls.enable: true

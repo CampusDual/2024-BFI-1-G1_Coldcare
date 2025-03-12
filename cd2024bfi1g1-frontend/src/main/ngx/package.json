@@ -36,6 +36,8 @@
     "@angular/service-worker": "^15.2.10",
     "@angular/upgrade": "^15.2.10",
     "core-js": "^3.6.4",
+    "cytoscape": "^3.31.1",
+    "cytoscape-dagre": "^2.5.0",
     "firebase": "^11.4.0",
     "leaflet-routing-machine": "^3.2.12",
     "ngx-material-timepicker": "5.4.3",

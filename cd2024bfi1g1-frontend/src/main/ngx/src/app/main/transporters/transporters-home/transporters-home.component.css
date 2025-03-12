@@ -1,0 +1,68 @@
+.row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  
+  .title {
+    font-weight: bold;
+  }
+  
+  mat-icon {
+    display: inline-flex;
+    font-size: 24px;
+    vertical-align: middle;
+  }
+  
+  .pending {
+    animation: spin 2s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .initiated {
+    animation: moveTruck 3s linear infinite;
+  }
+  
+  @keyframes moveTruck {
+    0% {
+      transform: translateX(-20px);
+      opacity: 0;
+    }
+    20% {
+      opacity: 1;
+    }
+    50% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    100% {
+      transform: translateX(5px);
+    }
+  }
+  
+  .finished {
+    color: green;
+    animation: pulse 1.5s;
+  }
+  
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.2);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  
