@@ -2,6 +2,10 @@
   show-header="true" after-insert-mode="close" confirm-exit="false">
   <div class="full-screen-background-with-toolbar">
     <h2>{{ 'CONTAINER_NEW' | oTranslate }}</h2>
-    <o-text-input attr="CNT_NAME" label="NAME" class="inline-fields" required="yes"></o-text-input>
+    <div class="inline-fields">
+      <o-text-input attr="CNT_NAME" label="NAME" required="yes"></o-text-input>
+      <o-slide-toggle attr="CNT_MOBILITY" label="CURRENT_MOBILITY" read-only="no"
+        style="margin-left: 5px;"></o-slide-toggle>
+    </div>
   </div>
 </o-form>
