@@ -7,7 +7,6 @@ import { Title } from '@angular/platform-browser';
 })
 export class AlertaService {
 
-
   alertsIds: any[] = [];
   constructor(
     private titleService: Title,
@@ -46,5 +45,4 @@ export class AlertaService {
       }
     });
   }
-
 }
