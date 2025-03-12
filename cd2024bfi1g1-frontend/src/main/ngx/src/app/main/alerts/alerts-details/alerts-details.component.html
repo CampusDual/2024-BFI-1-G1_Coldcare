@@ -54,28 +54,26 @@
                     automatic-binding="false"></o-text-input>
             </div>
         </div>
-        <div id="tablaMedidasContainer">
-            <o-table #measurementsTable attr="tablaMedidas" service="measurements" entity="measurements"
-                parent-keys="ALT_ID" columns="DEV_ID;DEV_NAME;ME_DATE;ME_TEMP;ME_HUMIDITY"
-                (onDataLoaded)="fillChart($event)">
-                <o-table-column attr="ME_DATE" type="date"></o-table-column>
-                <o-table-column attr="ME_TEMP" type="real"></o-table-column>
-                <o-table-column attr="ME_HUMIDITY" type="real"></o-table-column>
+        <div>
+            <div id="tablaMedidasContainer">
+                <o-table #measurementsTable attr="tablaMedidas" service="measurements" entity="measurements"
+                    parent-keys="ALT_ID" columns="DEV_ID;DEV_NAME;ME_DATE;ME_TEMP;ME_HUMIDITY"
+                    (onDataLoaded)="fillChart($event)">
+                    <o-table-column attr="ME_DATE" type="date"></o-table-column>
+                    <o-table-column attr="ME_TEMP" type="real"></o-table-column>
+                    <o-table-column attr="ME_HUMIDITY" type="real"></o-table-column>
 
-            </o-table>
-        </div>
-        <div class="chart-grid">
-            <div>
+                </o-table>
+            </div>
+            <div class="chart-grid">
                 <o-chart #lineChartBasic type="line" [chart-parameters]="chartParametersTemp"
                     x-label="{{ 'TIME' | oTranslate }}" y-label="{{ 'TEMPERATURE' | oTranslate }}"
-                    [color]="colorSchemeTemp" [data]="dataArrayTemp" show-grid-lines="true"
-                    style="height: 50vh; max-height: none; overflow: hidden"></o-chart>
+                    [color]="colorSchemeTemp" [data]="dataArrayTemp" show-grid-lines="true"></o-chart>
             </div>
-            <div>
+            <div class="chart-grid" style="margin-top: 24px;">
                 <o-chart #lineChartBasic type="line" [chart-parameters]="chartParametersHum"
                     x-label="{{ 'TIME' | oTranslate }}" y-label="{{ 'HUMIDITY' | oTranslate }}"
-                    [color]="colorSchemeTemp" [data]="dataArrayHum" show-grid-lines="true"
-                    style="height: 50vh; max-height: none; overflow: hidden"></o-chart>
+                    [color]="colorSchemeTemp" [data]="dataArrayHum" show-grid-lines="true"></o-chart>
             </div>
         </div>
     </div>

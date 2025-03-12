@@ -33,11 +33,11 @@
           automatic-binding="false" automatic-registering="false"></o-text-input>
 
         <o-text-input #lastTemp attr="ME_TEMP" title="LAST_TEMP" read-only="yes" hidden></o-text-input>
-        <o-text-input attr="MAX_TEMP_TEXT" label="LAST_TEMP" read-only="yes" [data]="lastTempVisible"
+        <o-text-input attr="ME_TEMP_TEXT" label="LAST_TEMP" read-only="yes" [data]="lastTempVisible"
           automatic-binding="false" automatic-registering="false"></o-text-input>
 
         <o-text-input #lastHumidity attr="ME_HUMIDITY" title="LAST_HUMIDITY" read-only="yes" hidden></o-text-input>
-        <o-text-input attr="MAX_HUMIDITY_TEXT" label="LAST_HUMIDITY" read-only="yes" [data]="lastHumidityVisible"
+        <o-text-input attr="ME_HUMIDITY_TEXT" label="LAST_HUMIDITY" read-only="yes" [data]="lastHumidityVisible"
           automatic-binding="false" automatic-registering="false"></o-text-input>
       </div>
     </div>
@@ -66,7 +66,7 @@
 
     <div>
       <h3>{{ 'CL_EDIT_DATE_RANGE' | oTranslate }}</h3>
-      <div id="date-range" class="inline-fields">
+      <div id="date-range" class="inline-fields-4">
         <o-date-input attr="CL_START_DATE" required="yes"></o-date-input>
         <o-date-input attr="CL_END_DATE"></o-date-input>
       </div>
@@ -79,8 +79,8 @@
             {{ 'TAB_TRANSFER' | oTranslate }}
           </div>
         </ng-template>
-        <div class="row1">
-          <div>
+        <o-row>
+          <o-column class="extend">
             <o-table attr="clOriginTable" title="CL_ORIGIN" show-title="yes" service="transfers"
               entity="transfersOrigin" keys="TRA_ID" parent-keys="CL_ID"
               columns="TRA_ID;CNT_ID;CL_ID;CNT_NAME;CL_START_DATE;CL_END_DATE"
@@ -91,8 +91,8 @@
               <o-table-column attr="CL_START_DATE" type="date"></o-table-column>
               <o-table-column attr="CL_END_DATE" type="date"></o-table-column>
             </o-table>
-          </div>
-          <div>
+          </o-column>
+          <o-column class="extend">
             <o-table attr="clDestinyTable" title="CL_DESTINY" show-title="yes" service="transfers"
               entity="transfersDestiny" keys="TRA_ID" parent-keys="CL_ID"
               columns="TRA_ID;CNT_ID;CL_ID;CNT_NAME;CL_START_DATE;CL_END_DATE"
@@ -103,8 +103,8 @@
               <o-table-column attr="CL_START_DATE" type="date"></o-table-column>
               <o-table-column attr="CL_END_DATE" type="date"></o-table-column>
             </o-table>
-          </div>
-        </div>
+          </o-column>
+        </o-row>
       </mat-tab>
 
       <mat-tab>
@@ -117,8 +117,7 @@
           <div id="tablaMedidasContainer">
             <o-table #measurementsTable attr="tablaMedidas" service="measurements" entity="measurements"
               parent-keys="CL_ID" columns="DEV_ID;DEV_NAME;ME_DATE;ME_TEMP;ME_HUMIDITY"
-              (onDataLoaded)="fillChart($event)" virtual-scroll="no"
-              style="height: auto; max-height: none; overflow: hidden">
+              (onDataLoaded)="fillChart($event)" virtual-scroll="no">
               <o-table-column attr="ME_DATE" type="date"></o-table-column>
               <o-table-column attr="ME_TEMP" type="real"></o-table-column>
               <o-table-column attr="ME_HUMIDITY" type="real"></o-table-column>
@@ -127,13 +126,12 @@
           <div class="row1">
             <o-chart #lineChartBasic type="line" [chart-parameters]="chartParametersTemp"
               x-label="{{ 'TIME' | oTranslate }}" y-label="{{ 'TEMPERATURE' | oTranslate }}" [color]="colorSchemeTemp"
-              [data]="dataArrayTemp" show-grid-lines="true" virtual-scroll="no"
-              style="height: 50vh; max-height: none; overflow: hidden"></o-chart>
-
+              [data]="dataArrayTemp" show-grid-lines="true" virtual-scroll="no"></o-chart>
+          </div>
+          <div class="row1" style="margin-top: 24px;">
             <o-chart #lineChartBasic type="line" [chart-parameters]="chartParametersHum"
               x-label="{{ 'TIME' | oTranslate }}" y-label="{{ 'HUMIDITY' | oTranslate }}" [color]="colorSchemeTemp"
-              [data]="dataArrayHum" show-grid-lines="true" virtual-scroll="no"
-              style="height: 50vh; max-height: none; overflow: hidden"></o-chart>
+              [data]="dataArrayHum" show-grid-lines="true" virtual-scroll="no"></o-chart>
           </div>
         </div>
       </mat-tab>

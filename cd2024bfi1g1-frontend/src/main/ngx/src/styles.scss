@@ -140,10 +140,12 @@ h2 {
   font-weight: bold;
   margin: 0;
   margin-bottom: 10px;
+  color: gray;
 }
 
 h3 {
   margin: 10px 0;
+  color: gray;
 }
 
 /* Tabla */
@@ -388,7 +390,7 @@ o-combo-search {
 
 /* Charts */
 .ngx-charts {
-  margin-bottom: 20px;
+  margin: 20px 0 7px 0;
 }
 
 .chart-legend {
@@ -399,20 +401,23 @@ o-combo-search {
 
 /* Tabs */
 .mat-mdc-tab-group.o-tab-ontimize>.mat-mdc-tab-header .mat-mdc-tab-label-container .mat-mdc-tab.mdc-tab {
-
-  background-color: #6e7d89;
+  background-color: white;
 
   .ng-star-inserted {
-    color: white;
+    color: #333;
   }
 }
 
 .mat-mdc-tab-group.o-tab-ontimize>.mat-mdc-tab-header .mat-mdc-tab-label-container .mat-mdc-tab.mdc-tab.mdc-tab--active {
   background-color: #8ab2d2;
 
+  .ng-star-inserted {
+    color: white;
+  }
 }
 
 @media (max-width: 960px) {
+
   .inline-fields,
   .inline-fields-4,
   .inline-fields-3,
@@ -420,9 +425,11 @@ o-combo-search {
   .container-data-grid {
     grid-template-columns: 1fr 1fr !important;
   }
+
   .row1 {
     grid-template-columns: 1fr !important;
   }
+
   #alerts-count {
     grid-column: span 1 !important;
     justify-items: start !important;
@@ -430,6 +437,7 @@ o-combo-search {
 }
 
 @media (max-width: 480px) {
+
   .inline-fields,
   .inline-fields-4,
   .inline-fields-3,
@@ -438,6 +446,45 @@ o-combo-search {
   .row1 {
     grid-template-columns: 1fr !important;
   }
+
+  .container-name,
+  #alerts-count {
+    grid-column: span 1 !important;
+    justify-items: start !important;
+  }
+}
+
+@media (max-width: 960px) {
+
+  .inline-fields,
+  .inline-fields-4,
+  .inline-fields-3,
+  .usage-detail-grid,
+  .container-data-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  .row1 {
+    grid-template-columns: 1fr !important;
+  }
+
+  #alerts-count {
+    grid-column: span 1 !important;
+    justify-items: start !important;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .inline-fields,
+  .inline-fields-4,
+  .inline-fields-3,
+  .usage-detail-grid,
+  .container-data-grid,
+  .row1 {
+    grid-template-columns: 1fr !important;
+  }
+
   .container-name,
   #alerts-count {
     grid-column: span 1 !important;

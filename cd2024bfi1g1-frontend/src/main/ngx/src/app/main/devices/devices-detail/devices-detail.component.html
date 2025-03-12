@@ -28,30 +28,33 @@
           <o-button attr="clear" (onClick)="dates.clearValue(); filterBuilder.triggerReload()" type="RAISED"
             label="{{ 'CLEAR' | oTranslate }}" class="filter-button"></o-button>
         </div>
+        <!-- Filtro para ambas graficas -->
+        <o-filter-builder #filterBuilder attr="thefilter" filters="DEV_ID:DEV_ID;ME_DATE:ME_DATE"
+          [target]="measurementsTable" query-on-change="yes"
+          [expression-builder]="createFilter.bind(this)"></o-filter-builder>
       </div>
+      <div>
+        <!--Tabla de Medidas-->
+        <o-table #measurementsTable attr="tablaMedidas" service="measurements" entity="measurements"
+          columns="ME_DATE;ME_TEMP;ME_HUMIDITY" (onDataLoaded)="fillChart($event)">
+          <o-table-column attr="ME_DATE" type="date"></o-table-column>
+          <o-table-column attr="ME_TEMP" type="real"></o-table-column>
+          <o-table-column attr="ME_HUMIDITY" type="real"></o-table-column>
+        </o-table>
 
-      <!-- Filtro para ambas graficas -->
-      <o-filter-builder #filterBuilder attr="thefilter" filters="DEV_ID:DEV_ID;ME_DATE:ME_DATE"
-        [target]="measurementsTable" query-on-change="yes"
-        [expression-builder]="createFilter.bind(this)"></o-filter-builder>
-
-      <!--Tabla de Medidas-->
-      <o-table #measurementsTable attr="tablaMedidas" service="measurements" entity="measurements"
-        columns="ME_DATE;ME_TEMP;ME_HUMIDITY" (onDataLoaded)="fillChart($event)">
-        <o-table-column attr="ME_DATE" type="date"></o-table-column>
-        <o-table-column attr="ME_TEMP" type="real"></o-table-column>
-        <o-table-column attr="ME_HUMIDITY" type="real"></o-table-column>
-      </o-table>
-
-      <!-- Grafica Temperatura -->
-      <o-chart #lineChartBasic type="line" [chart-parameters]="chartParametersTemp" x-label="{{ 'TIME' | oTranslate }}"
-        y-label="{{ 'TEMPERATURE' | oTranslate }}" [color]="colorSchemeTemp" [data]="dataArrayTemp"
-        show-grid-lines="true"></o-chart>
-
-      <!-- Grafica Humedad -->
-      <o-chart #lineChartBasic type="line" [chart-parameters]="chartParametersHum" x-label="{{ 'TIME' | oTranslate }}"
-        y-label="{{ 'HUMIDITY' | oTranslate }}" [color]="colorSchemeHum" [data]="dataArrayHum"
-        show-grid-lines="true"></o-chart>
+        <!-- Grafica Temperatura -->
+        <div class="chart-grid">
+          <o-chart #lineChartBasic type="line" [chart-parameters]="chartParametersTemp"
+            x-label="{{ 'TIME' | oTranslate }}" y-label="{{ 'TEMPERATURE' | oTranslate }}" [color]="colorSchemeTemp"
+            [data]="dataArrayTemp" show-grid-lines="true"></o-chart>
+        </div>
+        <div class="chart-grid" style="margin-top: 24px;">
+          <!-- Grafica Humedad -->
+          <o-chart #lineChartBasic type="line" [chart-parameters]="chartParametersHum"
+            x-label="{{ 'TIME' | oTranslate }}" y-label="{{ 'HUMIDITY' | oTranslate }}" [color]="colorSchemeHum"
+            [data]="dataArrayHum" show-grid-lines="true"></o-chart>
+        </div>
+      </div>
     </div>
   </div>
 </o-form>
