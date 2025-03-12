@@ -8,8 +8,9 @@ export class DateTransformPipe implements PipeTransform {
 
   transform(value: number): string {
     if (!value) return '';
-
-    return moment(value).format("L");
+  
+    return moment(value).format("DD/MM/YYYY");
   }
+  
 
 }
