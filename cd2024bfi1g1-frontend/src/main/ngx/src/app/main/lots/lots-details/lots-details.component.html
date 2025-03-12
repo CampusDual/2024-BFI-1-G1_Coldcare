@@ -1,5 +1,5 @@
 <o-form attr="lotsDetail" parent-keys="LOT_ID" keys="LOT_ID" keys-sql-types="INTEGER" service="lots" entity="lots"
-  header-actions="R;U">
+  header-actions="R;U" (onDataLoaded)="updateGraph($event)">
   <div class="full-screen-background-with-toolbar">
     <div class="section">
       <h2>{{ 'LOT_DETAIL' | oTranslate }}</h2>
@@ -20,8 +20,8 @@
         columns="CL_ID;CNT_NAME;CNT_MOBILITY;CNT_ID;CL_START_DATE;CL_END_DATE;HAS_ALERT;ME_TEMP;ME_HUMIDITY"
         visible-columns="CNT_NAME;CNT_MOBILITY;CL_START_DATE;CL_END_DATE;ME_TEMP;ME_HUMIDITY;ACTIVE;HAS_ALERT"
         delete-button="no" insert-button="false" refresh-button="true"
-        sort-columns="CL_END_DATE:DESC;CL_START_DATE:DESC" virtual-scroll="false" horizontal-scroll="true"
-        (onClick)="openContainersLots($event)" detail-mode="none">
+        sort-columns="CL_END_DATE:DESC;CL_START_DATE:DESC" virtual-scroll="false" (onClick)="openContainersLots($event)"
+        detail-mode="none">
         <o-table-column attr="CNT_NAME" title="CNT_NAME" title-align="center" content-align="center"></o-table-column>
         <o-table-column attr="CNT_MOBILITY" title="CNT_MOBILITY" title-align="center" content-align="center">
           <app-containers-home-boolean-renderer /></o-table-column>
@@ -29,9 +29,8 @@
           content-align="center"></o-table-column>
         <o-table-column attr="CL_END_DATE" title="CL_END_DATE" type="date" format="DD/MM/YYYY" title-align="center"
           content-align="center"></o-table-column>
-        <o-table-column attr="ME_TEMP" title="LAST_TEMP_COL" content-align="center"
-          title-align="center"></o-table-column>
-        <o-table-column attr="ME_HUMIDITY" title="LAST_HUMIDITY_COL" content-align="center"
+        <o-table-column attr="ME_TEMP" title="LAST_TEMP" content-align="center" title-align="center"></o-table-column>
+        <o-table-column attr="ME_HUMIDITY" title="LAST_HUMIDITY" content-align="center"
           title-align="center"></o-table-column>
         <o-table-column attr="ACTIVE" title="ACTIVE" title-align="center" content-align="center">
           <in-date-range-boolean-renderer />
@@ -40,6 +39,9 @@
           <alert-boolean-renderer />
         </o-table-column>
       </o-table>
+    </div>
+    <div id="graphDiv">
+      <app-lots-graph [graphData]="graphData"></app-lots-graph>
     </div>
   </div>
 </o-form>

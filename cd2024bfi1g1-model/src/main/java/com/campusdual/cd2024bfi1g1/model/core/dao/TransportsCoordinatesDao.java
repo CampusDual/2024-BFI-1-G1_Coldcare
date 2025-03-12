@@ -19,7 +19,8 @@ public class TransportsCoordinatesDao extends OntimizeJdbcDaoSupport {
     public static final String TC_LONGITUDE = "TC_LONGITUDE";
     public static final String TC_DATE = "TC_DATE";
     public static final String TRP_ID = "TRP_ID";
+    public static final String TC_HAS_ALERT = "TC_HAS_ALERT";
 
-    public static final List<String> COLUMNS = Arrays.asList(TC_ID, TC_LATITUDE, TC_LONGITUDE, TC_DATE, TRP_ID);
+    public static final List<String> COLUMNS = Arrays.asList(TC_ID, TC_LATITUDE, TC_LONGITUDE, TC_DATE, TRP_ID, TC_HAS_ALERT);
 
 }

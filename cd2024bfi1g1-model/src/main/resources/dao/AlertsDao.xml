@@ -13,12 +13,16 @@
     <GeneratedKey>alt_id</GeneratedKey>
     <Queries>
         <Query id="default">
+            <AmbiguousColumns>
+                <AmbiguousColumn name="dev_id" prefix="a"/>
+            </AmbiguousColumns>
             <Sentence>
                 <![CDATA[
                     SELECT
                         #COLUMNS#
                     FROM
-                        ${mainschema}.alerts
+                        ${mainschema}.alerts a
+                         INNER JOIN devices d ON a.dev_id = d.dev_id
                     #WHERE#
                     #ORDER#
                 ]]>
@@ -28,6 +32,7 @@
             <AmbiguousColumns>
                 <AmbiguousColumn name="cnt_id" prefix="c"/>
                 <AmbiguousColumn name="lot_id" prefix="l"/>
+                <AmbiguousColumn name="CMP_ID" prefix="c"/>
             </AmbiguousColumns>
             <Sentence>
                 <![CDATA[
@@ -48,6 +53,7 @@
                 <AmbiguousColumn name="ALT_ID" prefix="a" />
                 <AmbiguousColumn name="CL_ID" prefix="a" />
                 <AmbiguousColumn name="PRO_ID" prefix="p" />
+                <AmbiguousColumn name="CMP_ID" prefix="d" />
             </AmbiguousColumns>
             <Sentence>
                 <![CDATA[
@@ -93,6 +99,7 @@
                     FROM
                         ${mainschema}.alerts a
                     INNER JOIN containers_lots cl ON a.cl_id = cl.cl_id
+                    INNER JOIN devices d ON a.dev_id = d.dev_id
                     #WHERE#
                     #ORDER#
                 ]]>

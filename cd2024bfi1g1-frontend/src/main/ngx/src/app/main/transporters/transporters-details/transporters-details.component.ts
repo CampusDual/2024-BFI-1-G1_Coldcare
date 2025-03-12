@@ -23,8 +23,6 @@ export class TransportersDetailsComponent implements AfterViewInit {
     this.service = this.injector.get(OntimizeService);
   }
 
-
-
   ngAfterViewInit() {
     this.updateButtonState();
     this.form.onDataLoaded.subscribe(() => this.updateButtonState());
