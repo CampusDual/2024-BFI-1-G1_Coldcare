@@ -5,3 +5,13 @@ o-button {
 o-table {
     height: calc(100vh - 324px);
 }
+
+.inline-fields {
+    align-items: center;
+    justify-content: center;
+}
+
+#graphDiv {
+    background-color: white;
+    padding: 20px;
+}

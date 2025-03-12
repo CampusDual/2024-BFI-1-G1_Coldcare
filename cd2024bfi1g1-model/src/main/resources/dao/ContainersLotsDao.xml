@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <JdbcEntitySetup xmlns="http://www.ontimize.com/schema/jdbc"
-                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                 xsi:schemaLocation="http://www.ontimize.com/schema/jdbc http://www.ontimize.com/schema/jdbc/ontimize-jdbc-dao.xsd"
-                 catalog="" schema="${mainschema}" table="containers_lots" datasource="mainDataSource"
-                 sqlhandler="dbSQLStatementHandler">
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.ontimize.com/schema/jdbc http://www.ontimize.com/schema/jdbc/ontimize-jdbc-dao.xsd" catalog="" schema="${mainschema}" table="containers_lots" datasource="mainDataSource" sqlhandler="dbSQLStatementHandler">
     <DeleteKeys>
         <Column>CL_ID</Column>
     </DeleteKeys>
@@ -88,10 +85,64 @@
                     SELECT #COLUMNS#
                     FROM cl
                     INNER JOIN containers c ON cl.cnt_id = c.cnt_id
-                    INNER JOIN latest_measurements lm ON lm.cnt_id = cl.cnt_id
+                    LEFT JOIN latest_measurements lm ON lm.cnt_id = cl.cnt_id
                     #WHERE#
                     #ORDER#
                 ]]>
+            </Sentence>
+        </Query>
+        <Query id="cl_with_origin_destination">
+        <AmbiguousColumns>
+            <AmbiguousColumn name="CNT_ID" prefix="cl"/>
+            <AmbiguousColumn name="CL_ID_DESTINY" prefix="t_origin"/>
+            <AmbiguousColumn name="CL_ID_ORIGIN" prefix="t_destiny"/>
+            <AmbiguousColumn name="CNT_ORIGIN_NAME" prefix="t_destiny"/>
+            <AmbiguousColumn name="CNT_DESTINY_NAME" prefix="t_origin"/>
+            <AmbiguousColumn name="TRA_ID" prefix="t_origin"/>
+        </AmbiguousColumns>
+            <Sentence>
+                <![CDATA[
+                        WITH cl AS (
+                            SELECT
+                                cl.*,
+                                EXISTS (
+                                    SELECT 1
+                                    FROM alerts a
+                                    WHERE a.cl_id = cl.cl_id
+                                ) AS has_alert
+                            FROM
+                                containers_lots cl
+                        ),
+                        transfers_with_names AS (
+                            SELECT
+                                t.tra_id,
+                                t.cl_id_origin,
+                                t.cl_id_destiny,
+                                origin.cnt_name AS cnt_origin_name,
+                                destiny.cnt_name AS cnt_destiny_name
+                            FROM
+                                transfers t
+                            LEFT JOIN
+                                containers_lots cl_origin ON t.cl_id_origin = cl_origin.cl_id
+                            LEFT JOIN
+                                containers origin ON cl_origin.cnt_id = origin.cnt_id
+                            LEFT JOIN
+                                containers_lots cl_destiny ON t.cl_id_destiny = cl_destiny.cl_id
+                            LEFT JOIN
+                                containers destiny ON cl_destiny.cnt_id = destiny.cnt_id
+                        )
+                        SELECT
+                            #COLUMNS#
+                        FROM cl
+                        INNER JOIN
+                            containers c ON cl.cnt_id = c.cnt_id
+                        LEFT JOIN
+                            transfers_with_names t_origin ON cl.cl_id = t_origin.cl_id_origin
+                        LEFT JOIN
+                            transfers_with_names t_destiny ON cl.cl_id = t_destiny.cl_id_destiny
+                        #WHERE#
+                        #ORDER#
+                    ]]>
             </Sentence>
         </Query>
         <Query id="cl_with_alerts">
@@ -131,48 +182,50 @@
                 <AmbiguousColumn name="CL_ID" prefix="cl"/>
             </AmbiguousColumns>
             <Sentence>
-                WITH alert_data AS (
-                    SELECT
-                    cl_id,
-                    SUM(
-                        COALESCE(EXTRACT(EPOCH FROM (alt_date_end - alt_date_init)),
-                        EXTRACT(EPOCH FROM (NOW() - alt_date_init)))
-                    ) AS total_time,
-                    AVG(
-                        COALESCE(EXTRACT(EPOCH FROM (alt_date_end - alt_date_init)),
-                        EXTRACT(EPOCH FROM (NOW() - alt_date_init)))
-                    ) AS average_time,
-                    MAX(
-                        COALESCE(EXTRACT(EPOCH FROM (alt_date_end - alt_date_init)),
-                        EXTRACT(EPOCH FROM (NOW() - alt_date_init)))
-                    ) AS max_time,
-                    COUNT(*) FILTER (WHERE alt_date_end IS NULL) AS active_alerts
-                    FROM alerts
-                    GROUP BY cl_id
-                ),
-                latest_measurements AS (
-                    SELECT
-                         clv.cnt_id,
-                         m.me_temp,
-                         m.me_humidity
-                    FROM measurements m
-                    INNER JOIN containers_lots_current_view clv ON m.cl_id = clv.cl_id
-                    INNER JOIN (
-                        SELECT cl_id, MAX(me_date) AS last_date
-                        FROM measurements
+                <![CDATA[
+                    WITH alert_data AS (
+                        SELECT
+                        cl_id,
+                        SUM(
+                            COALESCE(EXTRACT(EPOCH FROM (alt_date_end - alt_date_init)),
+                            EXTRACT(EPOCH FROM (NOW() - alt_date_init)))
+                        ) AS total_time,
+                        AVG(
+                            COALESCE(EXTRACT(EPOCH FROM (alt_date_end - alt_date_init)),
+                            EXTRACT(EPOCH FROM (NOW() - alt_date_init)))
+                        ) AS average_time,
+                        MAX(
+                            COALESCE(EXTRACT(EPOCH FROM (alt_date_end - alt_date_init)),
+                            EXTRACT(EPOCH FROM (NOW() - alt_date_init)))
+                        ) AS max_time,
+                        COUNT(*) FILTER (WHERE alt_date_end IS NULL) AS active_alerts
+                        FROM alerts
                         GROUP BY cl_id
-                    ) latest ON m.cl_id = latest.cl_id
-                    WHERE m.me_date = latest.last_date and clv.cl_is_current
-                  )
-                SELECT #COLUMNS#
-                FROM containers_lots cl
-                JOIN LOTS l ON cl.lot_id = l.lot_id
-                JOIN CONTAINERS c ON c.CNT_ID = cl.CNT_ID
-                JOIN PRODUCTS p ON l.pro_id = p.pro_id
-                LEFT JOIN latest_measurements lm ON lm.CNT_ID = cl.CNT_ID
-                LEFT JOIN alert_data a ON cl.cl_id = a.cl_id
-                #WHERE#
-                GROUP BY cl.cl_id, l.lot_id, c.cnt_id, p.pro_id, a.total_time, a.average_time, a.max_time, a.active_alerts,a.cl_id,lm.ME_TEMP,lm.ME_HUMIDITY;
+                    ),
+                    latest_measurements AS (
+                        SELECT
+                             clv.cnt_id,
+                             m.me_temp,
+                             m.me_humidity
+                        FROM measurements m
+                        INNER JOIN containers_lots_current_view clv ON m.cl_id = clv.cl_id
+                        INNER JOIN (
+                            SELECT cl_id, MAX(me_date) AS last_date
+                            FROM measurements
+                            GROUP BY cl_id
+                        ) latest ON m.cl_id = latest.cl_id
+                        WHERE m.me_date = latest.last_date and clv.cl_is_current
+                      )
+                    SELECT #COLUMNS#
+                    FROM containers_lots cl
+                    JOIN LOTS l ON cl.lot_id = l.lot_id
+                    JOIN CONTAINERS c ON c.CNT_ID = cl.CNT_ID
+                    JOIN PRODUCTS p ON l.pro_id = p.pro_id
+                    LEFT JOIN latest_measurements lm ON lm.CNT_ID = cl.CNT_ID
+                    LEFT JOIN alert_data a ON cl.cl_id = a.cl_id
+                    #WHERE#
+                    GROUP BY cl.cl_id, l.lot_id, c.cnt_id, p.pro_id, a.total_time, a.average_time, a.max_time, a.active_alerts,a.cl_id,lm.ME_TEMP,lm.ME_HUMIDITY;
+                ]]>
             </Sentence>
         </Query>
     </Queries>

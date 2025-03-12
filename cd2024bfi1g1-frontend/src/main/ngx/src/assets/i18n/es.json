@@ -252,6 +252,11 @@
   "ALERTS_COUNT_TEXT_SINGULAR": "Se ha producido #ALT_COUNT# alerta",
   "NO_ALERTS_COUNT_TEXT": "No se han producido alertas",
   "ALT_COUNT_VISIBLE": " ",
+  "LEGEND": "Leyenda",
+  "INIT_NODE": "Contenedor inicial",
+  "INTER_NODE": "Contenedor intermedio",
+  "NORMAL_NODE": "Contenedor sin alertas",
+  "ALERT_NODE": "Contenedor con alertas",
   "CONCEPT": "Concepto",
   "COST": "Importe",
   "AMOUNT": "Cantidad",
@@ -289,5 +294,7 @@
   "ALERTS_ACTIVE_TEXT_SINGULAR": "Hay #ALT_COUNT# alerta activa",
   "NO_ALERTS_ACTIVE_TEXT": "No hay alertas activas",
   "ALT_ACTIVE_TEST": " ",
-  "DEVICES_REQUESTS": "Medidas por dispositivo"
+  "DEVICES_REQUESTS": "Medidas por dispositivo",
+  "ERROR_TITLE": "Error",
+  "ERROR_MSG_GRAPH_QUERY": "Error al recuperar los contenedores del lote"
 }
