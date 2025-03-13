@@ -1,3 +1,25 @@
+## USERS
+
+Role: User
+Company: ColdCare
+Username: demo
+Password: demouser
+
+Role: User
+Company: Frigonor
+Username: francisco
+Password: 5_B0hB9F*tHy
+
+Role: Admin
+Company: -
+Username: admin
+Password: adminuser
+
+Role: Carrier
+Company: ColdCare
+Username: gabriel
+Password: x#R%&YMkvbQt
+
 ## DESCRIPTION
 
 Application template based in Ontimize Web and Ontimize Boot (java 11).
