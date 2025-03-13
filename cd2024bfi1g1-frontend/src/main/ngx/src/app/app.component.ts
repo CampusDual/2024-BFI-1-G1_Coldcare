@@ -12,12 +12,14 @@ import { DialogService } from 'ontimize-web-ngx';
 })
 export class AppComponent implements OnInit {
 
+
   constructor(
     private router: Router,
     protected appearanceService: AppearanceService,
     protected injector: Injector,
     private geolocationService: GeolocationService,
-
+    private firebaseService: FirebaseService,
+    private dialogService: DialogService // Inyectamos DialogService
   ) {
     this.ontimizeMatIconRegistry = this.injector.get(OntimizeMatIconRegistry);
     if (window['__ontimize'] !== undefined && window['__ontimize']['redirect'] !== undefined) {
@@ -25,8 +27,9 @@ export class AppComponent implements OnInit {
       window['__ontimize']['redirect'] = undefined;
       this.router.navigate([redirectTo]);
     }
-
   }
+
+
 
   ontimizeMatIconRegistry: OntimizeMatIconRegistry;
 
@@ -49,21 +52,6 @@ export class AppComponent implements OnInit {
   }
 
 
-  constructor(
-    private router: Router,
-    protected appearanceService: AppearanceService,
-    protected injector: Injector,
-    private geolocationService: GeolocationService,
-    private firebaseService: FirebaseService,
-    private dialogService: DialogService // Inyectamos DialogService
-  ) {
-    this.ontimizeMatIconRegistry = this.injector.get(OntimizeMatIconRegistry);
-    if (window['__ontimize'] !== undefined && window['__ontimize']['redirect'] !== undefined) {
-      let redirectTo = window['__ontimize']['redirect'];
-      window['__ontimize']['redirect'] = undefined;
-      this.router.navigate([redirectTo]);
-    }
-  }
 
 
   // Método para mostrar el snackBar

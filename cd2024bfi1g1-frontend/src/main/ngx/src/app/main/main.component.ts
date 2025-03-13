@@ -22,7 +22,7 @@ export class MainComponent implements OnInit, OnDestroy {
     this.app = initializeApp(environment.firebaseConfig);
     this.messaging = getMessaging(this.app);
   }
-
+  alertsTimer;
   ngOnInit() {
     const visited = localStorage.getItem('visited');
 
@@ -56,27 +56,29 @@ export class MainComponent implements OnInit, OnDestroy {
     clearInterval(this.alertsTimer)
     this.titleService.setTitle(`ColdCare`)
   }
-}
-loguearse() {
-  this.firebaseService.loguearse();
-  console.log("Logueado");
-  this.requestPermission();
-}
 
-requestPermission = async (): Promise<void> => {
-  try {
-    const permission: NotificationPermission = await Notification.requestPermission();
-    if (permission === "granted") {
-      console.log("Permiso concedido");
-
-      setTimeout(() => {
-        this.firebaseService.activarMensajes();
-      }, 100);
-
-
-    } else {
-      console.log("Permiso denegado");
-    }
-  } catch (error) {
-    console.error("Error al solicitar permisos", error);
+  loguearse() {
+    this.firebaseService.loguearse();
+    console.log("Logueado");
+    this.requestPermission();
   }
+
+  requestPermission = async (): Promise<void> => {
+    try {
+      const permission: NotificationPermission = await Notification.requestPermission();
+      if (permission === "granted") {
+        console.log("Permiso concedido");
+
+        setTimeout(() => {
+          this.firebaseService.activarMensajes();
+        }, 100);
+
+
+      } else {
+        console.log("Permiso denegado");
+      }
+    } catch (error) {
+      console.error("Error al solicitar permisos", error);
+    }
+  }
+}
