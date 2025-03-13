@@ -10,29 +10,32 @@
           columns="CNT_ID;CNT_NAME" visible-columns="CNT_NAME" null-selection="yes" searchable="yes" clear-button="yes">
         </o-combo>
         <o-integer-input attr="DEV_PERSISTENCE" min="0" required="true"></o-integer-input>
-        <o-checkbox attr="DEV_STATE" label="DEVICE_ENABLED" read-only="no"></o-checkbox>
-        <o-text-input attr="DEV_ID" read-only="true" hidden></o-text-input>
+        <div>
+          <o-checkbox attr="DEV_STATE" label="DEVICE_ENABLED" read-only="no"></o-checkbox>
+          <o-text-input attr="DEV_ID" read-only="true" hidden></o-text-input>
+        </div>
       </div>
     </div>
 
     <div>
       <h2>{{ 'MEASUREMENTS_HISTORIC' | oTranslate }}</h2>
-      <div class="inline-fields" id="measurements-historic">
+      <div class="inline-fields">
         <o-daterange-input #dates attr="ME_DATE" label="{{ 'DATE_RANGE_INPUT' | oTranslate }}" read-only="no"
           required="no" format="DD/MM/YYYY" show-week-numbers="true" mode="desktop" translate="yes"
           automatic-registering="false">
         </o-daterange-input>
-        <div>
+        <div id="measurements-historic">
           <o-button id="filter" attr="filter" [oFilterBuilderQuery]="filterBuilder" type="RAISED" color="primary"
             label="{{ 'FILTER' | oTranslate }}" class="filter-button"></o-button>
           <o-button attr="clear" (onClick)="dates.clearValue(); filterBuilder.triggerReload()" type="RAISED"
             label="{{ 'CLEAR' | oTranslate }}" class="filter-button"></o-button>
         </div>
-        <!-- Filtro para ambas graficas -->
-        <o-filter-builder #filterBuilder attr="thefilter" filters="DEV_ID:DEV_ID;ME_DATE:ME_DATE"
-          [target]="measurementsTable" query-on-change="yes"
-          [expression-builder]="createFilter.bind(this)"></o-filter-builder>
       </div>
+      <!-- Filtro para ambas graficas -->
+      <o-filter-builder #filterBuilder attr="thefilter" filters="DEV_ID:DEV_ID;ME_DATE:ME_DATE"
+        [target]="measurementsTable" query-on-change="yes"
+        [expression-builder]="createFilter.bind(this)"></o-filter-builder>
+
       <div>
         <!--Tabla de Medidas-->
         <o-table #measurementsTable attr="tablaMedidas" service="measurements" entity="measurements"

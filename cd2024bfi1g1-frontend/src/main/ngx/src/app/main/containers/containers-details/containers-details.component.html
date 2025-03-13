@@ -6,7 +6,7 @@
       <div>
         <h2>{{ 'CONTAINER_DATA' | oTranslate }}</h2>
         <div class="container-data-grid">
-          <o-text-input class="container-name" attr="CNT_NAME" label="NAME"></o-text-input>
+          <o-text-input class="container-name" attr="CNT_NAME" label="NAME" required="true"></o-text-input>
           <o-slide-toggle attr="CNT_MOBILITY" label="CURRENT_MOBILITY" read-only="no"></o-slide-toggle>
 
           <o-text-input #avgTemp attr="AVG_TEMP" read-only="true" oHidden></o-text-input>
