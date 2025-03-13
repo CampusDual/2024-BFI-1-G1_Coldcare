@@ -259,7 +259,7 @@
   "ALT_COUNT_VISIBLE": " ",
   "LEGEND": "Legend",
   "INIT_NODE": "Initial container",
-  "INTER_NODE": "Intermediate container",
+  "INTER_NODE": "Container",
   "NORMAL_NODE": "Container without alerts",
   "ALERT_NODE": "Container with alerts",
   "CONCEPT": "Concept",
@@ -283,9 +283,9 @@
   "EMAIL_ERROR": "Error sending Email",
   "ME_TEMP": "Last Temperature (ºC)",
   "ME_HUMIDITY": "Last Humidity (%)",
-  "MAX_TEMP_CNT_LOT": "Container lot Max T (ºC)",
-  "MIN_TEMP_CNT_LOT": "Container lot Min T (ºC)",
-  "AVG_TEMP_CNT_LOT": "Container lot Average T (ºC)",
+  "MAX_TEMP_CNT_LOT": "Max T (ºC)",
+  "MIN_TEMP_CNT_LOT": "Min T (ºC)",
+  "AVG_TEMP_CNT_LOT": "Average T (ºC)",
   "TAB_TRANSFER": "Movements",
   "TAB_GRAPHS": "Graphs",
   "TAB_MEASUREMENTS": "Measurements",
@@ -305,5 +305,8 @@
   "ALERTS_ACTIVE_TEXT_SINGULAR": "There is #ALT_COUNT# active alert",
   "NO_ALERTS_ACTIVE_TEXT": "There are no active alerts",
   "ALT_ACTIVE_TEST": " ",
-  "DEVICES_REQUESTS": "Measurements per device"
+  "DEVICES_REQUESTS": "Measurements per device",
+  "GRAPH_TITLE": "Lot transfers graph",
+  "LOT_PROD_MAX_TEMP": "Product max temp (Cº)",
+  "LOT_PROD_MIN_TEMP": "Product min temp (Cº)"
 }
