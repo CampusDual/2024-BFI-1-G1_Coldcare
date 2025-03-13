@@ -3,20 +3,15 @@
   detect-changes-on-blur="no" undo-button="yes" stay-in-record-after-insert="true">
   <div class="full-screen-background-with-toolbar">
     <div class="section">
-      <h2>{{ 'user-login-section' | oTranslate }}</h2>
+      <h2>{{ 'USER_DETAILS' | oTranslate }}</h2>
       <div class="inline-fields">
-        <o-text-input attr="USR_LOGIN" required="yes"></o-text-input>
-      </div>
-    </div>
-    <div class="section">
-      <h2>{{ 'user-data-section' | oTranslate }}</h2>
-      <div class="inline-fields">
+        <o-text-input attr="USR_LOGIN" label="username" required="yes"></o-text-input>
         <o-text-input attr="USR_NAME" required="yes"></o-text-input>
         <o-email-input attr="USR_EMAIL" required="yes"></o-email-input>
       </div>
     </div>
     <div class="section">
-      <h2>{{ 'COMPANY_DATA' | oTranslate }}</h2>
+      <h3>{{ 'COMPANY_DATA' | oTranslate }}</h3>
       <div class="inline-fields">
         <o-combo attr="CMP_ID" service="companies" entity="companies" value-column="CMP_ID" columns="CMP_ID;CMP_NAME"
           visible-columns="CMP_NAME" null-selection="no" searchable="yes"></o-combo>
