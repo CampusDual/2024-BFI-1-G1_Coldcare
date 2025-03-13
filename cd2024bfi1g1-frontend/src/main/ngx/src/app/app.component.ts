@@ -51,7 +51,7 @@ export class AppComponent {
 
   // Método para mostrar el snackBar
   showAlertDialog(message: string) {
-    this.dialogService.alert('ALERT_TITLE', 'ALERT_GENERATED');
+    this.dialogService.alert('ALERT_TITLE', 'Se ha generado una alerta');
   }
 
 }

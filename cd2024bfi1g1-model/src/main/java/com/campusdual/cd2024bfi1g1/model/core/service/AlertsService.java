@@ -83,7 +83,7 @@ public class AlertsService implements IAlertsService {
                         }
 
                         for (String token : tokensList) {
-                            String response = notificationService.sendNotification(token, "Coldcare", "ALERT_GENERATED");
+                            String response = notificationService.sendNotification(token, "Coldcare", "Se ha producido una alerta");
                             System.out.println(response);
                         }
                     } else {
