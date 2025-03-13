@@ -2,10 +2,6 @@ o-button {
     align-content: center;
 }
 
-o-table {
-    height: calc(100vh - 324px);
-}
-
 .inline-fields {
     align-items: center;
     justify-content: center;
