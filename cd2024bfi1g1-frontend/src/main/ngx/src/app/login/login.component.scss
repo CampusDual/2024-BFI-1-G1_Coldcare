@@ -101,8 +101,10 @@ $font-primary: 'Roboto', sans-serif;
         }
 
         .title_text {
-          font-weight: 600;
+          font-weight: bold;
+          font-size: 1.2rem;
           color: #2b2d42;
+          margin-top: 10px;
         }
 
         .text {
@@ -139,6 +141,7 @@ $font-primary: 'Roboto', sans-serif;
   }
 
 }
+
 @media(max-width:576px) {
   .full-page {
     .login-outer-container {

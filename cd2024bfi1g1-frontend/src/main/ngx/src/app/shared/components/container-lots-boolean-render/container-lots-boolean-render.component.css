@@ -1,16 +1,16 @@
 .label-text {
     font-size: 13px;
-
 }
 
 .icon-container {
     display: block;
-    text-align: center;
+    text-align: start;
 }
 
 mat-icon {
     font-size: 20px;
     margin-top: 3px;
+    padding-left: 7px;
 }
 
 

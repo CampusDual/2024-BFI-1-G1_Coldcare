@@ -1,8 +1,9 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { Injectable, Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
   name: 'secondsToTime'
 })
+@Injectable({ providedIn: 'root' })
 export class SecondsToTimePipe implements PipeTransform {
 
   transform(value: number): string {
@@ -14,6 +15,6 @@ export class SecondsToTimePipe implements PipeTransform {
     const minutes = Math.floor((value % 3600) / 60);
     const secs = Math.floor(value % 60);
 
-    return `${days} d, ${hours.toString().padStart(2, '0')} h ${minutes.toString().padStart(2, '0')} min ${secs.toString().padStart(2, '0')} seg`;
+    return `${days} d ${hours.toString().padStart(2, '0')} h ${minutes.toString().padStart(2, '0')} min ${secs.toString().padStart(2, '0')} s`;
   }
 }

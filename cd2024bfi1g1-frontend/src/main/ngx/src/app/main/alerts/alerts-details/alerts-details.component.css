@@ -1,3 +1,21 @@
 #tablaMedidasContainer {
     display: none !important;
 }
+
+.chart-grid {
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    margin: 10px;
+    padding: 8px;
+    width: auto;
+}
+
+::ng-deep .chart-grid .ngx-charts {
+    margin-bottom: 0;
+}
+
+::ng-deep .chart-grid .chart-legend.ng-star-inserted {
+    display: block;
+}

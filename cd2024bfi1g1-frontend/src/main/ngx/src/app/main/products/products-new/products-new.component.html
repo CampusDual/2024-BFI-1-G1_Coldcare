@@ -1,13 +1,13 @@
 <o-form attr="products_form_insert" service="products" entity="products" fxLayout="column" keys="PRO_ID"
     show-header="true" after-insert-mode="close" confirm-exit="false">
-    <o-row attr="row1" layout-align="start stretch">
-        <o-column title="PRO_NEW" layout-align="start stretch" layout-padding>
-            <div class="inline-fields">
-                <o-text-input attr="PRO_NAME" required="true"></o-text-input>
-                <o-real-input attr="PRO_MIN_TEMP" required="true" clear-button="yes"></o-real-input>
-                <o-real-input attr="PRO_MAX_TEMP" required="true" clear-button="yes"></o-real-input>
-
-            </div>
-        </o-column>
-    </o-row>
+    <div class="full-screen-background-with-toolbar">
+        <h2>{{ 'PRO_NEW' | oTranslate }}</h2>
+        <div class="inline-fields-3">
+            <o-text-input attr="PRO_NAME" required="true"></o-text-input>
+            <o-real-input attr="PRO_MIN_TEMP" label="PRO_MIN_TEMP_COL" required="true"
+                clear-button="yes"></o-real-input>
+            <o-real-input attr="PRO_MAX_TEMP" label="PRO_MAX_TEMP_COL" required="true"
+                clear-button="yes"></o-real-input>
+        </div>
+    </div>
 </o-form>

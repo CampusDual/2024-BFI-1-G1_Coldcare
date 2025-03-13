@@ -1,13 +1,12 @@
-<o-form attr="companies_form_insert" service="companies" entity="companies" fxLayout="column" keys="CMP_ID"
-  show-header="true" after-insert-mode="close" confirm-exit="false">
-  <o-row attr="row1" layout-align="start stretch">
-    <o-column title="COMPANY_NEW" layout-align="start stretch" fxFlex="60" layout-padding>
-      <div fxLayout="row" fxLayoutAlign="start center" class="gap">
-        <o-text-input attr="CMP_NAME" class="margin-right-24" fxFlex.lg="30" fxFlex.xl="30" fxFlex="50"></o-text-input>
-        <o-combo attr="PLN_ID" label="PLAN_ASSIGN" service="plan" entity="plan" value-column="PLN_ID"
-          columns="PLN_ID;PLN_NAME" visible-columns="PLN_NAME" null-selection="no" searchable="yes" required="yes">
-        </o-combo>
-      </div>
-    </o-column>
-  </o-row>
+<o-form attr="companies_form_insert" service="companies" entity="companies" keys="CMP_ID" show-header="true"
+  after-insert-mode="close" confirm-exit="false">
+  <div class="full-screen-background-with-toolbar">
+    <h2>{{ 'COMPANY_NEW' | oTranslate }}</h2>
+    <div class="inline-fields">
+      <o-text-input attr="CMP_NAME" required="true"></o-text-input>
+      <o-combo attr="PLN_ID" label="PLAN_ASSIGN" service="plan" entity="plan" value-column="PLN_ID"
+        columns="PLN_ID;PLN_NAME" visible-columns="PLN_NAME" null-selection="no" searchable="yes" required="true">
+      </o-combo>
+    </div>
+  </div>
 </o-form>

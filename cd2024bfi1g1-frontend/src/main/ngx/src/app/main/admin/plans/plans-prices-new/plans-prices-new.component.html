@@ -1,20 +1,18 @@
 <o-form attr="pricesInsertTable" parent-keys="PLN_ID" keys="PLN_ID" keys-sql-types="INTEGER" include-parent-keys="yes"
     query-on-init="true" service="pricing" entity="pricing" header-actions="R;U">
-
-    <o-column title="PRICES" layout-align="start stretch" layout-padding>
-        <div class="inline-fields">
-            <o-text-input attr="PP_FIXED_PRICE" label="PP_FIXED_PRICE" required="yes"></o-text-input>
-            <o-text-input attr="PP_DEV_PRICE" label="PP_DEV_PRICE" required="yes"></o-text-input>
-            <o-text-input attr="PP_BUNDLE_PRICE" label="PP_BUNDLE_PRICE" required="yes"></o-text-input>
-            <o-text-input attr="PP_BUNDLE_REQUESTS" label="PP_BUNDLE_REQUESTS" required="yes"></o-text-input>
+    <div class="full-screen-background-with-toolbar">
+        <div class="section">
+            <h2>{{ 'PRICE_NEW' | oTranslate }}</h2>
+            <div class="inline-fields">
+                <o-text-input attr="PP_FIXED_PRICE" label="PP_FIXED_PRICE" required="yes"></o-text-input>
+                <o-text-input attr="PP_DEV_PRICE" label="PP_DEV_PRICE" required="yes"></o-text-input>
+                <o-text-input attr="PP_BUNDLE_PRICE" label="PP_BUNDLE_PRICE" required="yes"></o-text-input>
+                <o-text-input attr="PP_BUNDLE_REQUESTS" label="PP_BUNDLE_REQUESTS" required="yes"></o-text-input>
+                <o-date-input #DATES attr="PP_START" value-type="timestamp" label="PP_START" read-only="no"
+                    required="yes" type="date" format="DD/MM/YYYY" show-week-numbers="true" mode="desktop"
+                    translate="yes">
+                </o-date-input>
+            </div>
         </div>
-    </o-column>
-    <o-column title="DATES" layout-align="start stretch" layout-padding>
-        <div class="inline-fields">
-            <o-date-input #DATES attr="PP_START" value-type="timestamp" label="PP_START" read-only="no" required="yes"
-                type="date" format="DD/MM/YYYY" show-week-numbers="true" mode="desktop" translate="yes">
-            </o-date-input>
-        </div>
-    </o-column>
-
+    </div>
 </o-form>

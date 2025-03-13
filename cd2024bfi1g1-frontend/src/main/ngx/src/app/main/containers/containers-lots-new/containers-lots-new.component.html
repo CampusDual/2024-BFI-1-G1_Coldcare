@@ -1,12 +1,13 @@
 <o-form attr="containersLots_form_insert" service="containersLots" entity="containersLots" keys="CL_ID"
     show-header="true" after-insert-mode="close" confirm-exit="false" header-actions="R;U">
-    <o-column title="LOT_ASSIGNMENT">
+    <div class="full-screen-background-with-toolbar">
+        <h2>{{ 'LOT_ASSIGNMENT' | oTranslate }}</h2>
         <div class="inline-fields">
-            <o-combo attr="LOT_ID" label="CURRENT_LOT" service="lots" entity="lots" value-column="LOT_ID"
+            <o-combo attr="LOT_ID" label="LOT_NAME" service="lots" entity="lots" value-column="LOT_ID"
                 columns="LOT_ID;LOT_NAME;PRO_ID;PRO_NAME" visible-columns="LOT_NAME;PRO_NAME" null-selection="no"
-                required="yes" separator=" - "></o-combo>
+                required="yes" separator=" - " searchable="yes"></o-combo>
             <o-date-input attr="CL_START_DATE" required="yes"></o-date-input>
             <o-date-input attr="CL_END_DATE"></o-date-input>
         </div>
-    </o-column>
+    </div>
 </o-form>

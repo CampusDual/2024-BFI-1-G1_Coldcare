@@ -1,11 +1,11 @@
 <o-form attr="containers_form_insert" service="containers" entity="containers" fxLayout="column" keys="CNT_ID"
   show-header="true" after-insert-mode="close" confirm-exit="false">
-  <o-row attr="row1" layout-align="start stretch">
-    <o-column title="CONTAINER_NEW" layout-align="start stretch" fxFlex="60" layout-padding>
-      <div fxLayout="row" fxLayoutAlign="start center" class="gap">
-        <o-text-input attr="CNT_NAME" label="NAME" class="margin-right-24" fxFlex.lg="30" fxFlex.xl="30"
-          fxFlex="50"></o-text-input>
-      </div>
-    </o-column>
-  </o-row>
+  <div class="full-screen-background-with-toolbar">
+    <h2>{{ 'CONTAINER_NEW' | oTranslate }}</h2>
+    <div class="inline-fields">
+      <o-text-input attr="CNT_NAME" label="NAME" required="yes"></o-text-input>
+      <o-slide-toggle attr="CNT_MOBILITY" label="CURRENT_MOBILITY" read-only="no"
+        style="margin-left: 5px;"></o-slide-toggle>
+    </div>
+  </div>
 </o-form>

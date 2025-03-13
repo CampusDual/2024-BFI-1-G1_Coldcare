@@ -1,134 +1,162 @@
 <o-form keys-sql-types="INTEGER" parent-keys="CL_ID" keys="CL_ID" include-parent-keys="yes" service="containersLots"
   entity="containersLots" show-header="yes" header-actions="R;U;D"
-  columns="CNT_NAME;LOT_NAME;PRO_NAME;MIN_TEMP;MAX_TEMP;ME_TEMP;ME_HUMIDITY;CNT_MOBILITY">
-  <o-column title="CL_INFO">
-    <div class="inline-fields">
-      <o-text-input attr="CNT_NAME" read-only="yes"></o-text-input>
-      <o-text-input attr="LOT_NAME" read-only="yes"></o-text-input>
-    </div>
-    <div class="inline-fields">
-      <o-text-input attr="PRO_NAME" read-only="yes"></o-text-input>
-      <o-text-input attr="MIN_TEMP" read-only="yes"></o-text-input>
-      <o-text-input attr="MAX_TEMP" read-only="yes"></o-text-input>
-      <o-text-input attr="ME_TEMP" title="LAST_TEMP" read-only="yes"></o-text-input>
-      <o-text-input attr="ME_HUMIDITY" title="LAST_HUMIDITY" read-only="yes"></o-text-input>
-      <o-text-input #movility attr="CNT_MOBILITY" title="CNT_MOBILITY" read-only="yes" hidden>
-        <app-container-lots-boolean-render [cntMobility]="movility.getValue()"></app-container-lots-boolean-render>
-      </o-text-input>
-
-      <app-container-lots-boolean-render [cntMobility]="movility.getValue()"></app-container-lots-boolean-render>
-
-    </div>
-  </o-column>
-
-  <o-column title="ALERTS_DATA">
-    <div class="inline-fields">
-      <o-text-input #totalTime attr="TOTAL_TIME" read-only="yes" hidden></o-text-input>
-      <o-text-input attr="TOTAL_TIME_TEXT" label="TOTAL_TIME" read-only="yes" automatic-binding="false"
-        automatic-registering="false" [data]="totalTime.getValue() | secondsToTime"></o-text-input>
-
-      <o-text-input #averageTime attr="AVERAGE_TIME" read-only="yes" hidden></o-text-input>
-      <o-text-input attr="AVERAGE_TIME_TEXT" label="AVERAGE_TIME" read-only="yes" automatic-binding="false"
-        automatic-registering="false" [data]="averageTime.getValue() | secondsToTime"></o-text-input>
-
-      <o-text-input #maxTime attr="MAX_TIME" read-only="yes" hidden></o-text-input>
-      <o-text-input attr="MAX_TIME_TEXT" label="MAX_TIME" read-only="yes" automatic-binding="false"
-        automatic-registering="false" [data]="maxTime.getValue() | secondsToTime"></o-text-input>
-
-      <o-text-input attr="ACTIVE_ALERTS" read-only="yes"></o-text-input>
-    </div>
-  </o-column>
-
-  <o-column title="CL_EDIT_DATE_RANGE">
-    <div class="inline-fields">
-      <o-date-input attr="CL_START_DATE" required="yes"></o-date-input>
-      <o-date-input attr="CL_END_DATE"></o-date-input>
-    </div>
-  </o-column>
-
-  <mat-tab-group oTabGroup="ontimize">
-    <mat-tab label="Transfers">
-      <ng-template mat-tab-label>
-        <div style="font-weight: bold;">
-          {{ 'TAB_TRANSFER' | oTranslate }}
+  columns="CNT_NAME;LOT_NAME;PRO_NAME;MIN_TEMP;MAX_TEMP;ME_TEMP;ME_HUMIDITY;CNT_MOBILITY"
+  (onDataLoaded)="fillData($event)">
+  <div class="full-screen-background-with-toolbar">
+    <div>
+      <h2>{{ 'CL_INFO' | oTranslate }}</h2>
+      <div class="inline-fields-4">
+        <div>
+          <label class="label">{{ 'CNT_MOBILITY' | oTranslate }}</label>
+          <app-container-lots-boolean-render
+            [cntMobility]="containerLot.CNT_MOBILITY"></app-container-lots-boolean-render>
         </div>
-      </ng-template>
-      <o-row>
-        <o-column class="extend">
-          <o-table attr="clOriginTable" title="CL_ORIGIN" show-title="yes" service="transfers" entity="transfersOrigin"
-            keys="TRA_ID" parent-keys="CL_ID" columns="TRA_ID;CNT_ID;CL_ID;CNT_NAME;CL_START_DATE;CL_END_DATE"
-            visible-columns="CNT_NAME;CL_START_DATE;CL_END_DATE" delete-button="no" refresh-button="false"
-            quick-filter="no" insert-form-route="newOrigin/new" (onClick)="openContainersLotsDetail($event)"
-            detail-mode="none" virtual-scroll="no">
-            <o-table-column attr="CNT_NAME"></o-table-column>
-            <o-table-column attr="CL_START_DATE" type="date"></o-table-column>
-            <o-table-column attr="CL_END_DATE" type="date"></o-table-column>
-          </o-table>
-        </o-column>
-
-        <o-column class="extend">
-          <o-table attr="clDestinyTable" title="CL_DESTINY" show-title="yes" service="transfers"
-            entity="transfersDestiny" keys="TRA_ID" parent-keys="CL_ID"
-            columns="TRA_ID;CNT_ID;CL_ID;CNT_NAME;CL_START_DATE;CL_END_DATE"
-            visible-columns="CNT_NAME;CL_START_DATE;CL_END_DATE" delete-button="no" refresh-button="false"
-            quick-filter="no" insert-form-route="newDestiny/new" (onClick)="openContainersLotsDetail($event)"
-            detail-mode="none" virtual-scroll="no">
-            <o-table-column attr="CNT_NAME"></o-table-column>
-            <o-table-column attr="CL_START_DATE" type="date"></o-table-column>
-            <o-table-column attr="CL_END_DATE" type="date"></o-table-column>
-          </o-table>
-        </o-column>
-      </o-row>
-    </mat-tab>
-
-    <mat-tab label="Graphics">
-      <ng-template mat-tab-label>
-        <div style="font-weight: bold;">
-          {{ 'TAB_GRAPHS' | oTranslate }}
+        <div>
+          <o-text-input #cntName class="main-info" attr="CNT_NAME" read-only="yes" hidden></o-text-input>
+          <label class="label">{{ 'CNT_NAME' | oTranslate }}</label>
+          <div class="main-info">{{ cntName.getValue() }}</div>
         </div>
-      </ng-template>
-      <div class="graphs-container">
-        <div id="tablaMedidasContainer">
-          <o-table #measurementsTable attr="tablaMedidas" service="measurements" entity="measurements"
-            parent-keys="CL_ID" columns="DEV_ID;DEV_NAME;ME_DATE;ME_TEMP;ME_HUMIDITY" (onDataLoaded)="fillChart($event)"
-            virtual-scroll="no" style="height: auto; max-height: none; overflow: hidden">
-            <o-table-column attr="ME_DATE" type="date"></o-table-column>
-            <o-table-column attr="ME_TEMP" type="real"></o-table-column>
-            <o-table-column attr="ME_HUMIDITY" type="real"></o-table-column>
-          </o-table>
+        <div>
+          <o-text-input #lotName class="main-info" attr="LOT_NAME" read-only="yes" hidden></o-text-input>
+          <label class="label">{{ 'LOT_NAME' | oTranslate }}</label>
+          <div class="main-info">{{ lotName.getValue() }}</div>
         </div>
-        <div class="graphs">
-          <o-chart #lineChartBasic type="line" [chart-parameters]="chartParametersTemp"
-            x-label="{{ 'TIME' | oTranslate }}" y-label="{{ 'TEMPERATURE' | oTranslate }}" [color]="colorSchemeTemp"
-            [data]="dataArrayTemp" show-grid-lines="true" virtual-scroll="no"
-            style="height: auto; max-height: none; overflow: hidden"></o-chart>
+        <o-text-input #proName attr="PRO_NAME" read-only="yes"></o-text-input>
+      </div>
+      <div class="inline-fields-4">
+        <o-text-input #minTemp attr="MIN_TEMP" read-only="yes" hidden></o-text-input>
+        <o-text-input attr="MIN_TEMP_TEXT" label="MIN_TEMP_DEV" read-only="yes" [data]="minTemp.getValue() + ' ºC'"
+          automatic-binding="false" automatic-registering="false"></o-text-input>
 
-          <o-chart #lineChartBasic type="line" [chart-parameters]="chartParametersHum"
-            x-label="{{ 'TIME' | oTranslate }}" y-label="{{ 'HUMIDITY' | oTranslate }}" [color]="colorSchemeTemp"
-            [data]="dataArrayHum" show-grid-lines="true" virtual-scroll="no"
-            style="height: auto; max-height: none; overflow: hidden"></o-chart>
+        <o-text-input #maxTemp attr="MAX_TEMP" read-only="yes" hidden></o-text-input>
+        <o-text-input attr="MAX_TEMP_TEXT" label="MAX_TEMP_DEV" read-only="yes" [data]="maxTemp.getValue() + ' ºC'"
+          automatic-binding="false" automatic-registering="false"></o-text-input>
+
+        <o-text-input #lastTemp attr="ME_TEMP" title="LAST_TEMP" read-only="yes" hidden></o-text-input>
+        <o-text-input attr="ME_TEMP_TEXT" label="LAST_TEMP" read-only="yes" [data]="lastTempVisible"
+          automatic-binding="false" automatic-registering="false"></o-text-input>
+
+        <o-text-input #lastHumidity attr="ME_HUMIDITY" title="LAST_HUMIDITY" read-only="yes" hidden></o-text-input>
+        <o-text-input attr="ME_HUMIDITY_TEXT" label="LAST_HUMIDITY" read-only="yes" [data]="lastHumidityVisible"
+          automatic-binding="false" automatic-registering="false"></o-text-input>
+      </div>
+    </div>
+
+    <div>
+      <h3>{{ 'ALERTS_DATA' | oTranslate }}</h3>
+      <div class="inline-fields-4">
+        <o-text-input #totalTime attr="TOTAL_TIME" read-only="yes" hidden></o-text-input>
+        <o-text-input attr="TOTAL_TIME_TEXT" label="TOTAL_TIME" read-only="yes" automatic-binding="false"
+          automatic-registering="false" [data]="totalTimeVisible"></o-text-input>
+
+        <o-text-input #averageTime attr="AVERAGE_TIME" read-only="yes" hidden></o-text-input>
+        <o-text-input attr="AVERAGE_TIME_TEXT" label="AVERAGE_TIME" read-only="yes" automatic-binding="false"
+          automatic-registering="false" [data]="averageTimeVisible"></o-text-input>
+
+        <o-text-input #maxTime attr="MAX_TIME" read-only="yes" hidden></o-text-input>
+        <o-text-input attr="MAX_TIME_TEXT" label="MAX_TIME" read-only="yes" automatic-binding="false"
+          automatic-registering="false" [data]="maxTimeVisible"></o-text-input>
+
+        <o-text-input #activeAlert attr="ACTIVE_ALERTS" read-only="true" hidden></o-text-input>
+        <div id="alerts-count">
+          <div id="alerts-text">{{translateLabel()}}</div>
         </div>
       </div>
-    </mat-tab>
+    </div>
 
-    <mat-tab label="Measurements">
-      <ng-template mat-tab-label>
-        <div style="font-weight: bold;">
-          {{ 'TAB_MEASUREMENTS' | oTranslate }}
+    <div>
+      <h3>{{ 'CL_EDIT_DATE_RANGE' | oTranslate }}</h3>
+      <div id="date-range" class="inline-fields-4">
+        <o-date-input attr="CL_START_DATE" required="yes"></o-date-input>
+        <o-date-input attr="CL_END_DATE"></o-date-input>
+      </div>
+    </div>
+
+    <mat-tab-group oTabGroup="ontimize">
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <div class="tab-label">
+            {{ 'TAB_TRANSFER' | oTranslate }}
+          </div>
+        </ng-template>
+        <o-row>
+          <o-column class="extend">
+            <o-table attr="clOriginTable" title="CL_ORIGIN" show-title="yes" service="transfers"
+              entity="transfersOrigin" keys="TRA_ID" parent-keys="CL_ID"
+              columns="TRA_ID;CNT_ID;CL_ID;CNT_NAME;CL_START_DATE;CL_END_DATE"
+              visible-columns="CNT_NAME;CL_START_DATE;CL_END_DATE" delete-button="no" refresh-button="false"
+              quick-filter="no" insert-form-route="newOrigin/new" (onClick)="openContainersLotsDetail($event)"
+              detail-mode="none" virtual-scroll="no">
+              <o-table-column attr="CNT_NAME"></o-table-column>
+              <o-table-column attr="CL_START_DATE" type="date"></o-table-column>
+              <o-table-column attr="CL_END_DATE" type="date"></o-table-column>
+            </o-table>
+          </o-column>
+          <o-column class="extend">
+            <o-table attr="clDestinyTable" title="CL_DESTINY" show-title="yes" service="transfers"
+              entity="transfersDestiny" keys="TRA_ID" parent-keys="CL_ID"
+              columns="TRA_ID;CNT_ID;CL_ID;CNT_NAME;CL_START_DATE;CL_END_DATE"
+              visible-columns="CNT_NAME;CL_START_DATE;CL_END_DATE" delete-button="no" refresh-button="false"
+              quick-filter="no" insert-form-route="newDestiny/new" (onClick)="openContainersLotsDetail($event)"
+              detail-mode="none" virtual-scroll="no">
+              <o-table-column attr="CNT_NAME"></o-table-column>
+              <o-table-column attr="CL_START_DATE" type="date"></o-table-column>
+              <o-table-column attr="CL_END_DATE" type="date"></o-table-column>
+            </o-table>
+          </o-column>
+        </o-row>
+      </mat-tab>
+
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <div class="tab-label">
+            {{ 'TAB_GRAPHS' | oTranslate }}
+          </div>
+        </ng-template>
+        <div>
+          <div id="tablaMedidasContainer">
+            <o-table #measurementsTable attr="tablaMedidas" service="measurements" entity="measurements"
+              parent-keys="CL_ID" columns="DEV_ID;DEV_NAME;ME_DATE;ME_TEMP;ME_HUMIDITY"
+              (onDataLoaded)="fillChart($event)" virtual-scroll="no">
+              <o-table-column attr="ME_DATE" type="date"></o-table-column>
+              <o-table-column attr="ME_TEMP" type="real"></o-table-column>
+              <o-table-column attr="ME_HUMIDITY" type="real"></o-table-column>
+            </o-table>
+          </div>
+          <div class="row1">
+            <o-chart #lineChartBasic type="line" [chart-parameters]="chartParametersTemp"
+              x-label="{{ 'TIME' | oTranslate }}" y-label="{{ 'TEMPERATURE' | oTranslate }}" [color]="colorSchemeTemp"
+              [data]="dataArrayTemp" show-grid-lines="true" virtual-scroll="no"></o-chart>
+          </div>
+          <div class="row1" style="margin-top: 24px;">
+            <o-chart #lineChartBasic type="line" [chart-parameters]="chartParametersHum"
+              x-label="{{ 'TIME' | oTranslate }}" y-label="{{ 'HUMIDITY' | oTranslate }}" [color]="colorSchemeTemp"
+              [data]="dataArrayHum" show-grid-lines="true" virtual-scroll="no"></o-chart>
+          </div>
         </div>
-      </ng-template>
-      <o-table attr="containerLotMeasurements" title="MEASUREMENTS" show-title="yes" service="measurements"
-        entity="measurements" keys="ME_ID" parent-keys="CL_ID"
-        columns="ME_ID;ME_DATE;ME_TEMP;ME_HUMIDITY;DEV_NAME;MIN_TEMP;MAX_TEMP"
-        visible-columns="ME_DATE;ME_TEMP;ME_HUMIDITY;DEV_NAME" query-rows="20" select-all-checkbox-visible="no"
-        insert-button="no" delete-button="no" refresh-button="yes" quick-filter="no" pageable="true" virtual-scroll="no"
-        [row-class]="rowClass" virtual-scroll="no" style="height: auto; max-height: none; overflow: hidden">
-        <o-table-column attr="ME_DATE" title="DATE" type="date" format="DD/MM/YYYY HH:mm:ss"></o-table-column>
-        <o-table-column attr="ME_TEMP" title-align="center" content-align="center" title="TEMPERATURE"></o-table-column>
-        <o-table-column attr="ME_HUMIDITY" title-align="center" content-align="center"
-          title="HUMIDITY"></o-table-column>
-        <o-table-column attr="DEV_NAME" title-align="center" content-align="center"></o-table-column>
-      </o-table>
-    </mat-tab>
-  </mat-tab-group>
+      </mat-tab>
+
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <div class="tab-label">
+            {{ 'TAB_MEASUREMENTS' | oTranslate }}
+          </div>
+        </ng-template>
+        <o-table attr="containerLotMeasurements" title="MEASUREMENTS" show-title="yes" service="measurements"
+          entity="measurements" keys="ME_ID" parent-keys="CL_ID"
+          columns="ME_ID;ME_DATE;ME_TEMP;ME_HUMIDITY;DEV_NAME;MIN_TEMP;MAX_TEMP"
+          visible-columns="ME_DATE;ME_TEMP;ME_HUMIDITY;DEV_NAME" query-rows="20" select-all-checkbox-visible="no"
+          insert-button="no" delete-button="no" refresh-button="yes" quick-filter="no" pageable="true"
+          virtual-scroll="no" [row-class]="rowClass" virtual-scroll="no"
+          style="height: auto; max-height: none; overflow: hidden">
+          <o-table-column attr="ME_DATE" title="DATE" type="date" format="DD/MM/YYYY HH:mm:ss"></o-table-column>
+          <o-table-column attr="ME_TEMP" title-align="center" content-align="center" title="TEMPERATURE"
+            type="real"></o-table-column>
+          <o-table-column attr="ME_HUMIDITY" title-align="center" content-align="center" title="HUMIDITY"
+            type="real"></o-table-column>
+          <o-table-column attr="DEV_NAME" title="DEV" title-align="center" content-align="center"></o-table-column>
+        </o-table>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
 </o-form>

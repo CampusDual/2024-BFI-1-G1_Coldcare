@@ -1,7 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { Expression, FilterExpressionUtils, OTableComponent, OTranslateService } from 'ontimize-web-ngx';
-import { DataAdapterUtils, LineChartConfiguration, OChartComponent } from 'ontimize-web-ngx-charts';
+import { Expression, FilterExpressionUtils, OTableComponent, OTextInputComponent, OTranslateService } from 'ontimize-web-ngx';
+import { LineChartConfiguration, OChartComponent } from 'ontimize-web-ngx-charts';
+import { SecondsToTimePipe } from 'src/app/shared/components/pipes/seconds-to-time.pipe';
 
 @Component({
   selector: 'app-containers-lots-details',
@@ -13,10 +14,23 @@ export class ContainersLotsDetailsComponent {
   @ViewChild('measurementsTemperatureTable', { static: false }) measurementsTemperatureTable: OTableComponent;
   @ViewChild('measurementsHumidityTable', { static: false }) measurementsHumidityTable: OTableComponent;
   @ViewChild('lineChartBasic', { static: false }) lineChart: OChartComponent;
+  @ViewChild('totalTime', { static: false }) totalTime!: OTextInputComponent;
+  @ViewChild('averageTime', { static: false }) averageTime!: OTextInputComponent;
+  @ViewChild('maxTime', { static: false }) maxTime!: OTextInputComponent;
+  @ViewChild('activeAlert', { static: false }) activeAlert!: OTextInputComponent;
+  @ViewChild('lastHumidity', { static: false }) lastHumidity!: OTextInputComponent;
+  @ViewChild('lastTemp', { static: false }) lastTemp!: OTextInputComponent;
 
   dataArrayTemp: any = [];
   dataArrayHum: any = [];
   chartData = [];
+  activeAlertVisible: number = 0;
+  totalTimeVisible: string = "N/A";
+  averageTimeVisible: string = "N/A";
+  maxTimeVisible: string = "N/A";
+  lastHumidityVisible: string = "N/A";
+  lastTempVisible: string = "N/A";
+  containerLot: any = {};
 
   chartParametersTemp: LineChartConfiguration;
   chartParametersHum: LineChartConfiguration;
@@ -47,9 +61,11 @@ export class ContainersLotsDetailsComponent {
   }
 
   constructor(
+    private secondsToTime: SecondsToTimePipe,
     private translator: OTranslateService,
     private router: Router
   ) {
+
     // Configuración del gráfico de temperatura
     this.chartParametersTemp = new LineChartConfiguration();
     this.chartParametersTemp.isArea = [true];
@@ -149,16 +165,16 @@ export class ContainersLotsDetailsComponent {
     this.dataArrayTemp = Object.keys(devicesData).map(devId => ({
       name: devId,
       series: devicesData[devId].map(point => ({
-        name: point.ME_DATE, 
-        value: point[this.tempField] 
+        name: point.ME_DATE,
+        value: point[this.tempField]
       }))
     }));
 
     this.dataArrayHum = Object.keys(devicesData).map(devId => ({
       name: devId,
       series: devicesData[devId].map(point => ({
-        name: point.ME_DATE, 
-        value: point[this.humidityField] 
+        name: point.ME_DATE,
+        value: point[this.humidityField]
       }))
     }));
 
@@ -166,4 +182,38 @@ export class ContainersLotsDetailsComponent {
     this.colorSchemeHum = { domain: Object.values(this.deviceColorMap) };
   }
 
+  fillData(e: any) {
+    this.containerLot = e;
+    if (e.TOTAL_TIME !== undefined) {
+      this.totalTimeVisible = this.secondsToTime.transform(this.totalTime.getValue());
+    }
+    if (e.AVERAGE_TIME !== undefined) {
+      this.averageTimeVisible = this.secondsToTime.transform(this.averageTime.getValue());
+    }
+    if (e.MAX_TIME !== undefined) {
+      this.maxTimeVisible = this.secondsToTime.transform(this.maxTime.getValue());
+    }
+    if (e.ACTIVE_ALERTS !== undefined) {
+      this.activeAlertVisible = this.activeAlert.getValue();
+    }
+    if (e.ME_HUMIDITY !== undefined) {
+      this.lastHumidityVisible = this.lastHumidity.getValue() + "%";
+    }
+    if (e.ME_TEMP !== undefined) {
+      this.lastTempVisible = this.lastTemp.getValue() + " Cº";
+    }
+  }
+
+  public translateLabel() {
+    if (this.activeAlertVisible === 0) {
+      document.getElementById("alerts-text").classList.remove("alerts-count-active");
+      return this.translator.get("NO_ALERTS_ACTIVE_TEXT");
+    } else if (this.activeAlertVisible === 1) {
+      document.getElementById("alerts-text").classList.add("alerts-count-active");
+      return this.translator.get("ALERTS_ACTIVE_TEXT_SINGULAR").replace("#ALT_COUNT#", this.activeAlertVisible.toString());
+    } else {
+      document.getElementById("alerts-text").classList.add("alerts-count-active");
+      return this.translator.get("ALERTS_ACTIVE_TEXT").replace("#ALT_COUNT#", this.activeAlertVisible.toString());
+    }
+  }
 }

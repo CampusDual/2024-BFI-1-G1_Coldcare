@@ -1,13 +1,11 @@
 <o-form attr="VehiclesForm" parent-keys="VHC_ID" keys="VHC_ID" keys-sql-types="INTEGER" service="vehicles"
   entity="vehicles" header-actions="R;U;D">
-  <o-row attr="row1" layout-align="start stretch">
-    <o-column title="VEHICLE_DATA" layout-align="start stretch">
-      <div class="inline-fields">
-        <o-text-input attr="VHC_PLATE"></o-text-input>
-        <o-combo attr="USR_ID" service="vehicles" entity="userTransporter" value-column="USR_ID"
-          columns="USR_ID;USR_NAME" visible-columns="USR_NAME" null-selection="no" searchable="no"
-          required="yes"></o-combo>
-      </div>
-    </o-column>
-  </o-row>
+  <div class="full-screen-background-with-toolbar">
+    <h2>{{ 'VEHICLE_DATA' | oTranslate }}</h2>
+    <div class="inline-fields">
+      <o-text-input attr="VHC_PLATE" required="yes"></o-text-input>
+      <o-combo attr="USR_ID" label="user" service="vehicles" entity="userTransporter" value-column="USR_ID"
+        columns="USR_ID;USR_NAME" visible-columns="USR_NAME" null-selection="no" searchable="yes" required="yes"></o-combo>
+    </div>
+  </div>
 </o-form>

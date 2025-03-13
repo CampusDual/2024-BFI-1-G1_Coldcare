@@ -1,56 +1,63 @@
 <o-form attr="devicesTable" parent-keys="DEV_ID" keys="DEV_ID" keys-sql-types="INTEGER" service="devices"
   entity="devices" header-actions="R;U">
-
-  <o-column title="DEVICE_DATA" layout-align="start stretch" layout-padding>
-    <div class="inline-fields">
-      <o-text-input attr="DEV_MAC" read-only="true"></o-text-input>
-      <o-text-input attr="DEV_NAME" label="NAME" required="true"></o-text-input>
-      <o-combo attr="CNT_ID" label="CONTAINER_ASSIGN" service="containers" entity="containers" value-column="CNT_ID"
-        columns="CNT_ID;CNT_NAME" visible-columns="CNT_NAME" null-selection="yes" searchable="yes" clear-button="yes">
-      </o-combo>
-      <o-integer-input attr="DEV_PERSISTENCE" min="0" required="true"></o-integer-input>
-      <o-checkbox attr="DEV_STATE" label="DEVICE_ENABLED" read-only="no"></o-checkbox>
-      <o-text-input attr="DEV_ID" read-only="true" hidden></o-text-input>
+  <div class="full-screen-background-with-toolbar">
+    <div class="section">
+      <h2>{{ 'DEVICE_DATA' | oTranslate }}</h2>
+      <div class="inline-fields-4">
+        <o-text-input attr="DEV_MAC" read-only="true"></o-text-input>
+        <o-text-input attr="DEV_NAME" label="NAME" required="true"></o-text-input>
+        <o-combo attr="CNT_ID" label="CONTAINER_ASSIGN" service="containers" entity="containers" value-column="CNT_ID"
+          columns="CNT_ID;CNT_NAME" visible-columns="CNT_NAME" null-selection="yes" searchable="yes" clear-button="yes">
+        </o-combo>
+        <o-integer-input attr="DEV_PERSISTENCE" min="0" required="true"></o-integer-input>
+        <div>
+          <o-checkbox attr="DEV_STATE" label="DEVICE_ENABLED" read-only="no"></o-checkbox>
+          <o-text-input attr="DEV_ID" read-only="true" hidden></o-text-input>
+        </div>
+      </div>
     </div>
-  </o-column>
 
-  <o-column title="MEASUREMENTS_HISTORIC" layout-align="start stretch" layout-padding>
-    <div class="inline-fields">
-      <div fxLayout="column" layout-padding>
+    <div>
+      <h2>{{ 'MEASUREMENTS_HISTORIC' | oTranslate }}</h2>
+      <div class="inline-fields">
         <o-daterange-input #dates attr="ME_DATE" label="{{ 'DATE_RANGE_INPUT' | oTranslate }}" read-only="no"
-          required="no" format="DD/MM/YYYY" show-week-numbers="true" mode="desktop"
-          translate="yes" automatic-registering="false">
+          required="no" format="DD/MM/YYYY" show-week-numbers="true" mode="desktop" translate="yes"
+          automatic-registering="false">
         </o-daterange-input>
+        <div id="measurements-historic">
+          <o-button id="filter" attr="filter" [oFilterBuilderQuery]="filterBuilder" type="RAISED" color="primary"
+            label="{{ 'FILTER' | oTranslate }}" class="filter-button"></o-button>
+          <o-button attr="clear" (onClick)="dates.clearValue(); filterBuilder.triggerReload()" type="RAISED"
+            label="{{ 'CLEAR' | oTranslate }}" class="filter-button"></o-button>
+        </div>
       </div>
-      <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="8px">
-        <o-button attr="filter" [oFilterBuilderQuery]="filterBuilder" type="RAISED" color="primary"
-          label="{{ 'FILTER' | oTranslate }}" class="filter-button"></o-button>
-        <o-button attr="clear" (onClick)="dates.clearValue(); filterBuilder.triggerReload()" type="RAISED" label="{{ 'CLEAR' | oTranslate }}"
-          class="filter-button"></o-button>
+      <!-- Filtro para ambas graficas -->
+      <o-filter-builder #filterBuilder attr="thefilter" filters="DEV_ID:DEV_ID;ME_DATE:ME_DATE"
+        [target]="measurementsTable" query-on-change="yes"
+        [expression-builder]="createFilter.bind(this)"></o-filter-builder>
+
+      <div>
+        <!--Tabla de Medidas-->
+        <o-table #measurementsTable attr="tablaMedidas" service="measurements" entity="measurements"
+          columns="ME_DATE;ME_TEMP;ME_HUMIDITY" (onDataLoaded)="fillChart($event)">
+          <o-table-column attr="ME_DATE" type="date"></o-table-column>
+          <o-table-column attr="ME_TEMP" type="real"></o-table-column>
+          <o-table-column attr="ME_HUMIDITY" type="real"></o-table-column>
+        </o-table>
+
+        <!-- Grafica Temperatura -->
+        <div class="chart-grid">
+          <o-chart #lineChartBasic type="line" [chart-parameters]="chartParametersTemp"
+            x-label="{{ 'TIME' | oTranslate }}" y-label="{{ 'TEMPERATURE' | oTranslate }}" [color]="colorSchemeTemp"
+            [data]="dataArrayTemp" show-grid-lines="true"></o-chart>
+        </div>
+        <div class="chart-grid" style="margin-top: 24px;">
+          <!-- Grafica Humedad -->
+          <o-chart #lineChartBasic type="line" [chart-parameters]="chartParametersHum"
+            x-label="{{ 'TIME' | oTranslate }}" y-label="{{ 'HUMIDITY' | oTranslate }}" [color]="colorSchemeHum"
+            [data]="dataArrayHum" show-grid-lines="true"></o-chart>
+        </div>
       </div>
     </div>
-
-    <!-- Filtro para ambas graficas -->
-    <o-filter-builder #filterBuilder attr="thefilter" filters="DEV_ID:DEV_ID;ME_DATE:ME_DATE"
-      [target]="measurementsTable" query-on-change="yes" [expression-builder]="createFilter.bind(this)" ></o-filter-builder>
-
-    <!--Tabla de Medidas-->
-    <o-table #measurementsTable attr="tablaMedidas" service="measurements" entity="measurements"
-      columns="ME_DATE;ME_TEMP;ME_HUMIDITY" (onDataLoaded)="fillChart($event)">
-      <o-table-column attr="ME_DATE" type="date"></o-table-column>
-      <o-table-column attr="ME_TEMP" type="real"></o-table-column>
-      <o-table-column attr="ME_HUMIDITY" type="real"></o-table-column>
-    </o-table>
-
-    <!-- Grafica Temperatura -->
-    <o-chart #lineChartBasic type="line" [chart-parameters]="chartParametersTemp" x-label="{{ 'TIME' | oTranslate }}"
-      y-label="{{ 'TEMPERATURE' | oTranslate }}" [color]="colorSchemeTemp" [data]="dataArrayTemp"
-      show-grid-lines="true"></o-chart>
-
-    <!-- Grafica Humedad -->
-    <o-chart #lineChartBasic type="line" [chart-parameters]="chartParametersHum" x-label="{{ 'TIME' | oTranslate }}"
-      y-label="{{ 'HUMIDITY' | oTranslate }}" [color]="colorSchemeHum" [data]="dataArrayHum"
-      show-grid-lines="true"></o-chart>
-  </o-column>
-
+  </div>
 </o-form>

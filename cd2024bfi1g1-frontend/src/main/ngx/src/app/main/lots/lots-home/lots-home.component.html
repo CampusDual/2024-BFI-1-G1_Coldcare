@@ -1,19 +1,24 @@
-<o-table attr="lotsTable" service="lots" entity="lotsProducts" keys="LOT_ID"
-    columns="PRO_ID;PRO_NAME;CNT_MOBILITY;LOT_ID;MIN_TEMP;MAX_TEMP;LOT_NAME;HAS_ALERT;HAS_REPITED;AVG_TEMP_CNT_LOT;MAX_TEMP_CNT_LOT;MIN_TEMP_CNT_LOT"
-    visible-columns="LOT_NAME;PRO_NAME;CNT_MOBILITY;MIN_TEMP;MAX_TEMP;AVG_TEMP_CNT_LOT;MAX_TEMP_CNT_LOT;MIN_TEMP_CNT_LOT;HAS_ALERT;HAS_REPITED"
-    select-all-checkbox-visible="no" insert-button="yes" delete-button="no" refresh-button="yes" title="LOTS"
-    show-title="yes">
-    <o-table-column attr="LOT_NAME" title-align="center" content-align="center"></o-table-column>
-    <o-table-column attr="CNT_MOBILITY" title-align="center"
-        content-align="center"><app-lots-boolean-render /></o-table-column>
-    <o-table-column attr="PRO_NAME" title-align="center" content-align="center"></o-table-column>
-    <o-table-column attr="MIN_TEMP" title-align="center" type="real" content-align="center"></o-table-column>
-    <o-table-column attr="MAX_TEMP" title-align="center" type="real" content-align="center"></o-table-column>
-    <o-table-column attr="AVG_TEMP_CNT_LOT" title-align="center" type="real" content-align="center"></o-table-column>
-    <o-table-column attr="MAX_TEMP_CNT_LOT" title-align="center" type="real" content-align="center"></o-table-column>
-    <o-table-column attr="MIN_TEMP_CNT_LOT" title-align="center" type="real" content-align="center"></o-table-column>
-    <o-table-column attr="HAS_ALERT" title="HAS_ALERT" title-align="center" content-align="center">
-        <alert-boolean-renderer />
-    </o-table-column>
-    <o-table-column attr="HAS_REPITED" title-align="center" content-align="center"></o-table-column>
-</o-table>
+<div class="full-screen-background-table">
+    <o-table attr="lotsTable" service="lots" entity="lotsProducts" keys="LOT_ID"
+        columns="PRO_ID;PRO_NAME;CNT_MOBILITY;LOT_ID;MIN_TEMP;MAX_TEMP;LOT_NAME;HAS_ALERT;HAS_REPITED;AVG_TEMP_CNT_LOT;MAX_TEMP_CNT_LOT;MIN_TEMP_CNT_LOT"
+        visible-columns="LOT_NAME;PRO_NAME;CNT_MOBILITY;MIN_TEMP;MAX_TEMP;AVG_TEMP_CNT_LOT;MAX_TEMP_CNT_LOT;MIN_TEMP_CNT_LOT;HAS_ALERT;HAS_REPITED"
+        select-all-checkbox-visible="no" insert-button="yes" delete-button="no" refresh-button="yes" title="LOTS"
+        show-title="yes" virtual-scroll="false" horizontal-scroll="true" query-rows="20">
+        <o-table-column attr="LOT_NAME" title-align="center" content-align="center"></o-table-column>
+        <o-table-column attr="CNT_MOBILITY" title-align="center"
+            content-align="center"><app-lots-boolean-render /></o-table-column>
+        <o-table-column attr="PRO_NAME" title-align="center" content-align="center"></o-table-column>
+        <o-table-column attr="MIN_TEMP" title-align="center" type="real" content-align="center"></o-table-column>
+        <o-table-column attr="MAX_TEMP" title-align="center" type="real" content-align="center"></o-table-column>
+        <o-table-column attr="AVG_TEMP_CNT_LOT" title-align="center" type="real"
+            content-align="center"></o-table-column>
+        <o-table-column attr="MAX_TEMP_CNT_LOT" title-align="center" type="real"
+            content-align="center"></o-table-column>
+        <o-table-column attr="MIN_TEMP_CNT_LOT" title-align="center" type="real"
+            content-align="center"></o-table-column>
+        <o-table-column attr="HAS_ALERT" title="HAS_ALERT" title-align="center" content-align="center">
+            <alert-boolean-renderer />
+        </o-table-column>
+        <o-table-column attr="HAS_REPITED" title-align="center" content-align="center"></o-table-column>
+    </o-table>
+</div>

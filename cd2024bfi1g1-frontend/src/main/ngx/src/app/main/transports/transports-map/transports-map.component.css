@@ -1,5 +1,5 @@
 o-map {
-    height: 500px;
+    height: calc(100vh - 370px);
     width: 100%;
     display: block;
 }

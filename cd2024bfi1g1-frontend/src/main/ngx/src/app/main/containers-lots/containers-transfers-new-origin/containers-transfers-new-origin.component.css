@@ -1,0 +1,6 @@
+o-table {
+    margin-top: 20px;
+    height: calc(100vh - 249px);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+}

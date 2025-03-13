@@ -1,0 +1,9 @@
+.table-adjust {
+    height: calc(100vh - 236px);
+}
+
+o-button {
+    justify-content: start;
+    max-width: 40%;
+    align-content: center;
+}
