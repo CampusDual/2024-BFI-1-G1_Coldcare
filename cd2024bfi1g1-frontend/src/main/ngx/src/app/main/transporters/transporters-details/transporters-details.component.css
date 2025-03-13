@@ -5,3 +5,7 @@ div {
 .mat-datepicker-toggle.read-only.ng-tns-c40-48 {
   display: none;
 }
+
+.mat-mdc-form-field.mat-form-field-appearance-ontimize.read-only mat-label {
+  color: #333 !important;
+}
