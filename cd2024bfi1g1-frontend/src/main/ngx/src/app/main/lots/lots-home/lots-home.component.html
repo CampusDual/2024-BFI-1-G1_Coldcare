@@ -1,7 +1,7 @@
 <div class="full-screen-background-table">
     <o-table #lotsTable attr="lotsTable" service="lots" entity="lotsProducts" keys="LOT_ID"
         columns="PRO_ID;PRO_NAME;CNT_MOBILITY;LOT_ID;MIN_TEMP;MAX_TEMP;LOT_NAME;HAS_ALERT;HAS_REPITED;AVG_TEMP_CNT_LOT;MAX_TEMP_CNT_LOT;MIN_TEMP_CNT_LOT"
-        visible-columns="HAS_ALERT;LOT_NAME;PRO_NAME;MIN_TEMP;MAX_TEMP;CNT_MOBILITY;AVG_TEMP_CNT_LOT;MAX_TEMP_CNT_LOT;MIN_TEMP_CNT_LOT;HAS_REPITED"
+        visible-columns="HAS_ALERT;LOT_NAME;PRO_NAME;MIN_TEMP;MAX_TEMP;HAS_REPITED;CNT_MOBILITY;MIN_TEMP_CNT_LOT;AVG_TEMP_CNT_LOT;MAX_TEMP_CNT_LOT"
         select-all-checkbox-visible="no" insert-button="yes" delete-button="no" refresh-button="yes" title="LOTS"
         show-title="yes" virtual-scroll="false" horizontal-scroll="true" query-rows="20" (onDataLoaded)="fillData()">
         <o-table-column attr="HAS_ALERT" title="ALT_COUNT_VISIBLE" title-align="center" content-align="center"
@@ -14,14 +14,14 @@
             content-align="center"></o-table-column>
         <o-table-column attr="MAX_TEMP" title="LOT_PROD_MAX_TEMP" title-align="center" type="real"
             content-align="center"></o-table-column>
+        <o-table-column attr="HAS_REPITED" title-align="center" content-align="center"></o-table-column>
         <o-table-column attr="CNT_MOBILITY" title-align="center" content-align="center" max-width="105px"
             min-width="100px"><app-lots-boolean-render /></o-table-column>
+        <o-table-column attr="MIN_TEMP_CNT_LOT" title-align="center" type="real"
+            content-align="center"></o-table-column>
         <o-table-column attr="AVG_TEMP_CNT_LOT" title-align="center" type="real"
             content-align="center"></o-table-column>
         <o-table-column attr="MAX_TEMP_CNT_LOT" title-align="center" type="real"
             content-align="center"></o-table-column>
-        <o-table-column attr="MIN_TEMP_CNT_LOT" title-align="center" type="real"
-            content-align="center"></o-table-column>
-        <o-table-column attr="HAS_REPITED" title-align="center" content-align="center"></o-table-column>
     </o-table>
 </div>
