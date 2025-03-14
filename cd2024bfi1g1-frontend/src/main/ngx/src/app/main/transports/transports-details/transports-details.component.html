@@ -18,8 +18,7 @@
         value-column="TST_ID" columns="TST_ID;TST_NAME" visible-columns="TST_NAME" searchable="no" read-only="yes"
         translate="yes" hidden></o-combo>
 
-      <o-text-input attr="TST_ID_TEXT" label="TST_NAME" read-only="yes" [data]="combo.getValue() | formatState | oTranslate"></o-text-input>
-
+      <o-text-input attr="TST_ID_TEXT" label="TST_NAME" read-only="yes" [data]="combo.getValue() | formatState | oTranslate" automatic-registering="false"></o-text-input>
 
       <o-text-input #transporter attr="USR_NAME" label="TRP_NAME" hidden></o-text-input>
       <o-text-input attr="USR_NAME_VISIBLE" label="TRP_NAME" translate="yes" read-only="yes"

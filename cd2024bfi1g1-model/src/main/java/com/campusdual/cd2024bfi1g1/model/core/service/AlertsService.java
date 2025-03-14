@@ -39,6 +39,7 @@ public class AlertsService implements IAlertsService {
     public EntityResult alertsQuery(Map<String, Object> keyMap, List<String> attrList)
             throws OntimizeJEERuntimeException {
         Integer cmpId = Util.getUserCompanyId(this.daoHelper, this.userDao);
+        keyMap = new HashMap<>(keyMap);
         keyMap.put(DevicesDao.CMP_ID, cmpId);
         return this.daoHelper.query(this.alertsDao, keyMap, attrList);
     }

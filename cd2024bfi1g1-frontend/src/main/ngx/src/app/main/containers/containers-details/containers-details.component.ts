@@ -17,6 +17,8 @@ export class ContainersDetailsComponent {
   @ViewChild('maxHumidity', { static: false }) maxHumidity!: OTextInputComponent;
   @ViewChild('minHumidity', { static: false }) minHumidity!: OTextInputComponent;
   @ViewChild('alertsCount', { static: false }) alertsCount!: OTextInputComponent;
+  @ViewChild('activeAlert', { static: false }) activeAlert!: OTextInputComponent;
+
 
   constructor(
     private router: Router,
@@ -30,6 +32,7 @@ export class ContainersDetailsComponent {
   public maxHumidityVisible: string = "N/A";
   public minHumidityVisible: string = "N/A";
   public alertCountVisible: number = 0;
+  public activeAlertVisible: number = 0;
 
   fillData(e: any) {
     if (e.AVG_TEMP !== undefined) {
@@ -52,8 +55,9 @@ export class ContainersDetailsComponent {
     }
     if (e.ALT_COUNT !== undefined) {
       this.alertCountVisible = this.alertsCount.getValue();
-    } else {
-      this.alertCountVisible = 0;
+    }
+    if (e.ACTIVE_ALERTS !== undefined) {
+      this.activeAlertVisible = this.activeAlert.getValue();
     }
   }
 
@@ -63,10 +67,20 @@ export class ContainersDetailsComponent {
       return this.translator.get("NO_ALERTS_COUNT_TEXT");
     } else if (this.alertCountVisible === 1) {
       document.getElementById("alerts-text").classList.add("alerts-count-active");
+      if (this.activeAlertVisible > 0){
+        return this.translator.get("ALERTS_COUNT_TEXT_SINGULAR_WITH_ACTIVE").replace("#ALT_COUNT#", this.alertCountVisible.toString());
+      }
       return this.translator.get("ALERTS_COUNT_TEXT_SINGULAR").replace("#ALT_COUNT#", this.alertCountVisible.toString());
     } else {
-      document.getElementById("alerts-text").classList.add("alerts-count-active");
-      return this.translator.get("ALERTS_COUNT_TEXT").replace("#ALT_COUNT#", this.alertCountVisible.toString());
+      document.getElementById("alerts-text").classList.add("alerts-count-active");  
+      if (this.activeAlertVisible === 0){
+        return this.translator.get("ALERTS_COUNT_TEXT").replace("#ALT_COUNT#", this.alertCountVisible.toString());
+      }      
+      if (this.activeAlertVisible === 1){
+        return this.translator.get("ALERTS_COUNT_TEXT_WITH_ONE_ACTIVE").replace("#ALT_COUNT#", this.alertCountVisible.toString());
+      }
+      return this.translator.get("ALERTS_COUNT_TEXT_WITH_ACTIVE").replace("#ALT_COUNT#", this.alertCountVisible.toString()).replace("#ACTIVE_ALERTS#", this.activeAlertVisible.toString());
+
     }
   }
 

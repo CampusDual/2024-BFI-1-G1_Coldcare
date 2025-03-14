@@ -345,9 +345,9 @@ public class MeasurementsService implements IMeasurementsService {
     }
 
     private Integer getLastAlertId(Integer clId, Integer devId) {
-        Map<String, Object> filter = Map.of(
-                AlertsDao.CL_ID, clId,
-                AlertsDao.DEV_ID, devId);
+        Map<String, Object> filter = new HashMap<>();
+            filter.put(AlertsDao.CL_ID, clId);
+            filter.put(AlertsDao.DEV_ID, devId);
         List<String> columns = List.of(AlertsDao.ALT_ID);
         List<SQLStatementBuilder.SQLOrder> orderBy = List.of(
                 new SQLStatementBuilder.SQLOrder(AlertsDao.ALT_DATE_INIT, false));

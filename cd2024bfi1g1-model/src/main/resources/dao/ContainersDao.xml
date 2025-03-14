@@ -102,7 +102,8 @@
                             ROUND(min(me_temp)::numeric, 2) AS min_temp_dev,
                             ROUND(max(me_humidity)::numeric, 2) AS max_humidity_dev,
                             ROUND(min(me_humidity)::numeric, 2) AS min_humidity_dev,
-                            COUNT(DISTINCT a.alt_id) AS alt_count
+                            COUNT(DISTINCT a.alt_id) AS alt_count,
+                            COUNT(DISTINCT a.alt_id) FILTER (WHERE alt_date_end IS NULL) AS active_alerts
                         FROM
                             measurements m
                         LEFT JOIN containers_lots cl ON m.cl_id = cl.cl_id
