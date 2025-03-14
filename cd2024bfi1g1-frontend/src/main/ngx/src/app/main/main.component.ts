@@ -26,7 +26,7 @@ export class MainComponent implements OnInit, OnDestroy {
   ngOnInit() {
     const visited = localStorage.getItem('visited');
 
-
+    this.alertaService.obtenerAlertas();
     this.alertsTimer = setInterval(() => {
       this.alertaService.obtenerAlertas();
     }, 30000);
