@@ -13,12 +13,16 @@
     <GeneratedKey>cmp_id</GeneratedKey>
     <Queries>
         <Query id="default">
+            <AmbiguousColumns>
+                <AmbiguousColumn name="PLN_ID" prefix="p" />
+            </AmbiguousColumns>
             <Sentence>
                 <![CDATA[
                     SELECT
                         #COLUMNS#
                     FROM
-                        ${mainschema}.companies
+                        ${mainschema}.companies c
+                    INNER JOIN ${mainschema}.plans p ON (c.pln_id = p.pln_id)
                     #WHERE#
                     #ORDER#
                 ]]>
