@@ -1,24 +1,24 @@
 ## USERS
 
-Role: User
-Company: ColdCare
-Username: demo
-Password: demouser
+### Rol: Admin  
+**Compañía:** -  
+**Usuario:** `admin`  
+**Contraseña:** `adminuser`
 
-Role: User
-Company: Frigonor
-Username: francisco
-Password: 5_B0hB9F*tHy
+### Rol: User  
+**Compañía:** ColdCare  
+**Usuario:** `demo`  
+**Contraseña:** `demouser`  
 
-Role: Admin
-Company: -
-Username: admin
-Password: adminuser
+### Rol: User  
+**Compañía:** Frigonor  
+**Usuario:** `francisco`  
+**Contraseña:** `5_B0hB9F*tHy`    
 
-Role: Carrier
-Company: ColdCare
-Username: gabriel
-Password: x#R%&YMkvbQt
+### Rol: Carrier  
+**Compañía:** ColdCare  
+**Usuario:** `felipe`  
+**Contraseña:** `VX1Yd(4_68uj` 
 
 ## DESCRIPTION
 
