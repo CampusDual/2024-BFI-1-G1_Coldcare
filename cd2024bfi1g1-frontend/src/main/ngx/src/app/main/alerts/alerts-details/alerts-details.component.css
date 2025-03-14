@@ -1,3 +1,7 @@
+:host ::ng-deep .chart-legend {
+    display: none !important;
+}
+
 #tablaMedidasContainer {
     display: none !important;
 }
@@ -10,12 +14,4 @@
     margin: 10px;
     padding: 8px;
     width: auto;
-}
-
-::ng-deep .chart-grid .ngx-charts {
-    margin-bottom: 0;
-}
-
-::ng-deep .chart-grid .chart-legend.ng-star-inserted {
-    display: block;
 }
