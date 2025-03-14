@@ -7,8 +7,8 @@
       <o-combo #productCombo attr="PRO_ID" label="PRO_NAME" service="products" entity="products" value-column="PRO_ID"
         columns="PRO_ID;PRO_NAME;PRO_MIN_TEMP;PRO_MAX_TEMP" visible-columns="PRO_NAME" null-selection="no"
         searchable="yes" required="true" (onValueChange)="onNewProductChange($event)"></o-combo>
-      <o-real-input #minTempInput attr="MIN_TEMP" clear-button="yes"></o-real-input>
-      <o-real-input #maxTempInput attr="MAX_TEMP" clear-button="yes"></o-real-input>
+      <o-real-input #minTempInput attr="MIN_TEMP" clear-button="yes" max-decimal-digits="2" sql-type="DOUBLE"></o-real-input>
+      <o-real-input #maxTempInput attr="MAX_TEMP" clear-button="yes" max-decimal-digits="2" sql-type="DOUBLE"></o-real-input>
     </div>
   </div>
 </o-form>
