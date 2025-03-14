@@ -8,8 +8,8 @@
         <o-combo #productCombo attr="PRO_ID" label="PRO_NAME" service="products" entity="products" value-column="PRO_ID"
           columns="PRO_ID;PRO_NAME;PRO_MIN_TEMP;PRO_MAX_TEMP" visible-columns="PRO_NAME" null-selection="no"
           searchable="yes" required="true"></o-combo>
-        <o-real-input #minTempInput attr="MIN_TEMP" clear-button="yes"></o-real-input>
-        <o-real-input #maxTempInput attr="MAX_TEMP" clear-button="yes"></o-real-input>
+        <o-real-input #minTempInput attr="MIN_TEMP" clear-button="yes" max-decimal-digits="2" sql-type="DOUBLE"></o-real-input>
+        <o-real-input #maxTempInput attr="MAX_TEMP" clear-button="yes" max-decimal-digits="2" sql-type="DOUBLE"></o-real-input>
         <o-button attr="LOT_IMPORT" type="RAISED" label="LOT_IMPORT" layout-padding color="primary"
           (onClick)="importTemperature()"></o-button>
       </div>
