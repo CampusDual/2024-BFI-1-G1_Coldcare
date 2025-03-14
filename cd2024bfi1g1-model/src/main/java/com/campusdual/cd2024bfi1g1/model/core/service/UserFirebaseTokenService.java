@@ -1,5 +1,6 @@
 package com.campusdual.cd2024bfi1g1.model.core.service;
 
+import com.campusdual.cd2024bfi1g1.api.core.service.INotificationService;
 import com.campusdual.cd2024bfi1g1.api.core.service.IUserFirebaseTokenService;
 import com.campusdual.cd2024bfi1g1.model.core.dao.ContainersDao;
 import com.campusdual.cd2024bfi1g1.model.core.dao.DevicesDao;
@@ -7,6 +8,7 @@ import com.campusdual.cd2024bfi1g1.model.core.dao.UserDao;
 import com.campusdual.cd2024bfi1g1.model.core.dao.UserFirebaseTokenDao;
 import com.campusdual.cd2024bfi1g1.model.core.util.Util;
 import com.ontimize.jee.common.dto.EntityResult;
+import com.ontimize.jee.common.dto.EntityResultMapImpl;
 import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
 import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,8 @@ import java.util.*;
 public class UserFirebaseTokenService implements IUserFirebaseTokenService {
     @Autowired
     private UserFirebaseTokenDao userFirebaseTokenDao;
+    @Autowired
+    private INotificationService iNotificationService;
     @Autowired
     private DefaultOntimizeDaoHelper daoHelper;
     @Autowired
@@ -81,6 +85,36 @@ public class UserFirebaseTokenService implements IUserFirebaseTokenService {
     public EntityResult userFirebaseTokenUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap) throws OntimizeJEERuntimeException {
         return this.daoHelper.update(this.userFirebaseTokenDao, attrMap, keyMap);
 
+    }
+
+    @Override
+    public EntityResult test() throws Exception {
+            Integer usrId= Util.getUserId();
+            Map<String, Object> filter = new HashMap<>();
+            filter.put(UserDao.USR_ID, usrId);
+
+            EntityResult tokensResult = userFirebaseTokenQuery(filter, List.of(UserFirebaseTokenDao.UFT_TOKEN));
+
+            if (tokensResult.getCode() == EntityResult.OPERATION_SUCCESSFUL) {
+                Object rawData = tokensResult.get(UserFirebaseTokenDao.UFT_TOKEN);
+                List<String> tokensList = new ArrayList<>();
+
+                if (rawData instanceof List) {
+                    for (Object entry : (List<?>) rawData) {
+                        tokensList.add((String) entry);
+                    }
+                } else {
+                    System.out.println("Formato inesperado de datos para tokens: " + rawData);
+                }
+
+                for (String token : tokensList) {
+                    String response = iNotificationService.sendNotification(token, "TEST Coldcare", "TEST Se ha producido una alerta");
+                    System.out.println(response);
+                }
+            } else {
+                System.out.println("Error al obtener los tokens. Código de error: " + tokensResult.getCode());
+            }
+       return new EntityResultMapImpl();
     }
 
 
