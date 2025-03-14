@@ -72,8 +72,8 @@
             </div>
             <div class="chart-grid" style="margin-top: 24px;">
                 <o-chart #lineChartBasic type="line" [chart-parameters]="chartParametersHum"
-                    x-label="{{ 'TIME' | oTranslate }}" y-label="{{ 'HUMIDITY' | oTranslate }}"
-                    [color]="colorSchemeTemp" [data]="dataArrayHum" show-grid-lines="true"></o-chart>
+                    x-label="{{ 'TIME' | oTranslate }}" y-label="{{ 'HUMIDITY' | oTranslate }}" [color]="colorSchemeHum"
+                    [data]="dataArrayHum" show-grid-lines="true"></o-chart>
             </div>
         </div>
     </div>

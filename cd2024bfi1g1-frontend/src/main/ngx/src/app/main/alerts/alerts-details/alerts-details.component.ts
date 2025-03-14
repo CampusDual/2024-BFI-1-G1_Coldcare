@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Expression, FilterExpressionUtils, OTableComponent, OTextInputComponent, OTranslateService } from 'ontimize-web-ngx';
-import { LineChartConfiguration, OChartComponent } from 'ontimize-web-ngx-charts';
+import { DataAdapterUtils, LineChartConfiguration, OChartComponent } from 'ontimize-web-ngx-charts';
 import { DateRendererPipe } from 'src/app/shared/components/pipes/date-renderer.pipe';
 
 @Component({
@@ -135,8 +135,21 @@ export class AlertsDetailsComponent implements OnInit {
       }))
     }));
 
-    this.colorSchemeTemp = { domain: Object.values(this.deviceColorMap) };
-    this.colorSchemeHum = { domain: Object.values(this.deviceColorMap) };
+    const data = ev.map((row) => {
+      return {
+        [this.tempField]: row.ME_TEMP,
+        "ME_DATE": row.ME_DATE,
+        [this.humidityField]: row.ME_HUMIDITY
+      }
+    });
+
+    this.dataArrayTemp = DataAdapterUtils.createDataAdapter(
+      this.chartParametersTemp
+    ).adaptResult(data);
+
+    this.dataArrayHum = DataAdapterUtils.createDataAdapter(
+      this.chartParametersHum
+    ).adaptResult(data);
   }
 
   ngOnInit(): void { }
