@@ -336,6 +336,7 @@ o-combo-search {
       // color del label superior
       [id^="mat-mdc-form-field-label"] {
         color: #333;
+        font-size: 16px;
       }
     }
 
@@ -406,6 +407,10 @@ o-combo-search {
   .ng-star-inserted {
     color: #333;
   }
+}
+
+.mat-mdc-tab-group.o-tab-ontimize>.mat-mdc-tab-header .mat-mdc-tab-label-container .mat-mdc-tab:not(.mdc-tab--active):not(:last-child)+.mdc-tab:not(.mdc-tab--active) .mdc-tab__content .mdc-tab__text-label {
+  border: none;
 }
 
 .mat-mdc-tab-group.o-tab-ontimize>.mat-mdc-tab-header .mat-mdc-tab-label-container .mat-mdc-tab.mdc-tab.mdc-tab--active {

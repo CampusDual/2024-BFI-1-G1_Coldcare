@@ -29,7 +29,7 @@ export class MainComponent implements OnInit, OnDestroy {
 
     this.alertsTimer = setInterval(() => {
       this.alertaService.obtenerAlertas();
-    }, 1000);
+    }, 30000);
 
     this.oService.configureService(this.oService.getDefaultServiceConfiguration("users"));
     this.oService.query({}, ["ROL_ID", "ROL_NAME"], "myRole").subscribe(ress => {
