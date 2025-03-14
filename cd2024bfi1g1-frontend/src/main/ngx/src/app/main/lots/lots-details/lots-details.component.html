@@ -18,12 +18,17 @@
       <o-table attr="containersInLot" title="CONTAINERS_HISTORY" show-title="yes" service="containersLots"
         entity="containersOfLot" keys="CL_ID" parent-keys="LOT_ID"
         columns="CL_ID;CNT_NAME;CNT_MOBILITY;CNT_ID;CL_START_DATE;CL_END_DATE;HAS_ALERT;ME_TEMP;ME_HUMIDITY"
-        visible-columns="CNT_NAME;CNT_MOBILITY;CL_START_DATE;CL_END_DATE;ME_TEMP;ME_HUMIDITY;ACTIVE;HAS_ALERT"
+        visible-columns="HAS_ALERT;CNT_NAME;CNT_MOBILITY;CL_START_DATE;CL_END_DATE;ME_TEMP;ME_HUMIDITY;ACTIVE"
         delete-button="no" insert-button="false" refresh-button="true"
         sort-columns="CL_END_DATE:DESC;CL_START_DATE:DESC" virtual-scroll="false" (onClick)="openContainersLots($event)"
-        detail-mode="none">
-        <o-table-column attr="CNT_NAME" title="CNT_NAME" title-align="center" content-align="center"></o-table-column>
-        <o-table-column attr="CNT_MOBILITY" title="CNT_MOBILITY" title-align="center" content-align="center">
+        detail-mode="none" horizontal-scroll="true">
+        <o-table-column attr="HAS_ALERT" title="ALT_COUNT_VISIBLE" title-align="center" content-align="center"
+          max-width="24px">
+          <alert-boolean-renderer />
+        </o-table-column>
+        <o-table-column attr="CNT_NAME" title="CNT_NAME"></o-table-column>
+        <o-table-column attr="CNT_MOBILITY" title="CNT_MOBILITY" title-align="center" content-align="center"
+          max-width="105px" min-width="100px">
           <app-containers-home-boolean-renderer /></o-table-column>
         <o-table-column attr="CL_START_DATE" title="CL_START_DATE" type="date" format="DD/MM/YYYY" title-align="center"
           content-align="center"></o-table-column>
@@ -33,11 +38,9 @@
           title-align="center"></o-table-column>
         <o-table-column attr="ME_HUMIDITY" title="LAST_HUMIDITY_COL" content-align="center"
           title-align="center"></o-table-column>
-        <o-table-column attr="ACTIVE" title="ACTIVE" title-align="center" content-align="center">
+        <o-table-column attr="ACTIVE" title="ACTIVE" title-align="center" content-align="center" max-width="105px"
+          min-width="100px">
           <in-date-range-boolean-renderer />
-        </o-table-column>
-        <o-table-column attr="HAS_ALERT" title="HAS_ALERT" title-align="center" content-align="center">
-          <alert-boolean-renderer />
         </o-table-column>
       </o-table>
     </div>

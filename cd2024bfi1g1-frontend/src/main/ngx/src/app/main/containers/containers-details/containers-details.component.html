@@ -49,17 +49,19 @@
     <o-table attr="lotHistory" title="LOT_HISTORY" show-title="yes" service="containersLots"
       entity="containersLotsWithAlerts" keys="CL_ID" parent-keys="CNT_ID"
       columns="CL_ID;LOT_NAME;CL_START_DATE;CL_END_DATE;PRO_ID;PRO_NAME;HAS_ALERT"
-      visible-columns="LOT_NAME;PRO_NAME;CL_START_DATE;CL_END_DATE;ACTIVE;HAS_ALERT" delete-button="no"
+      visible-columns="HAS_ALERT;LOT_NAME;PRO_NAME;CL_START_DATE;CL_END_DATE;ACTIVE" delete-button="no"
       refresh-button="false" (onClick)="openContainersLots($event)" detail-mode="none" virtual-scroll="false"
       horizontal-scroll="true">
+      <o-table-column attr="HAS_ALERT" title="ALT_COUNT_VISIBLE" title-align="center" content-align="center"
+        max-width="24px">
+        <alert-boolean-renderer />
+      </o-table-column>
       <o-table-column attr="LOT_NAME" title="LOT"></o-table-column>
       <o-table-column attr="CL_START_DATE" title="CL_START_DATE" type="date" format="DD/MM/YYYY"></o-table-column>
       <o-table-column attr="CL_END_DATE" title="CL_END_DATE" type="date" format="DD/MM/YYYY"></o-table-column>
-      <o-table-column attr="ACTIVE" title="ACTIVE" title-align="center" content-align="center">
+      <o-table-column attr="ACTIVE" title="ACTIVE" title-align="center" content-align="center" max-width="105px"
+        min-width="100px">
         <in-date-range-boolean-renderer />
-      </o-table-column>
-      <o-table-column attr="HAS_ALERT" title="HAS_ALERT" title-align="center" content-align="center">
-        <alert-boolean-renderer />
       </o-table-column>
     </o-table>
   </div>
