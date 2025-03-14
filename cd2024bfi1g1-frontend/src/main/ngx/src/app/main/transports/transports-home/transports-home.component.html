@@ -2,18 +2,18 @@
   <o-table #transportsTable attr="transports" title="TRANSPORTS" show-title="yes" service="transports"
     entity="transports" keys="TRP_ID"
     columns="TRP_ID;ORIGIN_NAME;DESTINATION_NAME;CNT_NAME;VHC_PLATE;TRP_DATE;USR_NAME;TST_NAME"
-    visible-columns="ORIGIN_NAME;DESTINATION_NAME;CNT_NAME;VHC_PLATE;TRP_DATE;USR_NAME;TST_NAME"
+    visible-columns="ORIGIN_NAME;DESTINATION_NAME;CNT_NAME;USR_NAME;VHC_PLATE;TRP_DATE;TST_NAME"
     sort-columns="TRP_DATE:ASC" delete-button="false" virtual-scroll="false" horizontal-scroll="true"
     (onDataLoaded)="fillData()" query-rows="20">
-    <o-table-column attr="ORIGIN_NAME" title="TRP_ORIGIN" title-align="center" content-align="center"></o-table-column>
-    <o-table-column attr="DESTINATION_NAME" title="TRP_DESTINATION" title-align="center"
-      content-align="center"></o-table-column>
-    <o-table-column attr="CNT_NAME" title="CONTAINER" title-align="center" content-align="center"></o-table-column>
+    <o-table-column attr="ORIGIN_NAME" title="TRP_ORIGIN"></o-table-column>
+    <o-table-column attr="DESTINATION_NAME" title="TRP_DESTINATION"></o-table-column>
+    <o-table-column attr="CNT_NAME" title="CONTAINER"></o-table-column>
+    <o-table-column attr="USR_NAME" title="TRP_NAME"></o-table-column>
     <o-table-column attr="VHC_PLATE" title="VEHICLE" title-align="center" content-align="center"></o-table-column>
     <o-table-column attr="TRP_DATE" title="DATE" type="date" format="DD/MM/YYYY" orderable="yes" title-align="center"
       content-align="center"></o-table-column>
-    <o-table-column attr="USR_NAME" title="TRP_NAME" title-align="center" content-align="center"></o-table-column>
-    <o-table-column attr="TST_NAME" title="TST_NAME" title-align="center" content-align="center">
+    <o-table-column attr="TST_NAME" title="TST_NAME" title-align="center" content-align="center" max-width="105px"
+      min-width="100px">
       <app-transports-column-renderer></app-transports-column-renderer>
     </o-table-column>
   </o-table>
