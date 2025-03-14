@@ -4,6 +4,7 @@
 
 export const environment = {
   apiEndpoint: 'http://localhost:8080',
+  assetsRoute: '/assets',
   production: false,
   firebaseVapidKey: 'BIc_noF-OVznM4eVn8Du8GYnAQ9HA4Ub6zP2K6AasLeYi50ls74uW5k7-Gr-0PerDyVvXo-tiks_i_kg6dvL_5U',
   firebaseConfig: {
