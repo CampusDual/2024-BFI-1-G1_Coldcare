@@ -1,19 +1,21 @@
 <div class="full-screen-background-table">
   <o-table attr="containers" title="CONTAINERS" service="containers" entity="containersWithAlerts" keys="CNT_ID"
     columns="CNT_ID;CNT_NAME;CNT_MOBILITY;HAS_ALERT;ME_TEMP;ME_HUMIDITY;LOT_NAME;PRO_NAME"
-    visible-columns="CNT_NAME;CNT_MOBILITY;HAS_ALERT;ME_TEMP;ME_HUMIDITY;LOT_NAME;PRO_NAME" delete-button="no"
+    visible-columns="HAS_ALERT;CNT_NAME;CNT_MOBILITY;LOT_NAME;PRO_NAME;ME_TEMP;ME_HUMIDITY" delete-button="no"
     show-title="true" virtual-scroll="false" horizontal-scroll="true" query-rows="20">
-    <o-table-column attr="CNT_NAME" title="NAME"></o-table-column>
-    <o-table-column attr="CNT_MOBILITY" title="CNT_MOBILITY" content-align="center" title-align="center">
-      <app-containers-home-boolean-renderer />
-    </o-table-column>
-    <o-table-column attr="HAS_ALERT" title="HAS_ALERT" content-align="center" title-align="center">
+    <o-table-column attr="HAS_ALERT" title="ALT_COUNT_VISIBLE" content-align="center" title-align="center"
+      max-width="24px">
       <alert-boolean-renderer />
     </o-table-column>
+    <o-table-column attr="CNT_NAME" title="NAME"></o-table-column>
+    <o-table-column attr="CNT_MOBILITY" title="CNT_MOBILITY" content-align="center" title-align="center"
+      max-width="105px" min-width="100px">
+      <app-containers-home-boolean-renderer />
+    </o-table-column>
+    <o-table-column attr="LOT_NAME" title="CURRENT_LOT"></o-table-column>
+    <o-table-column attr="PRO_NAME" title="PRO_NAME"></o-table-column>
     <o-table-column attr="ME_TEMP" title="LAST_TEMP_COL" content-align="center" title-align="center"></o-table-column>
     <o-table-column attr="ME_HUMIDITY" title="LAST_HUMIDITY_COL" content-align="center"
       title-align="center"></o-table-column>
-    <o-table-column attr="LOT_NAME" title="CURRENT_LOT" content-align="center" title-align="center"></o-table-column>
-    <o-table-column attr="PRO_NAME" title="PRO_NAME" content-align="center" title-align="center"></o-table-column>
   </o-table>
 </div>

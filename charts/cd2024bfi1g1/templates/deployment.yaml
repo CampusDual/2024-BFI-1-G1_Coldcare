@@ -84,7 +84,7 @@ spec:
           - name: FIREBASE_SERVICE_ACCOUNT_KEY
             valueFrom:
               secretKeyRef:
-                name: { { .Values.firebase.auth.secret } }
+                name: {{ .Values.firebase.auth.secret }}
                 key: data
         {{- end }}
         {{- if .Values.tenantManagement.enabled }}

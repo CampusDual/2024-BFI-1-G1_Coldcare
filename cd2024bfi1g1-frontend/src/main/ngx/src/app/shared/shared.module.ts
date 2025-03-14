@@ -16,6 +16,7 @@ import { ContainersHomeBooleanRendererComponent, } from './components/containers
 import { ContainerLotsBooleanRenderComponent } from './components/container-lots-boolean-render/container-lots-boolean-render.component';
 import { LotsBooleanRenderComponent } from './components/lots-boolean-render/lots-boolean-render.component';
 import { DatePipe } from '@angular/common';
+import { FormatStatePipe } from './components/pipes/format-state.pipe';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { DatePipe } from '@angular/common';
     DateRendererPipe,
     SecondsToTimePipe,
     StatusIconPipe,
-    DateTransformPipe
+    DateTransformPipe,
+    FormatStatePipe
   ],
   exports: [
     CommonModule,
@@ -56,6 +58,7 @@ import { DatePipe } from '@angular/common';
     SecondsToTimePipe,
     StatusIconPipe,
     DateTransformPipe,
+    FormatStatePipe,
   ],
   providers: [
     DatePipe

@@ -39,7 +39,7 @@ export class ContainersDetailsComponent {
       this.maxTempVisible = this.maxTemp.getValue() + " ºC";
     }
     if (e.MIN_TEMP_DEV !== undefined) {
-      this.minTempVisible = this.maxTemp.getValue() + " ºC";
+      this.minTempVisible = this.minTemp.getValue() + " ºC";
     }
     if (e.AVG_HUMIDITY !== undefined) {
       this.avgHumidityVisible = this.avgHumidity.getValue() + "%";
