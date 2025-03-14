@@ -8,6 +8,7 @@ import { TransportsDetailsComponent } from './transports-details/transports-deta
 import { TransportsColumnRendererComponent } from './transports-column-renderer/transports-column-renderer.component';
 import { TransportsMapComponent } from './transports-map/transports-map.component';
 import { OMapModule } from 'ontimize-web-ngx-map';
+import { SharedModule } from "../../shared/shared.module";
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { OMapModule } from 'ontimize-web-ngx-map';
     CommonModule,
     OntimizeWebModule,
     TransportsRoutingModule,
-    OMapModule
-  ]
+    OMapModule,
+    SharedModule
+]
 })
 export class TransportsModule { }

@@ -172,7 +172,7 @@ export class AlertsDetailsComponent implements OnInit {
 
   fillData(e: any) {
     if (e.ALT_DATE_END !== undefined) {
-      this.alertDateEndVisible = this.dateRenderer.transform(this.alertDateEnd.getValue(), 'yyyy/MM/dd HH:mm:ss');
+      this.alertDateEndVisible = this.dateRenderer.transform(this.alertDateEnd.getValue(), 'dd/MM/yyyy HH:mm:ss');
     }
   }
 }

@@ -8,7 +8,7 @@ import { DatePipe } from '@angular/common';
 export class DateRendererPipe implements PipeTransform {
   constructor(private datePipe: DatePipe) { }
 
-  transform(value: number, format: string = 'yyyy/MM/dd HH:mm:ss'): string | null {
+  transform(value: number, format: string = 'dd/MM/yyyy HH:mm:ss'): string | null {
 
     if (isNaN(value)) {
       return null;
