@@ -10,5 +10,6 @@ public interface IUserFirebaseTokenService {
     EntityResult userFirebaseTokenQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
     EntityResult userFirebaseTokenInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException;
     EntityResult userFirebaseTokenUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap) throws OntimizeJEERuntimeException;
+    EntityResult test() throws Exception;
 
 }

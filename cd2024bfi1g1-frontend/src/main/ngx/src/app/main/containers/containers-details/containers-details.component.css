@@ -41,3 +41,18 @@ o-table {
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
     border-radius: 4px;
 }
+
+::ng-deep o-table[attr="devicesTable"] {
+  box-shadow: none;
+  background: transparent;
+  border: none;
+  margin-left: 10px;
+}
+
+::ng-deep o-table[attr="devicesTable"] mat-table {
+  background: transparent;
+}
+
+::ng-deep o-table[attr="devicesTable"] .mat-elevation-z8 {
+  box-shadow: none;
+}

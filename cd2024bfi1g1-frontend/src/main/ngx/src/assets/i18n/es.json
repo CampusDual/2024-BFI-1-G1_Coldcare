@@ -311,6 +311,6 @@
   "alert_title_key": "Alerta Importante",
   "alert_body_key": "Se ha generado una nueva alerta.",
   "GRAPH_TITLE": "Grafo de movimientos del lote",
-  "LOT_PROD_MAX_TEMP": "Máxima Tª del producto (Cº)",
-  "LOT_PROD_MIN_TEMP": "Mínima Tª del producto (Cº)"
+  "LOT_PROD_MAX_TEMP": "Max Tª del producto (Cº)",
+  "LOT_PROD_MIN_TEMP": "Min Tª del producto (Cº)"
 }
