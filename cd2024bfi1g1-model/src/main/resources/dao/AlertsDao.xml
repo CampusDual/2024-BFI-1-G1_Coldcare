@@ -89,6 +89,7 @@
         <Query id="alertsWithContainersLots">
             <AmbiguousColumns>
                 <AmbiguousColumn name="CL_ID" prefix="a" />
+                <AmbiguousColumn name="DEV_ID" prefix="d" />
             </AmbiguousColumns>
             <Sentence>
                 <![CDATA[
