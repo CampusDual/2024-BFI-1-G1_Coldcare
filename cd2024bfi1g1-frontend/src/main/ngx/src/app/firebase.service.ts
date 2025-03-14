@@ -25,7 +25,7 @@ export class FirebaseService {
   //Hay que crear un VAPID KEY en firebase, vamos a configuracion del proyecto > Cloud Messaging > Certificados push web y creamos una clave
   async activarMensajes() {
     try {
-      const registration = await navigator.serviceWorker.register('/assets/firebase-messaging-sw.js');
+      const registration = await navigator.serviceWorker.register('/assets/js/firebase-messaging-sw.js');
       const token = await getToken(this.messaging, {
         //Recogemos el VAPID desde environment
         vapidKey: environment.firebaseVapidKey,
