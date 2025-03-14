@@ -19,12 +19,12 @@
     <div>
       <o-table class="table-adjust" #usersTable attr="users" service="users" entity="user" keys="USR_ID"
         columns="USR_ID;USR_NAME;USR_LOGIN;CMP_ID;CMP_NAME;USR_EMAIL"
-        visible-columns="USR_NAME;USR_LOGIN;CMP_NAME;USR_EMAIL" sort-columns="USR_NAME" query-rows="15"
+        visible-columns="USR_LOGIN;USR_NAME;USR_EMAIL;CMP_NAME" sort-columns="USR_NAME" query-rows="15"
         quick-filter="yes" row-height="medium" pageable="true" query-on-init="yes" query-on-bind="false"
         select-all-checkbox-visible="no" insert-button="yes" delete-button="no" refresh-button="yes" fixed-header="yes"
         fxFlex export-mode="local" detail-mode="click" show-title="true" title="USERS" virtual-scroll="no"
         horizontal-scroll="true">
-        <o-table-columns-filter columns="USR_NAME;USR_LOGIN;CMP_NAME;USR_EMAIL"></o-table-columns-filter>
+        <o-table-columns-filter columns="USR_LOGIN;USR_NAME;USR_EMAIL;CMP_NAME"></o-table-columns-filter>
       </o-table>
     </div>
   </div>

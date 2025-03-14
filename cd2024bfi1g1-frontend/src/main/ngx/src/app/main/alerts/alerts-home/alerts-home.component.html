@@ -26,42 +26,46 @@
             <o-table #alertsTable class="table-adjust" attr="alertsTable" service="alerts"
                 entity="alertsWithCalculatedColumns" keys="ALT_ID"
                 columns="ALT_ID;ALT_DATE_INIT;ALT_DATE_END;CNT_NAME;LOT_NAME;AVG_TEMP;AVG_HUMIDITY;MAX_TEMP_DEV;MAX_HUMIDITY_DEV;MIN_TEMP_DEV;MIN_HUMIDITY_DEV;ALT_MIN_TEMP;ALT_MAX_TEMP;PRO_ID;PRO_NAME;ALT_STATE;DEV_NAME"
-                visible-columns="ALT_STATE;ALT_DATE_INIT;DEV_NAME;CNT_NAME;LOT_NAME;PRO_NAME;ALT_DURATION;ALT_MIN_TEMP;ALT_MAX_TEMP;MIN_TEMP_DEV;MAX_TEMP_DEV;AVG_HUMIDITY"
+                visible-columns="ALT_STATE;ALT_DATE_INIT;ALT_DURATION;DEV_NAME;CNT_NAME;LOT_NAME;PRO_NAME;ALT_MIN_TEMP;ALT_MAX_TEMP;MIN_TEMP_DEV;MAX_TEMP_DEV;AVG_HUMIDITY"
                 select-all-checkbox-visible="yes" insert-button="no" delete-button="no" refresh-button="yes"
                 quick-filter="no" detail-mode="click" title="ALERTS" show-title="yes" sort-columns="ALT_DATE_INIT:DESC"
-                virtual-scroll="false" horizontal-scroll="true" quick-filter="yes" selection-mode="none"
-                [row-class]="getRowClass" query-rows="15">
+                virtual-scroll="false" horizontal-scroll="true" selection-mode="none" [row-class]="getRowClass"
+                query-rows="15">
 
                 <o-table-button label="BTN_SAVED" icon="check" (onClick)="selectionRow($event)"></o-table-button>
 
                 <o-table-column attr="ALT_STATE" fxLayoutGap="1px" auto-commit="false">
                     <o-table-cell-renderer-boolean render-true-value="check" render-false-value="warning"
                         render-type="icon" boolean-type="boolean-type" true-value="true" false-value="false">
-
                     </o-table-cell-renderer-boolean>
                     <o-table-cell-editor-boolean show-notification-on-edit="false" true-value="true" false-value="false"
                         boolean-type="boolean-type">
                     </o-table-cell-editor-boolean>
                 </o-table-column>
 
-
                 <o-table-column attr="ALT_DATE_INIT" title="DATE" type="date" format="DD/MM/YYYY HH:mm:ss"
-                    content-align="center"></o-table-column>
-                <o-table-column attr="CNT_NAME" title="CONTAINER" content-align="center"></o-table-column>
-                <o-table-column attr="DEV_NAME" title="DEV" content-align="center"></o-table-column>
-                <o-table-column attr="LOT_NAME" title="LOT" content-align="center"></o-table-column>
-                <o-table-column attr="ALT_DURATION" title="DURATION" content-align="center">
+                    title-align="center" content-align="center"></o-table-column>
+                <o-table-column attr="ALT_DURATION" title="DURATION" title-align="center" content-align="center"
+                    min-width="150px">
                     <app-alerts-duration-renderer></app-alerts-duration-renderer>
                 </o-table-column>
-                <o-table-column attr="ALT_MIN_TEMP" title="ALT_MIN_TEMP_COL" content-align="center">
+                <o-table-column attr="DEV_NAME" title="DEV"></o-table-column>
+                <o-table-column attr="CNT_NAME" title="CONTAINER"></o-table-column>
+                <o-table-column attr="LOT_NAME" title="LOT"></o-table-column>
+                <o-table-column attr="ALT_MIN_TEMP" title="ALT_MIN_TEMP_COL" title-align="center"
+                    content-align="center">
                     <o-table-cell-renderer-real max-decimal-digits="2"></o-table-cell-renderer-real>
                 </o-table-column>
-                <o-table-column attr="ALT_MAX_TEMP" title="ALT_MAX_TEMP_COL" content-align="center">
+                <o-table-column attr="ALT_MAX_TEMP" title="ALT_MAX_TEMP_COL" title-align="center"
+                    content-align="center">
                     <o-table-cell-renderer-real max-decimal-digits="2"></o-table-cell-renderer-real>
                 </o-table-column>
-                <o-table-column title="MAX_TEMP" attr="MAX_TEMP_DEV" content-align="center"></o-table-column>
-                <o-table-column attr="MIN_TEMP_DEV" title="MIN_TEMP" content-align="center"></o-table-column>
-                <o-table-column attr="AVG_HUMIDITY" title="AVG_HUMIDITY_COL" content-align="center"></o-table-column>
+                <o-table-column title="MAX_TEMP" attr="MAX_TEMP_DEV" title-align="center"
+                    content-align="center"></o-table-column>
+                <o-table-column attr="MIN_TEMP_DEV" title="MIN_TEMP" title-align="center"
+                    content-align="center"></o-table-column>
+                <o-table-column attr="AVG_HUMIDITY" title="AVG_HUMIDITY_COL" title-align="center"
+                    content-align="center"></o-table-column>
 
             </o-table>
         </div>
