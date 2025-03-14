@@ -9,25 +9,26 @@
           <o-text-input class="container-name" attr="CNT_NAME" label="NAME" required="true"></o-text-input>
           <o-slide-toggle attr="CNT_MOBILITY" label="CURRENT_MOBILITY" read-only="no"></o-slide-toggle>
 
+          <o-text-input #minTemp attr="MIN_TEMP_DEV" label="PRO_MIN_TEMP" read-only="true" oHidden></o-text-input>
+          <o-text-input attr="MIN_TEMP_VISIBLE" label="PRO_MIN_TEMP" read-only="true" automatic-registering="false"
+            automatic-binding="false" [data]="minTempVisible"></o-text-input>
           <o-text-input #avgTemp attr="AVG_TEMP" read-only="true" oHidden></o-text-input>
           <o-text-input attr="AVG_TEMP_VISIBLE" label="AVG_TEMP" read-only="true" automatic-registering="false"
             automatic-binding="false" [data]="avgTempVisible"></o-text-input>
           <o-text-input #maxTemp attr="MAX_TEMP_DEV" label="PRO_MAX_TEMP" read-only="true" oHidden></o-text-input>
           <o-text-input attr="MAX_TEMP_VISIBLE" label="PRO_MAX_TEMP" read-only="true" automatic-registering="false"
             automatic-binding="false" [data]="maxTempVisible"></o-text-input>
-          <o-text-input #minTemp attr="MIN_TEMP_DEV" label="PRO_MIN_TEMP" read-only="true" oHidden></o-text-input>
-          <o-text-input attr="MIN_TEMP_VISIBLE" label="PRO_MIN_TEMP" read-only="true" automatic-registering="false"
-            automatic-binding="false" [data]="minTempVisible"></o-text-input>
 
+          <o-text-input #minHumidity attr="MIN_HUMIDITY_DEV" read-only="true" oHidden></o-text-input>
+          <o-text-input attr="MIN_HUMIDITY_VISIBLE" label="MIN_HUMIDITY_DEV" read-only="true"
+            automatic-registering="false" automatic-binding="false" [data]="minHumidityVisible"></o-text-input>
           <o-text-input #avgHumidity attr="AVG_HUMIDITY" read-only="true" oHidden></o-text-input>
           <o-text-input attr="AVG_HUMIDITY_VISIBLE" label="AVG_HUMIDITY" read-only="true" automatic-registering="false"
             automatic-binding="false" [data]="avgHumidityVisible"></o-text-input>
           <o-text-input #maxHumidity attr="MAX_HUMIDITY_DEV" read-only="true" oHidden></o-text-input>
           <o-text-input attr="MAX_HUMIDITY_VISIBLE" label="MAX_HUMIDITY_DEV" read-only="true"
             automatic-registering="false" automatic-binding="false" [data]="maxHumidityVisible"></o-text-input>
-          <o-text-input #minHumidity attr="MIN_HUMIDITY_DEV" read-only="true" oHidden></o-text-input>
-          <o-text-input attr="MIN_HUMIDITY_VISIBLE" label="MIN_HUMIDITY_DEV" read-only="true"
-            automatic-registering="false" automatic-binding="false" [data]="minHumidityVisible"></o-text-input>
+
           <o-text-input #alertsCount attr="ALT_COUNT" read-only="true" oHidden></o-text-input>
           <div id="alerts-count"></div>
           <div id="alerts-count"></div>
