@@ -15,6 +15,7 @@
       </div>
     </div>
     <div>
+
       <o-table attr="containersInLot" title="CONTAINERS_HISTORY" show-title="yes" service="containersLots"
         entity="containersOfLot" keys="CL_ID" parent-keys="LOT_ID"
         columns="CL_ID;CNT_NAME;CNT_MOBILITY;CNT_ID;CL_START_DATE;CL_END_DATE;HAS_ALERT;ME_TEMP;ME_HUMIDITY"
@@ -45,6 +46,7 @@
       </o-table>
     </div>
     <div id="graphDiv">
+      <h1 id="graphTitle">{{ 'GRAPH_TITLE' | oTranslate }}</h1>
       <app-lots-graph [graphData]="graphData"></app-lots-graph>
     </div>
   </div>
