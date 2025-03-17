@@ -313,5 +313,7 @@
   "GRAPH_TITLE": "Movimientos",
   "LOT_PROD_MAX_TEMP": "Tª Max del producto (Cº)",
   "LOT_PROD_MIN_TEMP": "Tª Min del producto (Cº)",
-  "BILLING_PLAN": "Plan de facturación"
+  "BILLING_PLAN": "Plan de facturación",
+  "DEV_BILLS": "Dispositivos Conectados",
+  "MEASUREMENTS_BILLS": "Paquete de Medidas"
 }
