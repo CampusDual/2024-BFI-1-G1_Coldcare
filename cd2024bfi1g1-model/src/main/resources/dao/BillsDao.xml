@@ -66,7 +66,7 @@
                     SELECT #COLUMNS#
                     FROM bills b
                     JOIN companies c ON c.cmp_id = b.cmp_id
-                    JOIN plan_prices pp ON pp.pln_id = c.pln_id
+                    JOIN plan_prices pp ON pp.pp_id = b.pp_id
                     #WHERE#
                     #ORDER#
                 ]]>
