@@ -25,11 +25,11 @@
       </div>
       <div class="inline-fields-4">
         <o-text-input #minTemp attr="MIN_TEMP" read-only="yes" hidden></o-text-input>
-        <o-text-input attr="MIN_TEMP_TEXT" label="MIN_TEMP_DEV" read-only="yes" [data]="minTemp.getValue() + ' ºC'"
+        <o-text-input attr="MIN_TEMP_TEXT" label="ALT_MIN_TEMP" read-only="yes" [data]="minTemp.getValue() + ' ºC'"
           automatic-binding="false" automatic-registering="false"></o-text-input>
 
         <o-text-input #maxTemp attr="MAX_TEMP" read-only="yes" hidden></o-text-input>
-        <o-text-input attr="MAX_TEMP_TEXT" label="MAX_TEMP_DEV" read-only="yes" [data]="maxTemp.getValue() + ' ºC'"
+        <o-text-input attr="MAX_TEMP_TEXT" label="ALT_MAX_TEMP" read-only="yes" [data]="maxTemp.getValue() + ' ºC'"
           automatic-binding="false" automatic-registering="false"></o-text-input>
 
         <o-text-input #lastTemp attr="ME_TEMP" title="LAST_TEMP" read-only="yes" hidden></o-text-input>
