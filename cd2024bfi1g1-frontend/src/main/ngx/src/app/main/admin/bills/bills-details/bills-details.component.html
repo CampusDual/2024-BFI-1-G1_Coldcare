@@ -1,5 +1,5 @@
 <o-form #bilForm attr="costTable" service="bills" entity="billsWithPlan" include-parent-keys="yes" parent-keys="BIL_ID"
-    keys="BIL_ID" keys-sql-types="INTEGER" columns="BIL_ID" detect-changes-on-blur="no" (onDataLoaded)="fillTable()"
+    keys="BIL_ID" keys-sql-types="INTEGER" columns="BIL_ID" detect-changes-on-blur="no" (onDataLoaded)="fillTable($event)"
     header-actions="R" undo-button="no" editable-detail="no">
     <div class="full-screen-background-with-toolbar">
         <div class="row1">

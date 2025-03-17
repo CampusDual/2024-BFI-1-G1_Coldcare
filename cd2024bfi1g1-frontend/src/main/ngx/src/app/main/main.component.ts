@@ -17,12 +17,12 @@ export class MainComponent implements OnInit, OnDestroy {
 
   private app: FirebaseApp;
   private messaging: Messaging;
+  alertsTimer;
 
   constructor(private router: Router, private oService: OntimizeService, private firebaseService: FirebaseService, private alertaService: AlertaService, private titleService: Title) {
     this.app = initializeApp(environment.firebaseConfig);
     this.messaging = getMessaging(this.app);
   }
-  alertsTimer;
   ngOnInit() {
     const visited = localStorage.getItem('visited');
 
