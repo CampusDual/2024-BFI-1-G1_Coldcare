@@ -13,10 +13,12 @@
     <div class="section">
       <h2>{{ 'PRICES' | oTranslate }}</h2>
       <div class="inline-fields">
-        <o-text-input attr="PP_FIXED_PRICE" label="PP_FIXED_PRICE" required="yes"></o-text-input>
-        <o-text-input attr="PP_DEV_PRICE" label="PP_DEV_PRICE" required="yes"></o-text-input>
-        <o-text-input attr="PP_BUNDLE_PRICE" label="PP_BUNDLE_PRICE" required="yes"></o-text-input>
-        <o-text-input attr="PP_BUNDLE_REQUESTS" label="PP_BUNDLE_REQUESTS" required="yes"></o-text-input>
+        <o-real-input attr="PP_FIXED_PRICE" label="PP_FIXED_PRICE" required="yes" max-decimal-digits="2"></o-real-input>
+        <o-real-input attr="PP_DEV_PRICE" label="PP_DEV_PRICE" required="yes" max-decimal-digits="2"></o-real-input>
+        <o-real-input attr="PP_BUNDLE_PRICE" label="PP_BUNDLE_PRICE" required="yes"
+          max-decimal-digits="2"></o-real-input>
+        <o-real-input attr="PP_BUNDLE_REQUESTS" label="PP_BUNDLE_REQUESTS" required="yes"
+          max-decimal-digits="2"></o-real-input>
       </div>
     </div>
   </div>
