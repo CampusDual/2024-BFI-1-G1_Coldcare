@@ -315,5 +315,6 @@
   "LOT_PROD_MIN_TEMP": "Tª min del producto (Cº)",
   "BILLING_PLAN": "Plan de facturación",
   "DEV_BILLS": "Dispositivos conectados",
-  "MEASUREMENTS_BILLS": "Paquetes de medidas"
+  "MEASUREMENTS_BILLS": "Paquetes de medidas",
+  "TRP_MAP": "Ruta"
 }

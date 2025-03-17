@@ -1,45 +1,44 @@
 o-slide-toggle {
-    margin-left: 10px;
+  margin-left: 10px;
 }
 
 .row1 {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    margin-bottom: 15px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-bottom: 15px;
 }
 
 .container-data-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    height: 75%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  height: 75%;
 }
 
 .container-name {
-    grid-column: span 2;
+  grid-column: span 2;
 }
 
 #alerts-count {
-    grid-column: span 3;
-    text-align: center;
-    align-content: center;
-    justify-items: center;
+  grid-column: span 3;
+  text-align: center;
+  align-content: center;
+  justify-items: center;
 }
 
 #alerts-text {
-    width: fit-content;
-    padding: 3px 10px;
-    border-radius: 4px;
+  width: fit-content;
+  padding: 3px 10px;
+  border-radius: 4px;
 }
 
 .alerts-count-active {
-    background-color: #ca1717;
-    color: #fafafa;
-    font-weight: bold;
+  background-color: #ca1717;
+  color: #fafafa;
+  font-weight: bold;
 }
 
 o-table {
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
-    border-radius: 4px;
+  border-radius: 4px;
 }
 
 ::ng-deep o-table[attr="devicesTable"] {

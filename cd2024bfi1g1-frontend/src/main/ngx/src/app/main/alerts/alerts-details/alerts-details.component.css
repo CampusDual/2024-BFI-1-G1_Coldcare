@@ -1,17 +1,16 @@
 :host ::ng-deep .chart-legend {
-    display: none !important;
+  display: none !important;
 }
 
 #tablaMedidasContainer {
-    display: none !important;
+  display: none !important;
 }
 
 .chart-grid {
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
-    border-radius: 4px;
-    margin: 10px;
-    padding: 8px;
-    width: auto;
+  display: flex;
+  flex-direction: column;
+  border-radius: 4px;
+  margin: 10px;
+  padding: 8px;
+  width: auto;
 }

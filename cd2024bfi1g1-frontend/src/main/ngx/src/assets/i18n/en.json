@@ -315,5 +315,6 @@
   "LOT_PROD_MIN_TEMP": "Product min temp (Cº)",
   "BILLING_PLAN": "Billing plan",
   "DEV_BILLS": "Connected devices",
-  "MEASUREMENTS_BILLS": "Measurement bundles"
+  "MEASUREMENTS_BILLS": "Measurement bundles",
+  "TRP_MAP": "Route"
 }

@@ -1,58 +1,57 @@
 thead,
 tfoot {
-    background-color: #1c4e78;
-    color: #fafafafa;
+  background-color: #1c4e78;
+  color: #fafafafa;
 }
 
 tbody {
-    background-color: white;
+  background-color: white;
 }
 
 table {
-    width: 100%;
-    border-collapse: collapse;
-    font-family: "Poppins", sans-serif;
-    font-size: 12px;
-    color: rgba(0, 0, 0, 0.6);
-    height: 200px;
+  width: 100%;
+  border-collapse: collapse;
+  font-family: "Poppins", sans-serif;
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.6);
+  height: 200px;
 }
 
 th,
 td {
-    border-bottom: 1px solid rgb(128, 126, 126, .2);
-    padding: 8px 10px;
+  border-bottom: 1px solid rgb(128, 126, 126, 0.2);
+  padding: 8px 10px;
 }
 
 .centerNumb {
-    text-align: center;
+  text-align: center;
 }
 
 .row1 {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    margin-bottom: 50px;
-    padding-right: 8px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-bottom: 50px;
+  padding-right: 8px;
 }
 
 #usage-detail {
-    margin-left: 15px;
+  margin-left: 15px;
 }
 
 .usage-detail-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .table-adjust {
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
-    border-radius: 4px;
-    height: calc(100vh - 489px);
+  border-radius: 4px;
+  height: calc(100vh - 489px);
 }
 
 #plans-detail h2 {
-    font-family: "Roboto", sans-serif;
-    text-align: center;
-    color: #2b2d42;
-    font-size: 24px;
-    font-weight: 900;
+  font-family: "Roboto", sans-serif;
+  text-align: center;
+  color: #2b2d42;
+  font-size: 24px;
+  font-weight: 900;
 }

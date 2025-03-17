@@ -1,5 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
-import { OFormComponent, OIntegerInputComponent, ORealInputComponent } from 'ontimize-web-ngx';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-company-bills-details',
@@ -7,14 +6,6 @@ import { OFormComponent, OIntegerInputComponent, ORealInputComponent } from 'ont
   styleUrls: ['./company-bills-details.component.css']
 })
 export class CompanyBillsDetailsComponent {
-
-  @ViewChild('bilForm', { static: true }) bilForm!: OFormComponent;
-  @ViewChild('fixedPrice', { static: false }) fixedPrice!: ORealInputComponent;
-  @ViewChild('devPrice', { static: false }) devPrice!: ORealInputComponent;
-  @ViewChild('bundlePrice', { static: false }) bundlePrice!: ORealInputComponent;
-  @ViewChild('bilDevices', { static: false }) devices!: OIntegerInputComponent;
-  @ViewChild('bilMeasurements', { static: false }) measurements!: OIntegerInputComponent;
-  @ViewChild('bundleRequests', { static: false }) bundleRequests!: OIntegerInputComponent;
 
   fixedPriceValue: number = 0;
   devPriceValue: number = 0;
@@ -31,18 +22,15 @@ export class CompanyBillsDetailsComponent {
   bundleSubtotalValue: number = 0;
   totalValue: number = 0;
 
-  ngAfterViewInit() {
-    this.bilForm.onDataLoaded.subscribe(() => this.fillTable());
-  }
+  fillTable(data:any) {
+    console.log({data});
+    this.fixedPriceValue = data.PP_FIXED_PRICE ? data.PP_FIXED_PRICE : 0;
+    this.devPriceValue = data.PP_DEV_PRICE ? data.PP_DEV_PRICE : 0;
+    this.bundlePriceValue = data.PP_BUNDLE_PRICE ? data.PP_BUNDLE_PRICE : 0;
 
-  fillTable() {
-    this.fixedPriceValue = this.fixedPrice ? this.fixedPrice.getValue() : 0;
-    this.devPriceValue = this.devPrice ? this.devPrice.getValue() : 0;
-    this.bundlePriceValue = this.bundlePrice ? this.bundlePrice.getValue() : 0;
-
-    this.devQuantityValue = this.devices ? this.devices.getValue() : 0;
-    this.measurementsValue = this.measurements ? this.measurements.getValue() : 0;
-    this.bundleRequestsValue = this.bundleRequests ? this.bundleRequests.getValue() : 0;
+    this.devQuantityValue = data.BIL_DEVICES ? data.BIL_DEVICES : 0;
+    this.measurementsValue = data.BIL_MEASUREMENTS ? data.BIL_MEASUREMENTS : 0;
+    this.bundleRequestsValue = data.PP_BUNDLE_REQUESTS ? data.PP_BUNDLE_REQUESTS : 0;
     this.bundleQuantityValue = Math.ceil(this.measurementsValue / this.bundleRequestsValue);
 
     this.fixedSubtotalValue = this.fixedPriceValue * this.fixedQuantityValue;
