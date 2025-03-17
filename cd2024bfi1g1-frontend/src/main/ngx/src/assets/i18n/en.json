@@ -151,7 +151,7 @@
   "TRP_DESTINATION": "Destination",
   "VEHICLE_DATA": "Vehicle Details",
   "VHC_PLATE": "Plate",
-  "DELIVERY_DATE": "Delivery date",
+  "DELIVERY_DATE": "Shipment date",
   "LOCATION_DELETE_ERROR": "Cannot delete an assigned location",
   "VEHICLE_DELETE_ERROR": "Cannot delete an assigned vehicle",
   "CONTAINER_MOBILITY_ERROR": "Container in use, it is not allowed to change the mobility",
@@ -312,5 +312,6 @@
   "DEVICES_REQUESTS": "Measurements per device",
   "GRAPH_TITLE": "Lot transfers graph",
   "LOT_PROD_MAX_TEMP": "Product Max Temp (Cº)",
-  "LOT_PROD_MIN_TEMP": "Product Min Temp (Cº)"
+  "LOT_PROD_MIN_TEMP": "Product Min Temp (Cº)",
+  "TRP_MAP": "Route"
 }
