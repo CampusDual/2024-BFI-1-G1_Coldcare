@@ -151,7 +151,7 @@
   "TRP_DESTINATION": "Destino",
   "VEHICLE_DATA": "Detalles del vehículo",
   "VHC_PLATE": "Matrícula",
-  "DELIVERY_DATE": "Fecha de entrega",
+  "DELIVERY_DATE": "Fecha de transporte",
   "LOCATION_DELETE_ERROR": "No se puede borrar una localización asignada",
   "VEHICLE_DELETE_ERROR": "No se puede borrar un vehículo asignado",
   "CONTAINER_MOBILITY_ERROR": "Contenedor en uso, no está permitido cambiar la movilidad",
@@ -310,7 +310,8 @@
   "ALERT_TITLE": "ALERTA",
   "alert_title_key": "Alerta Importante",
   "alert_body_key": "Se ha generado una nueva alerta.",
-  "GRAPH_TITLE": "Grafo de movimientos del lote",
+  "GRAPH_TITLE": "Movimientos",
   "LOT_PROD_MAX_TEMP": "Tª Max del producto (Cº)",
-  "LOT_PROD_MIN_TEMP": "Tª Min del producto (Cº)"
+  "LOT_PROD_MIN_TEMP": "Tª Min del producto (Cº)",
+  "BILLING_PLAN": "Plan de facturación"
 }
