@@ -1,0 +1,9 @@
+o-map {
+    height: calc(100vh - 370px);
+    width: 100%;
+    display: block;
+}
+
+o-table {
+    display: none !important;
+}

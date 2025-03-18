@@ -1,0 +1,12 @@
+.form-row {
+    height: 89vh;
+}
+
+o-button {
+    align-content: center;
+    max-width: 40%;
+}
+
+.table-adjust {
+    height: calc(100vh - 236px);
+}

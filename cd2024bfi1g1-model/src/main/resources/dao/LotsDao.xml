@@ -13,12 +13,16 @@
     <GeneratedKey>lot_id</GeneratedKey>
     <Queries>
         <Query id="default">
+            <AmbiguousColumns>
+                <AmbiguousColumn name="PRO_ID" prefix="p"/>
+            </AmbiguousColumns>
             <Sentence>
                 <![CDATA[
                     SELECT
                         #COLUMNS#
                     FROM
-                        ${mainschema}.lots
+                        ${mainschema}.lots l
+                        JOIN products p ON l.pro_id = p.pro_id
                     #WHERE#
                     #ORDER#
                 ]]>
@@ -57,25 +61,6 @@
                 ]]>
             </Sentence>
         </Query>
-        <Query id="historic_lot_measurements">
-            <AmbiguousColumns>
-                <AmbiguousColumn name="LOT_ID" prefix="cl" />
-                <AmbiguousColumn name="CNT_ID" prefix="cl" />
-            </AmbiguousColumns>
-            <Sentence>
-                <![CDATA[
-                    with cl as (
-                        select distinct lot_id,cnt_id
-                        from measurements m
-                    )
-                    select #COLUMNS#
-                    from cl
-                    inner join containers c on c.cnt_id = cl.cnt_id
-                    inner join lots l on l.lot_id = cl.lot_id
-                    #WHERE#
-                ]]>
-            </Sentence>
-        </Query>
         <Query id="get_min_temp_lot_Id">
             <Sentence>
                 <![CDATA[
@@ -85,7 +70,6 @@
                 ]]>
             </Sentence>
         </Query>
-
         <Query id="get_max_temp_lot_Id">
             <Sentence>
                 <![CDATA[
@@ -95,7 +79,51 @@
                 ]]>
             </Sentence>
         </Query>
-
-
+        <Query id="lotsProducts">
+            <AmbiguousColumns>
+                <AmbiguousColumn name="PRO_ID" prefix="l" />
+                <AmbiguousColumn name="LOT_ID" prefix="l" />
+                <AmbiguousColumn name="MIN_TEMP" prefix="l" />
+                <AmbiguousColumn name="MAX_TEMP" prefix="l" />
+                <AmbiguousColumn name="LOT_NAME" prefix="l" />
+                <AmbiguousColumn name="CMP_ID" prefix="l" />
+            </AmbiguousColumns>
+            <Sentence>
+                <![CDATA[
+                    WITH t AS (
+                        SELECT
+                            l.*,
+                            EXISTS (
+                                SELECT 1
+                                FROM alerts a
+                                JOIN containers_lots cl ON cl.lot_id = l.lot_id
+                                WHERE cl.cl_id = a.cl_id
+                            ) AS has_alert,
+                            COUNT(DISTINCT cl.cl_id) AS has_repited,
+                            ROUND(AVG(m.me_temp)::numeric, 2) AS avg_temp_cnt_lot,
+                            ROUND(MAX(m.me_temp)::numeric, 2) AS max_temp_cnt_lot,
+                            ROUND(MIN(m.me_temp)::numeric, 2) AS min_temp_cnt_lot,
+                           CASE
+                                WHEN bool_and(c.cnt_mobility) THEN 'true'
+                                WHEN bool_and(NOT c.cnt_mobility) THEN 'false'
+                                ELSE 'truefalse'
+                           END AS cnt_mobility
+                        FROM lots l
+                        LEFT JOIN containers_lots cl ON cl.lot_id = l.lot_id
+                        LEFT JOIN measurements m ON m.cl_id = cl.cl_id
+                        LEFT JOIN containers c ON c.cnt_id = cl.cnt_id
+                        WHERE cl.cl_start_date <= now()
+                            AND (cl.cl_end_date IS NULL OR cl.cl_end_date >= now())
+                        GROUP BY l.lot_id, l.pro_id, l.cmp_id
+                    )
+                    SELECT
+                         #COLUMNS#
+                    FROM lots l
+                    LEFT JOIN t ON t.lot_id = l.lot_id
+                    LEFT JOIN products p ON p.pro_id = l.pro_id
+                    #WHERE#
+                ]]>
+            </Sentence>
+        </Query>
     </Queries>
 </JdbcEntitySetup>

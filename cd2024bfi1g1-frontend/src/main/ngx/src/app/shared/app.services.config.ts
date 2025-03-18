@@ -14,10 +14,46 @@ export const SERVICE_CONFIG: Object = {
   'containers': {
     'path': '/containers'
   },
-  'lots':{
+  'lots': {
     'path': '/lots'
   },
   'companies': {
     'path': '/companies'
-  }
+  },
+  'containersLots': {
+    'path': '/containersLots'
+  },
+  'bills': {
+    'path': '/bills'
+  },
+  'locations': {
+    'path': '/locations'
+  },
+  'alerts': {
+    'path': '/alerts'
+  },
+  'vehicles': {
+    'path': '/vehicles'
+  },
+  'products': {
+    'path': '/products'
+  },
+  'transports': {
+    'path': '/transports'
+  },
+  'transfers': {
+    'path': '/transfers'
+  },
+  'plan': {
+    'path': '/plan'
+  },
+  'pricing': {
+    'path': '/pricing'
+  },
+  'transportsCoordinates': {
+    'path': '/transportsCoordinates'
+  },
+  'userFirebaseToken': {
+    'path': '/userFirebaseToken'
+  },
 };

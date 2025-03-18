@@ -1,34 +1,33 @@
 <o-form attr="medidasTable" include-parent-keys="yes" parent-keys="DEV_ID" keys-sql-types="INTEGER" service="devices"
   entity="devices" show-header="false">
-  <o-column>
-
-    <div fxLayout="row" layout-padding fxLayoutGap="35px">
-      <div>
-        <label class="input-comp-title">{{"DEVICE_NAME_LABEL" | oTranslate }}</label>
-        <o-combo attr="DEV_ID" label="DEVICE_NAME_INPUT" service="devices" entity="devices" value-column="DEV_ID"
-          columns="DEV_ID;DEV_NAME" visible-columns="DEV_NAME" null-selection="yes" searchable="yes"></o-combo>
-      </div>
-      <div>
-        <label class="input-comp-title">{{"DATE_RANGE_LABEL" | oTranslate }}</label>
+  <div class="full-screen-background">
+    <div>
+      <h2>{{ 'FILTER_MEASUREMENTS' | oTranslate }}</h2>
+      <div class="inline-fields">
+        <o-combo attr="DEV_ID" label="DEV" service="devices" entity="devices" value-column="DEV_ID"
+          columns="DEV_ID;DEV_NAME" visible-columns="DEV_NAME" null-selection="yes" searchable="yes"
+          clear-button="yes"></o-combo>
         <o-daterange-input attr="ME_DATE" label="DATE_RANGE_INPUT" read-only="no" required="no" format="DD/MM/YYYY"
           show-week-numbers="true" mode="desktop" automatic-binding="false" translate="yes">
         </o-daterange-input>
+        <o-button attr="clear" [oFilterBuilderClear]="filterBuilder" type="BASIC" label="CLEAR" icon="clear"></o-button>
       </div>
     </div>
 
     <o-filter-builder #filterBuilder attr="thefilter" filters="DEV_ID:DEV_ID;ME_DATE:ME_DATE;DEV_NAME:DEV_NAME"
       [target]="measurementsTable" query-on-change="yes" [expression-builder]="createFilter"></o-filter-builder>
-  </o-column>
-</o-form>
 
-<!-- Tabla de Resultados -->
-<o-table #measurementsTable attr="measurementsTable" service="measurements" entity="measurements" keys="ME_ID"
-  columns="ME_ID;ME_DATE;ME_TEMP;ME_HUMIDITY;DEV_NAME" visible-columns="DEV_NAME;ME_DATE;ME_TEMP;ME_HUMIDITY"
-  query-rows="20" select-all-checkbox-visible="no" insert-button="no" delete-button="no" refresh-button="yes"
-  quick-filter="no" pageable="true" detail-mode="none" title="MEASUREMENTS" show-title="yes">
-  <!-- Columnas de la Tabla -->
-  <o-table-column attr="ME_DATE" title="DATE" type="date" format="DD/MM/YYYY HH:mm:ss"></o-table-column>
-  <o-table-column attr="ME_TEMP" title="TEMPERATURE"></o-table-column>
-  <o-table-column attr="ME_HUMIDITY" title="HUMIDITY"></o-table-column>
-  <o-table-column attr="DEV_NAME" title="IDENTIFIER"></o-table-column>
-</o-table>
+    <!-- Tabla de Resultados -->
+    <o-table #measurementsTable class="table-adjust" attr="measurementsTable" service="measurements"
+      entity="measurements" keys="ME_ID" columns="ME_ID;ME_DATE;ME_TEMP;ME_HUMIDITY;DEV_NAME"
+      visible-columns="DEV_NAME;ME_DATE;ME_TEMP;ME_HUMIDITY" query-rows="15" select-all-checkbox-visible="no"
+      insert-button="no" delete-button="no" refresh-button="yes" quick-filter="no" pageable="true" detail-mode="none"
+      title="MEASUREMENTS" show-title="yes" sort-columns="ME_DATE:DESC" virtual-scroll="false" horizontal-scroll="true">
+      <!-- Columnas de la Tabla -->
+      <o-table-column attr="DEV_NAME" title="DEV"></o-table-column>
+      <o-table-column attr="ME_DATE" title="DATE" type="date" format="DD/MM/YYYY HH:mm:ss"></o-table-column>
+      <o-table-column attr="ME_TEMP" title="TEMPERATURE" type="real" content-align="center"></o-table-column>
+      <o-table-column attr="ME_HUMIDITY" title="HUMIDITY" type="real" content-align="center"></o-table-column>
+    </o-table>
+  </div>
+</o-form>

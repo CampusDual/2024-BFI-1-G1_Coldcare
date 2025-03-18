@@ -15,10 +15,10 @@ import com.ontimize.jee.server.dao.jdbc.OntimizeJdbcDaoSupport;
 	configurationFilePlaceholder = "dao/placeholders.properties")
 public class UserDao extends OntimizeJdbcDaoSupport {
 
-	public static final String USR_ID        = "usr_id";
-	public static final String LOGIN         = "usr_login";
-	public static final String EMAIL         = "usr_email";
-	public static final String PASSWORD      = "usr_password";
+	public static final String USR_ID        = "USR_ID";
+	public static final String LOGIN         = "USR_LOGIN";
+	public static final String EMAIL         = "USR_EMAIL";
+	public static final String PASSWORD      = "USR_PASSWORD";
 	public static final String NAME          = "usr_name";
 	public static final String SURNAME       = "usr_surname";
 	public static final String CREATION_DATE = "usr_creation_date";
@@ -28,6 +28,6 @@ public class UserDao extends OntimizeJdbcDaoSupport {
 	public static final String PHONE         = "usr_phone";
 	public static final String OLD_PASSWORD  = "old_password";
 	public static final String NEW_PASSWORD  = "new_password";
-	public static final String CMP_ID  		 = "cmp_id";
+	public static final String CMP_ID  		 = "CMP_ID";
 
 }

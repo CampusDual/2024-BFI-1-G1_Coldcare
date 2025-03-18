@@ -1,0 +1,7 @@
+<ng-template #templateref let-cellvalue="cellvalue" let-rowvalue="rowvalue">
+    <mat-icon *ngIf="cellvalue === 'truefalse'" class="disabled" style="margin-right:8px;">warehouse</mat-icon>
+    <mat-icon *ngIf="cellvalue === 'truefalse'" class="enabled">local_shipping</mat-icon>
+
+    <mat-icon *ngIf="cellvalue === 'true'" class="enabled">local_shipping</mat-icon>
+    <mat-icon *ngIf="cellvalue === 'false'" class="disabled">warehouse</mat-icon>
+</ng-template>

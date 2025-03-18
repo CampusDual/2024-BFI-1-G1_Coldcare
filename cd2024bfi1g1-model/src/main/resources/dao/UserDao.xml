@@ -5,16 +5,18 @@
 	catalog="" schema="${mainschema}" table="usr_user" datasource="mainDataSource"
 	sqlhandler="dbSQLStatementHandler">
 	<DeleteKeys>
-		<Column>usr_id</Column>
+		<Column>USR_ID</Column>
 	</DeleteKeys>
 	<UpdateKeys>
-		<Column>usr_id</Column>
+		<Column>USR_ID</Column>
 	</UpdateKeys>
 	<GeneratedKey>usr_id</GeneratedKey>
 	<Queries>
 		<Query id="default">
 			<AmbiguousColumns>
 				<AmbiguousColumn name="CMP_ID" prefix="c" />
+				<AmbiguousColumn name="USR_ID" prefix="u" />
+				<AmbiguousColumn name="ROL_ID" prefix="ur" />
 			</AmbiguousColumns>
 			<Sentence>
                 <![CDATA[
@@ -24,6 +26,22 @@
                         ${mainschema}.usr_user u
                     LEFT JOIN ${mainschema}.companies c
                     	ON u.CMP_ID = c.CMP_ID
+					INNER JOIN ${mainschema}.usr_user_role ur ON (u.usr_id = ur.usr_id)
+					INNER JOIN ${mainschema}.usr_role r ON ur.rol_id = r.rol_id
+                    #WHERE#
+                    #ORDER#
+                ]]>
+			</Sentence>
+		</Query>
+		<Query id="search">
+
+			<Sentence>
+				<![CDATA[
+                    SELECT
+                        #COLUMNS#
+                    FROM
+                        ${mainschema}.usr_user
+
                     #WHERE#
                     #ORDER#
                 ]]>
@@ -37,6 +55,24 @@
                     FROM
                         ${mainschema}.usr_user
                     #WHERE#
+                    #ORDER#
+                ]]>
+			</Sentence>
+		</Query>
+		<Query id="getUserByRole">
+			<AmbiguousColumns>
+				<AmbiguousColumn name="CMP_ID" prefix="u" />
+				<AmbiguousColumn name="USR_ID" prefix="u" />
+			</AmbiguousColumns>
+			<Sentence>
+				<![CDATA[
+                    SELECT
+                        #COLUMNS#
+                    FROM
+                        ${mainschema}.usr_user u
+                    INNER JOIN usr_user_role usr ON u.usr_id = usr.usr_id
+                    INNER JOIN usr_role ur ON ur.rol_id = usr.rol_id
+                    #WHERE# AND ur.rol_name = 'user'
                     #ORDER#
                 ]]>
 			</Sentence>

@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-
+	
 	<parent>
 		<groupId>com.ontimize.boot</groupId>
 		<artifactId>ontimize-boot-parent</artifactId>
 		<version>3.14.0</version>
 	</parent>
-
+	
 	<groupId>com.campusdual.cd2024bfi1g1</groupId>
 	<artifactId>cd2024bfi1g1</artifactId>
 	<version>1.0.0</version>
 	<packaging>pom</packaging>
 	<name>${project.groupId}:${project.artifactId}</name>
-
+	
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -22,14 +22,14 @@
 		<spring-boot.repackage.skip>true</spring-boot.repackage.skip>
 		<frontend-maven-plugin.version>1.10.0</frontend-maven-plugin.version>
 	</properties>
-
+	
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter-web</artifactId>
 			</dependency>
-
+			
 			<dependency>
 				<groupId>${project.groupId}</groupId>
 				<artifactId>cd2024bfi1g1-api</artifactId>
@@ -60,21 +60,35 @@
 				<artifactId>cd2024bfi1g1-ws</artifactId>
 				<version>${project.version}</version>
 			</dependency>
-
+			
 			<dependency>
 				<groupId>org.liquibase</groupId>
 				<artifactId>liquibase-core</artifactId>
 				<version>4.4.1</version>
 			</dependency>
-
+			
 			<dependency>
 				<groupId>io.swagger</groupId>
 				<artifactId>swagger-annotations</artifactId>
 				<version>1.6.2</version>
 			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-mail</artifactId>
+			</dependency>
+			<dependency>
+				<groupId>com.sun.mail</groupId>
+				<artifactId>javax.mail</artifactId>
+				<version>1.6.2</version>
+			</dependency>
+			<dependency>
+				<groupId>com.google.firebase</groupId>
+				<artifactId>firebase-admin</artifactId>
+				<version>9.0.0</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
-
+	
 	<build>
 		<pluginManagement>
 			<plugins>
@@ -86,7 +100,7 @@
 			</plugins>
 		</pluginManagement>
 	</build>
-
+	
 	<profiles>
 		<profile>
 			<id>compose</id>

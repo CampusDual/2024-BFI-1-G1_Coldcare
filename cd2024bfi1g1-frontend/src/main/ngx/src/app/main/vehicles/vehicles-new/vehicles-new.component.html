@@ -1,0 +1,12 @@
+<o-form attr="vehicles_form_insert" service="vehicles" entity="vehicles" keys="VHC_ID" show-header="true"
+    after-insert-mode="close" confirm-exit="false">
+    <div class="full-screen-background-with-toolbar">
+        <h2>{{ 'VEHICLE_NEW' | oTranslate }}</h2>
+        <div class="inline-fields">
+            <o-text-input attr="VHC_PLATE" required="yes"></o-text-input>
+            <o-combo attr="USR_ID" label="TRP_NAME" service="vehicles" entity="userTransporter" value-column="USR_ID"
+                columns="USR_ID;USR_NAME" visible-columns="USR_NAME" null-selection="no" searchable="yes"
+                required="yes"></o-combo>
+        </div>
+    </div>
+</o-form>

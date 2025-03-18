@@ -4,5 +4,24 @@ o-table {
 }
 
 o-daterange-input {
-  width: 270px
+  grid-column: span 1;
+}
+
+#measurements-historic {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  justify-content: flex-start;
+  grid-column: span 3;
+  align-items: center;
+}
+
+.chart-grid {
+  display: flex;
+  flex-direction: column;
+
+  border-radius: 4px;
+  margin: 10px;
+  padding: 8px 16px;
+  width: auto;
 }

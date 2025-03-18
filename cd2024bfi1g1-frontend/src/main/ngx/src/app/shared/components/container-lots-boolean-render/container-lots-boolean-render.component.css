@@ -1,0 +1,23 @@
+.label-text {
+    font-size: 13px;
+}
+
+.icon-container {
+    display: block;
+    text-align: start;
+}
+
+mat-icon {
+    font-size: 20px;
+    margin-top: 3px;
+    padding-left: 7px;
+}
+
+
+.enabled {
+    color: grey;
+}
+
+.disabled {
+    color: grey;
+}

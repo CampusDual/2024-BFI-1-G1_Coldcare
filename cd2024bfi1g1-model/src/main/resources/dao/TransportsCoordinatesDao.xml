@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<JdbcEntitySetup xmlns="http://www.ontimize.com/schema/jdbc"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://www.ontimize.com/schema/jdbc http://www.ontimize.com/schema/jdbc/ontimize-jdbc-dao.xsd"
+                 catalog="" schema="${mainschema}" table="transports_coordinates" datasource="mainDataSource"
+                 sqlhandler="dbSQLStatementHandler">
+    <DeleteKeys>
+        <Column>TC_ID</Column>
+    </DeleteKeys>
+    <UpdateKeys>
+        <Column>TC_ID</Column>
+    </UpdateKeys>
+    <GeneratedKey>tc_id</GeneratedKey>
+    <Queries>
+        <Query id="default">
+            <Sentence>
+                <![CDATA[
+                    SELECT
+                        #COLUMNS#
+                    FROM
+                        ${mainschema}.transports_coordinates
+                    #WHERE#
+                    #ORDER#
+                ]]>
+            </Sentence>
+        </Query>
+        <Query id="coordinates_has_alert">
+            <Sentence>
+                <![CDATA[
+                    SELECT
+                        CASE
+                            WHEN COUNT(a.alt_id) > 0 THEN true
+                            ELSE false
+                        END AS TC_HAS_ALERT
+                    FROM
+                        transports t
+                    INNER JOIN
+                        containers_lots_current_view clcv ON clcv.cnt_id = t.cnt_id AND clcv.cl_is_current = true
+                    LEFT JOIN
+                        alerts a ON a.cl_id = clcv.cl_id
+                        AND now() BETWEEN a.alt_date_init AND COALESCE(a.alt_date_end, now())
+                    #WHERE#
+                ]]>
+            </Sentence>
+        </Query>
+    </Queries>
+</JdbcEntitySetup>

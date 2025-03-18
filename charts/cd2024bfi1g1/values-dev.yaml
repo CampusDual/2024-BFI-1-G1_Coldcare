@@ -6,7 +6,7 @@ image:
   pullPolicy: IfNotPresent
   ## provided as basic setup. replace as needed
   repository: ghcr.io/campusdual/cd2024bfi1g1
-  version: dev5298ff0
+  version: devfa21323
 imagePullSecrets: 
   - name: "github-ecr-cred" 
 nameOverride: ""
@@ -168,3 +168,7 @@ postgresql:
   existingSecret: cd2024bfi1g1-dev-db-secret   
   persistence:
     size: 1.5Gi
+
+firebase:
+  auth:
+    secret: firebase-auth-secret

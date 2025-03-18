@@ -7,7 +7,6 @@ import { MainComponent } from './main.component';
 import { ProfileComponent } from './profile/profile.component';
 
 
-
 @NgModule({
   imports: [
     SharedModule,
@@ -17,7 +16,6 @@ import { ProfileComponent } from './profile/profile.component';
   declarations: [
     MainComponent,
     ProfileComponent,
-   
   ]
 })
 export class MainModule { }

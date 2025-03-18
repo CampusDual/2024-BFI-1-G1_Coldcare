@@ -1,0 +1,9 @@
+<o-table #coordinatesTable attr="tablaCoordenadas" parent-keys="TRP_ID" keys="TRP_ID" keys-sql-types="INTEGER"
+    service="transportsCoordinates" entity="transportsCoordinates"
+    columns="TC_ID;TC_LATITUDE;TC_LONGITUDE;TC_DATE;TRP_ID;TC_HAS_ALERT" visible-columns="TC_LATITUDE;TC_LONGITUDE;TC_DATE"
+    (onDataLoaded)="fillChart($event)">
+</o-table>
+
+<o-map #oMapRouting center="42.940599, -7.120727" zoom="8" min-zoom="3" max-zoom="20" zoom-control="yes"
+    search-control="no" layer-panel-visible="no" fxFlex>
+</o-map>

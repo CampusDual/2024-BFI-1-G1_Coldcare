@@ -30,7 +30,7 @@ ontimize:
       upper-like: true
   security:
     mode: default
-    ignore-paths: '/index.html,/app/**,/error,/test,/ontimize/health,/restapi/**,/swagger-ui/**'
+    ignore-paths: '/index.html,/app/**,/error,/test,/ontimize/health,/restapi/**,/swagger-ui/**,/test/test'
     jwt:
       password: cd2024bfi1g1-kGn.#76%W@1
     role-information-service:
@@ -71,6 +71,14 @@ server:
 spring:
   application:
     name: cd2024bfi1g1
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: noreplycoldcare@gmail.com
+    password: yvap gnqs wzlh qvru
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
   flyway:
     enabled: true
     locations: classpath:/db/migration/
@@ -94,3 +102,5 @@ spring:
       org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration, org.springframework.boot.actuate.autoconfigure.ManagementWebSecurityAutoConfiguration, org.springframework.boot.autoconfigure.security.FallbackWebSecurityAutoConfiguration
 environment:
   profile: ${ENVIRONMENT_PROFILE:#{'production'}}
+firebase:
+  serviceAccountKey: ${FIREBASE_SERVICE_ACCOUNT_KEY}

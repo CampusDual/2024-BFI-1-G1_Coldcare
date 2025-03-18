@@ -1,0 +1,10 @@
+<o-form attr="locations_form_insert" service="locations" entity="locations" fxLayout="column" keys="LOC_ID"
+  show-header="true" after-insert-mode="close" confirm-exit="false">
+  <div class="full-screen-background-with-toolbar">
+    <h2>{{ 'LOC_NEW' | oTranslate }}</h2>
+    <div class="inline-fields">
+      <o-text-input attr="LOC_NAME" label="NAME" required="yes"></o-text-input>
+      <o-text-input attr="LOC_ADDRESS" required="yes" class="address"></o-text-input>
+    </div>
+  </div>
+</o-form>

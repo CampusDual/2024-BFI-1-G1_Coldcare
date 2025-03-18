@@ -5,6 +5,8 @@ import { LotsRoutingModule } from './lots-routing.module';
 import { LotsHomeComponent } from './lots-home/lots-home.component';
 import { LotsNewComponent } from './lots-new/lots-new.component';
 import { LotsDetailsComponent } from './lots-details/lots-details.component';
+import { SharedModule } from "../../shared/shared.module";
+import { LotsGraphComponent } from './lots-graph/lots-graph/lots-graph.component';
 
 
 
@@ -12,12 +14,14 @@ import { LotsDetailsComponent } from './lots-details/lots-details.component';
   declarations: [
     LotsHomeComponent,
     LotsNewComponent,
-    LotsDetailsComponent
+    LotsDetailsComponent,
+    LotsGraphComponent
   ],
   imports: [
     CommonModule,
     OntimizeWebModule,
-    LotsRoutingModule
+    LotsRoutingModule,
+    SharedModule
   ]
 })
 export class LotsModule { }

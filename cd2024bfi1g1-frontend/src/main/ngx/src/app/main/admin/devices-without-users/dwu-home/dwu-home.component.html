@@ -1,7 +1,9 @@
-<o-table attr="dwuTable" title="DEVICE_ASSIGNMENT" service="devices" entity="devicesWithoutUser"
-    columns="DEV_MAC;CMP_ID;DEV_ID;CMP_NAME" visible-columns="DEV_MAC;CMP_NAME" query-rows="20"
-    select-all-checkbox-visible="no" insert-button="no" delete-button="no" refresh-button="no" quick-filter="no"
-    keys="DEV_ID" show-title="true">
-    <o-table-column attr="DEV_MAC"></o-table-column>
-    <o-table-column attr="CMP_NAME" title="COMPANIES"></o-table-column>
-</o-table>
+<div class="full-screen-background-table">
+    <o-table attr="dwuTable" title="DEVICE_ASSIGNMENT" service="devices" entity="devicesWithoutUser"
+        columns="DEV_MAC;CMP_ID;DEV_ID;CMP_NAME" visible-columns="DEV_MAC;CMP_NAME" query-rows="20"
+        select-all-checkbox-visible="no" insert-button="no" delete-button="no" refresh-button="no" quick-filter="no"
+        keys="DEV_ID" show-title="true" virtual-scroll="false" horizontal-scroll="true">
+        <o-table-column attr="DEV_MAC"></o-table-column>
+        <o-table-column attr="CMP_NAME"></o-table-column>
+    </o-table>
+</div>

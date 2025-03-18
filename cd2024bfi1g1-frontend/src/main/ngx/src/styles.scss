@@ -105,18 +105,65 @@ $success-color: #4caf50;
   background-color: #f5f5f5 !important;
 }
 
-/* Encabezados de las tabla */
+/* Contenedor principal */
+.full-screen-background,
+.full-screen-background-table,
+.full-screen-background-with-toolbar {
+  padding: 16px;
+  background-color: white;
+}
+
+.full-screen-background,
+.full-screen-background-table {
+  min-height: calc(100vh - 112px);
+}
+
+.full-screen-background-with-toolbar {
+  min-height: calc(100vh - 200px);
+}
+
+.full-screen-background-table {
+  o-table {
+    box-shadow: none;
+    border-radius: 0;
+    height: calc(100vh - 112px);
+  }
+}
+
+.section {
+  margin-bottom: 15px;
+}
+
+/* Títulos */
+h2 {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 0;
+  margin-bottom: 10px;
+  color: gray;
+}
+
+h3 {
+  margin: 10px 0;
+  color: gray;
+}
+
+/* Tabla */
+o-table {
+  width: auto;
+}
+
+.table-adjust {
+  margin-top: 15px;
+}
+
+// Encabezado
 .mat-mdc-header-cell.mdc-data-table__header-cell {
   background-color: #1c4e78 !important;
   color: $primary-color !important;
 }
 
-/* Celdas pares de las tabla */
-tr.mat-mdc-row.mdc-data-table__row.cdk-row:nth-child(even) {
-  background-color: $primary-color;
-}
-
-/* Títulos */
+// Título
 .title.ng-star-inserted {
   color: $secondary-color !important;
   font-family: $font-primary !important;
@@ -133,13 +180,21 @@ tr.mat-mdc-row.mdc-data-table__row.cdk-row:nth-child(even) {
   color: $primary-color !important;
 }
 
-/* Contenedor del título */
+// Contenedor del título
 .o-data-toolbar {
-  padding-top: 10px !important;
-  padding: 35px !important;
   display: flex;
   align-items: center;
   justify-content: center;
+  box-sizing: initial !important;
+}
+
+.o-table-toolbar {
+  margin: 0 0 10px !important;
+}
+
+// Celdas pares
+tr.mat-mdc-row.mdc-data-table__row.cdk-row:nth-child(even) {
+  background-color: $primary-color;
 }
 
 /* Botones */
@@ -191,50 +246,253 @@ tr.mat-mdc-row.mdc-data-table__row.cdk-row:nth-child(even) {
 }
 
 /* Campos rellenables */
+
+// Estilos generales para los campos de texto
 .mat-mdc-text-field-wrapper.mdc-text-field.mdc-text-field--filled {
   display: inline-block;
   width: 100%;
-  max-width: 400px;
   position: relative;
   background-color: $primary-color;
   border: 2px solid #ddd;
-  // border-radius: 8px;
+  border-radius: 3px;
   transition: border-color 0.3s, box-shadow 0.3s;
+
+  &:hover,
+  &.mdc-text-field--focused {
+    border-color: $accent-color;
+    box-shadow: none;
+  }
+
+  input::placeholder {
+    color: #aaa;
+    font-style: italic;
+  }
 }
 
-.mat-mdc-text-field-wrapper.mdc-text-field.mdc-text-field--filled:hover {
-  border-color: $accent-color;
+.main-info {
+  padding: 0 7px;
+  font-weight: bold;
+  font-size: 1.1rem;
+  align-content: center;
 }
 
-.mat-mdc-text-field-wrapper.mdc-text-field.mdc-text-field--filled.mdc-text-field--focused {
-  border-color: $accent-color;
-}
-
-.mat-mdc-text-field-wrapper.mdc-text-field.mdc-text-field--filled input::placeholder {
-  color: #aaa;
-  /* Color del texto de marcador */
-  font-style: italic;
-}
-
-/* Orientacion campos de texto rellenables*/
+// Estilos específicos para campos dentro de .inline-fields
 .inline-fields {
-  display: flex;
-  gap: 10px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 5px;
+  padding: 10px;
 }
 
-.inline-fields input {
+.inline-fields-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr) auto;
+  gap: 5px;
+  padding: 10px;
+}
+
+.inline-fields-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr) auto;
+  gap: 5px;
+  padding: 10px;
+}
+
+o-combo-search {
+  .mat-mdc-form-field-focus-overlay {
+    background-color: transparent;
+  }
+}
+
+mat-form-field,
+o-text-input,
+o-date-input,
+o-email-input,
+o-daterange-input,
+o-integer-input,
+o-password-input,
+o-real-input,
+o-combo,
+o-combo-search {
   flex: 1;
+  background-color: transparent;
+  color: #333;
+  font-size: 14px;
+  line-height: 1.6;
+  padding: 0;
+  align-content: center;
+
+  &[read-only="yes"],
+  &[read-only="true"] {
+    cursor: default;
+    border: none;
+    box-shadow: none;
+
+    .mat-mdc-text-field-wrapper.mdc-text-field.mdc-text-field--filled {
+      outline: none;
+      border: none;
+      box-shadow: none;
+
+      // color del label superior
+      [id^="mat-mdc-form-field-label"] {
+        color: #333;
+        font-size: 16px;
+      }
+    }
+
+    // quita el sombreado al hacer focus o hover
+    .mat-mdc-form-field-focus-overlay {
+      background-color: transparent;
+    }
+  }
+
+  &::placeholder {
+    color: #333;
+  }
+
+  .mdc-line-ripple::before,
+  .mdc-line-ripple::after {
+    outline: none;
+    border: none;
+    box-shadow: none;
+  }
 }
 
-.inline-fields .mat-mdc-text-field-wrapper.mdc-text-field.mdc-text-field--filled {
+o-date-input[read-only] {
+  color: #333;
+  font-size: 14px;
+  padding: 0;
+}
+
+o-combo-search {
+  padding: 8px 16px 16px 16px !important;
+
+  .mdc-text-field__input {
+    padding-bottom: 5px;
+  }
+}
+
+.mat-mdc-text-field-wrapper.mdc-text-field.mdc-text-field--filled {
   height: 50px;
-  padding: 0px 5px;
+  padding: 0px 7px;
   font-size: 14px;
   color: #333;
   background: transparent;
   line-height: 1.6;
 }
 
-.o-table .mat-mdc-table .mat-mdc-row.error-row .mat-mdc-cell.mat-column-ME_TEMP{
+.o-table .mat-mdc-table .mat-mdc-row.error-row .mat-mdc-cell.mat-column-ME_TEMP {
   color: red;
+}
+
+.mat-mdc-tab-label-container {
+  background-color: $accent-color;
+}
+
+/* Charts */
+.ngx-charts {
+  margin: 20px 0 7px 0;
+}
+
+.chart-legend {
+  .legend-labels {
+    background: transparent !important;
+  }
+}
+
+/* Tabs */
+.mat-mdc-tab-group.o-tab-ontimize>.mat-mdc-tab-header .mat-mdc-tab-label-container .mat-mdc-tab.mdc-tab {
+  background-color: white;
+
+  .ng-star-inserted {
+    color: #333;
+  }
+}
+
+.mat-mdc-tab-group.o-tab-ontimize>.mat-mdc-tab-header .mat-mdc-tab-label-container .mat-mdc-tab:not(.mdc-tab--active):not(:last-child)+.mdc-tab:not(.mdc-tab--active) .mdc-tab__content .mdc-tab__text-label {
+  border: none;
+}
+
+.mat-mdc-tab-group.o-tab-ontimize>.mat-mdc-tab-header .mat-mdc-tab-label-container .mat-mdc-tab.mdc-tab.mdc-tab--active {
+  background-color: #2979ba;
+
+  .ng-star-inserted {
+    color: white;
+  }
+}
+
+@media (max-width: 960px) {
+
+  .inline-fields,
+  .inline-fields-4,
+  .inline-fields-3,
+  .usage-detail-grid,
+  .container-data-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  .row1 {
+    grid-template-columns: 1fr !important;
+  }
+
+  #alerts-count {
+    grid-column: span 1 !important;
+    justify-items: start !important;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .inline-fields,
+  .inline-fields-4,
+  .inline-fields-3,
+  .usage-detail-grid,
+  .container-data-grid,
+  .row1 {
+    grid-template-columns: 1fr !important;
+  }
+
+  .container-name,
+  #alerts-count {
+    grid-column: span 1 !important;
+    justify-items: start !important;
+  }
+}
+
+@media (max-width: 960px) {
+
+  .inline-fields,
+  .inline-fields-4,
+  .inline-fields-3,
+  .usage-detail-grid,
+  .container-data-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  .row1 {
+    grid-template-columns: 1fr !important;
+  }
+
+  #alerts-count {
+    grid-column: span 1 !important;
+    justify-items: start !important;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .inline-fields,
+  .inline-fields-4,
+  .inline-fields-3,
+  .usage-detail-grid,
+  .container-data-grid,
+  .row1 {
+    grid-template-columns: 1fr !important;
+  }
+
+  .container-name,
+  #alerts-count {
+    grid-column: span 1 !important;
+    justify-items: start !important;
+  }
 }

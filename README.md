@@ -1,3 +1,25 @@
+## USERS
+
+### Rol: Admin  
+**Compañía:** -  
+**Usuario:** `admin`  
+**Contraseña:** `adminuser`
+
+### Rol: User  
+**Compañía:** ColdCare  
+**Usuario:** `demo`  
+**Contraseña:** `demouser`  
+
+### Rol: User  
+**Compañía:** Frigonor  
+**Usuario:** `francisco`  
+**Contraseña:** `5_B0hB9F*tHy`    
+
+### Rol: Carrier  
+**Compañía:** ColdCare  
+**Usuario:** `felipe`  
+**Contraseña:** `VX1Yd(4_68uj` 
+
 ## DESCRIPTION
 
 Application template based in Ontimize Web and Ontimize Boot (java 11).

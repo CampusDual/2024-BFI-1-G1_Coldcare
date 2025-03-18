@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FilterExpressionUtils, Expression, Util } from 'ontimize-web-ngx';
 
 @Component({
@@ -8,8 +8,8 @@ import { FilterExpressionUtils, Expression, Util } from 'ontimize-web-ngx';
 })
 export class HomeUsersComponent implements OnInit {
 
-  constructor() { }
 
+  constructor(private cdr: ChangeDetectorRef) { }
   ngOnInit() {
   }
   createFilter(values: Array<{ attr; value }>): Expression {
@@ -18,16 +18,14 @@ export class HomeUsersComponent implements OnInit {
     values.forEach(fil => {
       if (Util.isDefined(fil.value)) {
         const attributeMapping = {
-          name: "usr_name",
           login: "usr_login",
           company: "cmp_name"
         };
 
         const fieldName = attributeMapping[fil.attr];
-        if (fieldName) {
+        if (fieldName && fil.value) {
           filters.push(FilterExpressionUtils.buildExpressionLike(fieldName, fil.value));
         }
-
       }
     });
 
@@ -44,5 +42,4 @@ export class HomeUsersComponent implements OnInit {
       return null;
     }
   }
-
 }

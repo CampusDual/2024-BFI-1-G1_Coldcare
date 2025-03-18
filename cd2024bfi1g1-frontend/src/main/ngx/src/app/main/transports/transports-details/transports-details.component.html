@@ -1,0 +1,32 @@
+<o-form attr="transportsDetails" parent-keys="TRP_ID" keys="TRP_ID" keys-sql-types="INTEGER" service="transports"
+  entity="transports" header-actions="R;U;D" (onDataLoaded)="fillData($event)">
+  <div class="full-screen-background-with-toolbar">
+    <h2>{{ 'TRP_DATA' | oTranslate }}</h2>
+    <div class="inline-fields">
+      <o-combo attr="TRP_ORIGIN" label="TRP_ORIGIN" service="transports" entity="transportsLocation"
+        value-column="LOC_ID" columns="LOC_ID;LOC_NAME" visible-columns="LOC_NAME" null-selection="no"
+        searchable="yes"></o-combo>
+      <o-combo attr="TRP_DESTINATION" label="TRP_DESTINATION" service="transports" entity="transportsLocation"
+        value-column="LOC_ID" columns="LOC_ID;LOC_NAME" visible-columns="LOC_NAME" null-selection="no"
+        searchable="yes"></o-combo>
+      <o-combo attr="CNT_ID" label="CONTAINER" service="transports" entity="transportsMovility" value-column="CNT_ID"
+        columns="CNT_ID;CNT_NAME" visible-columns="CNT_NAME" null-selection="no" searchable="yes"></o-combo>
+      <o-combo attr="VHC_ID" label="VEHICLE" service="transports" entity="transportsPlate" value-column="VHC_ID"
+        columns="VHC_ID;VHC_PLATE" visible-columns="VHC_PLATE" null-selection="no" searchable="yes"></o-combo>
+      <o-date-input attr="TRP_DATE" format="DD/MM/YYYY" label="DELIVERY_DATE" read-only="no"
+        required="yes"></o-date-input>
+      <o-combo #combo attr="TST_ID" label="TST_NAME" parent-keys="TRP_ID" service="transports" entity="transports"
+        value-column="TST_ID" columns="TST_ID;TST_NAME" visible-columns="TST_NAME" searchable="no" read-only="yes"
+        translate="yes" hidden></o-combo>
+
+      <o-text-input attr="TST_ID_TEXT" label="TST_NAME" read-only="yes"
+        [data]="combo.getValue() | formatState | oTranslate" automatic-registering="false"></o-text-input>
+
+      <o-text-input #transporter attr="USR_NAME" label="TRP_NAME" hidden></o-text-input>
+      <o-text-input attr="USR_NAME_VISIBLE" label="TRP_NAME" translate="yes" read-only="yes"
+        automatic-registering="false" automatic-binding="false" [data]="transporterVisible"></o-text-input>
+    </div>
+    <h2>{{ 'TRP_MAP' | oTranslate }}</h2>
+    <app-transports-map></app-transports-map>
+  </div>
+</o-form>

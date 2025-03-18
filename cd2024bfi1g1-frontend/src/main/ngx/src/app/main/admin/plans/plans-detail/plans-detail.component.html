@@ -1,0 +1,25 @@
+<o-form attr="plansTable" parent-keys="PLN_ID" keys="PLN_ID" keys-sql-types="INTEGER" include-parent-keys="yes"
+  query-on-init="true" service="plan" entity="plan" header-actions="R;U">
+  <div class="full-screen-background-with-toolbar">
+    <div>
+      <h2>{{ 'PLANS_DETAIL' | oTranslate }}</h2>
+      <div class="inline-fields">
+        <o-text-input attr="PLN_NAME" label="NAME" required="yes"></o-text-input>
+      </div>
+    </div>
+
+    <o-table class="table-adjust" attr="pricesTable" title="PRICES" show-title="yes" service="pricing" entity="pricing"
+      include-parent-keys="yes" parent-keys="PLN_ID" query-on-init="true" keys="PP_ID"
+      columns="PP_ID;PP_FIXED_PRICE;PP_DEV_PRICE;PP_BUNDLE_PRICE;PP_BUNDLE_REQUESTS;PP_START;PP_END;PLN_ID"
+      visible-columns="PP_FIXED_PRICE;PP_DEV_PRICE;PP_BUNDLE_PRICE;PP_BUNDLE_REQUESTS;PP_START;PP_END"
+      insert-button="true" delete-button="false" refresh-button="false" searchable="false" detail-mode="none"
+      virtual-scroll="false" horizontal-scroll="true">
+      <o-table-column attr="PP_FIXED_PRICE" content-align="center" title-align="center"></o-table-column>
+      <o-table-column attr="PP_DEV_PRICE" content-align="center" title-align="center"></o-table-column>
+      <o-table-column attr="PP_BUNDLE_PRICE" content-align="center" title-align="center"></o-table-column>
+      <o-table-column attr="PP_BUNDLE_REQUESTS" content-align="center" title-align="center"></o-table-column>
+      <o-table-column attr="PP_START" title="PP_START" type="date" format="DD/MM/YYYY"></o-table-column>
+      <o-table-column attr="PP_END" title="PP_END" type="date" format="DD/MM/YYYY HH:mm:ss"></o-table-column>
+    </o-table>
+  </div>
+</o-form>

@@ -1,9 +1,10 @@
 package com.campusdual.cd2024bfi1g1.model.core.service;
-import com.campusdual.cd2024bfi1g1.api.core.service.IDevicesService;
 
+import com.campusdual.cd2024bfi1g1.api.core.service.IDevicesService;
 
 import com.campusdual.cd2024bfi1g1.model.core.dao.DevicesDao;
 import com.campusdual.cd2024bfi1g1.model.core.dao.UserDao;
+import com.campusdual.cd2024bfi1g1.model.core.util.Util;
 import com.ontimize.jee.common.dto.EntityResult;
 import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
 import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
@@ -35,15 +36,31 @@ public class DevicesService implements IDevicesService {
     }
 
     @Override
+    public EntityResult devicesWithMeasurementCountQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
+
+        Integer cmpId = Util.getUserCompanyId(this.daoHelper, this.userDao);
+        if (cmpId != null) {
+            keyMap.put(DevicesDao.CMP_ID, cmpId);
+        }
+
+        return this.daoHelper.query(this.devicesDao, keyMap, attrList, "devicesWithMeasurementCount");
+    }
+
+    @Override
     public EntityResult devicesWithoutUserQuery(Map<String, Object> keyMap, List<String> attrList)
             throws OntimizeJEERuntimeException {
-        return this.daoHelper.query(this.devicesDao, keyMap, attrList,"devicesWithoutUser");
+        return this.daoHelper.query(this.devicesDao, keyMap, attrList, "devicesWithoutUser");
     }
 
     @Override
     public EntityResult devicesInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException {
         Map<String, Object> valuesToInsert = new HashMap<>(attrMap);
         valuesToInsert.put(DEV_NAME, attrMap.get(DEV_MAC));
+
+        Integer cmpID = Util.getUserCompanyId(this.daoHelper, this.userDao);
+        if(cmpID != null){
+            valuesToInsert.put(DevicesDao.CMP_ID, cmpID);
+        }
         return this.daoHelper.insert(this.devicesDao, valuesToInsert);
     }
 
@@ -52,8 +69,7 @@ public class DevicesService implements IDevicesService {
             throws OntimizeJEERuntimeException {
         Map<String, Object> valuesMap = new HashMap<>();
         valuesMap = attrMap;
-        if (attrMap.containsKey(CNT_ID) && (attrMap.get(CNT_ID) == null || attrMap.get(CNT_ID).toString().isEmpty()))
-        {
+        if (attrMap.containsKey(CNT_ID) && (attrMap.get(CNT_ID) == null || attrMap.get(CNT_ID).toString().isEmpty())) {
             valuesMap.put(CNT_ID, null);
         }
         if (attrMap.containsKey(CMP_ID)) {
@@ -66,9 +82,8 @@ public class DevicesService implements IDevicesService {
                 Object currentCntId = query.getRecordValues(0).get(DevicesDao.CNT_ID);
                 if (currentCntId != null) {
                     throw new OntimizeJEERuntimeException();
-                }
-                else if (attrMap.containsKey(CMP_ID) && (attrMap.get(CMP_ID) == null || attrMap.get(CMP_ID).toString().isEmpty()))
-                {
+                } else if (attrMap.containsKey(CMP_ID)
+                        && (attrMap.get(CMP_ID) == null || attrMap.get(CMP_ID).toString().isEmpty())) {
                     valuesMap.put(CMP_ID, null);
                 }
 
@@ -86,10 +101,10 @@ public class DevicesService implements IDevicesService {
     public EntityResult lastTimeQuery(Map<String, Object> keyMap, List<String> attrList)
             throws OntimizeJEERuntimeException {
 
-        Integer cmpId = UserAndRoleService.getUserCompanyId(this.daoHelper, this.userDao);
+        Integer cmpId = Util.getUserCompanyId(this.daoHelper, this.userDao);
         keyMap.put(DevicesDao.CMP_ID, cmpId);
 
-        return this.daoHelper.query(this.devicesDao, keyMap, attrList, "last_time" );
+        return this.daoHelper.query(this.devicesDao, keyMap, attrList, "last_time");
     }
 
     public EntityResult lastTimeWithoutCMP(Map<String, Object> keyMap, List<String> attrList)
@@ -97,6 +112,11 @@ public class DevicesService implements IDevicesService {
 
         return this.daoHelper.query(this.devicesDao, keyMap, attrList, "last_time");
     }
+
+    @Override
+    public EntityResult containerLotQuery(Map<String, Object> keyMap, List<String> attrList)
+            throws OntimizeJEERuntimeException {
+
+        return this.daoHelper.query(this.devicesDao, keyMap, attrList, "container_lot");
+    }
 }
-
-

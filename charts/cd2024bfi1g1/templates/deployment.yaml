@@ -81,6 +81,11 @@ spec:
               secretKeyRef:
                 name: {{ .Values.database.secret | default (printf "%s-db-secret" (include "fullname" .)) }}
                 key: password
+          - name: FIREBASE_SERVICE_ACCOUNT_KEY
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.firebase.auth.secret }}
+                key: data
         {{- end }}
         {{- if .Values.tenantManagement.enabled }}
           - name: APP_DATABASE_SERVICE

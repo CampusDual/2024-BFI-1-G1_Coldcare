@@ -1,0 +1,15 @@
+<div class="full-screen-background-table">
+  <o-table attr="plans" title="PLANS" service="plan" entity="planwithprices" keys="PLN_ID" detail-mode="click"
+    columns="PLN_ID;PLN_NAME;PP_ID;PP_FIXED_PRICE;PP_DEV_PRICE;PP_BUNDLE_PRICE;PP_BUNDLE_REQUESTS;PP_START;PP_END;PLN_ID"
+    visible-columns="PLN_NAME;PP_FIXED_PRICE;PP_DEV_PRICE;PP_BUNDLE_PRICE;PP_BUNDLE_REQUESTS;PP_START;PP_END"
+    type="date" format="DD/MM/YYYY" delete-button="no" show-title="true" virtual-scroll="false"
+    horizontal-scroll="true">
+    <o-table-column attr="PLN_NAME" title="NAME"></o-table-column>
+    <o-table-column attr="PP_FIXED_PRICE" content-align="center" title-align="center"></o-table-column>
+    <o-table-column attr="PP_DEV_PRICE" content-align="center" title-align="center"></o-table-column>
+    <o-table-column attr="PP_BUNDLE_PRICE" content-align="center" title-align="center"></o-table-column>
+    <o-table-column attr="PP_BUNDLE_REQUESTS" content-align="center" title-align="center"></o-table-column>
+    <o-table-column attr="PP_START" title="PP_START" type="date" format="DD/MM/YYYY"></o-table-column>
+    <o-table-column attr="PP_END" title="PP_END" type="date" format="DD/MM/YYYY HH:mm:ss"></o-table-column>
+  </o-table>
+</div>

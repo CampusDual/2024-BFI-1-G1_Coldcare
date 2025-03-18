@@ -1,35 +1,70 @@
 <o-form attr="containers_form_update" include-parent-keys="yes" parent-keys="CNT_ID" keys-sql-types="INTEGER"
-  service="containers" entity="containers" columns="CNT_NAME" visible-columns="CNT_NAME" keys="CNT_ID" fxLayout="column"
-  show-header="yes" header-actions="R;U" #oForm after-update-mode="detail" class="standalone-form-container">
-  <o-row attr="row1" layout-align="start stretch">
-    <o-column title="CONTAINER_DATA" layout-align="start stretch" fxFlex="60" layout-padding>
-      <div fxLayout="row" fxLayoutAlign="start center" class="gap">
-        <o-text-input attr="CNT_NAME" class="margin-right-24" fxFlex.lg="30" fxFlex.xl="30" fxFlex="50"
-          layout-margin-right></o-text-input>
-        <o-combo attr="LOT_ID" label="CURRENT_LOT" service="lots" entity="lots" value-column="LOT_ID"
-          columns="LOT_ID;LOT_NAME" visible-columns="LOT_NAME" null-selection="no" searchable="yes"></o-combo>
+  service="containers" entity="containersWithMeasurements" columns="CNT_NAME" visible-columns="CNT_NAME" keys="CNT_ID"
+  show-header="yes" header-actions="R;U" after-update-mode="detail" (onDataLoaded)="fillData($event)">
+  <div class="full-screen-background-with-toolbar">
+    <div class="row1">
+      <div>
+        <h2>{{ 'CONTAINER_DATA' | oTranslate }}</h2>
+        <div class="container-data-grid">
+          <o-text-input class="container-name" attr="CNT_NAME" label="NAME" required="true"></o-text-input>
+          <o-slide-toggle attr="CNT_MOBILITY" label="CURRENT_MOBILITY" read-only="no"></o-slide-toggle>
 
+          <o-text-input #minTemp attr="MIN_TEMP_DEV" label="PRO_MIN_TEMP" read-only="true" oHidden></o-text-input>
+          <o-text-input attr="MIN_TEMP_VISIBLE" label="PRO_MIN_TEMP" read-only="true" automatic-registering="false"
+            automatic-binding="false" [data]="minTempVisible"></o-text-input>
+          <o-text-input #avgTemp attr="AVG_TEMP" read-only="true" oHidden></o-text-input>
+          <o-text-input attr="AVG_TEMP_VISIBLE" label="AVG_TEMP" read-only="true" automatic-registering="false"
+            automatic-binding="false" [data]="avgTempVisible"></o-text-input>
+          <o-text-input #maxTemp attr="MAX_TEMP_DEV" label="PRO_MAX_TEMP" read-only="true" oHidden></o-text-input>
+          <o-text-input attr="MAX_TEMP_VISIBLE" label="PRO_MAX_TEMP" read-only="true" automatic-registering="false"
+            automatic-binding="false" [data]="maxTempVisible"></o-text-input>
 
+          <o-text-input #minHumidity attr="MIN_HUMIDITY_DEV" read-only="true" oHidden></o-text-input>
+          <o-text-input attr="MIN_HUMIDITY_VISIBLE" label="MIN_HUMIDITY_DEV" read-only="true"
+            automatic-registering="false" automatic-binding="false" [data]="minHumidityVisible"></o-text-input>
+          <o-text-input #avgHumidity attr="AVG_HUMIDITY" read-only="true" oHidden></o-text-input>
+          <o-text-input attr="AVG_HUMIDITY_VISIBLE" label="AVG_HUMIDITY" read-only="true" automatic-registering="false"
+            automatic-binding="false" [data]="avgHumidityVisible"></o-text-input>
+          <o-text-input #maxHumidity attr="MAX_HUMIDITY_DEV" read-only="true" oHidden></o-text-input>
+          <o-text-input attr="MAX_HUMIDITY_VISIBLE" label="MAX_HUMIDITY_DEV" read-only="true"
+            automatic-registering="false" automatic-binding="false" [data]="maxHumidityVisible"></o-text-input>
+
+          <o-text-input #alertsCount attr="ALT_COUNT" read-only="true" oHidden></o-text-input>
+          <o-text-input #activeAlert attr="ACTIVE_ALERTS" read-only="true" oHidden></o-text-input>
+          <div id="alerts-count"></div>
+          <div id="alerts-count"></div>
+          <div id="alerts-count">
+            <div id="alerts-text">{{translateLabel()}}</div>
+          </div>
+        </div>
       </div>
-    </o-column>
-  </o-row>
-  <o-row>
-    <o-column class="extend">
-      <o-table attr="lotHistory" title="LOT_HISTORY" show-title="yes" service="lots" entity="historicLotContainer"
-        keys="LOT_ID" parent-keys="CNT_ID" columns="LOT_ID;LOT_NAME" visible-columns="LOT_NAME" delete-button="no"
-        insert-button="no" refresh-button="false">
-      </o-table>
-
-    </o-column>
-
-    <o-column class="extend">
-      <o-table attr="devicesTable" title="DEVICES" show-title="yes" service="devices" entity="devices"
-        include-parent-keys="yes" parent-keys="CNT_ID" query-on-init="true" keys="DEV_ID"
-        columns="DEV_ID;DEV_NAME;CNT_ID" visible-columns="DEV_NAME" insert-button="false" delete-button="false"
-        refresh-button="false" detail-form-route="CNT_ID;DEV_ID" detail-form-route-params="CNT_ID;DEV_ID">
-        <o-table-column attr="DEV_NAME" title="IDENTIFIER"></o-table-column>
-      </o-table>
-    </o-column>
-  </o-row>
-
+      <div>
+        <o-table attr="devicesTable" title="DEVICES" show-title="yes" service="devices" entity="devices"
+          include-parent-keys="yes" parent-keys="CNT_ID" query-on-init="true" keys="DEV_ID"
+          columns="DEV_ID;DEV_NAME;CNT_ID" visible-columns="DEV_NAME" insert-button="false" delete-button="false"
+          refresh-button="false" detail-form-route="CNT_ID;DEV_ID" detail-form-route-params="CNT_ID;DEV_ID"
+          virtual-scroll="false" quick-filter="no" horizontal-scroll="true">
+          <o-table-column attr="DEV_NAME" title="NAME"></o-table-column>
+        </o-table>
+      </div>
+    </div>
+    <o-table attr="lotHistory" title="LOT_HISTORY" show-title="yes" service="containersLots"
+      entity="containersLotsWithAlerts" keys="CL_ID" parent-keys="CNT_ID"
+      columns="CL_ID;LOT_NAME;CL_START_DATE;CL_END_DATE;PRO_ID;PRO_NAME;HAS_ALERT"
+      visible-columns="HAS_ALERT;LOT_NAME;PRO_NAME;CL_START_DATE;CL_END_DATE;ACTIVE" delete-button="no"
+      refresh-button="false" (onClick)="openContainersLots($event)" detail-mode="none" virtual-scroll="false"
+      horizontal-scroll="true">
+      <o-table-column attr="HAS_ALERT" title="ALT_COUNT_VISIBLE" title-align="center" content-align="center"
+        max-width="24px">
+        <alert-boolean-renderer />
+      </o-table-column>
+      <o-table-column attr="LOT_NAME" title="LOT"></o-table-column>
+      <o-table-column attr="CL_START_DATE" title="CL_START_DATE" type="date" format="DD/MM/YYYY"></o-table-column>
+      <o-table-column attr="CL_END_DATE" title="CL_END_DATE" type="date" format="DD/MM/YYYY"></o-table-column>
+      <o-table-column attr="ACTIVE" title="ACTIVE" title-align="center" content-align="center" max-width="105px"
+        min-width="100px">
+        <in-date-range-boolean-renderer />
+      </o-table-column>
+    </o-table>
+  </div>
 </o-form>

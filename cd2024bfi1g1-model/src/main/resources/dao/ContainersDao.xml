@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <JdbcEntitySetup xmlns="http://www.ontimize.com/schema/jdbc"
-                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                 xsi:schemaLocation="http://www.ontimize.com/schema/jdbc http://www.ontimize.com/schema/jdbc/ontimize-jdbc-dao.xsd"
-                 catalog="" schema="${mainschema}" table="containers" datasource="mainDataSource"
-                 sqlhandler="dbSQLStatementHandler">
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.ontimize.com/schema/jdbc http://www.ontimize.com/schema/jdbc/ontimize-jdbc-dao.xsd" catalog="" schema="${mainschema}" table="containers" datasource="mainDataSource" sqlhandler="dbSQLStatementHandler">
     <DeleteKeys>
         <Column>CNT_ID</Column>
     </DeleteKeys>
@@ -21,6 +18,108 @@
                         ${mainschema}.containers
                     #WHERE#
                     #ORDER#
+                ]]>
+            </Sentence>
+        </Query>
+        <Query id="check_cnt_id">
+            <AmbiguousColumns>
+                <AmbiguousColumn name="CNT_ID" prefix="c" />
+            </AmbiguousColumns>
+            <Sentence>
+                <![CDATA[
+                    SELECT
+                        #COLUMNS#
+                    FROM
+                        ${mainschema}.containers c
+                    JOIN transports t ON t.cnt_id = c.cnt_id
+                    #WHERE#
+                    #ORDER#
+                ]]>
+            </Sentence>
+        </Query>
+        <Query id="containers_with_alerts">
+        <AmbiguousColumns>
+                <AmbiguousColumn name="CNT_ID" prefix="cl" />
+            </AmbiguousColumns>
+            <Sentence>
+                <![CDATA[
+                    WITH cl AS (
+                        SELECT
+                            c.*,
+                            EXISTS (
+                                SELECT 1
+                                FROM containers_lots_current_view clv
+                                INNER JOIN alerts a ON clv.cl_id = a.cl_id
+                                WHERE clv.cnt_id = c.cnt_id AND clv.cl_is_current
+                            ) AS has_alert
+                        FROM CONTAINERS c
+                        ),
+                        current_lot AS (
+                            SELECT
+                                clv.cnt_id,
+                                l.lot_name,
+                                p.pro_name
+                            FROM containers_lots_current_view clv
+                            INNER JOIN lots l ON clv.lot_id = l.lot_id
+                            INNER JOIN products p ON l.pro_id = p.pro_id
+                            WHERE clv.cl_is_current
+                            group by clv.cnt_id, l.lot_id, p.pro_name
+                        ),
+                        latest_measurements AS (
+                            SELECT
+                                clv.cnt_id,
+                                m.me_temp,
+                                m.me_humidity
+                            FROM measurements m
+                            INNER JOIN containers_lots_current_view clv ON m.cl_id = clv.cl_id
+                            INNER JOIN (
+                                SELECT cl_id, MAX(me_date) AS last_date
+                                FROM measurements
+                                GROUP BY cl_id
+                            ) latest ON m.cl_id = latest.cl_id
+                            WHERE m.me_date = latest.last_date and clv.cl_is_current
+                        )
+                    SELECT #COLUMNS#
+                    FROM cl
+                    LEFT JOIN current_lot cur_lot ON cl.cnt_id = cur_lot.cnt_id
+                    LEFT JOIN latest_measurements lm ON cl.cnt_id = lm.cnt_id
+                    #WHERE#
+                ]]>
+            </Sentence>
+        </Query>
+        <Query id="containers_with_measurements">
+            <AmbiguousColumns>
+                <AmbiguousColumn name="CNT_ID" prefix="c" />
+            </AmbiguousColumns>
+            <Sentence>
+                <![CDATA[
+                    WITH t AS (
+                        select
+                            cl.cnt_id,
+                            ROUND(avg(me_temp)::numeric, 2) AS avg_temp,
+                            ROUND(avg(me_humidity)::numeric, 2) AS avg_humidity,
+                            ROUND(max(me_temp)::numeric, 2) AS max_temp_dev,
+                            ROUND(min(me_temp)::numeric, 2) AS min_temp_dev,
+                            ROUND(max(me_humidity)::numeric, 2) AS max_humidity_dev,
+                            ROUND(min(me_humidity)::numeric, 2) AS min_humidity_dev,
+                            COUNT(DISTINCT a.alt_id) AS alt_count,
+                            COUNT(DISTINCT a.alt_id) FILTER (WHERE alt_date_end IS NULL) AS active_alerts
+                        FROM
+                            measurements m
+                        LEFT JOIN containers_lots cl ON m.cl_id = cl.cl_id
+                        LEFT JOIN alerts a ON a.cl_id = m.cl_id
+                        WHERE
+                            cl.cl_start_date <= now()
+                            AND (cl_end_date is null OR cl_end_date >= now())
+                        GROUP BY
+                            cl.cnt_id
+                    )
+                    SELECT
+                        #COLUMNS#
+                    FROM
+                        containers c
+                    LEFT JOIN t ON c.cnt_id = t.cnt_id
+                    #WHERE#
                 ]]>
             </Sentence>
         </Query>

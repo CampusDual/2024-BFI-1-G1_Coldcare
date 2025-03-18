@@ -1,33 +1,24 @@
-<o-form #form attr="users_form_edit" service="users" entity="user" header-actions="R;U" parent-keys="USR_ID"
-  keys-sql-types="integer" columns="USR_ID;USR_NAME" layout-direction="row" show-header="true"
-  detect-changes-on-blur="no" fxFill undo-button="yes" stay-in-record-after-insert="true">
-
-  <div fxLayout="row" fxLayoutGap="30px" fxFill>
-
-    <div fxLayout="column" fxFlex="calc(50% - 15px)">
-      <div fxLayout="row" fxLayoutGap="15px">
-        <div fxLayout="column" fxFlex>
-          <o-column title="user-login-section" appearance="no" layout-gap="15px" fxFlex="1 1 100%"
-            layout-align="start stretch">
-            <div fxLayout="row wrap" fxLayoutAlign="start start" fxLayoutGap="15px">
-              <o-text-input attr="USR_LOGIN" required="yes"></o-text-input>
-              <o-password-input attr="USR_PASSWORD" required="yes" fxFlex></o-password-input>
-            </div>
-          </o-column>
-          <o-column title="user-data-section" appearance="no" layout-gap="15px" fxFlex="1 1 100%"
-            layout-align="start stretch">
-            <div fxLayout="row">
-              <o-text-input attr="USR_NAME" required="yes" fxFlex></o-text-input>
-            </div>
-          </o-column>
-          <o-column title="company-data-section" appearance="no" layout-gap="15px" fxFlex="1 1 100%"
-            layout-align="start stretch">
-            <div fxLayout="row">
-              <o-combo attr="CMP_ID" service="companies" entity="companies" value-column="CMP_ID"
-                columns="CMP_ID;CMP_NAME" visible-columns="CMP_NAME" null-selection="yes" searchable="no"></o-combo>
-            </div>
-          </o-column>
-        </div>
+<o-form #form attr="users_form_edit" service="users" entity="user" header-actions="R;U" include-parent-keys="yes"
+  parent-keys="USR_ID" keys="USR_ID;URO_ID" keys-sql-types="INTEGER" columns="USR_ID" show-header="true"
+  detect-changes-on-blur="no" undo-button="yes" stay-in-record-after-insert="true">
+  <div class="full-screen-background-with-toolbar">
+    <div class="section">
+      <h2>{{ 'USER_DETAILS' | oTranslate }}</h2>
+      <div class="inline-fields">
+        <o-text-input attr="USR_LOGIN" label="username" required="yes"></o-text-input>
+        <o-text-input attr="USR_NAME" required="yes"></o-text-input>
+        <o-email-input attr="USR_EMAIL" required="yes"></o-email-input>
+      </div>
+    </div>
+    <div class="section">
+      <h3>{{ 'COMPANY_DATA' | oTranslate }}</h3>
+      <div class="inline-fields">
+        <o-combo attr="CMP_ID" service="companies" entity="companies" value-column="CMP_ID" columns="CMP_ID;CMP_NAME"
+          visible-columns="CMP_NAME" null-selection="no" searchable="yes"></o-combo>
+        <o-combo attr="ROL_ID" label="rol_name" service="users" entity="roleWithoutAdmin" value-column="ROL_ID"
+          columns="ROL_ID;ROL_NAME" visible-columns="ROL_NAME" null-selection="no" searchable="no" required="yes"
+          translate="yes"></o-combo>
+        <o-text-input attr="URO_ID" hidden="yes"></o-text-input>
       </div>
     </div>
   </div>

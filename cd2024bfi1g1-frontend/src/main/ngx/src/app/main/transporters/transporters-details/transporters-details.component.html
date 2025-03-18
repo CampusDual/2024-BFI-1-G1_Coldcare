@@ -1,0 +1,24 @@
+<o-form #form attr="transportersDetail" parent-keys="TRP_ID" keys="TRP_ID" keys-sql-types="INTEGER" service="transports"
+  entity="transports" header-actions="R" undo-button="no" editable-detail="no">
+  <div class="full-screen-background-with-toolbar">
+    <h2>{{ 'TRP_DATA' | oTranslate }}</h2>
+    <div class="inline-fields">
+      <o-text-input attr="ORIGIN_NAME" label="TRP_ORIGIN" read-only="yes"></o-text-input>
+      <o-text-input attr="DESTINATION_NAME" label="TRP_DESTINATION" read-only="yes"></o-text-input>
+      <o-date-input #trpDate attr="TRP_DATE" label="DELIVERY_DATE" read-only="yes" hidden></o-date-input>
+      <o-text-input attr="TRP_DATE_TEXT" label="DELIVERY_DATE" read-only="yes" [data]="trpDate.getValue() | dateTransform" ></o-text-input>
+      <o-text-input attr="VHC_PLATE" read-only="yes"></o-text-input>
+      
+      <o-combo #combo attr="TST_ID" label="TST_NAME" parent-keys="TRP_ID" service="transports" entity="transports"
+      value-column="TST_ID" columns="TST_ID;TST_NAME" visible-columns="TST_NAME" searchable="no"
+      read-only="yes" translate="yes" hidden></o-combo>
+
+      <o-text-input attr="TST_ID_TEXT" label="TST_NAME" read-only="yes" [data]="combo.getValue() | formatState | oTranslate"></o-text-input>
+
+      <o-button #init attr="BTN_INIT" type="RAISED" label="BTN_INIT" layout-padding color="accent"
+        (click)="setStatusInit()"></o-button>
+      <o-button #end attr="BTN_END" type="RAISED" label="BTN_END" layout-padding color="warn"
+        (click)="setStatusEnd()"></o-button>
+    </div>
+  </div>
+</o-form>

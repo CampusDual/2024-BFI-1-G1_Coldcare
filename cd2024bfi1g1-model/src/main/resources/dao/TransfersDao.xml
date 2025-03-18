@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<JdbcEntitySetup xmlns="http://www.ontimize.com/schema/jdbc"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://www.ontimize.com/schema/jdbc http://www.ontimize.com/schema/jdbc/ontimize-jdbc-dao.xsd"
+                 catalog="" schema="${mainschema}" table="transfers" datasource="mainDataSource"
+                 sqlhandler="dbSQLStatementHandler">
+    <DeleteKeys>
+        <Column>TRA_ID</Column>
+    </DeleteKeys>
+    <UpdateKeys>
+        <Column>TRA_ID</Column>
+    </UpdateKeys>
+    <GeneratedKey>tra_id</GeneratedKey>
+    <Queries>
+        <Query id="default">
+            <Sentence>
+                <![CDATA[
+                    SELECT #COLUMNS#
+                    FROM TRANSFERS
+                    #WHERE#
+                    #ORDER#
+                ]]>
+            </Sentence>
+        </Query>
+        <Query id="origin">
+            <AmbiguousColumns>
+                <AmbiguousColumn name="CNT_ID" prefix="cl"/>
+            </AmbiguousColumns>
+            <Sentence>
+                <![CDATA[
+                    SELECT #COLUMNS#
+                    FROM TRANSFERS t
+                        JOIN CONTAINERS_LOTS cl ON t.CL_ID_ORIGIN = cl.CL_ID
+                        JOIN CONTAINERS c ON cl.CNT_ID = c.CNT_ID
+                    #WHERE#
+                    #ORDER#
+                ]]>
+            </Sentence>
+        </Query>
+        <Query id="destiny">
+            <AmbiguousColumns>
+                <AmbiguousColumn name="CNT_ID" prefix="cl"/>
+            </AmbiguousColumns>
+            <Sentence>
+                <![CDATA[
+                    SELECT #COLUMNS#
+                    FROM TRANSFERS t
+                        JOIN CONTAINERS_LOTS cl ON t.CL_ID_DESTINY = cl.CL_ID
+                        JOIN CONTAINERS c ON cl.CNT_ID = c.CNT_ID
+                    #WHERE#
+                    #ORDER#
+                ]]>
+            </Sentence>
+        </Query>
+    </Queries>
+</JdbcEntitySetup>
