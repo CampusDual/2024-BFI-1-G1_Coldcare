@@ -20,7 +20,7 @@
 **Usuario:** `felipe`  
 **Contraseña:** `VX1Yd(4_68uj` 
 
-### ESP32-C3 Pro Arduino Code
+## ESP32-C3 Pro Arduino Code
 [cd2024bfi1g3-micro](https://github.com/CampusDual/cd2024bfi1g3-micro/tree/main/Integracion)
 
 ## DESCRIPTION
